@@ -20,6 +20,11 @@ pipeline {
                 checkout scm
             }
         }
+             stage('Install pnpm') {
+                    steps {
+                        sh 'npm install -g pnpm'
+                    }
+                }
         stage('Unit tests') {
              steps {
                 echo "Preparing started..."
