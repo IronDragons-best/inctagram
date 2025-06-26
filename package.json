@@ -6,7 +6,7 @@
         "dev": "next dev --turbopack",
         "build": "next build",
         "build:production": "next build",
-        "start": "next start",
+        "start": "next start -p 3921",
         "test": "jest --passWithNoTests",
         "lint": "next lint"
     },
