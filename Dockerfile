@@ -24,5 +24,5 @@ RUN npm install -g pnpm
 WORKDIR /app
 ENV NODE_ENV production
 COPY --from=builder /app/ ./
-EXPOSE 3000
+EXPOSE 3921
 CMD ["pnpm", "start"]
