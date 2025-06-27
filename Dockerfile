@@ -2,7 +2,7 @@
 FROM node:20.11-alpine as dependencies
 WORKDIR /app
 COPY package*.json ./
-RUN npm install
+RUN pnpm install
 
 #Билдим приложение
 #Кэширование зависимостей — если файлы в проекте изменились,
@@ -11,7 +11,7 @@ FROM node:20.11-alpine as builder
 WORKDIR /app
 COPY . .
 COPY --from=dependencies /app/node_modules ./node_modules
-RUN npm run build:production
+RUN pnpm run build:production
 
 #Стейдж запуска
 FROM node:20.11-alpine as runner
