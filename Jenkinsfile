@@ -4,12 +4,12 @@ pipeline {
     agent any
     environment {
         ENV_TYPE = "production"
-        PORT = 3921
+        PORT = 3924
         NAMESPACE = "irondragon-site"
         REGISTRY_HOSTNAME = "irondragons"
         REGISTRY = "registry.hub.docker.com"
-        PROJECT = "incta-dragons-f"
-        DEPLOYMENT_NAME = "incta-dragons-f-deployment"
+        PROJECT = "incta-dragon-f"
+        DEPLOYMENT_NAME = "incta-dragon-f-deployment"
         IMAGE_NAME = "${env.BUILD_ID}_${env.ENV_TYPE}_${env.GIT_COMMIT}"
         DOCKER_BUILD_NAME = "${env.REGISTRY_HOSTNAME}/${env.PROJECT}:${env.IMAGE_NAME}"
     }
