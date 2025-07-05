@@ -1,21 +1,12 @@
-import { redirect } from "next/navigation";
+import { PageGuard } from "@/common/components/pageGuard/PageGuard";
 
-type Props = {
-  searchParams: Promise<{ isAuth: string }>;
-};
-
-const Profile = async ({ searchParams }: Props) => {
-  // Вместо параметров будет me запрос
-  const { isAuth } = await searchParams;
-
-  if (isAuth === "false") {
-    redirect("/");
-  }
+const Profile = async () => {
+  const isAuthenticated = true;
 
   return (
-    <>
+    <PageGuard isAuthenticated={isAuthenticated}>
       <div>Profile page (private)</div>
-    </>
+    </PageGuard>
   );
 };
 
