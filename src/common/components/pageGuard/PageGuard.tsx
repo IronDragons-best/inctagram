@@ -11,16 +11,5 @@ type Props = {
 export const PageGuard = ({ isAuthenticated, children }: Props) => {
   const router = useRouter();
 
-  switch (isAuthenticated) {
-    case true: {
-      router.back();
-      break;
-    }
-    case false: {
-      router.push("/");
-      break;
-    }
-  }
-
   return <>{children}</>;
 };
