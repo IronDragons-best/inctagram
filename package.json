@@ -6,14 +6,22 @@
         "dev": "next dev --turbopack",
         "build": "next build",
         "build:production": "next build",
-        "start": "next start -p 3921",
+        "start": "next start",
         "test": "jest --passWithNoTests",
         "lint": "next lint"
     },
     "dependencies": {
+        "@hookform/resolvers": "^5.1.1",
+        "@irondragons/ui-lib-inctagram": "^0.2.29",
+        "@reduxjs/toolkit": "^2.8.2",
+        "common": "link:@/common",
         "next": "15.3.4",
         "react": "^19.0.0",
-        "react-dom": "^19.0.0"
+        "react-dom": "^19.0.0",
+        "react-hook-form": "^7.60.0",
+        "react-redux": "^9.2.0",
+        "sass": "^1.89.2",
+        "zod": "^3.25.74"
     },
     "devDependencies": {
         "@eslint/eslintrc": "^3",
