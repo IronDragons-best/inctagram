@@ -1,0 +1,19 @@
+@use '../../../../src/styles/fonts' as font;
+
+.formWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.formTitle {
+    @include font.h1;
+}
+
+.oAuthWrapper {
+    display: flex;
+    column-gap: 60px;
+    justify-content: center;
+    margin-top: 13px;
+}
