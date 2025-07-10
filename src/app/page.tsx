@@ -1,21 +1,17 @@
 "use client";
 
-import styles from "./page.module.css";
+import 'src/styles/_boilerplate.scss'
 import "@irondragons/ui-lib-inctagram/dist/style.css";
 import { Alert, Button, Header } from "@irondragons/ui-lib-inctagram";
 
 export default function Home() {
   return (
     <>
-      <Button variant="primary" fullWidth={false}>
-        btn
-      </Button>
-      <Alert closable={true} variant={"success"}>
-        "ЕЛИСЕЙ!"
-      </Alert>
+      <Header isAuth={true} localization={'eng'}/>
+
       {/* Should be visible if user is logged in */}
-      <aside>aside</aside>
-      <main className={styles.page}>home page</main>
+      {/*<aside>aside</aside>*/}
+      {/*<main className={styles.page}>home page</main>*/}
     </>
   );
 }

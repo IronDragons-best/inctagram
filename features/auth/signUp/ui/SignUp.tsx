@@ -43,10 +43,10 @@ export const SignUp = ({}: Props) => {
         <div className={styles.oAuthWrapper}>
           {/* пока что вместо ссылок заглушки */}
           <Link href={"google.com"}>
-            <UniversalIcon name={"google"} />
+            <UniversalIcon name={"google"} dataStatic={true} height={'36px'} width={'36px'}/>
           </Link>
           <Link href={"google.com"}>
-            <UniversalIcon name={"github"} />
+            <UniversalIcon name={"github"} dataStatic={false} height={'36px'} width={'36px'}/>
           </Link>
         </div>
         <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
