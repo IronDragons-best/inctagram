@@ -1,0 +1,74 @@
+@use 'colors' as *;
+@use 'typography' as *;
+
+html {
+  box-sizing: border-box;
+  font-size: 100%;
+}
+
+a,
+a:visited {
+  color: inherit;
+  text-decoration: none;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+input,
+button,
+select,
+textarea,
+optgroup,
+option {
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  font-style: inherit;
+  color: inherit;
+}
+
+body {
+  min-width: 100vw;
+  min-height: 100vh;
+
+  font-family: $font-family;
+  line-height: $line-height-m;
+
+  background-color: $dark-700;
+}
+
+/**
+  Приводим к единому цвету svg-элементы
+  (за исключением тех, у которых уже указан
+  атрибут fill со значением 'none' или начинается с 'url')
+ */
+:where([fill]:not([fill='none'], [fill^='url'])) {
+  fill: currentcolor;
+}
+
+/**
+  Приводим к единому цвету svg-элементы
+  (за исключением тех, у которых уже указан
+  атрибут stroke со значением 'none')
+ */
+:where([stroke]:not([stroke='none'], [stroke^='url'])) {
+  stroke: currentcolor;
+}
+
+/**
+  Чиним баг задержки смены цвета при взаимодействии с svg-элементами
+ */
+svg * {
+  transition-property: fill, stroke;
+}
+
+/* Сброс для теней, используемых в фокусе */
+// :focus {
+//   outline: none;
+// }

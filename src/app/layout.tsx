@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { ReactNode } from "react";
+import "@irondragons/ui-lib-inctagram/dist/style.css";
 
 export const metadata: Metadata = {
   title: "Inctagram",

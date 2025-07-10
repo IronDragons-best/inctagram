@@ -1,11 +1,9 @@
-import { PageGuard } from "@/common/components/pageGuard/PageGuard";
+"use client";
+
+import { Header, Button } from "@irondragons/ui-lib-inctagram";
 
 const Page = () => {
-  return (
-    <PageGuard isAuthenticated={false}>
-      <div>sign in</div>
-    </PageGuard>
-  );
+  return <Button variant={"primary"}>asdasd</Button>;
 };
 
 export default Page;

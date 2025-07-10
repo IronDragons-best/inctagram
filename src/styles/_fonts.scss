@@ -1,12 +1,13 @@
 @use 'typography' as *;
 @use 'colors' as *;
 
+
 @font-face {
   font-family: Inter;
   font-weight: 700;
   font-style: normal;
   font-display: swap;
-  src: url('@/assets/fonts/Inter_18pt-SemiBold.woff2') format('woff2');
+  src: url('../../public/assets/fonts/Inter_18pt-SemiBold.woff2') format('woff2');
 }
 
 @font-face {
@@ -14,7 +15,7 @@
   font-weight: 500;
   font-style: normal;
   font-display: swap;
-  src: url('@/assets/fonts/Inter_18pt-Medium.woff2') format('woff2');
+  src: url('../../public/assets/fonts/Inter_18pt-Medium.woff2') format('woff2');
 }
 
 @font-face {
@@ -22,7 +23,7 @@
   font-weight: 400;
   font-style: normal;
   font-display: swap;
-  src: url('@/assets/fonts/Inter_18pt-Regular.woff2') format('woff2');
+  src: url('../../public/assets/fonts/Inter_18pt-Regular.woff2') format('woff2');
 }
 
 @font-face {
@@ -30,7 +31,7 @@
   font-weight: 600;
   font-style: normal;
   font-display: swap;
-  src: url('@/assets/fonts/Inter_18pt-SemiBold.woff2') format('woff2');
+  src: url('../../public/assets/fonts/Inter_18pt-SemiBold.woff2') format('woff2');
 }
 
 @mixin large {

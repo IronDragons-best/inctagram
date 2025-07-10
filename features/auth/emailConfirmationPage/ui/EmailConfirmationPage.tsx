@@ -4,12 +4,10 @@ import { ReactElement } from "react";
 type Props = {
   title: string;
   description: string;
-  button: ReactElement;
   children: ReactElement;
 };
 
 export const EmailConfirmationPage = ({
-  button,
   children,
   description,
   title,
@@ -19,7 +17,6 @@ export const EmailConfirmationPage = ({
     <>
       title: {title}
       description: {description}
-      button: {button}
       children: {children}
     </>
   );
