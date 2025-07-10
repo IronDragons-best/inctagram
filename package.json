@@ -12,7 +12,7 @@
     },
     "dependencies": {
         "@hookform/resolvers": "^5.1.1",
-        "@irondragons/ui-lib-inctagram": "^0.2.37",
+        "@irondragons/ui-lib-inctagram": "^0.2.38",
         "@reduxjs/toolkit": "^2.8.2",
         "common": "link:@/common",
         "next": "15.3.4",
