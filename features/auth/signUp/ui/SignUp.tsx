@@ -12,15 +12,13 @@ import Link from "next/link";
 import { SubmitHandler, useForm } from "react-hook-form";
 import * as React from "react";
 import { useState } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import {
+  Inputs,
+  signUpSchema,
+} from "@/features/auth/signUp/lib/schemas/signUp";
 
 type Props = {};
-
-type Inputs = {
-  userName: string;
-  email: string;
-  password: string;
-  confirmationPassword: string;
-};
 
 const Label = (
   <span className={s.conditions}>
@@ -36,12 +34,17 @@ const Label = (
 );
 
 export const SignUp = ({}: Props) => {
+  const [isTermsRead, setIsTermsRead] = useState(false);
+  const setIsTermsHandler = () => {
+    setIsTermsRead((prev) => !prev);
+  };
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm<Inputs>();
+  } = useForm<Inputs>({ resolver: zodResolver(signUpSchema), mode: "onBlur" });
+
   const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
 
   // TODO: Не забыть поменять ссылки на актуальные, после правок добавить чилдами ссылки на страницы terms и policy
@@ -70,6 +73,7 @@ export const SignUp = ({}: Props) => {
               inputType={"text"}
               label={"Username"}
               id={"username"}
+              errorText={errors.userName?.message}
               placeholder={"Enter your name"}
               required
               {...register("userName")}
@@ -77,6 +81,7 @@ export const SignUp = ({}: Props) => {
             <Input
               required
               label={"Email"}
+              errorText={errors.email?.message}
               placeholder={"example@example.com"}
               id={"email"}
               inputType={"email"}
@@ -84,6 +89,7 @@ export const SignUp = ({}: Props) => {
             />
             <Input
               required
+              errorText={errors.password?.message}
               id={"password"}
               placeholder={"••••••••••••••"}
               label={"Password"}
@@ -93,6 +99,7 @@ export const SignUp = ({}: Props) => {
             <Input
               required
               id={"confirmationPassword"}
+              errorText={errors.confirmationPassword?.message}
               placeholder={"••••••••••••••"}
               label={"Password confirmation"}
               inputType={"password"}
@@ -103,9 +110,18 @@ export const SignUp = ({}: Props) => {
           </div>
 
           <div className={s.actionsWrapper}>
-            <Checkbox idProp={"sign-up-1"} label={Label} />
+            <Checkbox
+              idProp={"sign-up-1"}
+              checked={isTermsRead}
+              onClick={setIsTermsHandler}
+              label={Label}
+            />
 
-            <Button variant={"primary"} fullWidth={true}>
+            <Button
+              variant={"primary"}
+              disabled={!isTermsRead}
+              fullWidth={true}
+            >
               Sign Up
             </Button>
           </div>
