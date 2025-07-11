@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import "./globals.css";
 import { ReactNode } from "react";
 import "@irondragons/ui-lib-inctagram/dist/style.css";
+import s from "./page.module.scss";
 
 export const metadata: Metadata = {
   title: "Inctagram",
@@ -15,7 +15,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <div className={s.rootLayout}>{children}</div>
+      </body>
     </html>
   );
 }

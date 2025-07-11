@@ -1,0 +1,5 @@
+@use 'src/styles/utils' as *;
+
+.rootLayout {
+    @include rootContainer
+}
