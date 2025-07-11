@@ -1,0 +1,14 @@
+@mixin flexContainer($direction: row, $justify: center, $align: center) {
+    display: flex;
+    flex-direction: $direction;
+    justify-content: $justify;
+    align-items: $align;
+    height: 100%;
+}
+
+@mixin rootContainer() {
+    width: min(1280px, 100%);
+    height: 100%;
+    padding: 10px; //Если что поправить
+    margin: 0 auto;
+}

@@ -1,6 +1,6 @@
 "use client";
 
-import styles from "./page.module.css";
+import styles from "./page.module.scss";
 import "@irondragons/ui-lib-inctagram/dist/style.css";
 import { Alert, Button, Header } from "@irondragons/ui-lib-inctagram";
 
