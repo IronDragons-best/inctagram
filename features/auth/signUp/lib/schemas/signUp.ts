@@ -16,10 +16,11 @@ export const signUpSchema = z
     email: z.string().email(),
     password: passwordSchema,
     confirmationPassword: passwordSchema,
+    conditions: z.boolean(),
   })
   .refine((data) => data.password === data.confirmationPassword, {
     message: "Passwords aren't equal",
-    path: ["confirmPassword"], // Указывает, где показывать ошибку
+    path: ["confirmationPassword"], // Указывает, где показывать ошибку
   });
 
 export type Inputs = z.infer<typeof signUpSchema>;
