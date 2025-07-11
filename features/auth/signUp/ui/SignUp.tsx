@@ -9,7 +9,7 @@ import {
   UniversalIcon,
 } from "@irondragons/ui-lib-inctagram";
 import Link from "next/link";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import * as React from "react";
 import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -42,8 +42,14 @@ export const SignUp = ({}: Props) => {
     register,
     handleSubmit,
     watch,
-    formState: { errors },
-  } = useForm<Inputs>({ resolver: zodResolver(signUpSchema), mode: "onBlur" });
+    control,
+    formState: { isDirty, isValid, errors },
+  } = useForm<Inputs>({
+    resolver: zodResolver(signUpSchema),
+    mode: "onBlur",
+  });
+
+  const isSubmitDisabled = !isDirty || !isValid;
 
   const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
 
@@ -105,21 +111,34 @@ export const SignUp = ({}: Props) => {
               inputType={"password"}
               {...register("confirmationPassword")}
             />
-            {/* There should be password confirmation text */}
-            {errors.confirmationPassword && <span>Password aren't equal</span>}
           </div>
 
           <div className={s.actionsWrapper}>
+            {/*<Controller*/}
+            {/*  name="conditions"*/}
+            {/*  control={control}*/}
+            {/*  render={({ field: { value, ...rest } }) => (*/}
+            {/*    <Checkbox*/}
+            {/*      {...rest}*/}
+            {/*      idProp={"sign-up-1"}*/}
+            {/*      label={Label}*/}
+            {/*      checked={value}*/}
+            {/*    />*/}
+            {/*  )}*/}
+            {/*/>*/}
             <Checkbox
               idProp={"sign-up-1"}
               checked={isTermsRead}
               onClick={setIsTermsHandler}
               label={Label}
             />
+            <label htmlFor="">
+              asdadsad <input type="checkbox" {...register("conditions")} />
+            </label>
 
             <Button
               variant={"primary"}
-              disabled={!isTermsRead}
+              disabled={isSubmitDisabled}
               fullWidth={true}
             >
               Sign Up
