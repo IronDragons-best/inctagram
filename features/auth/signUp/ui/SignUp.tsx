@@ -70,12 +70,14 @@ export const SignUp = ({}: Props) => {
               inputType={"text"}
               label={"Username"}
               id={"username"}
+              placeholder={"Enter your name"}
               required
               {...register("userName")}
             />
             <Input
               required
               label={"Email"}
+              placeholder={"example@example.com"}
               id={"email"}
               inputType={"email"}
               {...register("email")}
@@ -83,6 +85,7 @@ export const SignUp = ({}: Props) => {
             <Input
               required
               id={"password"}
+              placeholder={"••••••••••••••"}
               label={"Password"}
               inputType={"password"}
               {...register("password")}
@@ -90,6 +93,7 @@ export const SignUp = ({}: Props) => {
             <Input
               required
               id={"confirmationPassword"}
+              placeholder={"••••••••••••••"}
               label={"Password confirmation"}
               inputType={"password"}
               {...register("confirmationPassword")}
