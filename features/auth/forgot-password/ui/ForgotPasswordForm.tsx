@@ -6,8 +6,7 @@ import { useState } from 'react';
 
 export const ForgotPasswordForm = () => {
   const [captchaToken, setCaptchaToken] = useState<string | null>(null);
-  const [isCaptchaPassed, setIsCaptchaPassed] = useState(false);
-  
+  const [isCaptchaPassed, setIsCaptchaPassed] = useState(false);  
   const handleCaptcha = (token: string) => {
     setCaptchaToken(token);
     setIsCaptchaPassed(true);
