@@ -10,7 +10,7 @@ function AgreementsLayout({ children }: { children: ReactNode }) {
   
   return (
     <div className={s.wrapper}>
-      <button className={s.btn} onClick={() => router.back()}>
+      <button className={s.btn} onClick={() => router.push('/sign-up')}>
         <div className={s.iconWrapper}>
           <UniversalIcon name={'arrow-back-outline'} />
         </div>
