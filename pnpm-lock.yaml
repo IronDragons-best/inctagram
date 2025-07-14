@@ -12,17 +12,14 @@ importers:
         specifier: ^5.1.1
         version: 5.1.1(react-hook-form@7.60.0(react@19.1.0))
       '@irondragons/ui-lib-inctagram':
-        specifier: ^0.2.40
-        version: 0.2.40(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)
+        specifier: ^1.0.0
+        version: 1.0.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)
       '@radix-ui/react-icons':
         specifier: ^1.3.2
         version: 1.3.2(react@19.1.0)
       '@reduxjs/toolkit':
         specifier: ^2.8.2
         version: 2.8.2(react-redux@9.2.0(@types/react@19.1.8)(react@19.1.0)(redux@5.0.1))(react@19.1.0)
-      common:
-        specifier: link:@/common
-        version: link:@/common
       next:
         specifier: 15.3.4
         version: 15.3.4(@babel/core@7.28.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.89.2)
@@ -454,8 +451,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@irondragons/ui-lib-inctagram@0.2.40':
-    resolution: {integrity: sha512-meK5fvC0jOGJvff/eafiQh0jLvHe09PFKJqCdv1J61AP/wpwQtJDTI0mfFp9F4P2KJgqG1KVpIpAjCsy8KwI9A==}
+  '@irondragons/ui-lib-inctagram@1.0.0':
+    resolution: {integrity: sha512-FyUS/8pXZMFbGBes5oeWbTkOPnguyYzbdT2QeUCaL6iHiy1SjjT741NSgkcT3ewL7f+0H95ReWYY/+tHHdbYzQ==}
 
   '@isaacs/cliui@8.0.2':
     resolution: {integrity: sha512-O8jcjabXaleOG9DQ0+ARXWZBTfnP4WNAqzuiJK7ll44AmxGKv/J2M4TPjxjY3znBCfvBXFzucm1twdyFybFqEA==}
@@ -4069,7 +4066,7 @@ snapshots:
   '@img/sharp-win32-x64@0.34.2':
     optional: true
 
-  '@irondragons/ui-lib-inctagram@0.2.40(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)':
+  '@irondragons/ui-lib-inctagram@1.0.0(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)':
     dependencies:
       '@radix-ui/react-checkbox': 1.3.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@radix-ui/react-icons': 1.3.2(react@18.3.1)
