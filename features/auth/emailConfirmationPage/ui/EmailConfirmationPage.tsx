@@ -1,5 +1,7 @@
-import styles from "./emailConfirmationPage.module.scss";
-import { ReactElement } from "react";
+'use client';
+
+import s from './emailConfirmationPage.module.scss';
+import { ReactElement } from 'react';
 
 type Props = {
   title: string;
@@ -8,16 +10,18 @@ type Props = {
 };
 
 export const EmailConfirmationPage = ({
-  children,
-  description,
-  title,
-  ...rest
-}: Props) => {
+                                        children,
+                                        description,
+                                        title,
+                                        ...rest
+                                      }: Props) => {
   return (
-    <>
-      title: {title}
-      description: {description}
-      children: {children}
-    </>
+    <div className={s.wrapper} {...rest}>
+      <div className={s.content}>
+        <h1 className={s.title}>{title}</h1>
+        <p className={s.text}>{description}</p>
+      </div>
+      {children}
+    </div>
   );
 };

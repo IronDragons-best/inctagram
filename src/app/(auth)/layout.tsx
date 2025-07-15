@@ -12,7 +12,7 @@ export default function RootLayout({
   return (
     <>
       {/*   Заглушка   */}
-      <Header isAuth={false} isProcessingAuth={true} localization={"rus"} />
+      <Header isAuth={false} isProcessingAuth={true} localization={"eng"} />
       <div className={styles.authContent}>{children}</div>
     </>
   );
