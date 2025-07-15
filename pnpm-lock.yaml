@@ -12,8 +12,8 @@ importers:
         specifier: ^5.1.1
         version: 5.1.1(react-hook-form@7.60.0(react@19.1.0))
       '@irondragons/ui-lib-inctagram':
-        specifier: ^1.0.3
-        version: 1.0.3(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)
+        specifier: ^1.0.4
+        version: 1.0.4(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)
       '@radix-ui/react-icons':
         specifier: ^1.3.2
         version: 1.3.2(react@19.1.0)
@@ -451,8 +451,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@irondragons/ui-lib-inctagram@1.0.3':
-    resolution: {integrity: sha512-MllYOPfTWdupXepByL2jRLPgK9XtzgpgUxIyZ4lDcWxXpUDQDeEeiD/oL7zPezexGcbqPc3KDIk+3XEkLF8cDg==}
+  '@irondragons/ui-lib-inctagram@1.0.4':
+    resolution: {integrity: sha512-YntUz2ouTkyRD0v0ZOW+6HS0aowQ1Y6QQ+DYJz544+fxnw1RfL5ZMCnnCvJGFvGGHfRRCLVKmD8sYaMO+y3zcg==}
 
   '@isaacs/cliui@8.0.2':
     resolution: {integrity: sha512-O8jcjabXaleOG9DQ0+ARXWZBTfnP4WNAqzuiJK7ll44AmxGKv/J2M4TPjxjY3znBCfvBXFzucm1twdyFybFqEA==}
@@ -4066,7 +4066,7 @@ snapshots:
   '@img/sharp-win32-x64@0.34.2':
     optional: true
 
-  '@irondragons/ui-lib-inctagram@1.0.3(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)':
+  '@irondragons/ui-lib-inctagram@1.0.4(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)':
     dependencies:
       '@radix-ui/react-checkbox': 1.3.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@radix-ui/react-icons': 1.3.2(react@18.3.1)
