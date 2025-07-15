@@ -34,24 +34,31 @@ const Label = (
 );
 
 export const SignUp = ({}: Props) => {
-  const [isTermsRead, setIsTermsRead] = useState(false);
-  const setIsTermsHandler = () => {
-    setIsTermsRead((prev) => !prev);
-  };
   const {
     register,
     handleSubmit,
-    watch,
     control,
+    clearErrors,
+    reset,
+    watch,
     formState: { isDirty, isValid, errors },
   } = useForm<Inputs>({
+    defaultValues: { conditions: false },
     resolver: zodResolver(signUpSchema),
     mode: "onBlur",
   });
 
+  // Наблюдает за состоянием поля conditions, оно нужно, чтобы активировать кнопку отправки формы
+  const agree = watch("conditions");
+
+  // Проверяет валидны ли поля формы и заполнены ли они
   const isSubmitDisabled = !isDirty || !isValid;
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
+  // При сабмите формы данные будут улетать на сервер
+  const onSubmit: SubmitHandler<Inputs> = (data) => {
+    console.log(data, agree);
+    reset();
+  };
 
   // TODO: Не забыть поменять ссылки на актуальные, после правок добавить чилдами ссылки на страницы terms и policy
   // TODO: Реализовать zod валидацию
@@ -82,7 +89,9 @@ export const SignUp = ({}: Props) => {
               errorText={errors.userName?.message}
               placeholder={"Enter your name"}
               required
-              {...register("userName")}
+              {...register("userName", {
+                onChange: () => clearErrors("userName"),
+              })}
             />
             <Input
               required
@@ -91,7 +100,9 @@ export const SignUp = ({}: Props) => {
               placeholder={"example@example.com"}
               id={"email"}
               inputType={"email"}
-              {...register("email")}
+              {...register("email", {
+                onChange: () => clearErrors("email"),
+              })}
             />
             <Input
               required
@@ -100,7 +111,9 @@ export const SignUp = ({}: Props) => {
               placeholder={"••••••••••••••"}
               label={"Password"}
               inputType={"password"}
-              {...register("password")}
+              {...register("password", {
+                onChange: () => clearErrors("password"),
+              })}
             />
             <Input
               required
@@ -109,36 +122,30 @@ export const SignUp = ({}: Props) => {
               placeholder={"••••••••••••••"}
               label={"Password confirmation"}
               inputType={"password"}
-              {...register("confirmationPassword")}
+              {...register("confirmationPassword", {
+                onChange: () => clearErrors("confirmationPassword"),
+              })}
             />
           </div>
 
           <div className={s.actionsWrapper}>
-            {/*<Controller*/}
-            {/*  name="conditions"*/}
-            {/*  control={control}*/}
-            {/*  render={({ field: { value, ...rest } }) => (*/}
-            {/*    <Checkbox*/}
-            {/*      {...rest}*/}
-            {/*      idProp={"sign-up-1"}*/}
-            {/*      label={Label}*/}
-            {/*      checked={value}*/}
-            {/*    />*/}
-            {/*  )}*/}
-            {/*/>*/}
-            <Checkbox
-              idProp={"sign-up-1"}
-              checked={isTermsRead}
-              onClick={setIsTermsHandler}
-              label={Label}
+            <Controller
+              name="conditions"
+              control={control}
+              rules={{ required: true }}
+              render={({ field: { value, onChange, ...rest } }) => (
+                <Checkbox
+                  idProp={"sign-up-1"}
+                  checked={value}
+                  onCheckedChange={onChange}
+                  label={Label}
+                />
+              )}
             />
-            <label htmlFor="">
-              asdadsad <input type="checkbox" {...register("conditions")} />
-            </label>
 
             <Button
               variant={"primary"}
-              disabled={isSubmitDisabled}
+              disabled={isSubmitDisabled || !agree}
               fullWidth={true}
             >
               Sign Up
