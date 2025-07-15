@@ -1,57 +1,78 @@
-'use client'
-import { Button, Selectbox, UniversalIcon } from '@irondragons/ui-lib-inctagram';
+"use client";
+import {
+  Button,
+  Selectbox,
+  UniversalIcon,
+} from "@irondragons/ui-lib-inctagram";
 
-import '../../styles/index.scss'
-import s from './header.module.scss'
+import s from "./header.module.scss";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 type Props = {
-  /** **Required**: Indicates if the user is authenticated */
-  isAuth: boolean,
-  /** Indicates if the user is authenticated */
-  isProcessingAuth?: boolean,
-  /** **Required**: Current selected localization value */
-  localization: string,
-  /** Optional number of notifications to display. If not provided, defaults to 0 */
-  notificationCount?: number,
-}
+  isAuth: boolean;
+  isProcessingAuth?: boolean;
+  localization: string;
+  notificationCount?: number;
+};
 
 export const Header = ({
-                         isAuth,
-                         isProcessingAuth = false,
-                         localization,
-                         notificationCount = 0
-                       }: Props) => {
+  isAuth,
+  isProcessingAuth = false,
+  localization,
+  notificationCount = 0,
+}: Props) => {
+  const router = useRouter();
   const convertNumber = (notificationCount: number): string => {
-    return notificationCount > 9 ? `9+` : `${notificationCount}`
-  }
+    return notificationCount > 9 ? `9+` : `${notificationCount}`;
+  };
+
+  const redirectionHandler = (path: string) => {
+    router.push(path);
+  };
 
   return (
     <header className={s.Header}>
       <div>
-          <span className={s.Logo}>
-            Inctagram
-          </span>
+        <Link href={"/"} className={s.Logo}>
+          Inctagram
+        </Link>
       </div>
       <div className={s.Content}>
         {isAuth && (
-          <div className={s.IconWrapper} data-notificationcount={convertNumber(notificationCount)}>
-            <UniversalIcon name={'outline-bell'}/>
+          <div
+            className={s.IconWrapper}
+            data-notificationcount={convertNumber(notificationCount)}
+          >
+            <UniversalIcon name={"outline-bell"} />
           </div>
         )}
-        <Selectbox value={localization} name={'aaa'}
-                   options={[
-                     {label: 'Russian', value: 'rus', icon: 'Flag-Russia'},
-                     {label: 'English', value: 'eng', icon: 'Flag-United-Kingdom'}
-                   ]}
-                   idProp={localization}
+        <Selectbox
+          value={localization}
+          name={"aaa"}
+          options={[
+            { label: "Russian", value: "rus", icon: "Flag-Russia" },
+            { label: "English", value: "eng", icon: "Flag-United-Kingdom" },
+          ]}
+          idProp={localization}
         />
         {!isAuth && !isProcessingAuth && (
           <>
-            <Button variant='text_button'>Sign in</Button>
-            <Button variant='primary'>Sign up</Button>
+            <Button
+              variant="text_button"
+              onClick={() => redirectionHandler("/sign-in")}
+            >
+              Sign in
+            </Button>
+            <Button
+              variant="primary"
+              onClick={() => redirectionHandler("/sign-up")}
+            >
+              Sign up
+            </Button>
           </>
         )}
       </div>
     </header>
-  )
-}
+  );
+};

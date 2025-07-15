@@ -1,8 +1,8 @@
 "use client";
 
 import { ReactNode } from "react";
-import { Header } from "@irondragons/ui-lib-inctagram";
 import styles from "./authLayout.module.scss";
+import { Header } from "@/widgets/header";
 
 export default function RootLayout({
   children,
