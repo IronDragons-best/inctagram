@@ -13,7 +13,6 @@ export default function Home() {
       <Alert closable={true} variant={"success"}>
         "ЕЛИСЕЙ!"
       </Alert>
-      <Pagination />
     </>
   );
 }

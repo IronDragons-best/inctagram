@@ -1,7 +1,7 @@
 'use client'
 
 import { RECAPTCHA_SITE_KEY } from '@/shared/config/recaptcha'
-import { Button, Card, Input, ReCaptcha } from '@irondragons/ui-lib-inctagram'
+import { Button, Card, Input } from '@irondragons/ui-lib-inctagram'
 import * as React from 'react'
 import { useState } from 'react'
 import s from './ForgotPasswordForm.module.scss'
@@ -9,13 +9,14 @@ import Link from 'next/link'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { forgotPasswordFormSchema, InputForm } from '@/features/auth/forgot-password/lib/schemas/forgotPasswordForm'
+import ReCAPTCHA from 'react-google-recaptcha';
 
 export const ForgotPasswordForm = () => {
   const [captchaToken, setCaptchaToken] = useState<string | null>(null)
   const [isCaptchaPassed, setIsCaptchaPassed] = useState(false)
   const [isLinkSent, setIsLinkSent] = useState(false)
 
-  const handleCaptcha = (token: string) => {
+  const handleCaptcha = (token: string | null) => {
     setCaptchaToken(token)
     setIsCaptchaPassed(true)
   }
@@ -27,25 +28,14 @@ export const ForgotPasswordForm = () => {
     resolver: zodResolver(forgotPasswordFormSchema),
   })
 
-  const onSubmit: SubmitHandler<InputForm> = data => {
+  const onSubmit: SubmitHandler<InputForm> = async data => {
+    await new Promise(resolve => setTimeout(resolve, 1000))
+    
     setIsLinkSent(true)
-    if (!captchaToken) {
-      alert('Подтвердите капчу')
-      return
-    }
-    console.log(data)
-    console.log({ captchaToken })
+    console.log('Имитация отправки письма на:', data.email)
+    console.log('Captcha token:', captchaToken)
   }
-
-  // const handleSubmit = async () => {
-  //   if (!captchaToken) {
-  //     alert('Подтвердите капчу')
-  //     return
-  //   }
-  //
-  //   console.log({ captchaToken })
-  // }
-
+  
   return (
     <Card>
       <form className={s.forgotPassForm} onSubmit={handleSubmit(onSubmit)}>
@@ -68,18 +58,18 @@ export const ForgotPasswordForm = () => {
               <p>If you don’t receive an email send link again</p>
             </div>
           )}
-          <Button className={s.forgotPassForm__sendLink} fullWidth={true} type="submit">
+          <Button className={s.forgotPassForm__sendLink} fullWidth={true} type="submit" disabled={!isCaptchaPassed}>
             {isLinkSent ? 'Send Link Again' : 'Send Link'}
           </Button>
           <Link href={'/'} className={s.forgotPassForm__backSignIn}>
             Back to Sign In
           </Link>
           {!isLinkSent && (
-            <ReCaptcha
-              siteKey={RECAPTCHA_SITE_KEY}
-              setCaptchaToken={handleCaptcha}
-              isCaptchaPassed={isCaptchaPassed}
-            ></ReCaptcha>
+            <ReCAPTCHA
+              sitekey={RECAPTCHA_SITE_KEY}
+              onChange={handleCaptcha}
+              theme={'dark'}
+            ></ReCAPTCHA>
           )}
         </div>
       </form>
