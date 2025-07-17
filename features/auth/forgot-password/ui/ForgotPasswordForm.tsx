@@ -9,7 +9,7 @@ import Link from 'next/link'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { forgotPasswordFormSchema, InputForm } from '@/features/auth/forgot-password/lib/schemas/forgotPasswordForm'
-import ReCAPTCHA from 'react-google-recaptcha';
+import ReCAPTCHA from 'react-google-recaptcha'
 
 export const ForgotPasswordForm = () => {
   const [captchaToken, setCaptchaToken] = useState<string | null>(null)
@@ -23,19 +23,22 @@ export const ForgotPasswordForm = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    reset,
+    formState: { errors, isDirty, isValid },
   } = useForm<InputForm>({
     resolver: zodResolver(forgotPasswordFormSchema),
+    mode: 'onChange',
   })
 
   const onSubmit: SubmitHandler<InputForm> = async data => {
     await new Promise(resolve => setTimeout(resolve, 1000))
-    
+
     setIsLinkSent(true)
+    reset()
     console.log('Имитация отправки письма на:', data.email)
     console.log('Captcha token:', captchaToken)
   }
-  
+
   return (
     <Card>
       <form className={s.forgotPassForm} onSubmit={handleSubmit(onSubmit)}>
@@ -58,19 +61,18 @@ export const ForgotPasswordForm = () => {
               <p>If you don’t receive an email send link again</p>
             </div>
           )}
-          <Button className={s.forgotPassForm__sendLink} fullWidth={true} type="submit" disabled={!isCaptchaPassed}>
+          <Button
+            className={s.forgotPassForm__sendLink}
+            fullWidth={true}
+            type="submit"
+            disabled={!isCaptchaPassed || !isDirty || !isValid}
+          >
             {isLinkSent ? 'Send Link Again' : 'Send Link'}
           </Button>
           <Link href={'/'} className={s.forgotPassForm__backSignIn}>
             Back to Sign In
           </Link>
-          {!isLinkSent && (
-            <ReCAPTCHA
-              sitekey={RECAPTCHA_SITE_KEY}
-              onChange={handleCaptcha}
-              theme={'dark'}
-            ></ReCAPTCHA>
-          )}
+          {!isLinkSent && <ReCAPTCHA sitekey={RECAPTCHA_SITE_KEY} onChange={handleCaptcha} theme={'dark'}></ReCAPTCHA>}
         </div>
       </form>
     </Card>
