@@ -1,0 +1,81 @@
+@use '../../../../src/styles/fonts' as font;
+@use '../../../../src/styles/colors' as color;
+
+.card {
+    background-color: transparent;
+    padding: 32px;
+    border-radius: 1px;
+    color: color.$light-100;
+}
+
+.formWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.title {
+    @include font.h1;
+    margin-bottom: 13px;
+}
+
+.oAuth {
+    display: flex;
+    column-gap: 60px;
+    justify-content: center;
+    margin-bottom: 24px;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.fieldsWrapper {
+    display: flex;
+    flex-direction: column;
+    row-gap: 24px;
+    margin-bottom: 12px;
+}
+
+.passwordField {
+    position: relative;
+}
+
+.links {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: -8px;
+    margin-bottom: 8px;
+}
+
+.forgotLink {
+    @include font.regular-text-14;
+    display: flex;
+    color: color.$light-900;
+    transition: color 0.2s;
+    justify-content: right;
+    padding-top: 15px;
+}
+
+.signInBtn {
+    margin-top: 1rem;
+}
+
+.bottomText {
+    margin-top: 1rem;
+    text-align: center;
+    color: color.$accent-500;
+
+}
+.bottomText p {
+    color: color.$light-100;
+
+}
+.signUpLink {
+    @include font.h3;
+    transition: color 0.2s;  
+    padding-top: 10px;
+}
