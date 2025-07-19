@@ -27,7 +27,11 @@ export const AuthModal = ({
         <div className={styles.Heading}>
           <Dialog.Title className={styles.Title}>{title}</Dialog.Title>
           <Dialog.Close asChild>
-            <Button className={styles.IconButton} aria-label="Close">
+            <Button
+              className={styles.IconButton}
+              aria-label="Close"
+              tabIndex={-1}
+            >
               <UniversalIcon name={"close"} />
             </Button>
           </Dialog.Close>

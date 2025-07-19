@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { EmailConfirmationPage } from '@/features/auth/emailConfirmationPage';
-import { Button, Input, UniversalIcon } from '@irondragons/ui-lib-inctagram';
-import s from './expiredLink.module.scss';
+import { EmailConfirmationPage } from "features/auth/ui/emailConfirmationPage";
+import { Button, Input, UniversalIcon } from "@irondragons/ui-lib-inctagram";
+import s from "./expiredLink.module.scss";
 
 const ExpiredLink = () => {
   return (
@@ -13,12 +13,19 @@ const ExpiredLink = () => {
       <>
         <div className={s.wrapper}>
           <div className={s.inputWrapper}>
-            <Input fullWidth={true} inputType={'email'} placeholder={'Epam@epam.com'} label={'Email'} />
+            <Input
+              fullWidth={true}
+              inputType={"email"}
+              placeholder={"Epam@epam.com"}
+              label={"Email"}
+            />
           </div>
-          <Button variant={'primary'} fullWidth={true}>Resend verification link</Button>
+          <Button variant={"primary"} fullWidth={true}>
+            Resend verification link
+          </Button>
         </div>
         <div className={s.iconWrapper}>
-          <UniversalIcon name={'ExpiredLink'} dataStatic={true} />
+          <UniversalIcon name={"ExpiredLink"} dataStatic={true} />
         </div>
       </>
     </EmailConfirmationPage>

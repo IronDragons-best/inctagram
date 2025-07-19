@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { PrivacyPolicy } from '@/features/auth/agreements/privacy-policy/ui/PrivacyPolicy';
+import { PrivacyPolicy } from "@/features/auth/ui/agreements/privacy-policy/ui/PrivacyPolicy";
 
 const Page = () => {
   return (

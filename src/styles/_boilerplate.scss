@@ -4,6 +4,15 @@
 html {
   box-sizing: border-box;
   font-size: 100%;
+  scrollbar-gutter: stable;
+}
+
+/**
+  Плавный скролл
+ */
+html,
+:has(:target) {
+  scroll-behavior: smooth;
 }
 
 a,
@@ -77,3 +86,7 @@ svg * {
 // :focus {
 //   outline: none;
 // }
+
+body[data-scroll-locked='1']:has(> div[data-state="open"]) {
+  overflow: hidden !important;
+}
