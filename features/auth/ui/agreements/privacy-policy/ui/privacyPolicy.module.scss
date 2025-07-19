@@ -1,0 +1,13 @@
+@use '../../commonStyles/index' as agreements;
+
+.wrapper {
+    @include agreements.wrapper;
+}
+
+.content {
+    @include agreements.content;
+}
+
+.title {
+    @include agreements.title;
+}

@@ -1,8 +1,6 @@
 "use client";
 
-import styles from "./page.module.scss";
-import "@irondragons/ui-lib-inctagram/dist/style.css";
-import { Alert, Button, Header, Pagination } from "@irondragons/ui-lib-inctagram";
+import { Alert, Button } from "@irondragons/ui-lib-inctagram";
 
 export default function Home() {
   return (

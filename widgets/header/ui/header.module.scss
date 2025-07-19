@@ -1,0 +1,66 @@
+@use '../../../src/styles/colors' as *;
+@use '../../../src/styles/fonts' as typo;
+
+.Header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  width: 100%;
+  padding: 12px 60px;
+
+  color: $light-100;
+
+  border-bottom: 1px solid $dark-300;
+}
+
+.Logo {
+  @include typo.large;
+}
+
+.Content {
+  display: flex;
+  gap: 36px;
+  align-items: center;
+}
+
+.IconWrapper {
+  position: relative;
+  display: inline-flex;
+  align-self: center;
+
+  &::before {
+    content: attr(data-notificationcount);
+
+    position: absolute;
+    top: -0.4em;
+    right: -0.3em;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 18px;
+    max-width: fit-content;
+    height: 18px;
+    padding: 2px 3px;
+
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 9px;
+    color: $light-100;
+
+    background-color: $danger-500;
+    border-radius: 50%;
+    box-shadow: 0 0 2px 3px rgb(0 0 0 / 50%);
+  }
+
+  &:hover {
+    cursor: pointer;
+    color: $light-700;
+  }
+
+  &[data-notificationcount="0"]::before {
+    display: none;
+  }
+}
