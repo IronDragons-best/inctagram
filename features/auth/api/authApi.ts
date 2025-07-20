@@ -9,7 +9,12 @@ export const authApi = baseApi.injectEndpoints({
         await client.POST("/auth/registration", { body });
       },
     }),
+    confirmEmail: build.mutation({
+      query: async (code: string) => {
+        await client.POST("/auth/confirm-email", { body: { code } });
+      },
+    }),
   }),
 });
 
-export const { useRegistrationMutation } = authApi;
+export const { useRegistrationMutation, useConfirmEmailMutation } = authApi;
