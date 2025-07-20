@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { handleError } from "@/shared/utils/handleError";
 
 // TODO: настроить теги
 
@@ -17,6 +18,7 @@ export const baseApi = createApi({
       },
     })(args, api, extraOptions);
 
+    handleError(api, result);
     return result;
   },
   endpoints: () => ({}),

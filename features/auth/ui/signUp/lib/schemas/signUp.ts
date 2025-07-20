@@ -4,7 +4,10 @@ const passwordSchema = z
   .string()
   .min(6, { message: "Minimum number of characters 6" })
   .max(20, { message: " Maximum number of characters 20" })
-  .regex(/^[A-Za-z0-9!"#$%&'()*+,\-./:;<=>?@\[\\\]^_`{|}~]+$/);
+  .regex(
+    /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])[A-Za-z0-9!"#$%&'()*+,\-./:;<=>?@\[\\\]^_`{|}~]+$/,
+    { message: "Password must contain 0-9, a-z, A-Z" },
+  );
 
 export const signUpSchema = z
   .object({
@@ -17,7 +20,7 @@ export const signUpSchema = z
       message: "The email must match the format example@example.com",
     }),
     password: passwordSchema,
-    passwordConfirmation: passwordSchema,
+    passwordConfirmation: z.string(),
     agreeToTerms: z.boolean(),
   })
   .refine((data) => data.password === data.passwordConfirmation, {
