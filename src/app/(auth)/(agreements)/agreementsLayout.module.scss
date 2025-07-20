@@ -1,0 +1,30 @@
+@use '../../../../src/styles/colors' as *;
+@use '../../../../src/styles/fonts' as font;
+
+.wrapper {
+    padding: 0 60px;
+}
+
+.btn {
+    @include font.regular-text-14;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    color: $light-100;
+    margin-bottom: 24px;
+
+    .iconWrapper {
+        width: 24px;
+        height: 24px;
+        flex-shrink: 0;
+
+        svg {
+            width: 100%;
+            height: 100%;
+        }
+    }
+}
