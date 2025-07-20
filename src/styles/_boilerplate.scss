@@ -4,9 +4,17 @@
 html {
   box-sizing: border-box;
   font-size: 100%;
+  scrollbar-gutter: stable;
 }
 
-// TODO: поправить стили для ссылок
+/**
+  Плавный скролл
+ */
+html,
+:has(:target) {
+  scroll-behavior: smooth;
+}
+
 a,
 a:visited {
   color: inherit;
@@ -35,7 +43,7 @@ option {
 }
 
 body {
-  min-width: 100vw;
+  width: 100%;
   min-height: 100vh;
 
   font-family: $font-family;
@@ -44,21 +52,26 @@ body {
   background-color: $dark-700;
 }
 
-/**
-  Приводим к единому цвету svg-элементы
-  (за исключением тех, у которых уже указан
-  атрибут fill со значением 'none' или начинается с 'url')
- */
-:where([fill]:not([fill='none'], [fill^='url'])) {
+svg {
+  width: 100%;
+  height: 100%;
+}
+
+///
+//Приводим к единому цвету svg-элементы
+//(за исключением тех, у которых уже указан
+//атрибут fill со значением 'none' или начинается с 'url')
+//*/
+svg:not([data-static='true']) [fill]:not([fill='none'], [fill^='url']) {
   fill: currentcolor;
 }
 
-/**
-  Приводим к единому цвету svg-элементы
-  (за исключением тех, у которых уже указан
-  атрибут stroke со значением 'none')
- */
-:where([stroke]:not([stroke='none'], [stroke^='url'])) {
+///
+//Приводим к единому цвету svg-элементы
+//(за исключением тех, у которых уже указан
+//атрибут stroke со значением 'none')
+//*/
+svg:not([data-static='true']) [stroke]:not([stroke='none'], [stroke^='url']) {
   stroke: currentcolor;
 }
 
@@ -73,3 +86,7 @@ svg * {
 // :focus {
 //   outline: none;
 // }
+
+body[data-scroll-locked='1']:has(> div[data-state="open"]) {
+  overflow: hidden !important;
+}

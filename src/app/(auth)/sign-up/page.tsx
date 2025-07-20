@@ -1,4 +1,4 @@
-import { SignUp } from "@/features/auth/signUp/ui";
+import { SignUp } from "@/features/auth/ui/signUp/ui";
 
 const Page = () => {
   return <SignUp />;

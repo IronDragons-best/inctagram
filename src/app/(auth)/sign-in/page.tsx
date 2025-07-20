@@ -1,9 +1,9 @@
 "use client";
 
-import { Header, Button } from "@irondragons/ui-lib-inctagram";
+import { SignIn } from "@/features/auth/ui/signIn/ui";
 
 const Page = () => {
-  return <Button variant={"primary"}>asdasd</Button>;
+  return <SignIn />;
 };
 
 export default Page;
