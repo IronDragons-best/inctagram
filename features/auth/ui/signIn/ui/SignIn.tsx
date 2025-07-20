@@ -1,5 +1,6 @@
 "use client";
 
+import { useSignInMutation } from "@/features/auth/api/authApi";
 import {
   InputsForm,
   signInSchema,
@@ -12,6 +13,7 @@ import {
   UniversalIcon,
 } from "@irondragons/ui-lib-inctagram";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
 import s from "./signIn.module.scss";
 
@@ -27,8 +29,26 @@ export const SignIn = ({}: Props) => {
     mode: "onBlur",
   });
 
-  const onSubmit: SubmitHandler<InputsForm> = (data) => {
-    console.log(data);
+  const [signInHandler] = useSignInMutation();
+
+  const router = useRouter();
+
+  const onSubmit: SubmitHandler<InputsForm> = async (data) => {
+    try {
+      const response = await signInHandler(data).unwrap();
+
+      const accessToken = response?.accessToken;
+
+      if (!accessToken) {
+        throw new Error("Token not received");
+      }
+
+      localStorage.setItem("accessToken", accessToken);
+
+      router.push("/profile");
+    } catch (error) {
+      console.error("Login error:", error);
+    }
   };
 
   return (

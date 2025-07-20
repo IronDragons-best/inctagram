@@ -5,18 +5,13 @@ export const signInSchema = z.object({
     message: 'The email must be in the format\n Epam@epam.com',
   }),
   password: z
-    .string()
-    .min(6, { message: 'Password must be at least 6 characters' })
-    .max(20, { message: 'Password must not be more than 20 characters' })
-    .regex(/^[\p{L}\d!"#$%&'()*+,\-./:;<=>?@[\\\]^_`{|}~]+$/u, {
-      message: 'Password can only contain allowed characters.',
-    })
-    .refine((value) => /^[A-ZА-Я]/.test(value), {
-      message: 'Password must start with an uppercase letter.',
-    })
-    .refine((value) => /\d/.test(value), {
-      message: 'Password must include at least one digit.',
-    })
+  .string()
+  .min(6, { message: "Minimum number of characters 6" })
+  .max(20, { message: " Maximum number of characters 20" })
+  .regex(
+    /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])[A-Za-z0-9!"#$%&'()*+,\-./:;<=>?@\[\\\]^_`{|}~]+$/,
+    { message: "Password must contain 0-9, a-z, A-Z" },
+  )
 });
 
 export type InputsForm = z.infer<typeof signInSchema>
