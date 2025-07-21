@@ -16,7 +16,7 @@ export const Sidebars = () => {
   
   const handleLogout = () => {
     logoutHandler('').unwrap().then(() => {
-      console.log(router.push('/sign-in'));
+      router.push('/sign-in');
     });
   };
   
