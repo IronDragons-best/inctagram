@@ -1,12 +1,12 @@
+'use client';
 import * as React from "react";
 import { Dialog } from "radix-ui";
-import { Cross2Icon } from "@radix-ui/react-icons";
 import styles from "./authModal.module.scss";
-import { Button, Card, UniversalIcon } from "@irondragons/ui-lib-inctagram";
+import { Button, UniversalIcon } from "@irondragons/ui-lib-inctagram";
 import { ReactNode } from "react";
 
 type Props = {
-  title: string;
+  title?: string;
   description: string;
   openModal: () => void;
   isModalOpen: boolean;
