@@ -3,8 +3,10 @@
 import { EmailConfirmationPage } from "features/auth/ui/emailConfirmationPage";
 import s from "@/src/app/(auth)/password-recovery/passwordRecovery.module.scss";
 import { Button, UniversalIcon } from "@irondragons/ui-lib-inctagram";
+import { useExpiredLinkMutation } from '@/features/auth/api/authApi';
 
 const PasswordRecovery = () => {
+ 
   return (
     <EmailConfirmationPage
       title="Email verification link expired"

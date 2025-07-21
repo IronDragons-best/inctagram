@@ -7,15 +7,22 @@ export const authApi = baseApi.injectEndpoints({
     registration: build.mutation({
       queryFn: async (body: Inputs) => {
         const res = await client.POST("/auth/registration", { body });
-        return { data: res };
+        return { data: res }
       },
     }),
     confirmEmail: build.mutation({
-      query: async (code: string) => {
-        await client.POST("/auth/confirm-email", { body: { code } });
+      queryFn: async (code: string) => {
+        const res = await client.POST("/auth/confirm-email", { body: { code } });
+        return { data: res }
+      },
+    }),
+    expiredLink: build.mutation({
+      queryFn: async (email: string) => {
+        const res = await client.POST("/auth/email-resend", { body: { email } });
+        return { data: res }
       },
     }),
   }),
 });
 
-export const { useRegistrationMutation, useConfirmEmailMutation } = authApi;
+export const { useRegistrationMutation, useConfirmEmailMutation, useExpiredLinkMutation } = authApi;
