@@ -1,6 +1,6 @@
-import { baseApi } from "@/src/app/provider/baseApi";
 import { client } from "@/shared/schemas/types/api/client";
-import { Inputs } from "@/features/auth/ui/signUp/lib/schemas/signUp";
+import { baseApi } from "@/src/app/provider/baseApi";
+import { InputsForm } from "../ui/signIn/lib/schemas/signIn";
 
 export const authApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
@@ -26,12 +26,18 @@ export const authApi = baseApi.injectEndpoints({
         return { data: res };
       },
     }),
-    me: build.query({
-      queryFn: async () => {
-        const res = await client.GET("/auth/me");
-        return { data: res };
+    signIn: build.mutation({
+      queryFn: async (body: InputsForm) => {
+        const res = await client.POST("/auth/login", { body});
+        return {data: res}
       },
     }),
+    logout: build.mutation({
+      queryFn: async () => {
+        const res = await client.POST("/auth/logout")
+        return { data: res }
+      }
+    })
   }),
 });
 
@@ -39,5 +45,6 @@ export const {
   useRegistrationMutation,
   useConfirmEmailMutation,
   useExpiredLinkMutation,
-  useMeQuery,
+  useSignInMutation,
+  useLogoutMutation
 } = authApi;
