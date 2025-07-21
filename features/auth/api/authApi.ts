@@ -26,6 +26,12 @@ export const authApi = baseApi.injectEndpoints({
         return { data: res };
       },
     }),
+    me: build.query({
+      queryFn: async () => {
+        const res = await client.GET("/auth/me");
+        return { data: res };
+      },
+    }),
   }),
 });
 
@@ -33,4 +39,5 @@ export const {
   useRegistrationMutation,
   useConfirmEmailMutation,
   useExpiredLinkMutation,
+  useMeQuery,
 } = authApi;

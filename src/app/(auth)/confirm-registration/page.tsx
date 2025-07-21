@@ -16,13 +16,11 @@ const Page = () => {
   const confirmationCode = queryParams.get("code");
 
   useEffect(() => {
-    debugger;
     if (isLoading) return;
     confirmEmailHandler(confirmationCode!)
       .unwrap()
       .then((res) => {
         const errorMessage = res.error?.errorsMessages[0]?.message;
-        debugger;
         if (
           errorMessage === "Confirmation code is expired" ||
           errorMessage === "Invalid confirmation code"
