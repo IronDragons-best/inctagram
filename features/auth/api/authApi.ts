@@ -18,7 +18,7 @@ export const authApi = baseApi.injectEndpoints({
     signIn: build.mutation({
       queryFn: async (body: InputsForm) => {
         const res = await client.POST("/auth/login", { body});
-        return {data: res.data}
+        return {data: res}
       },
     }),
   }),
