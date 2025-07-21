@@ -8,7 +8,10 @@
         "build:production": "next build",
         "start": "next start",
         "test": "jest --passWithNoTests",
-        "lint": "next lint",
+        "lint": "eslint \"src/**/*.{tsx,ts,jsx,js}\" && stylelint \"src/**/*.{scss,css}\" --allow-empty-input",
+        "lint:fix": "eslint --fix \"src/**/*.{tsx,ts,jsx,js}\" && stylelint --fix \"src/**/*.{scss,css}\" --allow-empty-input",
+        "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json,css,scss,md}\"",
+        "format:check": "prettier --check \"src/**/*.{ts,tsx,js,jsx,json,css,scss,md}\"",
         "generate-api": "pnpm openapi-typescript https://irondragon.site/api/v1-json -o ./shared/schemas/types/api/schema.ts"
     },
     "dependencies": {
@@ -28,7 +31,9 @@
         "zod": "^3.25.74"
     },
     "devDependencies": {
-        "ldrs": "^1.1.7",
+        "@it-incubator/eslint-config": "^1.0.4",
+        "@it-incubator/prettier-config": "^0.1.2",
+        "@it-incubator/stylelint-config": "^2.0.0",
         "@eslint/eslintrc": "^3",
         "@types/node": "^20",
         "@types/react": "^19",
@@ -37,6 +42,7 @@
         "eslint": "^9",
         "eslint-config-next": "15.3.4",
         "jest": "^30.0.2",
+        "ldrs": "^1.1.7",
         "openapi-typescript": "^7.8.0",
         "typescript": "^5"
     }

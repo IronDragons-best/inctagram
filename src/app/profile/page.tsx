@@ -13,9 +13,7 @@
 // export default Profile;
 
 const Profile = async () => {
-  return (
-      <div>Profile page (private)</div>
-  );
+  return <div>Profile page (private)</div>;
 };
 
 export default Profile;
