@@ -68,17 +68,15 @@ export const SignUp = () => {
   // При сабмите формы данные будут улетать на сервер
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     registrationHandler(data).unwrap().then((res) => {
-      const errorMassage = res.error?.errorsMessages[0]?.message
-      const errorField = res.error?.errorsMessages[0]?.field
-      if (errorMassage === 'User with this username is already registered' && errorField === 'username') {
+      const errorField = res.error?.errorsMessages[0]?.field;
+      if (errorField === 'username') {
         setErrorUsernameExist('User with this username is already registered');
-      } else if (errorMassage === 'User with this username is already registered' && errorField === 'email') {
-        setErrorEmailExist('User with this email is already registered')
+      } else if (errorField === 'email') {
+        setErrorEmailExist('User with this email is already registered');
       } else {
         setOpenModal(true);
       }
     });
-    
   };
   
   // TODO: Не забыть поменять ссылки на актуальные, после правок добавить чилдами ссылки на страницы terms и policy
@@ -115,8 +113,8 @@ export const SignUp = () => {
               required
               {...register('username', {
                 onChange: () => {
-                  clearErrors('username')
-                  setErrorUsernameExist('')
+                  clearErrors('username');
+                  setErrorUsernameExist('');
                 },
               })}
             />
@@ -130,8 +128,8 @@ export const SignUp = () => {
               inputType={'email'}
               {...register('email', {
                 onChange: () => {
-                  clearErrors('email')
-                  setErrorEmailExist('')
+                  clearErrors('email');
+                  setErrorEmailExist('');
                 },
               })}
             />
