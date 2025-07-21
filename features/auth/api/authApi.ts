@@ -33,14 +33,19 @@ export const authApi = baseApi.injectEndpoints({
         return {data: res}
       },
     }),
+    logout: build.mutation({
+      queryFn: async () => {
+        const res = await client.POST("/auth/logout")
+        return { data: res }
+      }
+    })
   }),
 });
-
 
 export const {
   useRegistrationMutation,
   useConfirmEmailMutation,
   useExpiredLinkMutation,
-  useSignInMutation
+  useSignInMutation,
+  useLogoutMutation
 } = authApi;
-

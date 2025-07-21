@@ -1,0 +1,10 @@
+@use '../../../src/styles/colors' as *;
+
+
+.logoutButton {
+  color: $light-100;
+}
+
+.modalButton {
+  margin-left: 24px;
+}
