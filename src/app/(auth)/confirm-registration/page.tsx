@@ -5,7 +5,8 @@ import { Button, UniversalIcon } from "@irondragons/ui-lib-inctagram";
 import { EmailConfirmationPage } from "features/auth/ui/emailConfirmationPage";
 import { redirect, useParams, useSearchParams } from "next/navigation";
 import { useConfirmEmailMutation } from "@/features/auth/api/authApi";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { Ring } from 'ldrs/react';
 
 const Page = () => {
   const [isEmailConfirmed, setIsEmailConfirmed] = useState(false);
