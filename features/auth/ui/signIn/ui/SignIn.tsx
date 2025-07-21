@@ -72,9 +72,11 @@ export const SignIn = ({}: Props) => {
             <UniversalIcon name={'github'} width={'36px'} height={'36px'} />
           </Link>
         </div>
-        <div className={s.errorField}>
-          <span>{errorExist}</span>
-        </div>
+        {errorExist &&
+          <div className={s.errorField}>
+            <span>{errorExist}</span>
+          </div>
+        }
         <form onSubmit={handleSubmit(onSubmit)} className={s.form}>
           <div className={s.fieldsWrapper}>
             <Input
