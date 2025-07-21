@@ -15,7 +15,9 @@ export const signUpSchema = z
       .string()
       .min(6, { message: "Minimum number of characters 6" })
       .max(30, { message: " Maximum number of characters 30" })
-      .regex(/^[A-Za-z0-9_-]+$/),
+      .regex(/^[A-Za-z0-9_-]+$/, {
+        message: "Name can only contain 0-9, a-z, A-Z, -, _",
+      }),
     email: z.string().email({
       message: "The email must match the format example@example.com",
     }),
@@ -25,6 +27,10 @@ export const signUpSchema = z
   })
   .refine((data) => data.password === data.passwordConfirmation, {
     message: "Passwords must match",
+    path: ["passwordConfirmation"],
+  })
+  .refine((data) => data.passwordConfirmation !== "", {
+    message: "Shouldn't be empty",
     path: ["passwordConfirmation"],
   });
 
