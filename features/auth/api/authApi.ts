@@ -1,7 +1,7 @@
-import { Inputs } from "@/features/auth/ui/signUp/lib/schemas/signUp";
 import { client } from "@/shared/schemas/types/api/client";
 import { baseApi } from "@/src/app/provider/baseApi";
 import { InputsForm } from "../ui/signIn/lib/schemas/signIn";
+import { Inputs } from "@/features/auth/ui/signUp/lib/schemas/signUp";
 
 export const authApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
@@ -29,16 +29,29 @@ export const authApi = baseApi.injectEndpoints({
     }),
     signIn: build.mutation({
       queryFn: async (body: InputsForm) => {
-        const res = await client.POST("/auth/login", { body});
-        return {data: res}
+        const res = await client.POST("/auth/login", { body });
+        return { data: res };
       },
     }),
     logout: build.mutation({
       queryFn: async () => {
-        const res = await client.POST("/auth/logout")
-        return { data: res }
-      }
-    })
+        const res = await client.POST("/auth/logout");
+        return { data: res };
+      },
+    }),
+    me: build.query<any, void>({
+      queryFn: async () => {
+        const res = await client.GET("/auth/me");
+        debugger;
+        return { data: res };
+      },
+    }),
+    refreshToken: build.mutation({
+      queryFn: async () => {
+        const res = await client.POST("/auth/refresh-token");
+        return { data: res };
+      },
+    }),
   }),
 });
 
@@ -47,5 +60,7 @@ export const {
   useConfirmEmailMutation,
   useExpiredLinkMutation,
   useSignInMutation,
-  useLogoutMutation
+  useLogoutMutation,
+  useMeQuery,
+  useRefreshTokenMutation,
 } = authApi;
