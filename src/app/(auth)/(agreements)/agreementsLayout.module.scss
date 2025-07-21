@@ -7,20 +7,25 @@
 
 .btn {
   @include font.regular-text-14;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  background: transparent;
-  border: none;
-  padding: 0;
+
   cursor: pointer;
-  color: $light-100;
+
+  display: flex;
+  gap: 12px;
+  align-items: center;
+
   margin-bottom: 24px;
+  padding: 0;
+  border: none;
+
+  color: $light-100;
+
+  background: transparent;
 
   .iconWrapper {
+    flex-shrink: 0;
     width: 24px;
     height: 24px;
-    flex-shrink: 0;
 
     svg {
       width: 100%;

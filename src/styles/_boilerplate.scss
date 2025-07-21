@@ -2,9 +2,9 @@
 @use "typography" as *;
 
 html {
+  scrollbar-gutter: stable;
   box-sizing: border-box;
   font-size: 100%;
-  scrollbar-gutter: stable;
 }
 
 /**
@@ -58,19 +58,19 @@ svg {
 }
 
 ///
-//Приводим к единому цвету svg-элементы
-//(за исключением тех, у которых уже указан
-//атрибут fill со значением 'none' или начинается с 'url')
-//*/
+// Приводим к единому цвету svg-элементы
+// (за исключением тех, у которых уже указан
+// атрибут fill со значением 'none' или начинается с 'url')
+// */
 svg:not([data-static="true"]) [fill]:not([fill="none"], [fill^="url"]) {
   fill: currentcolor;
 }
 
 ///
-//Приводим к единому цвету svg-элементы
-//(за исключением тех, у которых уже указан
-//атрибут stroke со значением 'none')
-//*/
+// Приводим к единому цвету svg-элементы
+// (за исключением тех, у которых уже указан
+// атрибут stroke со значением 'none')
+// */
 svg:not([data-static="true"]) [stroke]:not([stroke="none"], [stroke^="url"]) {
   stroke: currentcolor;
 }

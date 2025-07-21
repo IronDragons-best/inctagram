@@ -1,19 +1,22 @@
 .wrapper {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+
   width: 229px;
-  margin-bottom: 36px;
   margin-top: -24px;
+  margin-bottom: 36px;
 }
 
 .inputWrapper {
   display: flex;
   flex-direction: column;
-  text-align: left;
+
   width: 229px;
   margin-bottom: 24px;
+
+  text-align: left;
 }
 
 .iconWrapper {
