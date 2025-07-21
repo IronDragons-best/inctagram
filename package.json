@@ -19,6 +19,7 @@
         "@irondragons/ui-lib-inctagram": "^1.0.7",
         "@radix-ui/react-icons": "^1.3.2",
         "@reduxjs/toolkit": "^2.8.2",
+        "minimatch": "^10.0.3",
         "next": "15.3.4",
         "openapi-fetch": "^0.14.0",
         "radix-ui": "^1.4.2",
