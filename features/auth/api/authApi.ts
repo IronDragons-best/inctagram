@@ -39,9 +39,16 @@ export const authApi = baseApi.injectEndpoints({
         return { data: res };
       },
     }),
-    me: build.query({
+    me: build.query<any, void>({
       queryFn: async () => {
         const res = await client.GET("/auth/me");
+        debugger;
+        return { data: res };
+      },
+    }),
+    refreshToken: build.mutation({
+      queryFn: async () => {
+        const res = await client.POST("/auth/refresh-token");
         return { data: res };
       },
     }),
@@ -55,4 +62,5 @@ export const {
   useSignInMutation,
   useLogoutMutation,
   useMeQuery,
+  useRefreshTokenMutation,
 } = authApi;

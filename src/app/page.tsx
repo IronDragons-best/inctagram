@@ -1,22 +1,26 @@
 "use client";
 
-import { useMeQuery } from "@/features/auth/api/authApi";
+import {
+  useMeQuery,
+  useRefreshTokenMutation,
+} from "@/features/auth/api/authApi";
 import { useEffect, useState } from "react";
 import { Ring } from "ldrs/react";
 import "ldrs/react/Ring.css";
-import { redirect } from "next/navigation";
 
 // TODO: при создании глобального стейта всего приложения сетать настройки для header
 export default function Home() {
   const [isUserDetected, setIsUserDetected] = useState(false);
-  const { data, isLoading, isError, isSuccess } = useMeQuery("");
+  const [refreshTokenHandler] = useRefreshTokenMutation();
+  const { data, isLoading, isError } = useMeQuery();
 
   useEffect(() => {
     if (isLoading) return;
-    setIsUserDetected(true);
-    if (isSuccess) {
-      redirect("/profile");
+    if (data.response.status === 401) {
+      refreshTokenHandler("");
     }
+    setIsUserDetected(true);
+    console.log(data);
   }, [data, isError]);
 
   if (!isUserDetected) {
