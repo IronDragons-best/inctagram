@@ -1,16 +1,14 @@
 "use client";
 
-import { Alert, Button } from "@irondragons/ui-lib-inctagram";
+import { Header } from '@/widgets/header';
 
 export default function Home() {
   return (
     <>
-      <Button variant="primary" fullWidth={false}>
-        btn
-      </Button>
-      <Alert closable={true} variant={"success"}>
-        "ЕЛИСЕЙ!"
-      </Alert>
+      <Header isAuth={false} isProcessingAuth={true} localization={"eng"} />
+      <div>
+        Тут будут красивые карточки, но не сегодня
+      </div>
     </>
   );
 }
