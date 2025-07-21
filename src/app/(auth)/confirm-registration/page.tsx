@@ -1,22 +1,50 @@
 "use client";
 
-import s from "@/src/app/(auth)/confirm-registration/congratulations.module.scss";
+import s from "./congratulations.module.scss";
 import { Button, UniversalIcon } from "@irondragons/ui-lib-inctagram";
 import { EmailConfirmationPage } from "features/auth/ui/emailConfirmationPage";
-import { redirect, useParams, useSearchParams } from "next/navigation";
+import { redirect, useSearchParams } from "next/navigation";
 import { useConfirmEmailMutation } from "@/features/auth/api/authApi";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { Ring } from "ldrs/react";
+import "ldrs/react/Ring.css";
 
 const Page = () => {
-  const [confirmEmailHandler] = useConfirmEmailMutation();
+  const [isEmailConfirmed, setIsEmailConfirmed] = useState(false);
+  const [confirmEmailHandler, { isLoading }] = useConfirmEmailMutation();
   const queryParams = useSearchParams();
   const confirmationCode = queryParams.get("code");
 
-  // TODO: при разбиении кода, на бэке, сделать обработчик ошибок и редирект
-
   useEffect(() => {
-    confirmEmailHandler(confirmationCode!).unwrap().then(console.log);
-  }, []);
+    debugger;
+    if (isLoading) return;
+    confirmEmailHandler(confirmationCode!)
+      .unwrap()
+      .then((res) => {
+        const errorMessage = res.error?.errorsMessages[0]?.message;
+        debugger;
+        if (
+          errorMessage === "Confirmation code is expired" ||
+          errorMessage === "Invalid confirmation code"
+        ) {
+          redirect("/expired-link");
+        } else if (errorMessage === "Email is already confirmed") {
+          redirect("/sign-in");
+        } else if (
+          errorMessage === "Invalid confirmation code" ||
+          errorMessage === "User does not exist" ||
+          errorMessage === "code should not be empty"
+        ) {
+          redirect("/sign-up");
+        } else {
+          setIsEmailConfirmed(true);
+        }
+      });
+  }, [isEmailConfirmed]);
+
+  if (!isEmailConfirmed) {
+    return <Ring size="40" stroke="5" bgOpacity="0" speed="2" color="white" />;
+  }
 
   return (
     <EmailConfirmationPage
