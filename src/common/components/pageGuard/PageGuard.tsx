@@ -7,7 +7,6 @@ type Props = {
   children: ReactNode;
 };
 
-export const PageGuard = ({ isAuthenticated, children }: Props) => {
-
+export const PageGuard = ({ children }: Props) => {
   return <>{children}</>;
 };

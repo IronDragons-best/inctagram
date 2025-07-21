@@ -30,11 +30,14 @@
 .fieldsWrapper {
   display: flex;
   flex-direction: column;
-  margin-bottom: 21px;
 }
 
 .fieldsWrapper > div {
   margin-bottom: 24px;
+}
+
+.fieldsWrapper > div:last-child {
+  margin-bottom: 21px;
 }
 
 .fieldsWrapper > div:has([data-errortext="true"]) {

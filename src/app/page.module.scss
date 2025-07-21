@@ -1,4 +1,4 @@
-@use 'src/styles/utils' as *;
+@use "src/styles/utils" as *;
 
 .rootLayout {
   @include rootContainer;

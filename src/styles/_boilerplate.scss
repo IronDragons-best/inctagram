@@ -1,5 +1,5 @@
-@use 'colors' as *;
-@use 'typography' as *;
+@use "colors" as *;
+@use "typography" as *;
 
 html {
   box-sizing: border-box;
@@ -62,7 +62,7 @@ svg {
 //(за исключением тех, у которых уже указан
 //атрибут fill со значением 'none' или начинается с 'url')
 //*/
-svg:not([data-static='true']) [fill]:not([fill='none'], [fill^='url']) {
+svg:not([data-static="true"]) [fill]:not([fill="none"], [fill^="url"]) {
   fill: currentcolor;
 }
 
@@ -71,7 +71,7 @@ svg:not([data-static='true']) [fill]:not([fill='none'], [fill^='url']) {
 //(за исключением тех, у которых уже указан
 //атрибут stroke со значением 'none')
 //*/
-svg:not([data-static='true']) [stroke]:not([stroke='none'], [stroke^='url']) {
+svg:not([data-static="true"]) [stroke]:not([stroke="none"], [stroke^="url"]) {
   stroke: currentcolor;
 }
 
@@ -87,6 +87,6 @@ svg * {
 //   outline: none;
 // }
 
-body[data-scroll-locked='1']:has(> div[data-state="open"]) {
+body[data-scroll-locked="1"]:has(> div[data-state="open"]) {
   overflow: hidden !important;
 }
