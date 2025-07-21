@@ -1,7 +1,8 @@
-'use client';
+"use client";
 
-import s from './emailConfirmationPage.module.scss';
-import { ReactElement } from 'react';
+import s from "./emailConfirmationPage.module.scss";
+import { ReactElement, useEffect } from "react";
+import { Ring } from "ldrs/react";
 
 type Props = {
   title: string;
@@ -10,11 +11,11 @@ type Props = {
 };
 
 export const EmailConfirmationPage = ({
-                                        children,
-                                        description,
-                                        title,
-                                        ...rest
-                                      }: Props) => {
+  children,
+  description,
+  title,
+  ...rest
+}: Props) => {
   return (
     <div className={s.wrapper} {...rest}>
       <div className={s.content}>

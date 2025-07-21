@@ -13,9 +13,10 @@
     },
     "dependencies": {
         "@hookform/resolvers": "^5.1.1",
-        "@irondragons/ui-lib-inctagram": "^1.0.4",
+        "@irondragons/ui-lib-inctagram": "^1.0.5",
         "@radix-ui/react-icons": "^1.3.2",
         "@reduxjs/toolkit": "^2.8.2",
+        "ldrs": "^1.1.7",
         "next": "15.3.4",
         "openapi-fetch": "^0.14.0",
         "radix-ui": "^1.4.2",
