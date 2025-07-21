@@ -17,7 +17,6 @@ const Page = () => {
 
   useEffect(() => {
     if (isLoading) return;
-    setIsEmailConfirmed(true);
     confirmEmailHandler(confirmationCode!)
       .unwrap()
       .then((res) => {
@@ -29,8 +28,13 @@ const Page = () => {
           redirect("/expired-link");
         } else if (errorMessage === "Email is already confirmed") {
           redirect("/sign-in");
-        } else if (errorMessage === "Invalid confirmation code") {
+        } else if (
+          errorMessage === "Invalid confirmation code" ||
+          errorMessage === "User does not exist"
+        ) {
           redirect("/sign-up");
+        } else {
+          setIsEmailConfirmed(true);
         }
       });
   }, [isEmailConfirmed]);
