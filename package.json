@@ -12,7 +12,7 @@
         "lint:fix": "eslint --fix \"src/**/*.{tsx,ts,jsx,js}\" && stylelint --fix \"src/**/*.{scss,css}\" --allow-empty-input",
         "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json,css,scss,md}\"",
         "format:check": "prettier --check \"src/**/*.{ts,tsx,js,jsx,json,css,scss,md}\"",
-        "generate-api": "pnpm openapi-typescript https://irondragon.site/api/v1-json -o ./shared/schemas/types/api/schema.ts"
+        "generate-api": "pnpm openapi-typescript https://irondragon.site -o ./shared/schemas/types/api/schema.ts"
     },
     "dependencies": {
         "@hookform/resolvers": "^5.1.1",
