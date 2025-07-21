@@ -1,18 +1,17 @@
 @use '../../../../../src/styles/fonts' as font;
 @use '../../../../../src/styles/colors' as color;
 
-.card {
-    background-color: transparent;
-    padding: 32px;
-    border-radius: 1px;
-    color: color.$light-100;
-}
-
 .formWrapper {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background-color: transparent;
+    padding: 32px;
+    border-radius: 1px;
+    color: color.$light-100;
+    padding: 0;
+    width: 328px;
 }
 
 .title {
@@ -33,16 +32,36 @@
     width: 100%;
 }
 
+// .fieldsWrapper {
+//     display: flex;
+//     flex-direction: column;
+//     // margin-bottom: 21px;
+// }
+
+// .fieldsWrapper>div {
+//     margin-bottom: 24px;
+// }
+
+// .fieldsWrapper>div:has([data-errortext="true"]) {
+//     margin-bottom: 0;
+// }
 .fieldsWrapper {
     display: flex;
     flex-direction: column;
-    row-gap: 24px;
-    margin-bottom: 12px;
-}
+  }
+  
+  .fieldsWrapper > div {
+    margin-bottom: 24px;
+  }
+  
+//   .fieldsWrapper > div:last-child {
+//     margin-bottom: 36px;
+//   }
+  
+  .fieldsWrapper > div:has([data-errortext="true"]) {
+    margin-bottom: 0;
+  }
 
-.passwordField {
-    position: relative;
-}
 
 .links {
     display: flex;
@@ -57,25 +76,21 @@
     color: color.$light-900;
     transition: color 0.2s;
     justify-content: right;
-    padding-top: 15px;
-}
-
-.signInBtn {
-    margin-top: 1rem;
+    padding-bottom: 15px;
 }
 
 .bottomText {
     margin-top: 1rem;
     text-align: center;
     color: color.$accent-500;
-
 }
+
 .bottomText p {
     color: color.$light-100;
-
 }
+
 .signUpLink {
     @include font.h3;
-    transition: color 0.2s;  
-    padding-top: 10px;
+    transition: color 0.2s;
+    padding-top: 12px;
 }

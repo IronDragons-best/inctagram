@@ -22,13 +22,13 @@ type Props = {};
 export const SignIn = ({}: Props) => {
   const {
     register,
+    clearErrors,
     handleSubmit,
-    formState: { errors },
+    formState: { isValid, errors },
   } = useForm<InputsForm>({
     resolver: zodResolver(signInSchema),
     mode: "onBlur",
   });
-
   const [signInHandler] = useSignInMutation();
 
   const router = useRouter();
@@ -36,15 +36,11 @@ export const SignIn = ({}: Props) => {
   const onSubmit: SubmitHandler<InputsForm> = async (data) => {
     try {
       const response = await signInHandler(data).unwrap();
-
       const accessToken = response?.accessToken;
-
       if (!accessToken) {
         throw new Error("Token not received");
       }
-
       localStorage.setItem("accessToken", accessToken);
-
       router.push("/profile");
     } catch (error) {
       console.error("Login error:", error);
@@ -77,37 +73,41 @@ export const SignIn = ({}: Props) => {
               placeholder={"Epam@epam.com"}
               inputType={"email"}
               errorText={errors.email?.message}
-              {...register("email")}
+              fullWidth={true}
+              {...register("email", {
+                onChange: () => clearErrors("email"),
+              })}
             />
 
-            <div className={s.passwordField}>
-              <Input
-                label={"Password"}
-                id={"password"}
-                placeholder={"••••••••••••••"}
-                inputType={"password"}
-                errorText={errors.password?.message}
-                {...register("password")}
-              />
-            </div>
-          </div>
-          <div className={s.links}>
-            <Link className={s.forgotLink} href="/forgot-password">
-              Forgot Password
-            </Link>
+            <Input
+              label={"Password"}
+              id={"password"}
+              placeholder={"••••••••••••••"}
+              inputType={"password"}
+              errorText={errors.password?.message}
+              fullWidth={true}
+              {...register("password", {
+                onChange: () => clearErrors("password"),
+              })}
+            />
           </div>
 
-          <Button variant="primary" fullWidth className={s.signInBtn}>
+          <div className={s.forgotLink}>
+            <Link  href="/forgot-password">Forgot Password</Link>
+          </div>
+
+          <Button variant="primary" fullWidth={true} disabled={!isValid}>
             Sign In
           </Button>
+          <div className={s.bottomText}>
+            <div>
+              <p>Don’t have an account?</p>
+            </div>
+            <div className={s.signUpLink}>
+              <Link href="/sign-up">Sign Up</Link>
+            </div>
+          </div>
         </form>
-        <div className={s.bottomText}>
-          <p>Don’t have an account?</p>
-
-          <Link className={s.signUpLink} href="/sign-up">
-            Sign Up
-          </Link>
-        </div>
       </div>
     </Card>
   );
