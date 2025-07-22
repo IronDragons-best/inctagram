@@ -19,15 +19,16 @@ import {
 } from "@/features/auth/ui/signUp/lib/schemas/signUp";
 import { AuthModal } from "@/shared/authModal/ui/AuthModal";
 import { useRegistrationMutation } from "@/features/auth/api/authApi";
+import { PATH } from "@/shared/constants/path";
 
 const Label = (
   <span className={s.conditions}>
     I agree to the&nbsp;
-    <Link href="/terms-of-service" className="small-link">
+    <Link href={PATH.terms_of_service} className="small-link">
       Terms of Service
     </Link>
     &nbsp;and&nbsp;
-    <Link href="/privacy-policy" className="small-link">
+    <Link href={PATH.privacy_policy} className="small-link">
       Privacy Policy
     </Link>
   </span>
@@ -192,7 +193,7 @@ export const SignUp = () => {
           <div className={s.switchToSignIn}>
             <p>Do you have an account?</p>
 
-            <Link href={"/sign-in"}>Sign In</Link>
+            <Link href={PATH.sign_in}>Sign In</Link>
           </div>
         </form>
       </div>
