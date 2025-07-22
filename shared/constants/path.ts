@@ -1,0 +1,16 @@
+export const PATH = {
+  home: "/",
+  profile: "/profile",
+  user_profile: "/profile/:userid",
+  confirm_registration: "/confirm-registration",
+  create_new_password: "/create-new-password",
+  expired_link: "/expired-link",
+  forgot_password: "/forgot-password",
+  password_recovery: "/password-recovery",
+  sign_in: "/sign-in",
+  sign_up: "/sign-up",
+  privacy_policy: "/privacy-policy",
+  terms_of_service: "/terms-of-service",
+  settings: "/settings",
+  public_authorize_user: "/public-authorized-user",
+};

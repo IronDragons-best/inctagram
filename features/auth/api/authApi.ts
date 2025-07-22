@@ -27,7 +27,7 @@ export const authApi = baseApi.injectEndpoints({
             };
           }
 
-          return { data: res.data };
+          return { data: res.response.status };
         } catch (e) {
           return {
             error: {

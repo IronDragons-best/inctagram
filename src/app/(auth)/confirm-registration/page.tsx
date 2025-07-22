@@ -11,14 +11,16 @@ import "ldrs/react/Ring.css";
 
 const Page = () => {
   const [isEmailConfirmed, setIsEmailConfirmed] = useState(false);
-  const [confirmEmailHandler, { isLoading }] = useConfirmEmailMutation();
+  const [confirmEmailHandler] = useConfirmEmailMutation();
   const queryParams = useSearchParams();
   const confirmationCode = queryParams.get("code");
 
   useEffect(() => {
-    if (isLoading) return;
     confirmEmailHandler(confirmationCode!)
       .unwrap()
+      .then(() => {
+        setIsEmailConfirmed(true);
+      })
       .catch((res) => {
         const errorMessage = res.data[0].message;
         if (
@@ -29,16 +31,13 @@ const Page = () => {
         } else if (errorMessage === "Email is already confirmed") {
           redirect("/sign-in");
         } else if (
-          errorMessage === "Invalid confirmation code" ||
           errorMessage === "User does not exist" ||
           errorMessage === "code should not be empty"
         ) {
           redirect("/sign-up");
-        } else {
-          setIsEmailConfirmed(true);
         }
       });
-  }, [isEmailConfirmed]);
+  }, []);
 
   if (!isEmailConfirmed) {
     return <Ring size="40" stroke="5" bgOpacity="0" speed="2" color="white" />;
