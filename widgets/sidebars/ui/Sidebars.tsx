@@ -18,10 +18,11 @@ export const Sidebars = () => {
     logoutHandler("")
       .unwrap()
       .then(() => {
+        localStorage.removeItem("accessToken");
         router.push("/sign-in");
       });
   };
-  // TODO удалять из ls токен
+
   return (
     <>
       <div>
