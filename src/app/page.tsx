@@ -1,16 +1,22 @@
 "use client";
 
-import { Alert, Button } from "@irondragons/ui-lib-inctagram";
+import { useMeQuery } from "@/features/auth/api/authApi";
+import { useEffect, useState } from "react";
+import { Ring } from "ldrs/react";
+import "ldrs/react/Ring.css";
 
+// TODO: при создании глобального стейта всего приложения сетать настройки для header
 export default function Home() {
-  return (
-    <>
-      <Button variant="primary" fullWidth={false}>
-        btn
-      </Button>
-      <Alert closable={true} variant={"success"}>
-        "ЕЛИСЕЙ!"
-      </Alert>
-    </>
-  );
+  const [isUserDetected, setIsUserDetected] = useState(false);
+  const { data, isLoading, isError } = useMeQuery();
+
+  useEffect(() => {
+    if (isLoading) return;
+  }, [data, isError]);
+
+  if (!isUserDetected) {
+    return <Ring size="40" stroke="5" bgOpacity="0" speed="2" color="white" />;
+  }
+
+  return <></>;
 }

@@ -15,7 +15,7 @@ import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Inputs,
-  signUpSchema,
+  signUpValidationSchema,
 } from "@/features/auth/ui/signUp/lib/schemas/signUp";
 import { AuthModal } from "@/shared/authModal/ui/AuthModal";
 import { useRegistrationMutation } from "@/features/auth/api/authApi";
@@ -35,6 +35,8 @@ const Label = (
 
 export const SignUp = () => {
   const [openModal, setOpenModal] = useState(false);
+  const [errorUsernameExist, setErrorUsernameExist] = useState("");
+  const [errorEmailExist, setErrorEmailExist] = useState("");
   const [registrationHandler] = useRegistrationMutation();
 
   const resetFormFields = () => {
@@ -49,10 +51,11 @@ export const SignUp = () => {
     clearErrors,
     reset,
     watch,
+    setError,
     formState: { isDirty, isValid, errors },
   } = useForm<Inputs>({
     defaultValues: { agreeToTerms: false },
-    resolver: zodResolver(signUpSchema),
+    resolver: zodResolver(signUpValidationSchema),
     mode: "onBlur",
   });
 
@@ -63,10 +66,23 @@ export const SignUp = () => {
   // Проверяет валидны ли поля формы и заполнены ли они
   const isSubmitDisabled = !isDirty || !isValid;
 
+  // TODO: поменять сет ошибок на setError убрать fullWidth={true}, сделать общий const для PATH
   // При сабмите формы данные будут улетать на сервер
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    registrationHandler(data);
-    setOpenModal(true);
+    registrationHandler(data)
+      .unwrap()
+      .then((res) => {
+        const errorField = res.error?.errorsMessages[0]?.field;
+        if (errorField === "username") {
+          setErrorUsernameExist(
+            "User with this username is already registered",
+          );
+        } else if (errorField === "email") {
+          setErrorEmailExist("User with this email is already registered");
+        } else {
+          setOpenModal(true);
+        }
+      });
   };
 
   // TODO: Не забыть поменять ссылки на актуальные, после правок добавить чилдами ссылки на страницы terms и policy
@@ -94,28 +110,37 @@ export const SignUp = () => {
         <form onSubmit={handleSubmit(onSubmit)} className={s.form}>
           <div className={s.fieldsWrapper}>
             <Input
+              fullWidth={true}
               inputType={"text"}
               label={"Username"}
               id={"username"}
-              errorText={errors.username?.message}
+              errorText={errors.username?.message || errorUsernameExist}
               placeholder={"Enter your name"}
               required
               {...register("username", {
-                onChange: () => clearErrors("username"),
+                onChange: () => {
+                  clearErrors("username");
+                  setErrorUsernameExist(""); // потом удалить
+                },
               })}
             />
             <Input
+              fullWidth={true}
               required
               label={"Email"}
-              errorText={errors.email?.message}
+              errorText={errors.email?.message || errorEmailExist}
               placeholder={"example@example.com"}
               id={"email"}
               inputType={"email"}
               {...register("email", {
-                onChange: () => clearErrors("email"),
+                onChange: () => {
+                  clearErrors("email");
+                  setErrorEmailExist(""); // потом удалить
+                },
               })}
             />
             <Input
+              fullWidth={true}
               required
               errorText={errors.password?.message}
               id={"password"}
@@ -127,6 +152,7 @@ export const SignUp = () => {
               })}
             />
             <Input
+              fullWidth={true}
               required
               id={"passwordConfirmation"}
               errorText={errors.passwordConfirmation?.message}
