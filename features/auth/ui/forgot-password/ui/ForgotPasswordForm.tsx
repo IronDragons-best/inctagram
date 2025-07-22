@@ -1,64 +1,64 @@
-"use client";
+'use client';
 
-import { RECAPTCHA_SITE_KEY } from "@/shared/config/recaptcha";
-import { Button, Card, Input } from "@irondragons/ui-lib-inctagram";
-import * as React from "react";
-import { useState } from "react";
-import s from "./ForgotPasswordForm.module.scss";
-import Link from "next/link";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { RECAPTCHA_SITE_KEY } from '@/shared/config/recaptcha';
+import { Button, Card, Input } from '@irondragons/ui-lib-inctagram';
+import * as React from 'react';
+import { useState } from 'react';
+import s from './ForgotPasswordForm.module.scss';
+import Link from 'next/link';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 import {
   forgotPasswordFormSchema,
   InputForm,
-} from "@/features/auth/ui/forgot-password/lib/schemas/forgotPasswordForm";
-import ReCAPTCHA from "react-google-recaptcha";
+} from '@/features/auth/ui/forgot-password/lib/schemas/forgotPasswordForm';
+import ReCAPTCHA from 'react-google-recaptcha';
+import { useReCaptchaMutation } from '@/features/auth/api/authApi';
 
 export const ForgotPasswordForm = () => {
-  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
-  const [isCaptchaPassed, setIsCaptchaPassed] = useState(false);
   const [isLinkSent, setIsLinkSent] = useState(false);
-
-  const handleCaptcha = (token: string | null) => {
-    setCaptchaToken(token);
-    setIsCaptchaPassed(true);
-  };
+  const [reCaptchaMut] = useReCaptchaMutation();
+  
   const {
     register,
     handleSubmit,
+    control,
     reset,
     formState: { errors, isDirty, isValid },
   } = useForm<InputForm>({
     resolver: zodResolver(forgotPasswordFormSchema),
-    mode: "onChange",
+    mode: 'onChange',
   });
-
+  
   const onSubmit: SubmitHandler<InputForm> = async (data) => {
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-
+    console.log(data);
+    reCaptchaMut(data).unwrap().then(
+      (res) => {
+        return res
+      },
+    );
+    
     setIsLinkSent(true);
     reset();
-    console.log("Имитация отправки письма на:", data.email);
-    console.log("Captcha token:", captchaToken);
   };
-
+  
   return (
     <Card>
       <form className={s.forgotPassForm} onSubmit={handleSubmit(onSubmit)}>
         <div className={s.forgotPassForm__container}>
           <h1 className={s.forgotPassForm__title}>Forgot Password</h1>
           <Input
-            id={"email"}
-            inputType={"email"}
-            label={"Email"}
+            id={'email'}
+            inputType={'email'}
+            label={'Email'}
             placeholder="Epam@epam.com"
             fullWidth={true}
             errorText={errors.email?.message}
             required
-            {...register("email")}
+            {...register('email')}
           />
           <p className={s.forgotPassForm__descr}>
-            Enter your email address and we will send you further instructions{" "}
+            Enter your email address and we will send you further instructions{' '}
           </p>
           {isLinkSent && (
             <div className={s.forgotPassForm__info}>
@@ -70,20 +70,25 @@ export const ForgotPasswordForm = () => {
             className={s.forgotPassForm__sendLink}
             fullWidth={true}
             type="submit"
-            disabled={!isCaptchaPassed || !isDirty || !isValid}
+            disabled={!isDirty || !isValid}
           >
-            {isLinkSent ? "Send Link Again" : "Send Link"}
+            {isLinkSent ? 'Send Link Again' : 'Send Link'}
           </Button>
-          <Link href={"/public"} className={s.forgotPassForm__backSignIn}>
+          <Link href={'/public'} className={s.forgotPassForm__backSignIn}>
             Back to Sign In
           </Link>
-          {!isLinkSent && (
-            <ReCAPTCHA
-              sitekey={RECAPTCHA_SITE_KEY}
-              onChange={handleCaptcha}
-              theme={"dark"}
-            ></ReCAPTCHA>
-          )}
+          <Controller
+            name="captchaToken"
+            control={control}
+            rules={{ required: true }}
+            render={({ field: {onChange} }) => (
+              <ReCAPTCHA
+                sitekey={RECAPTCHA_SITE_KEY}
+                onChange={onChange}
+                theme={'dark'}
+              ></ReCAPTCHA>
+            )}
+          />
         </div>
       </form>
     </Card>
