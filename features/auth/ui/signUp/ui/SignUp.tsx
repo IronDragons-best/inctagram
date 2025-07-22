@@ -51,6 +51,7 @@ export const SignUp = () => {
     clearErrors,
     reset,
     watch,
+    setError,
     formState: { isDirty, isValid, errors },
   } = useForm<Inputs>({
     defaultValues: { agreeToTerms: false },
@@ -65,6 +66,7 @@ export const SignUp = () => {
   // Проверяет валидны ли поля формы и заполнены ли они
   const isSubmitDisabled = !isDirty || !isValid;
 
+  // TODO: поменять сет ошибок на setError убрать fullWidth={true}, сделать общий const для PATH
   // При сабмите формы данные будут улетать на сервер
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     registrationHandler(data)
@@ -118,7 +120,7 @@ export const SignUp = () => {
               {...register("username", {
                 onChange: () => {
                   clearErrors("username");
-                  setErrorUsernameExist("");
+                  setErrorUsernameExist(""); // потом удалить
                 },
               })}
             />
@@ -133,7 +135,7 @@ export const SignUp = () => {
               {...register("email", {
                 onChange: () => {
                   clearErrors("email");
-                  setErrorEmailExist("");
+                  setErrorEmailExist(""); // потом удалить
                 },
               })}
             />

@@ -13,10 +13,32 @@ export const authApi = baseApi.injectEndpoints({
     }),
     confirmEmail: build.mutation({
       queryFn: async (code: string) => {
-        const res = await client.POST("/auth/confirm-email", {
-          body: { code },
-        });
-        return { data: res };
+        try {
+          const res = await client.POST("/auth/confirm-email", {
+            body: { code },
+          });
+
+          if (res.error) {
+            return {
+              error: {
+                status: res.response.status,
+                data: res.error.errorsMessages,
+              },
+            };
+          }
+
+          return { data: res.data };
+        } catch (e) {
+          return {
+            error: {
+              status: 500,
+              data: {
+                message: "Unknown error occurred",
+                details: e instanceof Error ? e.message : String(e),
+              },
+            },
+          };
+        }
       },
     }),
     expiredLink: build.mutation({

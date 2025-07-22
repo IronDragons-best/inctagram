@@ -19,8 +19,8 @@ const Page = () => {
     if (isLoading) return;
     confirmEmailHandler(confirmationCode!)
       .unwrap()
-      .then((res) => {
-        const errorMessage = res.error?.errorsMessages[0]?.message;
+      .catch((res) => {
+        const errorMessage = res.data[0].message;
         if (
           errorMessage === "Confirmation code is expired" ||
           errorMessage === "Invalid confirmation code"

@@ -206,6 +206,86 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/auth/google": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Initiate Google OAuth authentication
+         * @description Redirects user to Google OAuth authorization page. Frontend should redirect user to this endpoint via window.location.href or <a> tag.
+         */
+        get: operations["AuthController_googleAuth"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/auth/github": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Initiate GitHub OAuth authentication
+         * @description Redirects user to GitHub OAuth authorization page. Frontend should redirect user to this endpoint via window.location.href or <a> tag.
+         */
+        get: operations["AuthController_githubAuth"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/auth/google/callback": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Google OAuth callback handler
+         * @description Internal callback endpoint. Called automatically by Google after user authorization. Do not call manually.
+         */
+        get: operations["AuthController_googleAuthRedirect"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/auth/github/callback": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * GitHub OAuth callback handler
+         * @description Internal callback endpoint. Called automatically by GitHub after user authorization. Do not call manually.
+         */
+        get: operations["AuthController_githubAuthRedirect"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/devices": {
         parameters: {
             query?: never;
@@ -349,6 +429,18 @@ export interface components {
             email: string;
             isConfirmed: boolean;
         };
+        PasswordRecoveryInputDto: {
+            /**
+             * @description Email address of the user requesting password recovery
+             * @example example@gmail.com
+             */
+            email: string;
+            /**
+             * @description Captcha token to verify the request
+             * @example captcha-token-12345
+             */
+            captchaToken: string;
+        };
         NewPasswordInputDto: {
             /**
              * @description New password for the user. Must be 6-20 characters long, include at least one uppercase letter, one lowercase letter, one digit, and one special character.
@@ -361,6 +453,7 @@ export interface components {
              */
             recoveryCode: string;
         };
+        TokenResponseDto: Record<string, never>;
         DeviceViewDto: {
             /**
              * @description Unique identifier of the device.
@@ -550,7 +643,7 @@ export interface operations {
                 };
                 content?: never;
             };
-            /** @description The inputModel has incorrect values */
+            /** @description Invalid input or username/email already taken */
             400: {
                 headers: {
                     [name: string]: unknown;
@@ -598,7 +691,7 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponseDto"];
                 };
             };
-            /** @description More than 2 attempts from one IP-address during 10 seconds */
+            /** @description More than 5 attempts from one IP-address during 10 seconds */
             429: {
                 headers: {
                     [name: string]: unknown;
@@ -645,6 +738,13 @@ export interface operations {
                 content: {
                     "application/json": components["schemas"]["WithoutFieldErrorResponseDto"];
                 };
+            };
+            /** @description More than 5 attempts from one IP-address during 10 seconds */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
             };
         };
     };
@@ -715,6 +815,13 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponseDto"];
                 };
             };
+            /** @description More than 5 attempts from one IP-address during 10 seconds */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
         };
     };
     AuthController_logout: {
@@ -751,6 +858,13 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponseDto"];
                 };
             };
+            /** @description More than 5 attempts from one IP-address during 10 seconds */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
         };
     };
     AuthController_getMe: {
@@ -785,6 +899,13 @@ export interface operations {
                 };
                 content?: never;
             };
+            /** @description More than 5 attempts from one IP-address during 10 seconds */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
         };
     };
     AuthController_passwordRecovery: {
@@ -796,7 +917,7 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/json": components["schemas"]["EmailResendInputDto"];
+                "application/json": components["schemas"]["PasswordRecoveryInputDto"];
             };
         };
         responses: {
@@ -816,6 +937,13 @@ export interface operations {
             };
             /** @description User not found */
             404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description More than 5 attempts from one IP-address during 10 seconds */
+            429: {
                 headers: {
                     [name: string]: unknown;
                 };
@@ -856,6 +984,171 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content?: never;
+            };
+            /** @description More than 5 attempts from one IP-address during 10 seconds */
+            429: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    AuthController_googleAuth: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successfully redirects to Google OAuth authorization page */
+            307: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Invalid OAuth parameters or missing configuration */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponseDto"];
+                };
+            };
+        };
+    };
+    AuthController_githubAuth: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successfully redirects to GitHub OAuth authorization page */
+            307: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Invalid OAuth parameters or missing configuration */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponseDto"];
+                };
+            };
+        };
+    };
+    AuthController_googleAuthRedirect: {
+        parameters: {
+            query: {
+                /** @description Authorization code from Google */
+                code: string;
+                /** @description State parameter for security */
+                state?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Authentication successful, returns tokens */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TokenResponseDto"];
+                };
+            };
+            /** @description Invalid authorization code from Google or OAuth parameters error */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponseDto"];
+                };
+            };
+            /** @description Google OAuth authentication failed or invalid Google user data */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponseDto"];
+                };
+            };
+            /** @description User not found during login process */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponseDto"];
+                };
+            };
+        };
+    };
+    AuthController_githubAuthRedirect: {
+        parameters: {
+            query: {
+                /** @description Authorization code from GitHub */
+                code: string;
+                /** @description State parameter for security */
+                state?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Authentication successful, returns tokens */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["TokenResponseDto"];
+                };
+            };
+            /** @description Invalid authorization code from GitHub or OAuth parameters error */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponseDto"];
+                };
+            };
+            /** @description GitHub OAuth authentication failed or invalid GitHub user data */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponseDto"];
+                };
+            };
+            /** @description User not found during login process */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponseDto"];
+                };
             };
         };
     };
