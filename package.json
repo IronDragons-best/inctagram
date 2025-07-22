@@ -3,7 +3,8 @@
     "version": "0.1.0",
     "private": true,
     "scripts": {
-        "dev": "next dev",
+        "dev": "next dev --https --key=localhost-key.pem --cert=localhost.pem",
+        "dev:https": "next dev --experimental-https --experimental-https-key ./localhost-key.pem --experimental-https-cert ./localhost.pem",
         "build": "next build",
         "build:production": "next build",
         "start": "next start",

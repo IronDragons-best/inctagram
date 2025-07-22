@@ -68,7 +68,7 @@ export const authApi = baseApi.injectEndpoints({
         return { data: res };
       },
     }),
-    refreshToken: build.mutation({
+    refreshToken: build.mutation<any, void>({
       queryFn: async () => {
         const res = await client.POST("/auth/refresh-token");
         return { data: res };

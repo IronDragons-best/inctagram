@@ -1,5 +1,11 @@
+import { SettingsPage } from "@/features/auth/ui/setting/ui";
+
 const Settings = () => {
-  return <div>Settings page</div>;
+  return (
+    <div>
+      <SettingsPage />
+    </div>
+  );
 };
 
 export default Settings;
