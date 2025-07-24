@@ -1,4 +1,4 @@
-import { CreateNewPasswordForm } from "@/features/auth/ui/create-new-password/ui/CreateNewPasswordForm";
+import { CreateNewPasswordForm } from "@/features/auth/pages/create-new-password/pages/CreateNewPasswordForm";
 
 const Page = () => {
   return <CreateNewPasswordForm />;

@@ -1,5 +1,11 @@
+import { SettingsPage } from "@/features/auth/pages/setting/pages";
+
 const Settings = () => {
-  return <div>Settings page</div>;
+  return (
+    <div>
+      <SettingsPage />
+    </div>
+  );
 };
 
 export default Settings;

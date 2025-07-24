@@ -1,6 +1,6 @@
 "use client";
 
-import { EmailConfirmationPage } from "features/auth/ui/emailConfirmationPage";
+import { EmailConfirmationPage } from "features/auth/pages/emailConfirmationPage";
 import s from "@/src/app/(auth)/password-recovery/passwordRecovery.module.scss";
 import { Button, UniversalIcon } from "@irondragons/ui-lib-inctagram";
 

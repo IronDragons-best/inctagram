@@ -1,6 +1,6 @@
 "use client";
 
-import { SignIn } from "@/features/auth/ui/signIn/ui";
+import { SignIn } from "@/features/auth/pages/signIn/pages";
 
 const Page = () => {
   return <SignIn />;
