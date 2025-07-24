@@ -5,3 +5,7 @@
 
   color: white;
 }
+
+.display {
+  @include flex-container(row, flex-start, flex-start);
+}

@@ -1,6 +1,8 @@
 "use client";
 
-import { TermsOfService } from "@/features/auth/pages/agreements/terms-of-service/pages/TermsOfService";
+
+
+import { TermsOfService } from '@/views/auth/pages/agreements/terms-of-service';
 
 const Page = () => {
   return (

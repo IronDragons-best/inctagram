@@ -1,8 +1,9 @@
 import { client } from '@/shared/schemas/types/api/client';
 import { baseApi } from '@/src/app/provider/baseApi';
-import { InputsForm } from '../pages/signIn/lib/schemas/signIn';
-import { Inputs } from '@/features/auth/pages/signUp/lib/schemas/signUp';
-import { InputForm } from '@/features/auth/pages/forgot-password/lib/schemas/forgotPasswordForm';
+import { Inputs } from '@/views/auth/pages/signUp/lib/schemas/signUp';
+import { InputsForm } from '@/views/auth/pages/signIn/lib/schemas/signIn';
+import { InputForm } from '@/views/auth/pages/forgot-password/lib/schemas/forgotPasswordForm';
+
 
 export const authApi = baseApi.injectEndpoints({
   endpoints: (build) => ({

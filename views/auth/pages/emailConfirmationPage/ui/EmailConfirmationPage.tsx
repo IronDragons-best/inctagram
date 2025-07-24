@@ -1,8 +1,7 @@
 "use client";
 
-import s from "./emailConfirmationPage.module.scss";
-import { ReactElement, useEffect } from "react";
-import { Ring } from "ldrs/react";
+import s from './emailConfirmationPage.module.scss';
+import { ReactElement } from 'react';
 
 type Props = {
   title: string;
