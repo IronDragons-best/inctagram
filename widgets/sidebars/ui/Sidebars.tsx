@@ -1,41 +1,32 @@
 'use client';
-import React, { useState } from 'react';
-import { Button, UniversalIcon } from '@irondragons/ui-lib-inctagram';
-import { AuthModal } from '@/shared/authModal/ui/AuthModal';
 import { useLogoutMutation } from '@/features/auth/api/authApi';
-import { useRouter } from 'next/navigation';
-import s from './sidebars.module.scss';
+import { AuthModal } from '@/shared/authModal/ui/AuthModal';
+import { PATH } from '@/shared/constants/path';
 import { MenuItem } from '@/widgets/sidebars/ui/MenuItem';
+import { Button, UniversalIcon } from '@irondragons/ui-lib-inctagram';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import s from './sidebars.module.scss';
 
 export const Sidebars = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [logoutHandler] = useLogoutMutation();
   
-  const Path = {
-    Feed: '/feed',
-    Create: '/create',
-    Profile: '/profile',
-    Messenger: '/messenger',
-    Search: '/search',
-    Stats: '/stats',
-    Favorites: '/favorites',
-    Logout: '/',
-  } as const;
   
   const menuItems = [
-    { text: 'Feed', icon: <UniversalIcon name={'home-outline'} />, href: Path.Feed },
-    { text: 'Create', icon: <UniversalIcon name={'plus-square-outline'} />, href: Path.Create },
-    { text: 'My Profile', icon: <UniversalIcon name={'person-outline'} />, href: Path.Profile },
-    { text: 'Messenger', icon: <UniversalIcon name={'message-circle-outline'} />, href: Path.Messenger },
-    { text: 'Search', icon: <UniversalIcon name={'search'} />, href: Path.Search },
-    { text: 'Statistics', icon: <UniversalIcon name={'trending-up-outline'} />, href: Path.Stats },
-    { text: 'Favorites', icon: <UniversalIcon name={'bookmark-outline'} />, href: Path.Favorites },
+    { text: 'Feed', icon: <UniversalIcon name={'home-outline'} />, href: PATH.profile },
+    { text: 'Create', icon: <UniversalIcon name={'plus-square-outline'} />, href: PATH.profile  },
+    { text: 'My Profile', icon: <UniversalIcon name={'person-outline'} />, href: PATH.profile  },
+    { text: 'Messenger', icon: <UniversalIcon name={'message-circle-outline'} />, href: PATH.profile  },
+    { text: 'Search', icon: <UniversalIcon name={'search'} />, href: PATH.profile  },
+    { text: 'Statistics', icon: <UniversalIcon name={'trending-up-outline'} />, href: PATH.profile  },
+    { text: 'Favorites', icon: <UniversalIcon name={'bookmark-outline'} />, href: PATH.profile  },
   ];
   
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
   const router = useRouter();
-  
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);; 
   const handleLogout = () => {
     logoutHandler('')
       .unwrap()
@@ -44,12 +35,18 @@ export const Sidebars = () => {
         router.push('/sign-in');
       });
   };
+  const handleMenuClick = (index: number) => {
+    setActiveIndex(index); 
+  };
   
   return (
     <div className={s.sidebar}>
       <ul className={s.sidebar_menu}>
         {menuItems.map((menuItem, index) => (
-          <MenuItem key={index} {...menuItem} />
+          <MenuItem key={index} {...menuItem}  
+          isActive={activeIndex === index} 
+          onClick={() => handleMenuClick(index)}
+          />
         ))}
       </ul>
       <ul className={s.footer}>

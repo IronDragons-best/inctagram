@@ -6,7 +6,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  width: 220px;
+  min-width: 220px;
   height: 100vh;
   border-right: 1px solid $dark-300;
   color: $dark-700;
@@ -77,6 +77,8 @@
   margin-bottom: 36px;
 
   .logoutButton {
+  @include medium-text-14;
+
     padding: 0;
     color: $light-100;
 
@@ -88,4 +90,8 @@
 
 .modalButton {
   margin-left: 24px;
+}
+
+.menu_item.active {
+  color: $accent-500;
 }
