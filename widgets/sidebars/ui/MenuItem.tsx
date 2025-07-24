@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import s from './sidebar.module.scss';
+import s from './sidebars.module.scss'
 import Link from 'next/link';
 
 type MenuItemProps = {
