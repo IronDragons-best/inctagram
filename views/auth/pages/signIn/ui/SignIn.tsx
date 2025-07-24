@@ -1,11 +1,6 @@
 "use client";
 
 import { useSignInMutation } from "@/features/auth/api/authApi";
-import { PATH } from "@/shared/constants/path";
-import {
-  InputsForm,
-  signInSchema,
-} from "@/views/auth/pages/signIn/lib/schemas/signIn";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Button,
@@ -15,9 +10,11 @@ import {
 } from "@irondragons/ui-lib-inctagram";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import s from "./signIn.module.scss";
+import { useState } from "react";
+import { PATH } from "@/shared/constants/path";
+import { InputsForm, signInSchema } from '@/views/auth/pages/signIn/lib/schemas/signIn';
 
 type Props = {};
 

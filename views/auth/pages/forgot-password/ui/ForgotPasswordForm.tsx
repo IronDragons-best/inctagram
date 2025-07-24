@@ -8,13 +8,9 @@ import s from './ForgotPasswordForm.module.scss';
 import Link from 'next/link';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import {
-  forgotPasswordFormSchema,
-  InputForm,
-} from '@/features/auth/pages/forgot-password/lib/schemas/forgotPasswordForm';
 import ReCAPTCHA from 'react-google-recaptcha';
 import { useReCaptchaMutation } from '@/features/auth/api/authApi';
-
+import { forgotPasswordFormSchema, InputForm } from '@/views/auth/pages/forgot-password/lib/schemas/forgotPasswordForm';
 export const ForgotPasswordForm = () => {
   const [isLinkSent, setIsLinkSent] = useState(false);
   const [reCaptchaMut] = useReCaptchaMutation();

@@ -13,13 +13,10 @@ import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import * as React from "react";
 import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  Inputs,
-  signUpValidationSchema,
-} from "@/features/auth/pages/signUp/lib/schemas/signUp";
 import { AuthModal } from "@/shared/authModal/ui/AuthModal";
 import { useRegistrationMutation } from "@/features/auth/api/authApi";
 import { PATH } from "@/shared/constants/path";
+import { Inputs, signUpValidationSchema } from '@/views/auth/pages/signUp/lib/schemas/signUp';
 
 const Label = (
   <span className={s.conditions}>
