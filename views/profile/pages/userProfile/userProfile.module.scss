@@ -1,0 +1,30 @@
+@use '@/src/styles/utils' as *;
+@use '@/src/styles/fonts' as *;
+
+.mainWrapper {
+  padding: 36px 24px;
+
+  &[data-isuserauthorized='true'] {
+    width: min(972px, 100%);
+    margin: 0 auto;
+  }
+}
+
+.headingContent {
+  display: flex;
+  column-gap: 38px;
+
+  img {
+    border-radius: 50%;
+    object-fit: cover;
+  }
+}
+
+.userInfo {
+  @include flex-container($direction: column, $justify: center, $align: flex-start);
+
+  h2 {
+    @include h1;
+    margin-bottom: 20px;
+  }
+}

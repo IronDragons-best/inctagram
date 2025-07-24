@@ -2,12 +2,12 @@
 
 import s from "./congratulations.module.scss";
 import { Button, UniversalIcon } from "@irondragons/ui-lib-inctagram";
-import { EmailConfirmationPage } from "features/auth/pages/emailConfirmationPage";
 import { redirect, useSearchParams } from "next/navigation";
 import { useConfirmEmailMutation } from "@/features/auth/api/authApi";
 import { useEffect, useState } from "react";
 import { Ring } from "ldrs/react";
 import "ldrs/react/Ring.css";
+import { EmailConfirmationPage } from "@/views/auth/pages/emailConfirmationPage";
 
 const Page = () => {
   const [isEmailConfirmed, setIsEmailConfirmed] = useState(false);

@@ -12,8 +12,8 @@ importers:
         specifier: ^5.1.1
         version: 5.1.1(react-hook-form@7.60.0(react@19.1.0))
       '@irondragons/ui-lib-inctagram':
-        specifier: ^1.0.7
-        version: 1.0.7(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)
+        specifier: ^1.0.8
+        version: 1.0.8(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)
       '@radix-ui/react-icons':
         specifier: ^1.3.2
         version: 1.3.2(react@19.1.0)
@@ -472,8 +472,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@irondragons/ui-lib-inctagram@1.0.7':
-    resolution: {integrity: sha512-EEBlv/4CtktLSBdT0E30gyqWAQvtCnv3w1slrJgvDVrxNxpv81Q2fg43ygxHr8SSB7kGoxgdI/zt2DDGmo+QfQ==}
+  '@irondragons/ui-lib-inctagram@1.0.8':
+    resolution: {integrity: sha512-Baxvo0AYGBrrGtQSNgYZwMbH0ktYYuLpaDtpYFHHv/ZFp8oN3/8+8TSQ/g5Fcp2f1K2sCV5ZefgHI/vzw+Jp8A==}
 
   '@isaacs/balanced-match@4.0.1':
     resolution: {integrity: sha512-yzMTt9lEb8Gv7zRioUilSglI0c0smZ9k5D65677DLWLtWJaXIS3CqcGyUFByYKlnUj6TkjLVs54fBl6+TiGQDQ==}
@@ -4180,7 +4180,7 @@ snapshots:
   '@img/sharp-win32-x64@0.34.2':
     optional: true
 
-  '@irondragons/ui-lib-inctagram@1.0.7(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)':
+  '@irondragons/ui-lib-inctagram@1.0.8(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)':
     dependencies:
       '@radix-ui/react-checkbox': 1.3.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@radix-ui/react-icons': 1.3.2(react@18.3.1)

@@ -6,6 +6,7 @@ import "@irondragons/ui-lib-inctagram/dist/style.css";
 import s from "./page.module.scss";
 import { store } from "@/src/app/provider/store";
 import { Provider } from "react-redux";
+import { Header } from "@/widgets/header";
 
 export default function RootLayout({
   children,
@@ -16,7 +17,16 @@ export default function RootLayout({
     <Provider store={store}>
       <html lang="en">
         <body>
-          <div className={s.rootLayout}>{children}</div>
+          {/*   Заглушка   */}
+
+          <div className={s.rootLayout}>
+            <Header
+              isAuth={false}
+              isProcessingAuth={true}
+              localization={"eng"}
+            />
+            {children}
+          </div>
         </body>
       </html>
     </Provider>
