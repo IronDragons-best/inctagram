@@ -1,4 +1,4 @@
-import { SettingsPage } from "@/features/auth/ui/setting/ui";
+import { SettingsPage } from "@/features/auth/pages/setting/pages";
 
 const Settings = () => {
   return (

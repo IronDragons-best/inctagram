@@ -11,7 +11,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import {
   forgotPasswordFormSchema,
   InputForm,
-} from '@/features/auth/ui/forgot-password/lib/schemas/forgotPasswordForm';
+} from '@/features/auth/pages/forgot-password/lib/schemas/forgotPasswordForm';
 import ReCAPTCHA from 'react-google-recaptcha';
 import { useReCaptchaMutation } from '@/features/auth/api/authApi';
 

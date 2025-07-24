@@ -4,7 +4,7 @@ import { useSignInMutation } from "@/features/auth/api/authApi";
 import {
   InputsForm,
   signInSchema,
-} from "@/features/auth/ui/signIn/lib/schemas/signIn";
+} from "@/features/auth/pages/signIn/lib/schemas/signIn";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Button,

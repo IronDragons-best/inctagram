@@ -1,6 +1,6 @@
 "use client";
 
-import { EmailConfirmationPage } from "features/auth/ui/emailConfirmationPage";
+import { EmailConfirmationPage } from "features/auth/pages/emailConfirmationPage";
 import { Button, Input, UniversalIcon } from "@irondragons/ui-lib-inctagram";
 import s from "./expiredLink.module.scss";
 import { useExpiredLinkMutation } from "@/features/auth/api/authApi";

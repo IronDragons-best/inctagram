@@ -6,7 +6,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import {
   passwordConfirmationSchema,
   InputError,
-} from "@/features/auth/ui/create-new-password/lib/schemas/passwordConfirmation";
+} from "@/features/auth/pages/create-new-password/lib/schemas/passwordConfirmation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as React from "react";
 

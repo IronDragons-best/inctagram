@@ -1,8 +1,8 @@
 import { client } from '@/shared/schemas/types/api/client';
 import { baseApi } from '@/src/app/provider/baseApi';
-import { InputsForm } from '../ui/signIn/lib/schemas/signIn';
-import { Inputs } from '@/features/auth/ui/signUp/lib/schemas/signUp';
-import { InputForm } from '@/features/auth/ui/forgot-password/lib/schemas/forgotPasswordForm';
+import { InputsForm } from '../pages/signIn/lib/schemas/signIn';
+import { Inputs } from '@/features/auth/pages/signUp/lib/schemas/signUp';
+import { InputForm } from '@/features/auth/pages/forgot-password/lib/schemas/forgotPasswordForm';
 
 export const authApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
@@ -66,7 +66,6 @@ export const authApi = baseApi.injectEndpoints({
     me: build.query<any, void>({
       queryFn: async () => {
         const res = await client.GET('/auth/me');
-        debugger;
         return { data: res };
       },
     }),
