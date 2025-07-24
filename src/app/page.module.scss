@@ -3,3 +3,7 @@
 .rootLayout {
   @include root-container;
 }
+
+.display {
+  @include flex-container(row, flex-start, flex-start);
+}

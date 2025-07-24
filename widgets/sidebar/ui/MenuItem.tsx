@@ -1,26 +1,24 @@
-import { ElementType, ReactNode } from 'react';
+import { ReactNode } from 'react';
 import s from './sidebar.module.scss';
+import Link from 'next/link';
 
-type MenuItemProps<T extends ElementType = 'a'> = {
-  as?: T;
-  text?: string;
-  href?: string;
-  icon?: ReactNode;
+type MenuItemProps = {
+  text: string;
+  href: string;
+  icon: ReactNode;
 };
 
-export const MenuItem = <T extends ElementType = 'a'>({
-  as,
+export const MenuItem =({
   href,
   icon,
   text,
-}: MenuItemProps<T>) => {
-  const Component = as || 'a';
+}: MenuItemProps) => {
   return (
     <li className={s.menu_item}>
-      <Component className={s.menuButton} href={href}>
+      <Link className={s.menuButton} href={href}>
         <span className={s.icon}>{icon}</span>
         <span className={s.label}>{text}</span>
-      </Component>
+      </Link>
     </li>
   );
 };
