@@ -3,12 +3,13 @@
 import { Button, Card, Input } from "@irondragons/ui-lib-inctagram";
 import s from "./createNewPassword.module.scss";
 import { SubmitHandler, useForm } from "react-hook-form";
-import {
-  passwordConfirmationSchema,
-  InputError,
-} from "@/features/auth/pages/create-new-password/lib/schemas/passwordConfirmation";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as React from "react";
+import {
+  InputError,
+  passwordConfirmationSchema,
+} from '@/views/auth/pages/create-new-password/lib/schemas/passwordConfirmation';
 
 export const CreateNewPasswordForm = () => {
   const {

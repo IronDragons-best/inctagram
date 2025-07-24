@@ -1,10 +1,6 @@
 "use client";
 
 import { useSignInMutation } from "@/features/auth/api/authApi";
-import {
-  InputsForm,
-  signInSchema,
-} from "@/features/auth/pages/signIn/lib/schemas/signIn";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Button,
@@ -18,6 +14,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import s from "./signIn.module.scss";
 import { useState } from "react";
 import { PATH } from "@/shared/constants/path";
+import { InputsForm, signInSchema } from '@/views/auth/pages/signIn/lib/schemas/signIn';
 
 type Props = {};
 

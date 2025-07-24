@@ -1,10 +1,11 @@
 "use client";
 
-import { EmailConfirmationPage } from "features/auth/pages/emailConfirmationPage";
+
 import { Button, Input, UniversalIcon } from "@irondragons/ui-lib-inctagram";
 import s from "./expiredLink.module.scss";
 import { useExpiredLinkMutation } from "@/features/auth/api/authApi";
 import { useState } from "react";
+import { EmailConfirmationPage } from '@/views/auth/pages/emailConfirmationPage';
 
 const ExpiredLink = () => {
   const [email, setEmail] = useState("");
