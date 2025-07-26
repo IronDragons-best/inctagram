@@ -1,0 +1,61 @@
+@use '../../../src/styles/colors' as *;
+@use '../../../src/styles/fonts' as font;
+
+.PostUserComment {
+  display: flex;
+  align-items: flex-start;
+
+  & .UserAvatar {
+    & img {
+      margin-top: 5px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      margin-right: 12px;
+    }
+  }
+
+  & .UserContent {
+    display: flex;
+    align-items: center;
+    margin-right: 24px;
+
+    & .UserText {
+
+      & .UserName {
+        @include font.bold-text-14;
+      }
+    }
+  }
+
+  & .LikePostIcon {
+    flex: 0 0 16px;
+    width: 16px;
+    height: 16px;
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    & svg {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+
+.PostMeta {
+  color: $light-900;
+  display: flex;
+  gap: 12px;
+  padding-left: 48px;
+}
+
+.PostMetaTimestamp {
+  @include font.small-text;
+}
+
+.PostMetaLikes,
+.PostMetaAction {
+  @include font.semi-bold-small-text;
+}

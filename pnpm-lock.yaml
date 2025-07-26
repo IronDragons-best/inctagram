@@ -12,14 +12,17 @@ importers:
         specifier: ^5.1.1
         version: 5.1.1(react-hook-form@7.60.0(react@19.1.0))
       '@irondragons/ui-lib-inctagram':
-        specifier: ^1.0.7
-        version: 1.0.7(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)
+        specifier: ^1.0.9
+        version: 1.0.9(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)
       '@radix-ui/react-icons':
         specifier: ^1.3.2
         version: 1.3.2(react@19.1.0)
       '@reduxjs/toolkit':
         specifier: ^2.8.2
         version: 2.8.2(react-redux@9.2.0(@types/react@19.1.8)(react@19.1.0)(redux@5.0.1))(react@19.1.0)
+      clsx:
+        specifier: ^2.1.1
+        version: 2.1.1
       minimatch:
         specifier: ^10.0.3
         version: 10.0.3
@@ -50,6 +53,9 @@ importers:
       sass:
         specifier: ^1.89.2
         version: 1.89.2
+      swiper:
+        specifier: ^11.2.10
+        version: 11.2.10
       zod:
         specifier: ^3.25.74
         version: 3.25.75
@@ -472,8 +478,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@irondragons/ui-lib-inctagram@1.0.7':
-    resolution: {integrity: sha512-EEBlv/4CtktLSBdT0E30gyqWAQvtCnv3w1slrJgvDVrxNxpv81Q2fg43ygxHr8SSB7kGoxgdI/zt2DDGmo+QfQ==}
+  '@irondragons/ui-lib-inctagram@1.0.9':
+    resolution: {integrity: sha512-eGRgQlAFwd0mfhUrvdCAp4zmWnehK7Hnm4SlTCZU3AFhQs5LEPmToGQbSz8P8uvatH0Ek5feNg1KKve43jPThg==}
 
   '@isaacs/balanced-match@4.0.1':
     resolution: {integrity: sha512-yzMTt9lEb8Gv7zRioUilSglI0c0smZ9k5D65677DLWLtWJaXIS3CqcGyUFByYKlnUj6TkjLVs54fBl6+TiGQDQ==}
@@ -3605,6 +3611,10 @@ packages:
     resolution: {integrity: sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==}
     engines: {node: '>= 0.4'}
 
+  swiper@11.2.10:
+    resolution: {integrity: sha512-RMeVUUjTQH+6N3ckimK93oxz6Sn5la4aDlgPzB+rBrG/smPdCTicXyhxa+woIpopz+jewEloiEE3lKo1h9w2YQ==}
+    engines: {node: '>= 4.7.0'}
+
   synckit@0.11.8:
     resolution: {integrity: sha512-+XZ+r1XGIJGeQk3VvXhT6xx/VpbHsRzsTkGgF6E5RX9TTXD0118l87puaEBZ566FhqblC6U0d4XnubznJDm30A==}
     engines: {node: ^14.18.0 || >=16.0.0}
@@ -4180,7 +4190,7 @@ snapshots:
   '@img/sharp-win32-x64@0.34.2':
     optional: true
 
-  '@irondragons/ui-lib-inctagram@1.0.7(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)':
+  '@irondragons/ui-lib-inctagram@1.0.9(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)':
     dependencies:
       '@radix-ui/react-checkbox': 1.3.2(@types/react-dom@19.1.6(@types/react@19.1.8))(@types/react@19.1.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@radix-ui/react-icons': 1.3.2(react@18.3.1)
@@ -8775,6 +8785,8 @@ snapshots:
       has-flag: 4.0.0
 
   supports-preserve-symlinks-flag@1.0.0: {}
+
+  swiper@11.2.10: {}
 
   synckit@0.11.8:
     dependencies:
