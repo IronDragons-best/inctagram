@@ -11,6 +11,7 @@ export default function RootLayout({
 }>) {
   return (
     <>
+      {/*   Заглушка   */}
       <div className={styles.authContent}>{children}</div>
     </>
   );
