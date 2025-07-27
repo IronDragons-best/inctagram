@@ -1,11 +1,22 @@
-type Props = {
-  params: Promise<{ userId: string }>;
+import { redirect } from "next/navigation";
+import { PATH } from "@/shared/constants/path";
+import { UserProfile } from "@/views/profile/pages/userProfile";
+
+type ParamsType = {
+  userId: string;
 };
 
-const UserPage = async ({ params }: Props) => {
-  const id = (await params).userId;
+type SearchParams = {
+  postId: string;
+};
 
-  return <div>user id: {id}</div>;
+type Props = {
+  params: Promise<ParamsType>;
+  searchParams: Promise<SearchParams>;
+};
+
+const UserPage = async (props: Props) => {
+  return <UserProfile {...props} />;
 };
 
 export default UserPage;

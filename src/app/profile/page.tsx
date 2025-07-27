@@ -1,9 +1,8 @@
-"use client";
-
-import { UserProfile } from "@/views/profile/pages/userProfile";
+import { redirect } from "next/navigation";
+import { PATH } from "@/shared/constants/path";
 
 const Profile = async () => {
-  return <UserProfile />;
+  redirect(PATH.home);
 };
 
 export default Profile;

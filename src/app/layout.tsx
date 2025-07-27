@@ -1,13 +1,13 @@
 "use client";
 
-import { store } from '@/src/app/provider/store';
-import { Sidebar } from '@/widgets/sidebar/ui/Sidebar';
-import '@irondragons/ui-lib-inctagram/dist/style.css';
-import { Fragment, ReactNode } from 'react';
-import { Provider } from 'react-redux';
-import 'src/styles/index.scss';
-import s from './page.module.scss';
-import { Header } from '@/widgets/header';
+import { store } from "@/src/app/provider/store";
+import { Sidebar } from "@/widgets/sidebar/ui/Sidebar";
+import "@irondragons/ui-lib-inctagram/dist/style.css";
+import { Fragment, ReactNode } from "react";
+import { Provider } from "react-redux";
+import "src/styles/index.scss";
+import s from "./page.module.scss";
+import { Header } from "@/widgets/header";
 
 export default function RootLayout({
   children,
@@ -17,15 +17,17 @@ export default function RootLayout({
   return (
     <Provider store={store}>
       <html lang="en">
-      <body>
-      <div className={s.rootLayout}>
-        <Header isAuth={true} localization={'eng'} />
-        <div className={s.display}>
-          <Sidebar />
-          <div className={s.display}>{children}</div>
-        </div>
-      </div>
-      </body>
+        <body>
+          <div className={s.rootLayout}>
+            <Header isAuth={true} localization={"eng"} />
+            <div className={s.display}>
+              <Sidebar />
+              <div className={s.mainWrapper} data-isuserauthorized={false}>
+                {children}
+              </div>
+            </div>
+          </div>
+        </body>
       </html>
     </Provider>
   );
