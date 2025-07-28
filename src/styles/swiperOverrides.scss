@@ -8,6 +8,31 @@
   --slider-height: 503px;
 }
 
+.swiper[data-isslidersmall="true"] {
+  .swiper-button-prev,
+  .swiper-button-next {
+    width: 24px !important;
+    height: 24px !important;
+    background-color: rgba($dark-900, 0.2);
+
+    &::after {
+      font-size: 14px !important;
+      font-weight: 700 !important;
+    }
+  }
+
+  .swiper-button-next + .swiper-pagination-bullets {
+    width: 78px !important;
+    padding: 6px !important;
+    gap: 8px !important;
+  }
+
+  .swiper-pagination-bullet {
+    width: 6px !important;
+    height: 6px !important;
+  }
+}
+
 .swiper-button-prev,
 .swiper-button-next {
   color: $light-100 !important;
@@ -15,6 +40,8 @@
   border-radius: 4px;
   width: 48px !important;
   height: 48px !important;
+
+
 
   &::after {
     font-size: 28px !important;
