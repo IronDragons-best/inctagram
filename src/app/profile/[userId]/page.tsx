@@ -24,12 +24,12 @@ const UserPage = async ({ params }: Props) => {
   
   return <div>
     user id: {id}
-    <PublicationModal isModalOpen={true}>
-      <div>
-        1111
-      </div>
-    </PublicationModal>
-    {/*<Post isModalOpen={true}/>*/}
+    {/*<PublicationModal isModalOpen={true}>*/}
+    {/*  <div>*/}
+    {/*    1111*/}
+    {/*  </div>*/}
+    {/*</PublicationModal>*/}
+    <Post isModalOpen={true}/>
   </div>;
   // const UserPage = async (props: Props) => {
   //   return <UserProfile {...props} />;
