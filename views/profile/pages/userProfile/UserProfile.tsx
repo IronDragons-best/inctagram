@@ -87,8 +87,6 @@ export const UserProfile = async ({ searchParams, params }: Props) => {
   const pr = params;
   const { postId } = await searchParams;
 
-  console.log(postId);
-
   return (
     <div className={styles.profileWrapper}>
       <div className={styles.headingContent}>
