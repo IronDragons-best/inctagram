@@ -7,6 +7,7 @@ import postImage3 from "@/public/assets/user3.png";
 import Link from "next/link";
 import { PATH } from "@/shared/constants/path";
 import { ButtonContainer } from "@/views/profile/pages/userProfile/ButtonContainer";
+import { Post } from "@/views/profile/pages/userProfile/userPost/post/ui/post";
 
 type Props = {
   params: Promise<{ userId: string }>;
@@ -83,12 +84,10 @@ const data = [
 ];
 
 export const UserProfile = async ({ searchParams, params }: Props) => {
-  const pr = await params;
-  const sp = await searchParams;
+  const pr = params;
+  const { postId } = await searchParams;
 
-  if (searchParams) {
-    console.log(searchParams.then(console.log));
-  }
+  console.log(postId);
 
   return (
     <div className={styles.profileWrapper}>
@@ -135,6 +134,8 @@ export const UserProfile = async ({ searchParams, params }: Props) => {
           </Link>
         ))}
       </div>
+
+      {postId && <Post isModalOpen={!!postId} />}
     </div>
   );
 };
