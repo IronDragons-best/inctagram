@@ -10,7 +10,10 @@ const nextConfig: NextConfig = {
       ...config.resolve.alias,
       "@": path.resolve(__dirname, "."), // Базовый алиас для корня
     };
-
+    config.module.rules.push({
+      test: /\.(woff|woff2|eot|ttf|otf)$/,
+      type: "asset/resource",
+    });
     return config;
   },
 };
