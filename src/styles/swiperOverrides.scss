@@ -1,5 +1,13 @@
 @use './colors' as *;
 
+:root {
+  --slider-height: 562px;
+}
+
+.WithHeader {
+  --slider-height: 503px;
+}
+
 .swiper-button-prev,
 .swiper-button-next {
   color: $light-100 !important;

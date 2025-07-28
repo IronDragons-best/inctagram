@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import { useState } from 'react';
+import { ReactNode, useState } from 'react';
 import { Dialog } from 'radix-ui';
 import s from './post.module.scss';
 import { Button, TextAreaComponent, UniversalIcon } from '@irondragons/ui-lib-inctagram';
@@ -27,13 +27,15 @@ type Props = {
   openModal?: () => void;
   isModalOpen: boolean;
   id?: string;
+  title?: 'withPublish' | 'withoutPublish';
   slides?: string[];
-  srcArray: string[];
+  srcArray?: string[];
 };
 
 export const Post = ({
                        openModal,
                        isModalOpen,
+                       title,
                      }: Props) => {
   const [modalOpen, setModalOpen] = useState(isModalOpen);
   
@@ -42,8 +44,8 @@ export const Post = ({
   
   const handleOpenModal = () => {
     router.push(pathname);
-    setModalOpen(false)
-  }
+    setModalOpen(false);
+  };
   
   return (
     <Dialog.Root onOpenChange={handleOpenModal} open={modalOpen}>
@@ -61,9 +63,11 @@ export const Post = ({
             </Button>
           </Dialog.Close>
           
+          {title && <Dialog.Title className={s.Title}>{title}</Dialog.Title>}
+          
           <div className={s.PostBody}>
             <div className={s.PicturePost}>
-              <Slider srcArray={photosArray}/>
+              <Slider srcArray={photosArray} />
             </div>
             <div className={s.ContentPost}>
               <div className={s.PostTitle}>
@@ -108,7 +112,7 @@ export const Post = ({
                 </div>
                 <div className={s.AvatarGroupSummaryWrapper}>
                   {/* TODO хз пока че передавать пропсами */}
-                  <LikesCount/>
+                  <LikesCount />
                 </div>
                 <div className={s.PostMetaTimestamp}>
                   July 3, 2021
@@ -119,7 +123,7 @@ export const Post = ({
                 <div className={s.AddPostComment}>
                   <div className={s.AddPostCommentField}>
                     <TextAreaComponent id={'1'} className={s.AreaWrapper} placeholder={'Add a' +
-                      ' Comment'}/>
+                      ' Comment'} />
                   </div>
                   <div className={s.AddPostCommentButton}>
                     <Button variant={'text_button'}>

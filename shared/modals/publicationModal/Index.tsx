@@ -1,1 +1,0 @@
-export { PublicationModal } from "./ui/publicationModal"
