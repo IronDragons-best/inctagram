@@ -4,7 +4,7 @@ import * as React from 'react';
 import { useState } from 'react';
 import { Dialog } from 'radix-ui';
 import s from './post.module.scss';
-import { Button, UniversalIcon } from '@irondragons/ui-lib-inctagram';
+import { Button, TextAreaComponent, UniversalIcon } from '@irondragons/ui-lib-inctagram';
 import { PostUserComment } from '@/entities/userComment/';
 import { PostActions } from '@/shared/ui/postActions/ui/PostActions';
 import { Slider } from '@/shared/ui/slider/ui/Slider';
@@ -16,10 +16,12 @@ import photo3 from '@/public/assets/img/photo_03.jpg';
 import photo4 from '@/public/assets/img/photo_04.png';
 import photo5 from '@/public/assets/img/stalinLike.jpg';
 import { LikesCount } from '@/shared/ui/likesCount/ui/LikesCount';
+import { usePathname, useRouter } from 'next/navigation';
 
 
 
 const photosArray = [photo1, photo2, photo3, photo4, photo5];
+// const photosArray = [photo1];
 
 type Props = {
   openModal?: () => void;
@@ -35,9 +37,16 @@ export const Post = ({
                      }: Props) => {
   const [modalOpen, setModalOpen] = useState(isModalOpen);
   
+  const router = useRouter();
+  const pathname = usePathname();
+  
+  const handleOpenModal = () => {
+    router.push(pathname);
+    setModalOpen(false)
+  }
   
   return (
-    <Dialog.Root onOpenChange={openModal} open={modalOpen}>
+    <Dialog.Root onOpenChange={handleOpenModal} open={modalOpen}>
       <Dialog.Portal>
         <Dialog.Overlay className={s.Overlay} />
         <Dialog.Content className={s.Content}>
@@ -109,8 +118,8 @@ export const Post = ({
                 {/* TODO separate component with PublishComment */}
                 <div className={s.AddPostComment}>
                   <div className={s.AddPostCommentField}>
-                    {/*<TextArea/>*/}
-                    Here will be TextArea
+                    <TextAreaComponent id={'1'} className={s.AreaWrapper} placeholder={'Add a' +
+                      ' Comment'}/>
                   </div>
                   <div className={s.AddPostCommentButton}>
                     <Button variant={'text_button'}>
