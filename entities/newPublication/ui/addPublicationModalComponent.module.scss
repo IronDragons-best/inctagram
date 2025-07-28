@@ -1,0 +1,22 @@
+.bodyContent {
+  display: flex;
+}
+
+.Picture {
+  flex: 1 1 50%;
+  overflow: hidden;
+  width: 100%;
+  height: 562px;
+  border-bottom-left-radius: 6px;
+
+  & img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.Info {
+  padding: 24px;
+}
