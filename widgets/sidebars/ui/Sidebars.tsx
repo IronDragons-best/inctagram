@@ -12,21 +12,21 @@ export const Sidebars = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [logoutHandler] = useLogoutMutation();
   
-  
   const menuItems = [
     { text: 'Feed', icon: <UniversalIcon name={'home-outline'} />, href: PATH.profile },
-    { text: 'Create', icon: <UniversalIcon name={'plus-square-outline'} />, href: PATH.profile  },
-    { text: 'My Profile', icon: <UniversalIcon name={'person-outline'} />, href: PATH.profile  },
-    { text: 'Messenger', icon: <UniversalIcon name={'message-circle-outline'} />, href: PATH.profile  },
-    { text: 'Search', icon: <UniversalIcon name={'search'} />, href: PATH.profile  },
-    { text: 'Statistics', icon: <UniversalIcon name={'trending-up-outline'} />, href: PATH.profile  },
-    { text: 'Favorites', icon: <UniversalIcon name={'bookmark-outline'} />, href: PATH.profile  },
+    { text: 'Create', icon: <UniversalIcon name={'plus-square-outline'} />, href: PATH.create },
+    { text: 'My Profile', icon: <UniversalIcon name={'person-outline'} />, href: PATH.profile },
+    { text: 'Messenger', icon: <UniversalIcon name={'message-circle-outline'} />, href: PATH.profile },
+    { text: 'Search', icon: <UniversalIcon name={'search'} />, href: PATH.profile },
+    { text: 'Statistics', icon: <UniversalIcon name={'trending-up-outline'} />, href: PATH.profile },
+    { text: 'Favorites', icon: <UniversalIcon name={'bookmark-outline'} />, href: PATH.profile },
   ];
   
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
   const router = useRouter();
-  const [activeIndex, setActiveIndex] = useState<number | null>(null);; 
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  
   const handleLogout = () => {
     logoutHandler('')
       .unwrap()
@@ -35,6 +35,7 @@ export const Sidebars = () => {
         router.push('/sign-in');
       });
   };
+  
   const handleMenuClick = (index: number) => {
     setActiveIndex(index); 
   };

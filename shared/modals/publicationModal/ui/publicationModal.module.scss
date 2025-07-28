@@ -1,0 +1,43 @@
+@use '../../../../src/styles/colors' as *;
+@use '../../../../src/styles/fonts' as font;
+
+.Overlay {
+  background-color: var(--black-a9);
+  position: fixed;
+  inset: 0;
+  animation: overlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.Content {
+  background-color: $dark-300;
+  color: $light-100;
+  border-radius: 6px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90vw;
+
+  min-height: 504px;
+  max-width: 500px;
+  animation: contentShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
+
+  &:focus {
+    outline: none;
+  }
+
+  .publicationBody {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.Heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid $dark-100;
+  padding-inline: 36px;
+  padding-top: 12px;
+  padding-bottom: 11px;
+}

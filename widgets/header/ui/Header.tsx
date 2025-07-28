@@ -8,6 +8,7 @@ import {
 import s from "./header.module.scss";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { PATH } from "@/shared/constants/path";
 
 type Props = {
   isAuth: boolean;
@@ -34,7 +35,7 @@ export const Header = ({
   return (
     <header className={s.Header}>
       <div>
-        <Link href={"/"} className={s.Logo}>
+        <Link href={PATH.home} className={s.Logo}>
           Inctagram
         </Link>
       </div>
@@ -60,13 +61,13 @@ export const Header = ({
           <>
             <Button
               variant="text_button"
-              onClick={() => redirectionHandler("/sign-in")}
+              onClick={() => redirectionHandler(PATH.sign_in)}
             >
               Sign in
             </Button>
             <Button
               variant="primary"
-              onClick={() => redirectionHandler("/sign-up")}
+              onClick={() => redirectionHandler(PATH.sign_up)}
             >
               Sign up
             </Button>
