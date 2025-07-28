@@ -1,5 +1,6 @@
 export const PATH = {
   home: "/",
+  create: "/create",
   profile: "/profile",
   user_profile: "/profile/:userid",
   confirm_registration: "/confirm-registration",
