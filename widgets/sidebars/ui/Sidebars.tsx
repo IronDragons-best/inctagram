@@ -11,7 +11,8 @@ import s from "./sidebars.module.scss";
 export const Sidebars = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [logoutHandler] = useLogoutMutation();
-
+  
+  
   const menuItems = [
     {
       text: "Feed",
@@ -53,7 +54,7 @@ export const Sidebars = () => {
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
   const router = useRouter();
-  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);; 
   const handleLogout = () => {
     logoutHandler("")
       .unwrap()
