@@ -1,13 +1,11 @@
 'use client';
 
 import * as React from 'react';
-import { ReactNode, useState } from 'react';
-import { Dialog } from 'radix-ui';
+import { useState } from 'react';
 import s from './post.module.scss';
-import { Button, TextAreaComponent, UniversalIcon } from '@irondragons/ui-lib-inctagram';
+import { UniversalIcon } from '@irondragons/ui-lib-inctagram';
 import { PostUserComment } from '@/entities/userComment/';
 import { PostActions } from '@/shared/ui/postActions/ui/PostActions';
-import { Slider } from '@/shared/ui/slider/ui/Slider';
 import Image from 'next/image';
 
 import photo1 from '@/public/assets/img/photo_01.png';
@@ -23,7 +21,6 @@ import { PublishComment } from '@/shared/ui/publishComment';
 
 
 const photosArray = [photo1, photo2, photo3, photo4, photo5];
-// const photosArray = [photo1];
 
 type Props = {
   openModal?: () => void;
