@@ -30,7 +30,7 @@ export const Slider = ({ srcArray, navigation = true, loop = true }: Props) => {
       navigation={navigation}
       modules={[Pagination, Navigation]}
       className={clsx(s.Swiper, "mySwiper")}
-      data-isslidersmall={true}
+      // data-isslidersmall={true}
     >
       {srcArray.map((img: StaticImageData) => (
         <SwiperSlide className={s.SwiperSlide} key={img.src}>
