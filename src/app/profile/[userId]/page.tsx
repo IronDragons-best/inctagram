@@ -32,7 +32,7 @@ const UserPage = async ({ params }: Props) => {
     {/*  </div>*/}
     {/*</PublicationModal>*/}
   {/*<EditPost isModalOpen={true}/>*/}
-  <Post isModalOpen={true}/>
+  <Post isModalOpen={true} />
   </div>;
   // const UserPage = async (props: Props) => {
   //   return <UserProfile {...props} />;
