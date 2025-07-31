@@ -29,7 +29,7 @@
     position: absolute;
     top: 0;
     left: 0;
-    width: 492px; // больше круга
+    width: 492px; 
     height: auto;
     pointer-events: none;
   }
@@ -47,14 +47,14 @@
   }
   
   .dimmedOverlay {
-    display: none; // не нужна отдельно, так как используется тень в cropMask
+    display: none; 
   }
   
 
 .twoModalBtn {
     display: flex;
-    justify-content: flex-end; // Выровнять содержимое вправо
-    width: calc(100% - 24px); // Учитываем отступы
-    padding-right: 24px; // Используем padding вместо margin
-    margin-bottom: 36px; // Сохраните нижний отступ
+    justify-content: flex-end;
+    width: calc(100% - 24px); 
+    padding-right: 24px; 
+    margin-bottom: 36px; 
 }

@@ -7,25 +7,25 @@
     height: 180px;
     width: 438px;
     margin: 30px 24px 36px 0;
-    display: flex; // Делаем контейнер flex
-    flex-direction: column; // Вертикальная ориентация
-    justify-content: space-between; // Размещение элементов по вертикали
+    display: flex; 
+    flex-direction: column; 
+    justify-content: space-between; 
   }
   
   .confirmDeleteContent > p {
     @include regular-text-16;
-    text-align: center; // Для центрирования текста
-    margin-bottom: 54px; // Можно убрать, если текст вверху
+    text-align: center; 
+    margin-bottom: 54px; 
   }
   
   .confirmDeleteButtons {
     display: flex;
-    justify-content: flex-end; // Выравнивание кнопок вправо
-    align-items: center; // Выравнивание по вертикали
-    gap: 24px; // Промежуток между кнопками
+    justify-content: flex-end; 
+    align-items: center; 
+    gap: 24px;
     
     button {
-      width: 96px; // Ширина кнопки
-      height: 36px; // Высота кнопки
+      width: 96px; 
+      height: 36px; 
     }
   }

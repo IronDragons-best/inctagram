@@ -19,8 +19,8 @@
 
 .avatarArea {
     position: relative;
-    width: 192px;  /* Задайте желаемый размер */
-    height: 192px; /* Задайте желаемый размер */
+    width: 192px;  
+    height: 192px; 
     cursor: pointer;
   }
 
@@ -28,18 +28,18 @@
     position: relative;
     width: 100%;
     height: 100%;
-    border-radius: 50%;        /* Круглая форма */
-    overflow: visible;          /* Обрезать все, что выходит за пределы круга */
+    border-radius: 50%;       
+    overflow: visible;          
     display: flex;
-    justify-content: center;   /* Центрируем содержимое */
-    align-items: center;       /* Центрируем содержимое */
-    background-color: $dark-500; /* Цвет фона (можно изменить) */
+    justify-content: center;   
+    align-items: center;      
+    background-color: $dark-500; 
   }
 
   .avatarImage {
     width: 100%;
     height: 100%;
-    object-fit: contain; // <--- это важно!
+    object-fit: contain;
     object-position: center;        
   }
 
@@ -48,22 +48,21 @@
     position: absolute;
     z-index: 10;
     pointer-events: auto;
-    top: 20px; // Отступ от верхней части
-    right: 20px; // Отступ от правой стороны
+    top: 20px; 
+    right: 20px; 
     cursor: pointer;
-    background-color: $danger-500; // Цвет фона
-    border-radius: 50%; // Круглая форма
-    width: 16px; // Ширина кружка
-    height: 16px; // Высота кружка
-    display: flex; // Используем Flexbox для центровки
-    align-items: center; // Центрируем по вертикали
-    justify-content: center; // Центрируем по горизонтали
+    background-color: $danger-500; 
+    border-radius: 50%; 
+    width: 16px; 
+    height: 16px; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
     border: 4px solid $dark-700;
 
-
     svg {
-        width: 8px; // Ширина иконки
-        height: 8px; // Высота иконки
+        width: 8px; 
+        height: 8px; 
     }
 }
 
@@ -135,54 +134,3 @@
     align-self: flex-end; 
     margin-bottom: 26px;
 }
-
-// .circleButton {
-//     display: flex;
-//     align-items: center;
-//     justify-content: center;
-//     cursor: pointer;
-//     width: 192px;
-//     height: 192px;
-//     background-color: $dark-500;
-//     border-radius: 50%;
-// }
-
-// .dimmedOverlay {
-//   position: absolute;
-//   position: absolute;
-//   top: 0;
-//   left: 0;
-//   right: 0;
-//   bottom: 0;
-//   background: rgba(0, 0, 0, 0.5); /* Затемнение с прозрачностью */
-//   opacity: 0.5; 
-// }
-
-// .placeholder {
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   width: 100%;
-//   height: 100%;
-//   background-color: #eee;
-// }
-
-
-
-  
- 
-  
-  
-  
- 
-  
-
-
-
-
-
-
-
-
-
-
