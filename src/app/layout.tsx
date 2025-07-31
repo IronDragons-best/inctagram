@@ -1,9 +1,13 @@
 "use client";
 
 import { store } from "@/src/app/provider/store";
+<<<<<<< HEAD
+import { Sidebars } from "@/widgets/sidebars";
+=======
 
+>>>>>>> development
 import "@irondragons/ui-lib-inctagram/dist/style.css";
-import { Fragment, ReactNode } from "react";
+import { ReactNode } from "react";
 import { Provider } from "react-redux";
 import "src/styles/index.scss";
 import s from "./page.module.scss";

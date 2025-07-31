@@ -1,0 +1,31 @@
+
+@use '../../../../../../../src/styles/fonts' as *;
+@use '../../../../../../../src/styles/colors' as *;
+
+
+.confirmDeleteContent {
+    height: 180px;
+    width: 438px;
+    margin: 30px 24px 36px 0;
+    display: flex; // Делаем контейнер flex
+    flex-direction: column; // Вертикальная ориентация
+    justify-content: space-between; // Размещение элементов по вертикали
+  }
+  
+  .confirmDeleteContent > p {
+    @include regular-text-16;
+    text-align: center; // Для центрирования текста
+    margin-bottom: 54px; // Можно убрать, если текст вверху
+  }
+  
+  .confirmDeleteButtons {
+    display: flex;
+    justify-content: flex-end; // Выравнивание кнопок вправо
+    align-items: center; // Выравнивание по вертикали
+    gap: 24px; // Промежуток между кнопками
+    
+    button {
+      width: 96px; // Ширина кнопки
+      height: 36px; // Высота кнопки
+    }
+  }

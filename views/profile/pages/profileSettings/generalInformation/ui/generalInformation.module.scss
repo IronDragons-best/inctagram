@@ -1,0 +1,188 @@
+@use '../../../../../../src/styles/fonts' as *;
+@use '../../../../../../src/styles/colors' as *;
+
+.content {
+    display: flex;
+    flex-direction: row; 
+    justify-content: space-between; 
+    margin-bottom: 23px; 
+    margin-top: 0;
+    padding: 0;
+    width: 100%;
+}
+
+.leftContent {
+    width: fit-content;
+    margin-right: 40px;
+    margin-top: 49px;
+}
+
+.avatarArea {
+    position: relative;
+    width: 192px;  /* Задайте желаемый размер */
+    height: 192px; /* Задайте желаемый размер */
+    cursor: pointer;
+  }
+
+  .circleContainer {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;        /* Круглая форма */
+    overflow: visible;          /* Обрезать все, что выходит за пределы круга */
+    display: flex;
+    justify-content: center;   /* Центрируем содержимое */
+    align-items: center;       /* Центрируем содержимое */
+    background-color: $dark-500; /* Цвет фона (можно изменить) */
+  }
+
+  .avatarImage {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; // <--- это важно!
+    object-position: center;        
+  }
+
+
+  .closeIcon {
+    position: absolute;
+    z-index: 10;
+    pointer-events: auto;
+    top: 20px; // Отступ от верхней части
+    right: 20px; // Отступ от правой стороны
+    cursor: pointer;
+    background-color: $danger-500; // Цвет фона
+    border-radius: 50%; // Круглая форма
+    width: 16px; // Ширина кружка
+    height: 16px; // Высота кружка
+    display: flex; // Используем Flexbox для центровки
+    align-items: center; // Центрируем по вертикали
+    justify-content: center; // Центрируем по горизонтали
+    border: 4px solid $dark-700;
+
+
+    svg {
+        width: 8px; // Ширина иконки
+        height: 8px; // Высота иконки
+    }
+}
+
+  .icon {
+    width: 48px;
+    height: 48px;
+    color: $light-100;
+}
+
+.avaButton {
+  margin-top: 24px;
+}
+
+  .circleButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    width: 192px;
+    height: 192px;
+    border-radius: 50%;
+}
+
+.rightContent {
+    margin-top: 24px;
+    flex-grow: 1;
+}
+.rightContent > * {
+    margin-bottom: 24px; 
+}
+
+.rightContent > *:last-child {
+    margin-bottom: 0;
+}
+
+.formName>* {
+  margin-bottom: 24px;
+}
+
+.formName>div:has([data-errortext="true"]) {
+  margin-bottom: 0;
+}
+
+.selectLive {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.selectContainer {
+  width: 100%;
+}
+
+.footer {
+    display: flex; 
+    flex-direction: column;
+    width: 100%;
+}
+
+.lineFooter {
+    flex-grow: 1;
+    height: 1px;
+    background-color: $dark-300;
+    width: 100%;
+    margin-bottom: 24px; 
+}
+
+.buttonFooter {
+    align-self: flex-end; 
+    margin-bottom: 26px;
+}
+
+// .circleButton {
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+//     cursor: pointer;
+//     width: 192px;
+//     height: 192px;
+//     background-color: $dark-500;
+//     border-radius: 50%;
+// }
+
+// .dimmedOverlay {
+//   position: absolute;
+//   position: absolute;
+//   top: 0;
+//   left: 0;
+//   right: 0;
+//   bottom: 0;
+//   background: rgba(0, 0, 0, 0.5); /* Затемнение с прозрачностью */
+//   opacity: 0.5; 
+// }
+
+// .placeholder {
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   width: 100%;
+//   height: 100%;
+//   background-color: #eee;
+// }
+
+
+
+  
+ 
+  
+  
+  
+ 
+  
+
+
+
+
+
+
+
+
+
+

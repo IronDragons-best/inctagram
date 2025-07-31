@@ -3,5 +3,5 @@
 type Props = {};
 
 export const SettingsPage = ({}: Props) => {
-  return <></>;
+  return <>Settings</>;
 };
