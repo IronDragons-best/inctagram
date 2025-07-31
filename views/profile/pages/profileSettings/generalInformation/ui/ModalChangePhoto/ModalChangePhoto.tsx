@@ -24,7 +24,7 @@ export const ModalChangePhoto = ({
       reader.onload = (e) => {
         if (e.target?.result) {
           onSelectImage(e.target.result as string);
-          onClose(); // закрываем модалку
+          onClose(); 
         }
       };
       reader.readAsDataURL(file);

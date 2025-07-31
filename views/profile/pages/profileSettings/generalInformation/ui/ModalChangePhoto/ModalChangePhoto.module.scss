@@ -5,10 +5,10 @@
 .contentModal {
     display: flex;
     flex-direction: column;
-    align-items: center; /* Центрируем по горизонтали */
-    margin: 0 auto; /* Центрируем контейнер */
-    width: 100%; /* Установите ширину, если необходимо */
-    min-width: 492px; /* Установите максимальную ширину, если нужно */
+    align-items: center; 
+    margin: 0 auto; 
+    width: 100%; 
+    min-width: 492px;
     min-height: 504px;
   }
 
@@ -33,7 +33,7 @@
 
 .buttonModal{
     display: flex;
-    justify-content: center;      /* Центрируем кнопку */
+    justify-content: center;   
     width: 100%;   
     margin-bottom: 72px;
 

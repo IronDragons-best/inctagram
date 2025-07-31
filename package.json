@@ -17,12 +17,7 @@
     },
     "dependencies": {
         "@hookform/resolvers": "^5.1.1",
-<<<<<<< HEAD
-        "@irondragons/ui-lib-inctagram": "^1.0.10",
-        "@radix-ui/react-dialog": "^1.1.14",
-=======
         "@irondragons/ui-lib-inctagram": "^1.0.11",
->>>>>>> development
         "@radix-ui/react-icons": "^1.3.2",
         "@reduxjs/toolkit": "^2.8.2",
         "clsx": "^2.1.1",
