@@ -1,9 +1,9 @@
 "use client";
 
 import { store } from "@/src/app/provider/store";
-import { Sidebar } from "@/widgets/sidebar/ui/Sidebar";
+import { Sidebars } from "@/widgets/sidebars";
 import "@irondragons/ui-lib-inctagram/dist/style.css";
-import { Fragment, ReactNode } from "react";
+import { ReactNode } from "react";
 import { Provider } from "react-redux";
 import "src/styles/index.scss";
 import s from "./page.module.scss";
@@ -21,7 +21,7 @@ export default function RootLayout({
           <div className={s.rootLayout}>
             <Header isAuth={true} localization={"eng"} />
             <div className={s.display}>
-              <Sidebar />
+              <Sidebars />
               <div className={s.mainWrapper} data-isuserauthorized={false}>
                 {children}
               </div>
