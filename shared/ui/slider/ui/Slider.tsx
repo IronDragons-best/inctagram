@@ -15,6 +15,7 @@ type Props = {
   srcArray: string | StaticImageData | (string | StaticImageData)[];
   navigation?: boolean;
   loop?: boolean;
+  isSmall?: boolean;
 };
 
 export const Slider = ({ srcArray, navigation = true, loop = true }: Props) => {
@@ -38,7 +39,7 @@ export const Slider = ({ srcArray, navigation = true, loop = true }: Props) => {
       navigation={navigation}
       modules={[Pagination, Navigation]}
       className={clsx(s.Swiper, "mySwiper")}
-      data-isslidersmall={true}
+      data-isslidersmall={isSmall || undefined}
     >
       {images.map((img, index) => {
         const src = typeof img === "string" ? img : img.src;

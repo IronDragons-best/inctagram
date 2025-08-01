@@ -1,8 +1,10 @@
-import { Post } from '@/views/profile/pages/userProfile/userPost/post/ui/post';
+
 
 import { redirect } from "next/navigation";
 import { PATH } from "@/shared/constants/path";
 import { UserProfile } from "@/views/profile/pages/userProfile";
+import { Post } from '@/views/profile/pages/userProfile/userPost/post';
+import { EditPost } from '@/views/profile/pages/userProfile/userPost/editPost';
 import { PublicationModal } from '@/shared/modals/publicationModal';
 
 
@@ -29,7 +31,8 @@ const UserPage = async ({ params }: Props) => {
     {/*    1111*/}
     {/*  </div>*/}
     {/*</PublicationModal>*/}
-    <Post isModalOpen={true}/>
+  {/*<EditPost isModalOpen={true}/>*/}
+  <Post isModalOpen={true} />
   </div>;
   // const UserPage = async (props: Props) => {
   //   return <UserProfile {...props} />;

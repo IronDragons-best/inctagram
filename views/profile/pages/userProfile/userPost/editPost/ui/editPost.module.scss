@@ -1,0 +1,84 @@
+@use '../../../../../../../src/styles/colors' as *;
+@use '../../../../../../../src/styles/fonts' as font;
+
+.ContentWrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.PostTitle {
+  flex: 0 0 59px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 24px;
+  margin-bottom: 14px;
+
+  & .UserAvatar {
+    display: flex;
+    align-items: center;
+
+    & img {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+    }
+  }
+
+  & .Username {
+    @include font.h3;
+    flex: 1 1 auto;
+  }
+
+  & .MoreIcon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.AreaWrapper {
+  flex: 1 1 auto;
+  padding: 0 24px;
+
+  & textarea {
+    min-height: 120px;
+    padding-right: 12px;
+  }
+}
+
+.ButtonWrapper {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0 24px 24px;
+}
+
+@keyframes overlayShow {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes contentShow {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -48%) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+
+
+
+
+
+
+
+

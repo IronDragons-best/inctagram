@@ -1,0 +1,1 @@
+export { EditPost } from './ui/EditPost';
