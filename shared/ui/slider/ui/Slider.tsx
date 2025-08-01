@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import Image, { StaticImageData } from "next/image";
+import { StaticImageData } from "next/image";
 import { Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { clsx } from "clsx";
@@ -18,7 +18,7 @@ type Props = {
   isSmall?: boolean;
 };
 
-export const Slider = ({ srcArray, navigation = true, loop = true }: Props) => {
+export const Slider = ({ srcArray, navigation = true, loop = true, isSmall }: Props) => {
   const toArray = (
     input: Props['srcArray']
   ): (string | StaticImageData)[] => {
