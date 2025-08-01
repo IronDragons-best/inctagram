@@ -1,28 +1,26 @@
 'use client';
 
 import React, { ReactNode, useState } from 'react';
-import { Card, UniversalIcon } from '@irondragons/ui-lib-inctagram';
+import { Button, Card, UniversalIcon } from '@irondragons/ui-lib-inctagram';
 import { Dialog } from 'radix-ui';
 import s from './dropdown.module.scss';
 
 type Props = {
   isModalOpen: boolean;
   children?: ReactNode;
+  onClose?: () => void;
 };
 
 export const Dropdown = ({
                            isModalOpen,
                            children,
+                           onClose,
                          }: Props) => {
-  const [modalOpen, setModalOpen] = useState(isModalOpen);
-  
-  
-  const handleOpenModal = () => {
-    setModalOpen(false);
-  };
-  
-  return (
-    <Dialog.Root onOpenChange={handleOpenModal} open={modalOpen}>
+   return (
+    <Dialog.Root onOpenChange={onClose} open={isModalOpen}>
+      <Dialog.Close asChild>
+      
+      </Dialog.Close>
       <Dialog.Content className={s.Content}>
         <Card fullWidth size={'sm'}>
           <div className={s.FieldCard}>

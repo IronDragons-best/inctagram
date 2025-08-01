@@ -26,7 +26,7 @@ const UserPage = async ({ params }: Props) => {
   
   return <div>
     user id: {id}
-    {/*<PublicationModal isModalOpen={true}>*/}
+    {/*<PublicationModal isModalOpen={true} title={'Publication'}>*/}
     {/*  <div>*/}
     {/*    1111*/}
     {/*  </div>*/}

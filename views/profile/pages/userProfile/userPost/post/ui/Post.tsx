@@ -38,6 +38,7 @@ export const Post = ({
                        title,
                      }: Props) => {
   const [modalOpen, setModalOpen] = useState(isModalOpen);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
   
   const router = useRouter();
   const pathname = usePathname();
@@ -48,7 +49,7 @@ export const Post = ({
   };
   
   return (
-    <PublicationModal isModalOpen={true}>
+    <PublicationModal isModalOpen={true} isSmall>
       <>
         <div className={s.PostTitle}>
           <div className={s.UserAvatar}>
@@ -57,9 +58,9 @@ export const Post = ({
           <span className={s.Username}>
             UserName
           </span>
-          <div className={s.MoreIcon}>
+          <div className={s.MoreIcon} onClick={() => setDropdownOpen(true)}>
             <UniversalIcon name={'more-horizontal-outline'} />
-            <Dropdown isModalOpen={true}/>
+            <Dropdown onClose={() => setDropdownOpen(false)} isModalOpen={dropdownOpen}/>
           </div>
         </div>
         <div className={s.PostUserCommentWrapper}>

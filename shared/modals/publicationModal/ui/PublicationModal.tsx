@@ -22,7 +22,7 @@ type PublicationModalProps = {
   title?: 'Edit Post' | 'Publication';
   children: ReactNode;
   srcArray?: string[];
-  isSmall?: boolean;
+  isSmall: boolean;
 }
 
 export const PublicationModal = ({
