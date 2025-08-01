@@ -1,8 +1,7 @@
 'use client';
 
 import React, { ReactNode, useState } from 'react';
-import { Card } from '@irondragons/ui-lib-inctagram';
-import { UnderlineIcon } from '@radix-ui/react-icons';
+import { Card, UniversalIcon } from '@irondragons/ui-lib-inctagram';
 import { Dialog } from 'radix-ui';
 import s from './dropdown.module.scss';
 
@@ -28,7 +27,7 @@ export const Dropdown = ({
         <Card fullWidth size={'sm'}>
           <div className={s.FieldCard}>
             <div className={s.IconField}>
-              <UnderlineIcon name={'edit-2-outline'} />
+              <UniversalIcon name={'edit-2-outline'} />
             </div>
             <div className={s.TextField}>
               Edit Post
@@ -36,7 +35,7 @@ export const Dropdown = ({
           </div>
           <div className={s.FieldCard}>
             <div className={s.IconField}>
-              <UnderlineIcon name={'trash-outline'} />
+              <UniversalIcon name={'trash-outline'} />
             </div>
             <div className={s.TextField}>
               Delete Post
