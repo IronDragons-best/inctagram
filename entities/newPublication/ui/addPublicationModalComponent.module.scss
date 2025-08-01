@@ -1,7 +1,59 @@
+@use '../../../src/styles/colors' as *;
+@use '../../../src/styles/fonts' as font;
+
 .bodyContent {
   display: flex;
 }
 
 .Info {
   flex: 1 1 50%;
+}
+
+.headerContent {
+  border-bottom: 1px solid $dark-100;
+  align-items: center;
+  padding-inline: 24px;
+  padding-bottom: 35px;
+  margin-bottom: 24px;
+
+  .contentPost {
+    display: flex;
+    align-items: center;
+    margin: 24px 0;
+
+    & .userAvatar {
+      display: flex;
+      align-items: center;
+      margin-right: 12px;
+
+      & img {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+      }
+    }
+
+    & .Username {
+      @include font.h3;
+      flex: 1 1 auto;
+    }
+  }
+}
+
+.footerContent {
+  padding: 0 24px;
+
+  .input {
+    margin-bottom: 16px;
+  }
+
+  h5 {
+    @include font.regular-text-16;
+  }
+
+  span {
+    margin-bottom: 14px;
+    @include font.small-text;
+    color: $light-900;
+  }
 }
