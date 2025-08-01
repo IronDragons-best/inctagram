@@ -22,6 +22,7 @@ type PublicationModalProps = {
   title?: 'Edit Post' | 'Publication';
   children: ReactNode;
   srcArray?: string[];
+  isSmall?: boolean;
 }
 
 export const PublicationModal = ({
@@ -29,6 +30,7 @@ export const PublicationModal = ({
                                    isModalOpen,
                                    title,
                                    children,
+                                   isSmall = false,
                                  }: PublicationModalProps) => {
   const isPublication = title === 'Publication';
   
@@ -74,7 +76,7 @@ export const PublicationModal = ({
           
           <div className={s.publicationBody}>
             <div className={clsx(s.PicturePost, title && 'WithHeader')}>
-              <Slider srcArray={photosArray} />
+              <Slider srcArray={photosArray} isSmall={isSmall}/>
             </div>
             <div className={s.ContentPost}>
               {children}
