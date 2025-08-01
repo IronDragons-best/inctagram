@@ -72,7 +72,7 @@ export const GeneralInformation = () => {
               label={"Date of birth"}
               value={range}
               onChange={setRange}
-              fullWidth
+              // fullWidth
             />
           </div>
           <div className={s.selectLive}>
