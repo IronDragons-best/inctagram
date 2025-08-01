@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { PublicationModal } from '@/shared/modals/publicationModal/ui/publicationModal';
 import styles from './addPublicationModalComponent.module.scss';
 
-
 import photo1 from '@/public/assets/img/photo_01.png';
 import photo2 from '@/public/assets/img/photo_02.png';
 import photo3 from '@/public/assets/img/photo_03.jpg';
