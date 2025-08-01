@@ -47,6 +47,7 @@ export const Post = ({
   };
   
   return (
+    
     <PublicationModal isModalOpen={true}>
       <>
         <div className={s.PostTitle}>
@@ -54,8 +55,8 @@ export const Post = ({
             <Image src={photo2} alt={'photo beach'} />
           </div>
           <span className={s.Username}>
-                  UserName
-                </span>
+            UserName
+          </span>
           <div className={s.MoreIcon}>
             <UniversalIcon name={'more-horizontal-outline'} />
           </div>
@@ -104,6 +105,3 @@ export const Post = ({
     </PublicationModal>
   );
 };
-
-
-
