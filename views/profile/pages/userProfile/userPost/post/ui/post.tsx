@@ -47,7 +47,6 @@ export const Post = ({
   };
   
   return (
-    
     <PublicationModal isModalOpen={true}>
       <>
         <div className={s.PostTitle}>
