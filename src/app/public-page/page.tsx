@@ -1,5 +1,7 @@
-const Page = () => {
-  return <div></div>;
-};
+import { PublicPage } from '@/views/auth/pages/public-page/ui'
 
-export default Page;
+const Page = () => {
+  return <PublicPage />
+}
+
+export default Page
