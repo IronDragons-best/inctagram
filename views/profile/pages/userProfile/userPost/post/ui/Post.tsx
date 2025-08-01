@@ -17,6 +17,7 @@ import { LikesCount } from '@/shared/ui/likesCount/ui/LikesCount';
 import { usePathname, useRouter } from 'next/navigation';
 import { PublicationModal } from '@/shared/modals/publicationModal';
 import { PublishComment } from '@/shared/ui/publishComment';
+import { Dropdown } from '@/shared/ui/dropdown';
 
 
 
@@ -54,10 +55,11 @@ export const Post = ({
             <Image src={photo2} alt={'photo beach'} />
           </div>
           <span className={s.Username}>
-                  UserName
-                </span>
+            UserName
+          </span>
           <div className={s.MoreIcon}>
             <UniversalIcon name={'more-horizontal-outline'} />
+            <Dropdown isModalOpen={true}/>
           </div>
         </div>
         <div className={s.PostUserCommentWrapper}>
@@ -104,6 +106,3 @@ export const Post = ({
     </PublicationModal>
   );
 };
-
-
-

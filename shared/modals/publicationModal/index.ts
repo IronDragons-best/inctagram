@@ -1,1 +1,1 @@
-export { PublicationModal } from './ui/publicationModal';
+export { PublicationModal } from './ui/PublicationModal';

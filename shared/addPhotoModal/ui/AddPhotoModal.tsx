@@ -4,15 +4,15 @@ import { Button, UniversalIcon } from "@irondragons/ui-lib-inctagram";
 import styles from '@/shared/addPhotoModal/ui/addPhotoModal.module.scss';
 
 type AddPhotoModalProps = {
-  openModal: () => void;
+  onOpenChange: (open: boolean) => void;
   isModalOpen: boolean;
   title: string
   children: ReactNode
 }
 
-export const AddPhotoModal = ({openModal, isModalOpen, title, children}: AddPhotoModalProps) => {
+export const AddPhotoModal = ({onOpenChange, isModalOpen, title, children}: AddPhotoModalProps) => {
   return (
-    <Dialog.Root onOpenChange={openModal} open={isModalOpen}>
+    <Dialog.Root onOpenChange={onOpenChange} open={isModalOpen}>
       <Dialog.Portal>
         <Dialog.Overlay className={styles.Overlay} />
         <Dialog.Content className={styles.Content}>
@@ -34,7 +34,7 @@ export const AddPhotoModal = ({openModal, isModalOpen, title, children}: AddPhot
               <UniversalIcon name={"image-outline"} />
             </div>
             <div className={styles.Children}>
-              <Dialog.Close asChild>{children}</Dialog.Close>
+              {children}
             </div>
           </div>
         </Dialog.Content>
