@@ -1,10 +1,10 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
-    Button,
-    DatePicker,
-    Input,
-    Selectbox,
-    TextAreaComponent
+  Button,
+  DatePicker,
+  Input,
+  Selectbox,
+  TextAreaComponent
 } from "@irondragons/ui-lib-inctagram";
 import { useState } from "react";
 import { DateRange } from "react-day-picker";
@@ -69,10 +69,10 @@ export const GeneralInformation = () => {
           </div>
           <div className={s.datePicker}>
             <DatePicker
-              label={"Date of Birth"}
+              label={"Date of birth"}
               value={range}
               onChange={setRange}
-              fullWidth
+              // fullWidth
             />
           </div>
           <div className={s.selectLive}>
