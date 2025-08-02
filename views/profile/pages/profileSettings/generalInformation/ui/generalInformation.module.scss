@@ -2,100 +2,103 @@
 @use '../../../../../../src/styles/colors' as *;
 
 .content {
-    display: flex;
-    flex-direction: row; 
-    justify-content: space-between; 
-    margin-bottom: 23px; 
-    margin-top: 0;
-    padding: 0;
-    width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 23px;
+  margin-top: 0;
+  padding: 0;
+  width: 100%;
 }
 
 .leftContent {
-    width: fit-content;
-    margin-right: 40px;
-    margin-top: 49px;
+  width: fit-content;
+  margin-right: 38px;
+  margin-top: 49px;
 }
 
 .avatarArea {
-    position: relative;
-    width: 192px;  
-    height: 192px; 
-    cursor: pointer;
-  }
-
-  .circleContainer {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;       
-    overflow: visible;          
-    display: flex;
-    justify-content: center;   
-    align-items: center;      
-    background-color: $dark-500; 
-  }
-
-  .avatarImage {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    object-position: center;        
-  }
-
-
-  .closeIcon {
-    position: absolute;
-    z-index: 10;
-    pointer-events: auto;
-    top: 20px; 
-    right: 20px; 
-    cursor: pointer;
-    background-color: $danger-500; 
-    border-radius: 50%; 
-    width: 16px; 
-    height: 16px; 
-    display: flex; 
-    align-items: center; 
-    justify-content: center; 
-    border: 4px solid $dark-700;
-
-    svg {
-        width: 8px; 
-        height: 8px; 
-    }
+  position: relative;
+  width: 192px;
+  height: 192px;
+  cursor: pointer;
 }
 
-  .icon {
-    width: 48px;
-    height: 48px;
-    color: $light-100;
+.circleContainer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  overflow: visible;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $dark-500;
+}
+
+.avatarImage {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+}
+
+
+.closeIcon {
+  position: absolute;
+  z-index: 10;
+  pointer-events: auto;
+  top: 20px;
+  right: 20px;
+  cursor: pointer;
+  background-color: $danger-500;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 4px solid $dark-700;
+
+  svg {
+    width: 8px;
+    height: 8px;
+  }
+}
+
+.icon {
+  width: 48px;
+  height: 48px;
+  color: $light-100;
 }
 
 .avaButton {
   margin-top: 24px;
+  width: 206px;
 }
 
-  .circleButton {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    width: 192px;
-    height: 192px;
-    border-radius: 50%;
+.circleButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  width: 192px;
+  height: 192px;
+  border-radius: 50%;
+  background-color: $dark-500
 }
 
 .rightContent {
-    margin-top: 24px;
-    flex-grow: 1;
-}
-.rightContent > * {
-    margin-bottom: 24px; 
+  margin-top: 24px;
+  flex-grow: 1;
 }
 
-.rightContent > *:last-child {
-    margin-bottom: 0;
+.rightContent>* {
+  margin-bottom: 24px;
+}
+
+.rightContent>*:last-child {
+  margin-bottom: 0;
 }
 
 .formName>* {
@@ -117,20 +120,20 @@
 }
 
 .footer {
-    display: flex; 
-    flex-direction: column;
-    width: 100%;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 }
 
 .lineFooter {
-    flex-grow: 1;
-    height: 1px;
-    background-color: $dark-300;
-    width: 100%;
-    margin-bottom: 24px; 
+  flex-grow: 1;
+  height: 1px;
+  background-color: $dark-300;
+  width: 100%;
+  margin-bottom: 24px;
 }
 
 .buttonFooter {
-    align-self: flex-end; 
-    margin-bottom: 26px;
+  align-self: flex-end;
+  margin-bottom: 26px;
 }

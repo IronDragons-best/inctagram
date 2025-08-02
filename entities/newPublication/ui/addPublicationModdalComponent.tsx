@@ -1,32 +1,65 @@
-import React, { useState } from 'react';
+'use client';
+import React from 'react';
 import styles from './addPublicationModalComponent.module.scss';
-import photo1 from '@/public/assets/img/photo_01.png';
-import photo2 from '@/public/assets/img/photo_02.png';
-import photo3 from '@/public/assets/img/photo_03.jpg';
-import photo4 from '@/public/assets/img/photo_04.png';
-import photo5 from '@/public/assets/img/stalinLike.jpg';
-import { Slider } from '@/shared/ui/slider';
-import { ContentNewPublication } from '@/entities/newPublication/ui/contentNewPublication';
 import { PublicationModal } from '@/shared/modals/publicationModal/ui/PublicationModal';
+import Image from 'next/image';
+import { Input, TextAreaComponent } from '@irondragons/ui-lib-inctagram';
 
-const photosArray = [photo1, photo2, photo3, photo4, photo5];
+const dataLocations = [
+  { title: 'New York', place: 'Washington Square Park' },
+  { title: 'Moscow', place: 'Red Square' },
+];
 
-export const AddPublicationModalComponent = () => {
-  const [isModalOpen, setIsModalOpen] = useState(true);
-  
-  const closeModal = () => setIsModalOpen(false);
-  
+type AddPublicationModalComponentProps = {
+  isOpen: boolean;
+  imageUrl: string;
+  onCloseAction: () => void;
+}
+
+export const AddPublicationModalComponent = ({ isOpen, imageUrl, onCloseAction }:AddPublicationModalComponentProps) => {
   return (
     <div>
       <PublicationModal
-        openModal={closeModal} isModalOpen={isModalOpen} title={'Publication'}
+        openModal={onCloseAction} isSmall isModalOpen={isOpen} title={'Publication'} srcArray={[imageUrl]}
       >
         <div className={styles.bodyContent}>
           <div className={styles.Info}>
-            <ContentNewPublication />
+            <div className={styles.headerContent}>
+              <div className={styles.contentPost}>
+                <div className={styles.userAvatar}>
+                  {imageUrl && (
+                    <div style={{ marginBottom: '1rem' }}>
+                      <Image
+                        src={imageUrl}
+                        alt="Uploaded"
+                        width={400}
+                        height={300} />
+                    </div>
+                  )}
+                </div>
+                <span className={styles.Username}>
+                  URLProfile
+                </span>
+              </div>
+              <TextAreaComponent fullWidth={true}
+                                 label={'Add publication descriptions'} id={'1'}
+                                 placeholder={'Text-area'}
+              />
+            </div>
+            <div className={styles.footerContent}>
+              <Input placeholder={'choose your destiny'}
+                     fullWidth={true}
+                     label={'Add location'}
+                     inputType={'location'} />
+              {dataLocations.map(dataLocation => (
+                <>
+                  <h5>{dataLocation.title}</h5>
+                  <span>{dataLocation.place}</span>
+                </>
+              ))}
+            </div>
           </div>
         </div>
-      
       </PublicationModal>
     </div>
   );
