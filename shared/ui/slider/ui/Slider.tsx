@@ -13,7 +13,8 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 
 type Props = {
-  srcArray: StaticImageData[];
+  srcArray: string[];
+  // srcArray: string[] | StaticImageData[];
   navigation?: boolean;
   loop?: boolean;
   isSmall?: boolean;
@@ -37,9 +38,9 @@ export const Slider = ({ srcArray,
       className={clsx(s.Swiper, "mySwiper")}
       data-isslidersmall={isSmall || undefined}
     >
-      {srcArray.map((img: StaticImageData) => (
-        <SwiperSlide className={s.SwiperSlide} key={img.src}>
-          <Image src={img} alt={"photo"} />
+      {srcArray.map((src: string) => (
+        <SwiperSlide className={s.SwiperSlide} key={src}>
+          <Image src={src} alt={"photo"} fill />
         </SwiperSlide>
       ))}
     </Swiper>

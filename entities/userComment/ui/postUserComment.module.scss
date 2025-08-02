@@ -6,6 +6,9 @@
   align-items: flex-start;
 
   & .UserAvatar {
+    // надо ли в будущем делать открытие странички по щелчку на аватарку
+    //user-select: none;
+
     & img {
       margin-top: 5px;
       width: 36px;

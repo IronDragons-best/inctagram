@@ -13,8 +13,15 @@ import photo2 from '@/public/assets/img/photo_02.png';
 import photo3 from '@/public/assets/img/photo_03.jpg';
 import photo4 from '@/public/assets/img/photo_04.png';
 import photo5 from '@/public/assets/img/stalinLike.jpg';
+import { StaticImageData } from 'next/image';
 
-const photosArray = [photo1, photo2, photo3, photo4, photo5];
+const photosArray: string[] = [
+  photo1.src,
+  photo2.src,
+  photo3.src,
+  photo4.src,
+  photo5.src,
+];
 
 type PublicationModalProps = {
   openModal?: () => void;
@@ -48,6 +55,9 @@ export const PublicationModal = ({
     <Dialog.Root onOpenChange={handleOpenModal} open={modalOpen}>
       <Dialog.Portal>
         <Dialog.Overlay className={s.Overlay} />
+        <Dialog.Title className={s.MainTitle} >
+          {/* TODO Что-то должно быть внутри для поисковых роботов */}
+        </Dialog.Title>
         <Dialog.Content className={s.Content}>
           <Dialog.Close asChild>
             <Button

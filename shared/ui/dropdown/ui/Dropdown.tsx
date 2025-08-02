@@ -16,31 +16,32 @@ export const Dropdown = ({
                            children,
                            onClose,
                          }: Props) => {
-   return (
+  return (
     <Dialog.Root onOpenChange={onClose} open={isModalOpen}>
-      <Dialog.Close asChild>
-      
-      </Dialog.Close>
-      <Dialog.Content className={s.Content}>
-        <Card fullWidth size={'sm'}>
-          <div className={s.FieldCard}>
-            <div className={s.IconField}>
-              <UniversalIcon name={'edit-2-outline'} />
+        <Dialog.Overlay className={s.Overlay} />
+        <Dialog.Title className={s.MainTitle}>
+          {/* TODO Что-то должно быть внутри для поисковых роботов */}
+        </Dialog.Title>
+        <Dialog.Content className={s.Content}>
+          <Card fullWidth size={'sm'}>
+            <div className={s.FieldCard}>
+              <div className={s.IconField}>
+                <UniversalIcon name={'edit-2-outline'} />
+              </div>
+              <div className={s.TextField}>
+                Edit Post
+              </div>
             </div>
-            <div className={s.TextField}>
-              Edit Post
+            <div className={s.FieldCard}>
+              <div className={s.IconField}>
+                <UniversalIcon name={'trash-outline'} />
+              </div>
+              <div className={s.TextField}>
+                Delete Post
+              </div>
             </div>
-          </div>
-          <div className={s.FieldCard}>
-            <div className={s.IconField}>
-              <UniversalIcon name={'trash-outline'} />
-            </div>
-            <div className={s.TextField}>
-              Delete Post
-            </div>
-          </div>
-        </Card>
-      </Dialog.Content>
+          </Card>
+        </Dialog.Content>
     </Dialog.Root>
   );
 };
