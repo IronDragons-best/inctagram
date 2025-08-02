@@ -12,16 +12,15 @@ const dataLocations = [
 
 type AddPublicationModalComponentProps = {
   isOpen: boolean;
-  imageUrl: string | null;
+  imageUrl: string;
   onCloseAction: () => void;
 }
 
 export const AddPublicationModalComponent = ({ isOpen, imageUrl, onCloseAction }:AddPublicationModalComponentProps) => {
-  
   return (
     <div>
       <PublicationModal
-        onCloseAction={onCloseAction} isModalOpen={isOpen} title={'Publication'} srcArray={imageUrl ? [imageUrl] : undefined}
+        openModal={onCloseAction} isSmall isModalOpen={isOpen} title={'Publication'} srcArray={[imageUrl]}
       >
         <div className={styles.bodyContent}>
           <div className={styles.Info}>

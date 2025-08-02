@@ -6,46 +6,56 @@ import s from '@/shared/modals/publicationModal/ui/publicationModal.module.scss'
 import { Button, UniversalIcon } from '@irondragons/ui-lib-inctagram';
 import { usePathname, useRouter } from 'next/navigation';
 import { Slider } from '@/shared/ui/slider';
+
+import clsx from 'clsx';
 import photo1 from '@/public/assets/img/photo_01.png';
 import photo2 from '@/public/assets/img/photo_02.png';
 import photo3 from '@/public/assets/img/photo_03.jpg';
 import photo4 from '@/public/assets/img/photo_04.png';
 import photo5 from '@/public/assets/img/stalinLike.jpg';
-import clsx from 'clsx'
-import { StaticImageData } from 'next/image';
 
-const photosArray = [photo1, photo2, photo3, photo4, photo5];
+const photosArray: string[] = [
+  photo1.src,
+  photo2.src,
+  photo3.src,
+  photo4.src,
+  photo5.src,
+];
 
 type PublicationModalProps = {
-  onCloseAction: () => void;
+  openModal: () => void;
   isModalOpen: boolean;
   title?: 'Edit Post' | 'Publication';
   children: ReactNode;
-  srcArray?: string | StaticImageData | (string | StaticImageData)[];
+  srcArray: string[];
+  isSmall: boolean;
 }
 
 export const PublicationModal = ({
-                                   onCloseAction,
+                                   openModal,
                                    isModalOpen,
                                    title,
                                    children,
-                                   srcArray
+                                   srcArray,
+                                   isSmall = false,
                                  }: PublicationModalProps) => {
   const isPublication = title === 'Publication';
+  
   const router = useRouter();
   const pathname = usePathname();
   
-  const handleOpenChange  = (open: boolean) => {
-    if (!open) {
-      router.push(pathname);
-      onCloseAction();
-    }
+  const handleOpenModal = () => {
+    router.push(pathname);
+    openModal()
   };
   
   return (
-    <Dialog.Root onOpenChange={handleOpenChange } open={isModalOpen}>
+    <Dialog.Root onOpenChange={handleOpenModal} open={isModalOpen}>
       <Dialog.Portal>
         <Dialog.Overlay className={s.Overlay} />
+        <Dialog.Title className={s.MainTitle} >
+          {/* TODO Что-то должно быть внутри для поисковых роботов */}
+        </Dialog.Title>
         <Dialog.Content className={s.Content}>
           <Dialog.Close asChild>
             <Button
@@ -74,7 +84,7 @@ export const PublicationModal = ({
           
           <div className={s.publicationBody}>
             <div className={clsx(s.PicturePost, title && 'WithHeader')}>
-              <Slider srcArray={srcArray ?? photosArray} />
+              <Slider srcArray={srcArray} isSmall={isSmall}/>
             </div>
             <div className={s.ContentPost}>
               {children}
