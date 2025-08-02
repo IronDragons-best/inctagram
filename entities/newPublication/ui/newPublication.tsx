@@ -27,7 +27,7 @@ export const NewPublication = () => {
       />
       <AddPublicationModalComponent
         isOpen={publicationModalOpen}
-        imageUrl={previewUrl}
+        imageUrl={previewUrl as string}
         onCloseAction={() => setPublicationModalOpen(false)}
       />
     </div>
