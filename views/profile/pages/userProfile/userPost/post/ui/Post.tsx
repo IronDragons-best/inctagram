@@ -1,13 +1,11 @@
 'use client';
 
 import * as React from 'react';
-import { ReactNode, useState } from 'react';
-import { Dialog } from 'radix-ui';
+import { useState } from 'react';
 import s from './post.module.scss';
-import { Button, TextAreaComponent, UniversalIcon } from '@irondragons/ui-lib-inctagram';
+import { UniversalIcon } from '@irondragons/ui-lib-inctagram';
 import { PostUserComment } from '@/entities/userComment/';
 import { PostActions } from '@/shared/ui/postActions/ui/PostActions';
-import { Slider } from '@/shared/ui/slider/ui/Slider';
 import Image from 'next/image';
 
 import photo1 from '@/public/assets/img/photo_01.png';
@@ -19,11 +17,11 @@ import { LikesCount } from '@/shared/ui/likesCount/ui/LikesCount';
 import { usePathname, useRouter } from 'next/navigation';
 import { PublicationModal } from '@/shared/modals/publicationModal';
 import { PublishComment } from '@/shared/ui/publishComment';
+import { Dropdown } from '@/shared/ui/dropdown';
 
 
 
 const photosArray = [photo1, photo2, photo3, photo4, photo5];
-// const photosArray = [photo1];
 
 type Props = {
   openModal?: () => void;
@@ -40,6 +38,7 @@ export const Post = ({
                        title,
                      }: Props) => {
   const [modalOpen, setModalOpen] = useState(isModalOpen);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
   
   const router = useRouter();
   const pathname = usePathname();
@@ -50,17 +49,18 @@ export const Post = ({
   };
   
   return (
-    <PublicationModal isModalOpen={true}>
+    <PublicationModal isModalOpen={true} isSmall>
       <>
         <div className={s.PostTitle}>
           <div className={s.UserAvatar}>
             <Image src={photo2} alt={'photo beach'} />
           </div>
           <span className={s.Username}>
-                  UserName
-                </span>
-          <div className={s.MoreIcon}>
+            UserName
+          </span>
+          <div className={s.MoreIcon} onClick={() => setDropdownOpen(true)}>
             <UniversalIcon name={'more-horizontal-outline'} />
+            <Dropdown onClose={() => setDropdownOpen(false)} isModalOpen={dropdownOpen}/>
           </div>
         </div>
         <div className={s.PostUserCommentWrapper}>
@@ -107,6 +107,3 @@ export const Post = ({
     </PublicationModal>
   );
 };
-
-
-

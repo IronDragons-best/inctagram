@@ -1,12 +1,11 @@
 'use client';
-import * as React from "react";
-import { Dialog } from "radix-ui";
-import styles from "./authModal.module.scss";
 import { Button, UniversalIcon } from "@irondragons/ui-lib-inctagram";
+import { Dialog } from "radix-ui";
 import { ReactNode } from "react";
+import styles from "./authModal.module.scss";
 
 type Props = {
-  title?: string;
+  title: string;
   description: string;
   openModal: () => void;
   isModalOpen: boolean;
