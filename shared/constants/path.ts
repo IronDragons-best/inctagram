@@ -12,6 +12,6 @@ export const PATH = {
   sign_up: "/sign-up",
   privacy_policy: "/privacy-policy",
   terms_of_service: "/terms-of-service",
-  settings: "/settings",
+  profile_settings: "/profile/settings",
   public_authorize_user: "/public-authorized-user",
 };
