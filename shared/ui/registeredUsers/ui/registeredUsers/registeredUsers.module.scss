@@ -1,0 +1,18 @@
+@use '../../../../../src/styles/colors' as *;
+@use '../../../../../src/styles/fonts' as *;
+
+.wrapper {
+  margin-bottom: 35px;
+}
+
+.container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.title {
+  @include h2;
+  color: $light-100;
+}

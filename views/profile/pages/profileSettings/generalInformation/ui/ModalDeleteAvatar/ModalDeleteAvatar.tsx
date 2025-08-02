@@ -11,7 +11,7 @@ type Props = {
 
 export const ModalDeleteAvatar= ({ isOpen, onClose, onConfirm }: Props) => {
   return (
-    <ModalPhoto modalTitle="Confirm Delete" onClose={onClose} isModalOpen={isOpen}>
+    <ModalPhoto modalTitle="Delete Photo" onClose={onClose} isModalOpen={isOpen}>
       <div className={s.confirmDeleteContent}>
         <p>Are you sure you want to delete this image?</p>
         <div className={s.confirmDeleteButtons}>
