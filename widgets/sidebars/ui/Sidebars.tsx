@@ -32,6 +32,7 @@ export const Sidebars = () => {
       .unwrap()
       .then(() => {
         localStorage.removeItem('accessToken');
+        closeModal(); 
         router.push(PATH.sign_in);
       });
   };
