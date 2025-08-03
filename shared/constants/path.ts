@@ -2,7 +2,7 @@ export const PATH = {
   home: "/",
   create: "/create",
   profile: "/profile",
-  user_profile: "/profile/:userid",
+  user_profile: "/profile/1",
   confirm_registration: "/confirm-registration",
   create_new_password: "/create-new-password",
   expired_link: "/expired-link",
@@ -12,6 +12,6 @@ export const PATH = {
   sign_up: "/sign-up",
   privacy_policy: "/privacy-policy",
   terms_of_service: "/terms-of-service",
-  settings: "/settings",
+  profile_settings: "/profile/settings",
   public_authorize_user: "/public-authorized-user",
 };

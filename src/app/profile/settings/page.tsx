@@ -1,11 +1,7 @@
-import { SettingsPage } from "@/views/auth/pages/setting/ui";
+import { TabsSettings } from "@/views/profile/pages/profileSettings/tabsSettings/TabsSettings";
 
 const Settings = () => {
-  return (
-    <div>
-      <SettingsPage />
-    </div>
-  );
+  return <TabsSettings />;
 };
 
 export default Settings;

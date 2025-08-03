@@ -14,7 +14,7 @@ type Props = {
 
 export const ButtonContainer = ({ profileOwner }: Props) => {
   const pathHandler = () => {
-    redirect(PATH.settings);
+    redirect(PATH.profile_settings);
   };
 
   return (
@@ -25,12 +25,12 @@ export const ButtonContainer = ({ profileOwner }: Props) => {
         </Button>
       ) : profileOwner === "friendProfile" ? (
         <>
-          <Button variant={"primary"}>Follow</Button>
+          <Button variant={"outline"}>Unfollow</Button>
           <Button variant={"secondary"}>Send Message</Button>
         </>
       ) : (
         <>
-          <Button variant={"outline"}>Unfollow</Button>
+          <Button variant={"primary"}>Follow</Button>
           <Button variant={"secondary"}>Send Message</Button>
         </>
       )}
