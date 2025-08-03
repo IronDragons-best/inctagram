@@ -74,10 +74,8 @@ export const authApi = baseApi.injectEndpoints({
         const release = await mutex.acquire();
         try {
           const { data } = await queryFulfilled;
-          debugger;
           if (data.response.status === 401) {
             const { data: token } = await client.POST("/auth/refresh-token");
-            debugger;
             if (token) {
               TokenService.setToken(token.accessToken);
               const res = await client.GET("/auth/me");

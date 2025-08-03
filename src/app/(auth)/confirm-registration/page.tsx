@@ -7,7 +7,7 @@ import { useConfirmEmailMutation } from "@/features/auth/api/authApi";
 import { useEffect, useState } from "react";
 import { Ring } from "ldrs/react";
 import "ldrs/react/Ring.css";
-import { EmailConfirmationPage } from '@/views/auth/pages/emailConfirmationPage';
+import { EmailConfirmationPage } from "@/views/auth/pages/emailConfirmationPage";
 
 const Page = () => {
   const [isEmailConfirmed, setIsEmailConfirmed] = useState(false);
