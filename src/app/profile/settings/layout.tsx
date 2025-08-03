@@ -1,8 +1,8 @@
 'use client';
 
 import { store } from '@/src/app/provider/store';
-
 import { TabsSettings } from '@/views/profile/pages/profileSettings/tabsSettings/TabsSettings';
+
 import '@irondragons/ui-lib-inctagram/dist/style.css';
 import { ReactNode } from 'react';
 import { Provider } from 'react-redux';

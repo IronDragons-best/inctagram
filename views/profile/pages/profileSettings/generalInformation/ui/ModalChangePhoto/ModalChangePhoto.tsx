@@ -1,8 +1,8 @@
 'use client';
 import { Button, UniversalIcon } from "@irondragons/ui-lib-inctagram";
 import { useRef } from "react";
-import { ModalPhoto } from "../ModalPhoto";
-import s from "./ModalChangePhoto.module.scss";
+import { ModalPhoto } from "../ModalPhoto/ModalPhoto";
+import s from "./modalChangePhoto.module.scss";
 
 interface ModalChangePhotoProps {
   isOpen: boolean;
@@ -33,12 +33,12 @@ export const ModalChangePhoto = ({
 
   return (
     <ModalPhoto
-      modalTitle="Add a profile photo"
+      modalTitle="add a profile photo"
       onClose={onClose}
       isModalOpen={isOpen}
     >
       <div className={s.contentModal}>
-        <div className={s.kvadrat}>
+        <div className={s.kvadrat} onClick={() => fileInputRef.current?.click()}>
           <div className={s.icon}>
             <UniversalIcon name="image-outline" />
           </div>

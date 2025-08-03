@@ -1,3 +1,4 @@
+"use client"
 import { TabsComponent } from "@irondragons/ui-lib-inctagram";
 import { JSX, useState } from "react";
 import { GeneralInformation } from "../generalInformation/ui/GeneralInformation";

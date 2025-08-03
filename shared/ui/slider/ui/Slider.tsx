@@ -1,16 +1,15 @@
 "use client";
 
-import * as React from "react";
-import Image, { StaticImageData } from "next/image";
+import { clsx } from "clsx";
+import Image from "next/image";
 import { Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { clsx } from "clsx";
 
-import s from "./slider.module.scss";
-import "../../../../src/styles/swiperOverrides.scss";
 import "swiper/css";
-import "swiper/css/pagination";
 import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "../../../../src/styles/swiperOverrides.scss";
+import s from "./slider.module.scss";
 
 type Props = {
   srcArray: string[];

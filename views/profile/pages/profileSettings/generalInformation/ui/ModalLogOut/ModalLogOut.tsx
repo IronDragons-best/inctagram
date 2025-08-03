@@ -1,7 +1,7 @@
 // DeleteAvatarModal.tsx
 import { Button } from "@irondragons/ui-lib-inctagram";
 import { ModalPhoto } from "../ModalPhoto/ModalPhoto";
-import s from "./modalDeleteAvatar.module.scss";
+import s from "./modalLogOut.module.scss";
 
 type Props = {
   isOpen: boolean;
@@ -9,11 +9,11 @@ type Props = {
   onConfirm: () => void;
 };
 
-export const ModalDeleteAvatar= ({ isOpen, onClose, onConfirm }: Props) => {
+export const ModalLogOut= ({ isOpen, onClose, onConfirm }: Props) => {
   return (
-    <ModalPhoto modalTitle="delete photo" onClose={onClose} isModalOpen={isOpen}>
+    <ModalPhoto modalTitle="log out" onClose={onClose} isModalOpen={isOpen}>
       <div className={s.confirmDeleteContent}>
-        <p>Are you sure you want to delete this image?</p>
+        <p>Are you really want to log out of your account “Epam@epam.com”?</p>
         <div className={s.confirmDeleteButtons}>
           <Button variant="outline" onClick={onConfirm}>
             Yes

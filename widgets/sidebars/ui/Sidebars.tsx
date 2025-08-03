@@ -1,7 +1,7 @@
 'use client';
 import { useLogoutMutation } from '@/features/auth/api/authApi';
-import { AuthModal } from '@/shared/authModal/ui/AuthModal';
 import { PATH } from '@/shared/constants/path';
+import { ModalLogOut } from '@/views/profile/pages/profileSettings/generalInformation/ui/ModalLogOut/ModalLogOut';
 import { MenuItem } from '@/widgets/sidebars/ui/MenuItem';
 import { Button, UniversalIcon } from '@irondragons/ui-lib-inctagram';
 import { useRouter } from 'next/navigation';
@@ -32,7 +32,7 @@ export const Sidebars = () => {
       .unwrap()
       .then(() => {
         localStorage.removeItem('accessToken');
-        router.push('/sign-in');
+        router.push(PATH.sign_in);
       });
   };
   
@@ -59,19 +59,11 @@ export const Sidebars = () => {
           <UniversalIcon className={s.icon} name={'log-out'} />
           Log out
         </Button>
-        <AuthModal
-          title={'Log out'}
-          description={'Are you really want to log out of your account'}
-          openModal={closeModal}
-          isModalOpen={isModalOpen}
-        >
-          <>
-            <Button onClick={handleLogout}>Yes</Button>
-            <Button className={s.modalButton} onClick={closeModal}>
-              No
-            </Button>
-          </>
-        </AuthModal>
+        <ModalLogOut
+          isOpen={isModalOpen}
+          onClose={closeModal}
+          onConfirm={handleLogout}
+        />
       </ul>
     </div>
   );

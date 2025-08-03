@@ -1,7 +1,7 @@
 import { Button } from "@irondragons/ui-lib-inctagram";
 import { useRef } from "react";
-import { ModalPhoto } from "../ModalPhoto";
-import s from "./ModalPreviewImage.module.scss";
+import { ModalPhoto } from "../ModalPhoto/ModalPhoto";
+import s from "./modalPreviewImage.module.scss";
 type Props = {
   selectedImage: string | null;
   position: { x: number; y: number };
@@ -80,7 +80,7 @@ export const ModalPreviewImage = ({
 
   return (
     <ModalPhoto
-      modalTitle="Preview Image"
+      modalTitle="preview image"
       onClose={() => setIsImageModalOpen(false)}
       isModalOpen={true}
     >

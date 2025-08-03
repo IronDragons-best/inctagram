@@ -1,5 +1,5 @@
 "use client";
-import { UniversalIcon } from "@irondragons/ui-lib-inctagram";
+import { Button, UniversalIcon } from "@irondragons/ui-lib-inctagram";
 import { Dialog } from "radix-ui";
 import { ReactNode } from "react";
 import s from "./modalPhoto.module.scss";
@@ -32,9 +32,9 @@ export const ModalPhoto = ({
           <div className={s.Heading}>
             <Dialog.Title className={s.Title}>{modalTitle}</Dialog.Title>
             <Dialog.Close asChild>
-              <button className={s.IconButton} aria-label="Close">
-                <UniversalIcon name={"close"} />
-              </button>
+              <Button className={s.IconButton} variant="secondary">
+              <UniversalIcon className={s.icon} name={"close"} />
+                </Button>            
             </Dialog.Close>
           </div>
           <div className={s.Children}>{children}</div>
