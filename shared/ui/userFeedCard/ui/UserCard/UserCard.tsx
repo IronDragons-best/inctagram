@@ -12,7 +12,7 @@ import photo4 from '@/public/assets/img/photo_04.png'
 import photo5 from '@/public/assets/img/stalinLike.jpg'
 import { useTimeAgo } from '@/shared/hooks/userTimeAgo'
 
-const photosArray = [photo1, photo2, photo3, photo4, photo5]
+const photosArray = [photo1.src, photo2.src, photo3.src, photo4.src, photo5.src]
 
 type Props = {
   userId?: string
@@ -34,7 +34,7 @@ export const UserCard = ({ userAvatar, userName, userTime, userContent }: Props)
     <div className={s['user-card']}>
       <div className={s['user-card__container']}>
         <div className={`${s['user-card__slider']} ${expanded ? s['user-card__slider--collapsed'] : ''}`}>
-          <Slider srcArray={photosArray} />
+          <Slider srcArray={photosArray} isSmall/>
         </div>
         <div className={s['user-card__details']}>
           <div className={s['user-card__info']}>

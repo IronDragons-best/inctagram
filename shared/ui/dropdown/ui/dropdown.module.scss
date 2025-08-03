@@ -19,8 +19,8 @@
   position: fixed;
   top: 40px;
   right: 25px;
-  width: 137px;
-  height: 85px;
+  width: fit-content;
+  height: fit-content;
   //z-index: 100;
 
   &:focus,
@@ -37,6 +37,7 @@
   }
 
   & .FieldCard {
+    cursor: pointer;
     display: flex;
     flex-direction: row;
     gap: 12px;

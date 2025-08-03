@@ -8,19 +8,6 @@ import { usePathname, useRouter } from 'next/navigation';
 import { Slider } from '@/shared/ui/slider';
 
 import clsx from 'clsx';
-import photo1 from '@/public/assets/img/photo_01.png';
-import photo2 from '@/public/assets/img/photo_02.png';
-import photo3 from '@/public/assets/img/photo_03.jpg';
-import photo4 from '@/public/assets/img/photo_04.png';
-import photo5 from '@/public/assets/img/stalinLike.jpg';
-
-const photosArray: string[] = [
-  photo1.src,
-  photo2.src,
-  photo3.src,
-  photo4.src,
-  photo5.src,
-];
 
 type PublicationModalProps = {
   openModal: () => void;
@@ -28,7 +15,7 @@ type PublicationModalProps = {
   title?: 'Edit Post' | 'Publication';
   children: ReactNode;
   srcArray: string[];
-  isSmall: boolean;
+  isSmall?: boolean;
 }
 
 export const PublicationModal = ({

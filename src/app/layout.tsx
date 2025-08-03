@@ -7,7 +7,7 @@ import { Provider } from "react-redux";
 import "src/styles/index.scss";
 import s from "./page.module.scss";
 import { Header } from "@/widgets/header";
-import { Sidebars } from "@/widgets/sidebars";
+import { Sidebar } from "@/widgets/sidebar";
 import { usePathname } from "next/navigation";
 import { PATH } from "@/shared/constants/path";
 
@@ -24,7 +24,7 @@ export default function RootLayout({
           <div className={s.rootLayout}>
             <Header isAuth={true} localization={"eng"} />
             <div className={s.display}>
-              {path !== PATH.sign_up && <Sidebars />}
+              {path !== PATH.sign_up && <Sidebar />}
               <div className={s.mainWrapper} data-isuserauthorized={false}>
                 {children}
               </div>

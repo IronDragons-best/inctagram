@@ -38,7 +38,7 @@ export const Slider = ({ srcArray,
       className={clsx(s.Swiper, "mySwiper")}
       data-isslidersmall={isSmall || undefined}
     >
-      {srcArray.map((src: string) => (
+      {srcArray?.map((src: string) => (
         <SwiperSlide className={s.SwiperSlide} key={src}>
           <Image src={src} alt={"photo"} fill />
         </SwiperSlide>
