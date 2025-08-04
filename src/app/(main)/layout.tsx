@@ -4,14 +4,14 @@ import { store } from "@/src/app/provider/store";
 import "@irondragons/ui-lib-inctagram/dist/style.css";
 import { ReactNode } from "react";
 import { Provider } from "react-redux";
-import "src/styles/index.scss";
+import "@/src/styles/index.scss";
 import s from "./page.module.scss";
 import { Header } from "@/widgets/header";
 import { Sidebars } from "@/widgets/sidebars";
 import { usePathname } from "next/navigation";
 import { PATH } from "@/shared/constants/path";
 
-export default function RootLayout({
+export default function MainLayout({
   children,
 }: Readonly<{
   children: ReactNode;
