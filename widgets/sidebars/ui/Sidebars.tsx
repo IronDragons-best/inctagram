@@ -1,4 +1,5 @@
 "use client";
+
 import { useLogoutMutation } from "@/features/auth/api/authApi";
 import { AuthModal } from "@/shared/authModal/ui/AuthModal";
 import { PATH } from "@/shared/constants/path";

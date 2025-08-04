@@ -1,4 +1,5 @@
 'use client';
+
 import React from 'react';
 import { Header } from '@/widgets/header';
 import { Sidebars } from '@/widgets/sidebars';

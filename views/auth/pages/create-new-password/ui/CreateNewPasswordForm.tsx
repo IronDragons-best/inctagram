@@ -3,7 +3,6 @@
 import { Button, Card, Input } from "@irondragons/ui-lib-inctagram";
 import s from "./createNewPassword.module.scss";
 import { SubmitHandler, useForm } from "react-hook-form";
-
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as React from "react";
 import {

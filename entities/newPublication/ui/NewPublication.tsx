@@ -1,7 +1,7 @@
 'use client';
 
-import { AddPhotoModalComponent } from '@/entities/newPublication/ui/addPhotoModalComponent';
-import { AddPublicationModalComponent } from '@/entities/newPublication/ui/addPublicationModdalComponent';
+import { AddPhotoModalComponent } from '@/entities/newPublication/ui/AddPhotoModalComponent';
+import { AddPublicationModalComponent } from '@/entities/newPublication/ui/AddPublicationModalComponent';
 import { useState } from 'react';
 
 export const NewPublication = () => {
