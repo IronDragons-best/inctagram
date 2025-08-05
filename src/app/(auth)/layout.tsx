@@ -1,18 +1,32 @@
 "use client";
 
+import { store } from "@/src/app/provider/store";
+import "@irondragons/ui-lib-inctagram/dist/style.css";
 import { ReactNode } from "react";
-import styles from "./authLayout.module.scss";
+import { Provider } from "react-redux";
+import "@/src/styles/index.scss";
+import s from "./authLayout.module.scss";
 import { Header } from "@/widgets/header";
 
-export default function RootLayout({
+export default function AuthLayout({
   children,
 }: Readonly<{
   children: ReactNode;
 }>) {
   return (
-    <>
-      {/*   Заглушка   */}
-      <div className={styles.authContent}>{children}</div>
-    </>
+    <Provider store={store}>
+      <html lang="en">
+        <body>
+          <div className={s.authContent}>
+            <Header
+              isAuth={false}
+              isProcessingAuth={true}
+              localization={"eng"}
+            />
+            <div className={s.formWrapper}>{children}</div>
+          </div>
+        </body>
+      </html>
+    </Provider>
   );
 }

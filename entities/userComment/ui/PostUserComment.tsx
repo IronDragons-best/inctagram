@@ -5,7 +5,6 @@ import { UniversalIcon } from '@irondragons/ui-lib-inctagram';
 import * as React from 'react';
 import s from './postUserComment.module.scss';
 
-
 type PostUserCommentProps = {
   userId?: string;
   userAvatar: string | StaticImageData;

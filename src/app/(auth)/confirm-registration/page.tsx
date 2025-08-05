@@ -16,7 +16,10 @@ const Page = () => {
   const confirmationCode = queryParams.get("code");
 
   useEffect(() => {
-    confirmEmailHandler(confirmationCode!)
+    if (!confirmationCode) {
+      redirect("/");
+    }
+    confirmEmailHandler(confirmationCode)
       .unwrap()
       .then(() => {
         setIsEmailConfirmed(true);

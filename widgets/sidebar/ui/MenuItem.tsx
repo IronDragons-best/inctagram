@@ -17,6 +17,7 @@ export const MenuItem =({
   isActive,
   onClick,
 }: MenuItemProps) => {
+  
   return (
     <li className={`${s.menu_item} ${isActive ? s.active : ''}`} onClick={onClick}>
       <Link className={s.menuButton} href={href}>

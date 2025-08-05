@@ -1,5 +1,6 @@
 'use client';
-import React, { useEffect, useRef, useState } from 'react';
+
+import React, { useEffect, useRef } from 'react';
 import { AddPhotoModal } from '@/shared/addPhotoModal';
 import { Button } from '@irondragons/ui-lib-inctagram';
 

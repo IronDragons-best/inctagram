@@ -1,1 +1,1 @@
-export { NewPublication } from "./ui/newPublication"
+export { NewPublication } from "./ui/NewPublication"
