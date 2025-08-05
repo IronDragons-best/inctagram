@@ -8,6 +8,8 @@ import Link from "next/link";
 import { PATH } from "@/shared/constants/path";
 import { ButtonContainer } from "@/views/profile/pages/userProfile/ButtonContainer";
 import { Post } from "@/views/profile/pages/userProfile/userPost/post";
+import { Slider } from '@/shared/ui/slider';
+import React from 'react';
 
 type Props = {
   params: Promise<{ userId: string }>;
@@ -86,6 +88,10 @@ const data = [
 export const UserProfile = async ({ searchParams, params }: Props) => {
   const pr = params;
   const { postId } = await searchParams;
+  
+  function getImageUrlByPostId(postId: string) {
+    return data.find(item => item.postId === postId)?.imageUrl.src;
+  }
 
   return (
     <div className={s.profileWrapper}>
@@ -132,8 +138,8 @@ export const UserProfile = async ({ searchParams, params }: Props) => {
           </Link>
         ))}
       </div>
-
-      {postId && <Post isModalOpen={!!postId} />}
+        {/*TODO Поправить типизацию. В йункцию может не прийти объект и тогда будет undefined*/}
+      {postId && <Post isModalOpen={!!postId} srcArray={[getImageUrlByPostId(postId)] as string[]}/>}
     </div>
   );
 };

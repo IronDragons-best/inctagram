@@ -8,20 +8,40 @@ import { PostUserComment } from '@/entities/userComment/';
 import { PostActions } from '@/shared/ui/postActions/ui/PostActions';
 import Image from 'next/image';
 
-import photo1 from '@/public/assets/img/photo_01.png';
-import photo2 from '@/public/assets/img/photo_02.png';
-import photo3 from '@/public/assets/img/photo_03.jpg';
-import photo4 from '@/public/assets/img/photo_04.png';
-import photo5 from '@/public/assets/img/stalinLike.jpg';
 import { LikesCount } from '@/shared/ui/likesCount/ui/LikesCount';
 import { usePathname, useRouter } from 'next/navigation';
 import { PublicationModal } from '@/shared/modals/publicationModal';
 import { PublishComment } from '@/shared/ui/publishComment';
 import { Dropdown } from '@/shared/ui/dropdown';
 
+import photo1 from '@/public/assets/img/photo_01.png';
+import photo2 from '@/public/assets/img/photo_02.png';
+import photo3 from '@/public/assets/img/photo_03.jpg';
+import photo4 from '@/public/assets/img/photo_04.png';
+import photo5 from '@/public/assets/img/stalinLike.jpg';
 
+const photosArray: string[] = [
+  photo1.src,
+  photo2.src,
+  photo3.src,
+  photo4.src,
+  photo5.src,
+];
 
-const photosArray = [photo1, photo2, photo3, photo4, photo5];
+const MOCK_DATA = [
+  {
+    icon: 'edit-2-outline',
+    label: 'Edit Post',
+    onClick: () => {
+    },
+  },
+  {
+    icon: 'trash-outline',
+    label: 'Delete Post',
+    onClick: () => {
+    },
+  },
+];
 
 type Props = {
   openModal?: () => void;
@@ -29,13 +49,14 @@ type Props = {
   id?: string;
   title?: 'withPublish' | 'withoutPublish';
   slides?: string[];
-  srcArray?: string[];
+  srcArray: string[];
 };
 
 export const Post = ({
                        openModal,
                        isModalOpen,
                        title,
+                       srcArray,
                      }: Props) => {
   const [modalOpen, setModalOpen] = useState(isModalOpen);
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -49,7 +70,7 @@ export const Post = ({
   };
   
   return (
-    <PublicationModal isModalOpen={true} isSmall>
+    <PublicationModal isModalOpen={modalOpen} openModal={handleOpenModal} srcArray={srcArray}>
       <>
         <div className={s.PostTitle}>
           <div className={s.UserAvatar}>
@@ -60,7 +81,10 @@ export const Post = ({
           </span>
           <div className={s.MoreIcon} onClick={() => setDropdownOpen(true)}>
             <UniversalIcon name={'more-horizontal-outline'} />
-            <Dropdown onClose={() => setDropdownOpen(false)} isModalOpen={dropdownOpen}/>
+            <Dropdown
+              onClose={() => setDropdownOpen(false)}
+              isModalOpen={dropdownOpen}
+              items={MOCK_DATA} />
           </div>
         </div>
         <div className={s.PostUserCommentWrapper}>

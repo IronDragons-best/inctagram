@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { ReactNode } from 'react';
-import s from './sidebars.module.scss';
+import s from './sidebar.module.scss';
 
 type MenuItemProps = {
   text: string;

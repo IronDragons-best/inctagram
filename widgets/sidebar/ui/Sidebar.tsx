@@ -1,15 +1,15 @@
 "use client";
 
 import { useLogoutMutation } from "@/features/auth/api/authApi";
-import { AuthModal } from "@/shared/authModal/ui/AuthModal";
+import { AuthModal } from "@/shared/modals/authModal/ui/AuthModal";
 import { PATH } from "@/shared/constants/path";
-import { MenuItem } from "@/widgets/sidebars/ui/MenuItem";
+import { MenuItem } from "@/widgets/sidebar/ui/MenuItem";
 import { Button, UniversalIcon } from "@irondragons/ui-lib-inctagram";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import s from "./sidebars.module.scss";
+import s from "./sidebar.module.scss";
 
-export const Sidebars = () => {
+export const Sidebar = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [logoutHandler] = useLogoutMutation();
 

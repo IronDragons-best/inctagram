@@ -5,43 +5,39 @@ import { Button, Card, UniversalIcon } from '@irondragons/ui-lib-inctagram';
 import { Dialog } from 'radix-ui';
 import s from './dropdown.module.scss';
 
+type DropdownItem = {
+  icon: string;
+  label: string;
+  onClick: () => void;
+};
+
 type Props = {
   isModalOpen: boolean;
-  children?: ReactNode;
   onClose?: () => void;
+  items: DropdownItem[];
 };
 
 export const Dropdown = ({
                            isModalOpen,
-                           children,
                            onClose,
+                           items,
                          }: Props) => {
   return (
     <Dialog.Root onOpenChange={onClose} open={isModalOpen}>
-        <Dialog.Overlay className={s.Overlay} />
-        <Dialog.Title className={s.MainTitle}>
-          {/* TODO Что-то должно быть внутри для поисковых роботов */}
-        </Dialog.Title>
-        <Dialog.Content className={s.Content}>
-          <Card fullWidth size={'sm'}>
-            <div className={s.FieldCard}>
+      <Dialog.Overlay className={s.Overlay} />
+      <Dialog.Title className={s.MainTitle}>Post actions</Dialog.Title>
+      <Dialog.Content className={s.Content}>
+        <Card fullWidth size={'sm'}>
+          {items.map((item, index) => (
+            <div key={index} className={s.FieldCard} onClick={item.onClick}>
               <div className={s.IconField}>
-                <UniversalIcon name={'edit-2-outline'} />
+                <UniversalIcon name={item.icon} />
               </div>
-              <div className={s.TextField}>
-                Edit Post
-              </div>
+              <div className={s.TextField}>{item.label}</div>
             </div>
-            <div className={s.FieldCard}>
-              <div className={s.IconField}>
-                <UniversalIcon name={'trash-outline'} />
-              </div>
-              <div className={s.TextField}>
-                Delete Post
-              </div>
-            </div>
-          </Card>
-        </Dialog.Content>
+          ))}
+        </Card>
+      </Dialog.Content>
     </Dialog.Root>
   );
 };

@@ -32,6 +32,7 @@
   }
 
   & .LikePostIcon {
+    cursor: pointer;
     flex: 0 0 16px;
     width: 16px;
     height: 16px;
@@ -61,4 +62,8 @@
 .PostMetaLikes,
 .PostMetaAction {
   @include font.semi-bold-small-text;
+}
+
+.PostMetaAction {
+  cursor: pointer;
 }
