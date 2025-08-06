@@ -330,16 +330,20 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/posts": {
+    "/posts/create-post": {
         parameters: {
             query?: never;
             header?: never;
             path?: never;
             cookie?: never;
         };
-        get: operations["PostsController_getPosts"];
+        get?: never;
         put?: never;
-        post?: never;
+        /**
+         * Create a new post
+         * @description This endpoint allows you to create a new post with up to 10 images.
+         */
+        post: operations["PostsController_createPost"];
         delete?: never;
         options?: never;
         head?: never;
@@ -353,7 +357,39 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
+        /**
+         * Get post by ID
+         * @description Retrieves a post by its unique identifier.
+         */
         get: operations["PostsController_getPostById"];
+        /**
+         * Update post description
+         * @description This endpoint allows you to update existing posts description field
+         */
+        put: operations["PostsController_updatePost"];
+        post?: never;
+        /**
+         * Delete existing post
+         * @description this endpoint deletes a post by post id.
+         */
+        delete: operations["PostsController_deletePostById"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/posts": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Get posts
+         * @description This endpoint retrieves a list of posts with pagination and sorting options.
+         */
+        get: operations["PostsController_getPosts"];
         put?: never;
         post?: never;
         delete?: never;
@@ -485,6 +521,72 @@ export interface components {
              * @example 2023-10-02T12:00:00Z
              */
             updatedAt: Record<string, never> | null;
+        };
+        CreatePostInputDto: {
+            /**
+             * @description title
+             * @example post title
+             */
+            title: string;
+            /**
+             * @description shortDescription
+             * @example short description of post
+             */
+            shortDescription: string;
+            /** @description Post images (max 10) */
+            files: string[];
+        };
+        UpdatePostInputDto: {
+            /**
+             * @description description
+             * @example new post description
+             */
+            description: string;
+        };
+        PostUserDto: {
+            /**
+             * @description Unique identifier of the user.
+             * @example 15
+             */
+            userId: number;
+            /**
+             * @description Username of the user.
+             * @example test user
+             */
+            username: string;
+        };
+        PostViewDto: {
+            /**
+             * @description Unique identifier of the post.
+             * @example 1
+             */
+            id: number;
+            /** @description User who created the post. */
+            user: components["schemas"]["PostUserDto"];
+            /**
+             * @description Title of the post.
+             * @example Understanding TypeScript Decorators
+             */
+            title: string;
+            /**
+             * @description Content of the post.
+             * @example This post explains how to use decorators in TypeScript...
+             */
+            shortDescription: string;
+            /**
+             * @description Preview images of the post.
+             * @example [
+             *       "https://example.com/image1.jpg",
+             *       "https://example.com/image2.jpg"
+             *     ]
+             */
+            previewImages: string[];
+            /**
+             * Format: date-time
+             * @description Date when the post was created.
+             * @example 2023-10-01T12:00:00Z
+             */
+            createdAt: string;
         };
     };
     responses: never;
@@ -1248,21 +1350,35 @@ export interface operations {
             };
         };
     };
-    PostsController_getPosts: {
+    PostsController_createPost: {
         parameters: {
             query?: never;
             header?: never;
             path?: never;
             cookie?: never;
         };
-        requestBody?: never;
+        /** @description Post data with images */
+        requestBody: {
+            content: {
+                "multipart/form-data": components["schemas"]["CreatePostInputDto"];
+            };
+        };
         responses: {
-            /** @description Success */
-            200: {
+            /** @description Post successfully created */
+            201: {
                 headers: {
                     [name: string]: unknown;
                 };
                 content?: never;
+            };
+            /** @description User is not authenticated or token is invalid. */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponseDto"];
+                };
             };
         };
     };
@@ -1271,20 +1387,180 @@ export interface operations {
             query?: never;
             header?: never;
             path: {
-                id: string;
+                /** @description Post ID */
+                id: number;
             };
             cookie?: never;
         };
         requestBody?: never;
         responses: {
-            /** @description Success */
-            201: {
+            /** @description Post retrieved successfully. */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["PostViewDto"];
+                };
+            };
+            /** @description Post not found. */
+            404: {
                 headers: {
                     [name: string]: unknown;
                 };
                 content?: never;
             };
-            /** @description Not Found */
+        };
+    };
+    PostsController_updatePost: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description Post id (integer) */
+                id: number;
+            };
+            cookie?: never;
+        };
+        /** @description new description */
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["UpdatePostInputDto"];
+            };
+        };
+        responses: {
+            /** @description Description successfully updated */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Description is invalid or empty */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ErrorResponseDto"];
+                };
+            };
+            /** @description User is not authenticated or token expired */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["WithoutFieldErrorResponseDto"];
+                };
+            };
+            /** @description User is not the owner of resource */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["WithoutFieldErrorResponseDto"];
+                };
+            };
+            /** @description Post not found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["WithoutFieldErrorResponseDto"];
+                };
+            };
+        };
+    };
+    PostsController_deletePostById: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                /** @description Post id (integer) */
+                id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Post successfully deleted */
+            204: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description User is not authenticated or token expired */
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["WithoutFieldErrorResponseDto"];
+                };
+            };
+            /** @description User is not the owner of resource */
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["WithoutFieldErrorResponseDto"];
+                };
+            };
+            /** @description Post not found */
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["WithoutFieldErrorResponseDto"];
+                };
+            };
+        };
+    };
+    PostsController_getPosts: {
+        parameters: {
+            query?: {
+                /** @description Page number for pagination */
+                pageNumber?: number;
+                /** @description Number of items per page */
+                pageSize?: number;
+                /** @description Field to sort by */
+                sortBy?: string;
+                /** @description Sort direction (ASC or DESC) */
+                sortDirection?: "ASC" | "DESC";
+                /** @description User ID */
+                userId?: number;
+                /** @description description */
+                description?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Posts retrieved successfully. */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": unknown[];
+                };
+            };
+            /** @description Invalid query parameters provided. */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description No posts found for the given criteria. */
             404: {
                 headers: {
                     [name: string]: unknown;
