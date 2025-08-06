@@ -1,2 +1,2 @@
-export { UserCard } from './ui/UserCard'
-export { UserCardList } from './ui/UserCardList'
+export { UserCard } from './ui/UserCard';
+export { UserCardList } from './ui/UserCardList';

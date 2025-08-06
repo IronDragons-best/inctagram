@@ -1,7 +1,7 @@
-import { PublicPage } from '@/views/auth/pages/public-page/ui'
+import { PublicPage } from 'views/publicPage/pages/public-page/ui';
 
 const Page = () => {
-  return <PublicPage />
-}
+  return <PublicPage />;
+};
 
-export default Page
+export default Page;

@@ -1,1 +1,1 @@
-export { RegisteredUsers } from './RegisteredUsers'
+export { RegisteredUsers } from './RegisteredUsers';

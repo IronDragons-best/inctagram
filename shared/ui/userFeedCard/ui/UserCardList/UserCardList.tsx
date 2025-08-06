@@ -1,8 +1,8 @@
-'use client'
+'use client';
 
-import { mockUsers } from '@/shared/mocks/userFeed/mockData'
-import { UserCard } from '@/shared/ui/userFeedCard'
-import s from './UserCardList.module.scss'
+import { mockUsers } from '@/shared/mocks/userFeed/mockData';
+import { UserCard } from '@/shared/ui/userFeedCard';
+import s from './UserCardList.module.scss';
 
 export const UserCardList = () => {
   return (
@@ -11,5 +11,5 @@ export const UserCardList = () => {
         <UserCard key={user.userId} {...user} />
       ))}
     </div>
-  )
-}
+  );
+};

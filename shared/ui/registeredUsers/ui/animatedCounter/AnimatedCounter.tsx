@@ -1,6 +1,6 @@
-'use client'
+'use client';
 
-import s from './animatedCounte.module.scss'
+import s from './animatedCounte.module.scss';
 import { Fragment } from 'react';
 
 type Props = {
@@ -9,10 +9,10 @@ type Props = {
 }
 
 export const AnimatedCounter = ({ value, digitCount = 6 }: Props) => {
-  const padded = value.toString().padStart(digitCount, '0').split('')
-
-  const digitHeight = 20
-
+  const padded = value.toString().padStart(digitCount, '0').split('');
+  
+  const digitHeight = 20;
+  
   return (
     <div className={s.counter}>
       {padded.map((digit, index) => (
@@ -35,5 +35,5 @@ export const AnimatedCounter = ({ value, digitCount = 6 }: Props) => {
         </Fragment>
       ))}
     </div>
-  )
-}
+  );
+};

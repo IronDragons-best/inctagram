@@ -1,1 +1,1 @@
-export { UserCardList} from './UserCardList'
+export { UserCardList } from './UserCardList';

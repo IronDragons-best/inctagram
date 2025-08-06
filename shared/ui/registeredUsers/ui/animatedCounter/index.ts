@@ -1,1 +1,1 @@
-export { AnimatedCounter } from './AnimatedCounter'
+export { AnimatedCounter } from './AnimatedCounter';
