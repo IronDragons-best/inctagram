@@ -25,6 +25,7 @@
         "minimatch": "^10.0.3",
         "next": "15.3.4",
         "openapi-fetch": "^0.14.0",
+        "prettier": "^3.6.2",
         "radix-ui": "^1.4.2",
         "react": "^19.0.0",
         "react-day-picker": "^9.8.1",
@@ -33,6 +34,7 @@
         "react-hook-form": "^7.60.0",
         "react-redux": "^9.2.0",
         "sass": "^1.89.2",
+        "stylelint": "^16.23.0",
         "swiper": "^11.2.10",
         "zod": "^3.25.74"
     },
