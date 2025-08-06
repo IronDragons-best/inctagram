@@ -1,37 +1,20 @@
-'use client'
-
-import { store } from '@/src/app/provider/store'
-import '@irondragons/ui-lib-inctagram/dist/style.css'
 import { ReactNode } from 'react'
-import { Provider } from 'react-redux'
-import '@/src/styles/index.scss'
-import s from './page.module.scss'
-import { Header } from '@/widgets/header'
-import { Sidebar } from '@/widgets/sidebar'
-import { usePathname } from 'next/navigation'
-import { PATH } from '@/shared/constants/path'
+import { MainLayoutComponent } from '@/src/common/components/mainLayout'
+import { Metadata } from 'next'
+import { defaultMetadata } from '@/shared/lib/defaultMetadata'
+
+export const metadata: Metadata = defaultMetadata
 
 export default function MainLayout({
   children,
 }: Readonly<{
   children: ReactNode
 }>) {
-  const path = usePathname()
   return (
-    <Provider store={store}>
-      <html lang="en">
-        <body>
-          <div className={s.rootLayout}>
-            <Header localization={'eng'} />
-            <div className={s.display}>
-              {path !== PATH.sign_up && <Sidebar />}
-              <div className={s.mainWrapper} data-isuserauthorized={false}>
-                {children}
-              </div>
-            </div>
-          </div>
-        </body>
-      </html>
-    </Provider>
+    <html lang="en">
+      <body>
+        <MainLayoutComponent>{children}</MainLayoutComponent>
+      </body>
+    </html>
   )
 }
