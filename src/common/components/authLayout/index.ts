@@ -1,0 +1,1 @@
+export { AuthLayoutComponent } from './AuthLayoutComponent'

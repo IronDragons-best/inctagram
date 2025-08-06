@@ -1,32 +1,21 @@
-"use client";
+import { ReactNode } from 'react'
 
-import { store } from "@/src/app/provider/store";
-import "@irondragons/ui-lib-inctagram/dist/style.css";
-import { ReactNode } from "react";
-import { Provider } from "react-redux";
-import "@/src/styles/index.scss";
-import s from "./authLayout.module.scss";
-import { Header } from "@/widgets/header";
+import { AuthLayoutComponent } from 'src/common/components/authLayout'
+import { Metadata } from 'next'
+import { defaultMetadata } from '@/shared/lib/defaultMetadata'
+
+export const metadata: Metadata = defaultMetadata
 
 export default function AuthLayout({
   children,
 }: Readonly<{
-  children: ReactNode;
+  children: ReactNode
 }>) {
   return (
-    <Provider store={store}>
-      <html lang="en">
-        <body>
-          <div className={s.authContent}>
-            <Header
-              isAuth={false}
-              isProcessingAuth={true}
-              localization={"eng"}
-            />
-            <div className={s.formWrapper}>{children}</div>
-          </div>
-        </body>
-      </html>
-    </Provider>
-  );
+    <html lang="en">
+      <body>
+        <AuthLayoutComponent>{children}</AuthLayoutComponent>
+      </body>
+    </html>
+  )
 }
