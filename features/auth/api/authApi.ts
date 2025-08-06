@@ -1,16 +1,18 @@
-import { client, TokenService } from "@/shared/schemas/types/api/client";
-import { baseApi } from "@/src/app/provider/baseApi";
-import { Inputs } from "@/views/auth/pages/signUp/lib/schemas/signUp";
-import { InputsForm } from "@/views/auth/pages/signIn/lib/schemas/signIn";
-import { InputForm } from "@/views/auth/pages/forgot-password/lib/schemas/forgotPasswordForm";
-import { Mutex } from "async-mutex";
+import { client, TokenService } from '@/shared/schemas/types/api/client';
+import { baseApi } from '@/src/app/provider/baseApi';
+import { SignInFormTypes } from '@/views/auth/pages/signIn/lib/schemas/signIn';
+import { Mutex } from 'async-mutex';
+import { SignUpFormTypes } from '@/views/auth/pages/signUp/lib/schemas/signUp';
+import {
+  ForgotPasswordFormType
+} from '@/views/auth/pages/forgot-password/lib/schemas/forgotPasswordForm';
 
 const mutex = new Mutex();
 
 export const authApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
     registration: build.mutation({
-      queryFn: async (body: Inputs) => {
+      queryFn: async (body: SignUpFormTypes) => {
         const res = await client.POST("/auth/registration", { body });
         return { data: res };
       },
@@ -54,7 +56,7 @@ export const authApi = baseApi.injectEndpoints({
       },
     }),
     signIn: build.mutation({
-      queryFn: async (body: InputsForm) => {
+      queryFn: async (body: SignInFormTypes) => {
         const res = await client.POST("/auth/login", { body });
         return { data: res };
       },
@@ -65,12 +67,12 @@ export const authApi = baseApi.injectEndpoints({
         return { data: res };
       },
     }),
-    me: build.query<any, void>({
+    me: build.query({
       queryFn: async () => {
         const res = await client.GET("/auth/me");
         return { data: res };
       },
-      async onQueryStarted(arg, { dispatch, getState, queryFulfilled }) {
+      async onQueryStarted(_arg, { queryFulfilled }) {
         const release = await mutex.acquire();
         try {
           const { data } = await queryFulfilled;
@@ -78,8 +80,7 @@ export const authApi = baseApi.injectEndpoints({
             const { data: token } = await client.POST("/auth/refresh-token");
             if (token) {
               TokenService.setToken(token.accessToken);
-              const res = await client.GET("/auth/me");
-              const { data } = await queryFulfilled;
+               await client.GET("/auth/me");
             }
           }
         } finally {
@@ -87,12 +88,12 @@ export const authApi = baseApi.injectEndpoints({
         }
       },
     }),
-    refreshToken: build.mutation<any, void>({
+    refreshToken: build.mutation({
       queryFn: async () => {
         const res = await client.POST("/auth/refresh-token");
         return { data: res };
       },
-      async onQueryStarted(arg, { dispatch, getState, queryFulfilled }) {
+      async onQueryStarted(_arg, { queryFulfilled }) {
         const release = await mutex.acquire();
         try {
           await queryFulfilled;
@@ -102,7 +103,7 @@ export const authApi = baseApi.injectEndpoints({
       },
     }),
     reCaptcha: build.mutation({
-      queryFn: async (data: InputForm) => {
+      queryFn: async (data: ForgotPasswordFormType) => {
         const res = await client.POST("/auth/password-recovery", {
           body: data,
         });
@@ -119,6 +120,5 @@ export const {
   useSignInMutation,
   useLogoutMutation,
   useMeQuery,
-  useRefreshTokenMutation,
   useReCaptchaMutation,
 } = authApi;

@@ -1,22 +1,19 @@
 "use client";
 
-import s from "./signUp.module.scss";
+import s from './signUp.module.scss';
+import { Button, Card, Checkbox, Input, UniversalIcon } from '@irondragons/ui-lib-inctagram';
+import Link from 'next/link';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import * as React from 'react';
+import { useState } from 'react';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { AuthModal } from '@/shared/modals/authModal/ui/AuthModal';
+import { useRegistrationMutation } from '@/features/auth/api/authApi';
+import { PATH } from '@/shared/constants/path';
 import {
-  Button,
-  Card,
-  Checkbox,
-  Input,
-  UniversalIcon,
-} from "@irondragons/ui-lib-inctagram";
-import Link from "next/link";
-import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import * as React from "react";
-import { useState } from "react";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { AuthModal } from "@/shared/modals/authModal/ui/AuthModal";
-import { useRegistrationMutation } from "@/features/auth/api/authApi";
-import { PATH } from "@/shared/constants/path";
-import { Inputs, signUpValidationSchema } from '@/views/auth/pages/signUp/lib/schemas/signUp';
+  signInValidationSchema,
+  SignUpFormTypes,
+} from '@/views/auth/pages/signUp/lib/schemas/signUp';
 
 const Label = (
   <span className={s.conditions}>
@@ -33,8 +30,6 @@ const Label = (
 
 export const SignUp = () => {
   const [openModal, setOpenModal] = useState(false);
-  const [errorUsernameExist, setErrorUsernameExist] = useState("");
-  const [errorEmailExist, setErrorEmailExist] = useState("");
   const [registrationHandler] = useRegistrationMutation();
 
   const resetFormFields = () => {
@@ -50,41 +45,37 @@ export const SignUp = () => {
     reset,
     watch,
     setError,
+    getValues,
     formState: { isDirty, isValid, errors },
-  } = useForm<Inputs>({
+  } = useForm<SignUpFormTypes>({
     defaultValues: { agreeToTerms: false },
-    resolver: zodResolver(signUpValidationSchema),
+    resolver: zodResolver(signInValidationSchema),
     mode: "onBlur",
   });
 
   // Наблюдает за состоянием поля agreeToTerms, оно нужно, чтобы активировать кнопку отправки формы
-  const agree = watch("agreeToTerms");
-  const email = watch("email");
+  const isAgreeChecked = watch("agreeToTerms");
 
   // Проверяет валидны ли поля формы и заполнены ли они
   const isSubmitDisabled = !isDirty || !isValid;
 
   // TODO: поменять сет ошибок на setError убрать fullWidth={true}, сделать общий const для PATH
-  // При сабмите формы данные будут улетать на сервер
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
+  const onSubmit: SubmitHandler<SignUpFormTypes> = (data) => {
     registrationHandler(data)
       .unwrap()
       .then((res) => {
         const errorField = res.error?.errorsMessages[0]?.field;
         if (errorField === "username") {
-          setErrorUsernameExist(
-            "User with this username is already registered",
-          );
+          setError('username',{message: "User with this username is already registered"})
         } else if (errorField === "email") {
-          setErrorEmailExist("User with this email is already registered");
+          setError('username',{message: "User with this email is already registered"})
         } else {
           setOpenModal(true);
         }
       });
   };
 
-  // TODO: Не забыть поменять ссылки на актуальные, после правок добавить чилдами ссылки на страницы terms и policy
-  // TODO: Разбить компоненту на более мелкие куски
+  // TODO: Не забыть поменять ссылки на актуальные
   return (
     <Card>
       <div className={s.formWrapper}>
@@ -108,37 +99,35 @@ export const SignUp = () => {
         <form onSubmit={handleSubmit(onSubmit)} className={s.form}>
           <div className={s.fieldsWrapper}>
             <Input
-              fullWidth={true}
+              fullWidth
               inputType={"text"}
               label={"Username"}
               id={"username"}
-              errorText={errors.username?.message || errorUsernameExist}
+              errorText={errors.username?.message}
               placeholder={"Enter your name"}
               required
               {...register("username", {
                 onChange: () => {
                   clearErrors("username");
-                  setErrorUsernameExist(""); // потом удалить
                 },
               })}
             />
             <Input
-              fullWidth={true}
+              fullWidth
               required
               label={"Email"}
-              errorText={errors.email?.message || errorEmailExist}
+              errorText={errors.email?.message}
               placeholder={"example@example.com"}
               id={"email"}
               inputType={"email"}
               {...register("email", {
                 onChange: () => {
                   clearErrors("email");
-                  setErrorEmailExist(""); // потом удалить
                 },
               })}
             />
             <Input
-              fullWidth={true}
+              fullWidth
               required
               errorText={errors.password?.message}
               id={"password"}
@@ -150,7 +139,7 @@ export const SignUp = () => {
               })}
             />
             <Input
-              fullWidth={true}
+              fullWidth
               required
               id={"passwordConfirmation"}
               errorText={errors.passwordConfirmation?.message}
@@ -168,7 +157,7 @@ export const SignUp = () => {
               name="agreeToTerms"
               control={control}
               rules={{ required: true }}
-              render={({ field: { value, onChange, ...rest } }) => (
+              render={({ field: { value, onChange } }) => (
                 <Checkbox
                   idProp={"sign-up-1"}
                   checked={value}
@@ -180,7 +169,7 @@ export const SignUp = () => {
 
             <Button
               variant={"primary"}
-              disabled={isSubmitDisabled || !agree}
+              disabled={isSubmitDisabled || !isAgreeChecked}
               fullWidth={true}
             >
               Sign Up
@@ -196,7 +185,7 @@ export const SignUp = () => {
       </div>
       <AuthModal
         title={"Email sent"}
-        description={`We have sent a link to confirm your email to ${email}`}
+        description={`We have sent a link to confirm your email to ${getValues('email')}`}
         openModal={resetFormFields}
         isModalOpen={openModal}
       >

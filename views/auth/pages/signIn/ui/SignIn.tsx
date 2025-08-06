@@ -14,17 +14,15 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import s from "./signIn.module.scss";
 import { useState } from "react";
 import { PATH } from "@/shared/constants/path";
-import { InputsForm, signInSchema } from '@/views/auth/pages/signIn/lib/schemas/signIn';
+import { SignInFormTypes, signInSchema } from '@/views/auth/pages/signIn/lib/schemas/signIn';
 
-type Props = {};
-
-export const SignIn = ({}: Props) => {
+export const SignIn = () => {
   const {
     register,
     clearErrors,
     handleSubmit,
     formState: { isValid, errors },
-  } = useForm<InputsForm>({
+  } = useForm<SignInFormTypes>({
     resolver: zodResolver(signInSchema),
     mode: "onBlur",
   });
@@ -33,7 +31,7 @@ export const SignIn = ({}: Props) => {
 
   const router = useRouter();
 
-  const onSubmit: SubmitHandler<InputsForm> = (data) => {
+  const onSubmit: SubmitHandler<SignInFormTypes> = (data) => {
     signInHandler(data)
       .unwrap()
       .then((res) => {

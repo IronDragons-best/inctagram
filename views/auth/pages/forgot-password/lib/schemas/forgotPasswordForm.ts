@@ -5,4 +5,4 @@ export const forgotPasswordFormSchema = z.object({
   captchaToken: z.string()
 })
 
-export type InputForm = z.infer<typeof forgotPasswordFormSchema>
+export type ForgotPasswordFormType = z.infer<typeof forgotPasswordFormSchema>

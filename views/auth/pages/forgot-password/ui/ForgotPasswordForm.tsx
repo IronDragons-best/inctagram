@@ -10,7 +10,7 @@ import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import ReCAPTCHA from 'react-google-recaptcha';
 import { useReCaptchaMutation } from '@/features/auth/api/authApi';
-import { forgotPasswordFormSchema, InputForm } from '@/views/auth/pages/forgot-password/lib/schemas/forgotPasswordForm';
+import { forgotPasswordFormSchema, ForgotPasswordFormType } from '@/views/auth/pages/forgot-password/lib/schemas/forgotPasswordForm';
 export const ForgotPasswordForm = () => {
   const [isLinkSent, setIsLinkSent] = useState(false);
   const [reCaptchaMut] = useReCaptchaMutation();
@@ -21,12 +21,12 @@ export const ForgotPasswordForm = () => {
     control,
     reset,
     formState: { errors, isDirty, isValid },
-  } = useForm<InputForm>({
+  } = useForm<ForgotPasswordFormType>({
     resolver: zodResolver(forgotPasswordFormSchema),
     mode: 'onChange',
   });
   
-  const onSubmit: SubmitHandler<InputForm> = async (data) => {
+  const onSubmit: SubmitHandler<ForgotPasswordFormType> = async (data) => {
     console.log(data);
     reCaptchaMut(data).unwrap().then(
       (res) => {
