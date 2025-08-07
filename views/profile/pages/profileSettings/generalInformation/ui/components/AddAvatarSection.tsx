@@ -1,10 +1,10 @@
 "use client";
 import { Button, UniversalIcon } from "@irondragons/ui-lib-inctagram";
 import { useState } from "react";
-import { ModalChangePhoto } from "./ModalChangePhoto/ModalChangePhoto";
-import { ModalDeleteAvatar } from "./ModalDeleteAvatar/ModalDeleteAvatar";
-import { ModalPreviewImage } from "./ModalPreviewImage/ModalPreviewImage";
-import s from "./generalInformation.module.scss";
+import { ModalChangePhoto } from "../ModalChangePhoto/ModalChangePhoto";
+import { ModalDeleteAvatar } from "../ModalDeleteAvatar/ModalDeleteAvatar";
+import { ModalPreviewImage } from "../ModalPreviewImage/ModalPreviewImage";
+import s from "./components.module.scss";
 
 export const AddAvatarSection = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -17,9 +17,6 @@ export const AddAvatarSection = () => {
     setSelectedImage(null);
     setIsModalOpen(true);
   };
-
-  
-
   return (
     <div className={s.leftContent}>
       <div className={s.avatarArea} onClick={handleOpenModal}>
