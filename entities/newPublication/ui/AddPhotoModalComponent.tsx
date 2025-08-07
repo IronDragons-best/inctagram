@@ -46,16 +46,10 @@ export const AddPhotoModalComponent = ({
       }}
       isModalOpen={isOpen}
       title={'Add Photo'}
+      fileInputRef={fileInputRef}
+      onFileChange={handleFileChange}
     >
       <>
-        <input
-          type="file"
-          accept="image/*"
-          multiple
-          style={{ display: 'none' }}
-          ref={fileInputRef}
-          onChange={handleFileChange}
-        />
         <Button fullWidth={true} onClick={handleSelectClick}>
           Select from Computer
         </Button>

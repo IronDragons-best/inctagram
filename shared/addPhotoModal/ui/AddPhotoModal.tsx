@@ -8,6 +8,8 @@ type AddPhotoModalProps = {
   isModalOpen: boolean
   title: string
   children: ReactNode
+  fileInputRef: React.RefObject<HTMLInputElement | null>
+  onFileChange: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
 
 export const AddPhotoModal = ({
@@ -15,7 +17,13 @@ export const AddPhotoModal = ({
   isModalOpen,
   title,
   children,
+  fileInputRef,
+  onFileChange,
 }: AddPhotoModalProps) => {
+  const handleSelectClick = () => {
+    fileInputRef.current?.click()
+  }
+
   return (
     <Dialog.Root onOpenChange={onOpenChange} open={isModalOpen}>
       <Dialog.Portal>
@@ -31,7 +39,15 @@ export const AddPhotoModal = ({
           </div>
 
           <div className={styles.bodyContent}>
-            <div className={styles.imageBox}>
+            <div className={styles.imageBox} onClick={handleSelectClick}>
+              <input
+                type="file"
+                accept="image/*"
+                multiple
+                style={{ display: 'none' }}
+                ref={fileInputRef}
+                onChange={onFileChange}
+              />
               <UniversalIcon name={'image-outline'} />
             </div>
             <div className={styles.Children}>{children}</div>
