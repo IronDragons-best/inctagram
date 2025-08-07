@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Header } from '@/widgets/header';
-import { Sidebar } from '@/widgets/sidebars';
+import { Sidebar } from '@/widgets/sidebar';
 
 export const PublicAuthorizedUser = () => {
   return (

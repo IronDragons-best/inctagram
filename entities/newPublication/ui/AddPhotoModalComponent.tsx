@@ -21,7 +21,6 @@ export const AddPhotoModalComponent = ({
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
-      
       const url = URL.createObjectURL(file);
       onPhotoSelected(url);
     }

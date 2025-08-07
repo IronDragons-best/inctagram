@@ -1,11 +1,11 @@
 'use client';
 
 import React, { ReactNode } from 'react';
-import { Dialog } from 'radix-ui';
-import s from '@/shared/modals/publicationModal/ui/publicationModal.module.scss';
-import { Button, UniversalIcon } from '@irondragons/ui-lib-inctagram';
 import { usePathname, useRouter } from 'next/navigation';
+import { Dialog } from 'radix-ui';
+import { Button, UniversalIcon } from '@irondragons/ui-lib-inctagram';
 import { Slider } from '@/shared/ui/slider';
+import s from '@/shared/modals/publicationModal/ui/publicationModal.module.scss';
 
 import clsx from 'clsx';
 

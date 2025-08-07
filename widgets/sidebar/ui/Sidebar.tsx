@@ -8,9 +8,11 @@ import { Button, UniversalIcon } from "@irondragons/ui-lib-inctagram";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import s from "./sidebar.module.scss";
+import { NewPublication } from '@/entities/newPublication';
 
 export const Sidebar = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isNewPublicationOpen, setIsNewPublicationOpen] = useState(false);
   const [logoutHandler] = useLogoutMutation();
 
   const menuItems = [
@@ -22,7 +24,9 @@ export const Sidebar = () => {
     {
       text: "Create",
       icon: <UniversalIcon name={"plus-square-outline"} />,
-      href: PATH.create,
+      onClick: () => {
+        console.log("откройся сучара")
+        setIsNewPublicationOpen(true)},
     },
     {
       text: "My Profile",
@@ -75,7 +79,10 @@ export const Sidebar = () => {
             key={index}
             {...menuItem}
             isActive={activeIndex === index}
-            onClick={() => handleMenuClick(index)}
+            onClick={() => {
+              handleMenuClick(index)
+              menuItem.onClick?.()
+            }}
           />
         ))}
       </ul>
@@ -102,6 +109,10 @@ export const Sidebar = () => {
           </>
         </AuthModal>
       </ul>
+      
+      {isNewPublicationOpen && (
+        <NewPublication onClose = {() => setIsNewPublicationOpen(false)} />
+      )}
     </div>
   );
 };
