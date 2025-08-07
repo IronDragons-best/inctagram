@@ -34,7 +34,38 @@
   align-items: center;
   margin-bottom: 24px;
 }
-.sidebar_menu{
+
+.menuButtonCreate {
+  cursor: pointer;
+  user-select: none;
+
+  display: flex;
+  color: inherit;
+  background-color: transparent;
+
+  border: none;
+
+  margin-bottom: 24px;
+
+  &:hover {
+    color: $accent-100;
+  }
+
+  &:active {
+    color: $accent-700;
+  }
+
+  &:focus-visible {
+    color: $accent-500;
+    outline: 2px solid $accent-700;
+  }
+
+  &:disabled {
+    color: $accent-900;
+  }
+}
+
+.sidebar_menu {
   margin-bottom: 180px;
 }
 
@@ -77,7 +108,7 @@
   margin-bottom: 36px;
 
   .logoutButton {
-  @include medium-text-14;
+    @include medium-text-14;
 
     padding: 0;
     color: $light-100;

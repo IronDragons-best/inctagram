@@ -1,15 +1,16 @@
 'use client'
 
-import s from './mainLayout.module.scss'
-import { Header } from '@/widgets/header'
-import { PATH } from '@/shared/constants/path'
-import { Sidebar } from '@/widgets/sidebar'
-import { usePathname } from 'next/navigation'
-import { PropsWithChildren } from 'react'
+import { PropsWithChildren, useState } from 'react';
 import { Provider } from 'react-redux'
-import { store } from '@/src/app/provider/store'
 import '@irondragons/ui-lib-inctagram/dist/style.css'
 import '@/src/styles/index.scss'
+import { store } from '@/src/app/provider/store'
+import { PATH } from '@/shared/constants/path'
+import { Header } from '@/widgets/header'
+import { Sidebar } from '@/widgets/sidebar'
+import { usePathname } from 'next/navigation'
+import { NewPublication } from '@/entities/newPublication';
+import s from './mainLayout.module.scss'
 
 export const MainLayoutComponent = ({ children }: PropsWithChildren) => {
   const path = usePathname()
@@ -24,6 +25,7 @@ export const MainLayoutComponent = ({ children }: PropsWithChildren) => {
             {children}
           </div>
         </div>
+
       </div>
     </Provider>
   )
