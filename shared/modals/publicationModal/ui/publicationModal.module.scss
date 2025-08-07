@@ -44,9 +44,16 @@
   padding: 12px 36px 12px 24px;
 
   & .BackIcon {
+    font-family: inherit;
+    border-radius: 100%;
     display: inline-flex;
-    align-self: center;
-    margin-left: -8px;
+    align-items: center;
+    justify-content: center;
+    color: $light-100;
+
+    &:hover {
+      color: $accent-300;
+    }
   }
 
   & .Title {
@@ -75,7 +82,6 @@
   overflow-y: scroll;
 }
 
-
 @keyframes overlayShow {
   from {
     opacity: 0;
@@ -95,4 +101,3 @@
     transform: translate(-50%, -50%) scale(1);
   }
 }
-

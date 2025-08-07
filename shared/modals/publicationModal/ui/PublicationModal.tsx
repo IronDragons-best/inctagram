@@ -16,6 +16,7 @@ type PublicationModalProps = {
   children: ReactNode
   srcArray: string[]
   isSmall?: boolean
+  onBack: () => void
 }
 
 export const PublicationModal = ({
@@ -25,6 +26,7 @@ export const PublicationModal = ({
   children,
   srcArray,
   isSmall = false,
+  onBack,
 }: PublicationModalProps) => {
   const isPublication = title === 'Publication'
 
@@ -58,9 +60,9 @@ export const PublicationModal = ({
           {title && (
             <div className={s.Heading}>
               {isPublication && (
-                <div className={s.BackIcon}>
+                <Button variant={'text_button'} className={s.BackIcon} onClick={() => onBack?.()}>
                   <UniversalIcon name={'arrow-ios-back'} />
-                </div>
+                </Button>
               )}
               <Dialog.Title className={s.Title}>{title}</Dialog.Title>
               {isPublication && (

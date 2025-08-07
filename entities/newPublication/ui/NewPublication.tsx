@@ -29,6 +29,11 @@ export const NewPublication = ({ onClose }: NewPublicationProps) => {
     onClose()
   }
 
+  const handleBackToPhotoModal = () => {
+    setPublicationModalOpen(false)
+    setPhotoModalOpen(true)
+  }
+
   return (
     <div>
       <AddPhotoModalComponent
@@ -41,6 +46,7 @@ export const NewPublication = ({ onClose }: NewPublicationProps) => {
         isOpen={publicationModalOpen}
         imageUrl={previewUrl}
         onCloseAction={handlePublicationClose}
+        onBack={handleBackToPhotoModal}
       />
     </div>
   )
