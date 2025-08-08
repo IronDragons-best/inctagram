@@ -1,4 +1,4 @@
-import { getClient, TokenService } from '@/shared/schemas/types/api/client'
+import { getClient, TokenService } from '@/shared/schemas/api/client'
 import { SignInFormTypes } from '@/views/auth/pages/signIn/lib/schemas/signIn'
 import { Mutex } from 'async-mutex'
 import { SignUpFormTypes } from '@/views/auth/pages/signUp/lib/schemas/signUp'

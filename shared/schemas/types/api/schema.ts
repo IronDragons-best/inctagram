@@ -357,10 +357,6 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /**
-         * Get post by ID
-         * @description Retrieves a post by its unique identifier.
-         */
         get: operations["PostsController_getPostById"];
         /**
          * Update post description
@@ -542,51 +538,6 @@ export interface components {
              * @example new post description
              */
             description: string;
-        };
-        PostUserDto: {
-            /**
-             * @description Unique identifier of the user.
-             * @example 15
-             */
-            userId: number;
-            /**
-             * @description Username of the user.
-             * @example test user
-             */
-            username: string;
-        };
-        PostViewDto: {
-            /**
-             * @description Unique identifier of the post.
-             * @example 1
-             */
-            id: number;
-            /** @description User who created the post. */
-            user: components["schemas"]["PostUserDto"];
-            /**
-             * @description Title of the post.
-             * @example Understanding TypeScript Decorators
-             */
-            title: string;
-            /**
-             * @description Content of the post.
-             * @example This post explains how to use decorators in TypeScript...
-             */
-            shortDescription: string;
-            /**
-             * @description Preview images of the post.
-             * @example [
-             *       "https://example.com/image1.jpg",
-             *       "https://example.com/image2.jpg"
-             *     ]
-             */
-            previewImages: string[];
-            /**
-             * Format: date-time
-             * @description Date when the post was created.
-             * @example 2023-10-01T12:00:00Z
-             */
-            createdAt: string;
         };
     };
     responses: never;
@@ -1387,24 +1338,13 @@ export interface operations {
             query?: never;
             header?: never;
             path: {
-                /** @description Post ID */
                 id: number;
             };
             cookie?: never;
         };
         requestBody?: never;
         responses: {
-            /** @description Post retrieved successfully. */
             200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "application/json": components["schemas"]["PostViewDto"];
-                };
-            };
-            /** @description Post not found. */
-            404: {
                 headers: {
                     [name: string]: unknown;
                 };
