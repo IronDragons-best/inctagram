@@ -1,14 +1,15 @@
 "use client";
 
+import { NewPublication } from '@/entities/newPublication';
 import { useLogoutMutation } from "@/features/auth/api/authApi";
-import { AuthModal } from "@/shared/modals/authModal/ui/AuthModal";
 import { PATH } from "@/shared/constants/path";
+import { AuthModal } from "@/shared/modals/authModal/ui/AuthModal";
 import { MenuItem } from "@/widgets/sidebar/ui/MenuItem";
 import { Button, UniversalIcon } from "@irondragons/ui-lib-inctagram";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import s from "./sidebar.module.scss";
-import { NewPublication } from '@/entities/newPublication';
+import { TokenService } from '@/shared/schemas/types/api/client';
 
 export const Sidebar = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -63,9 +64,13 @@ export const Sidebar = () => {
     logoutHandler("")
       .unwrap()
       .then(() => {
-        localStorage.removeItem("accessToken");
-        router.push("/sign-in");
-      });
+        TokenService.clear(); 
+        setIsModalOpen(false);
+        router.push(PATH.sign_in);
+    })
+    .catch((error) => {
+      console.error('Error during logout:', error);
+    });
   };
   const handleMenuClick = (index: number) => {
     setActiveIndex(index);
