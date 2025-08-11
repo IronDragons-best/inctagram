@@ -1,17 +1,22 @@
-// middleware.ts
-import type { NextRequest } from 'next/server';
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
 export function middleware(request: NextRequest) {
-  // Логирование пути
+  const token = request.cookies.get('access-token')?.value;
+  const pathname = request.nextUrl.pathname;
 
-  console.log(`Request path: ${request.nextUrl.pathname}`);
+  const signPages = ['/sign-in', '/sign-up'];
 
-  // Продолжаем обработку запроса
+  if (token && signPages.includes(pathname)) {
+    return NextResponse.redirect(new URL('/', request.url));
+  }
+
+  if (!token && pathname.startsWith('/profile/')) {
+    return NextResponse.redirect(new URL('/sign-in', request.url));
+  }
+
   return NextResponse.next();
 }
 
-// Указываем, для каких путей middleware будет выполняться
 export const config = {
-  matcher: ["/sign-in", "/sign-up", "/congratulations"],
+  matcher: ['/profile/:path*', '/sign-in', '/sign-up'],
 };
