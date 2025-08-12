@@ -10,13 +10,14 @@ import s from '@/shared/modals/publicationModal/ui/publicationModal.module.scss'
 import clsx from 'clsx'
 
 type PublicationModalProps = {
-  openModal: () => void
+  openModal?: () => void
   isModalOpen: boolean
   title?: 'Edit Post' | 'Publication'
   children: ReactNode
   srcArray: string[]
   isSmall?: boolean
   onBack: () => void
+  onRequestClose?: () => void
 }
 
 export const PublicationModal = ({
@@ -27,15 +28,22 @@ export const PublicationModal = ({
   srcArray,
   isSmall = false,
   onBack,
+  onRequestClose,
 }: PublicationModalProps) => {
   const isPublication = title === 'Publication'
 
   const router = useRouter()
   const pathname = usePathname()
 
-  const handleOpenModal = () => {
+  const handleOpenModal = (open: boolean) => {
     router.push(pathname)
-    openModal()
+
+    if (!open) {
+      onRequestClose?.()
+      return
+    }
+
+    openModal?.()
   }
 
   return (

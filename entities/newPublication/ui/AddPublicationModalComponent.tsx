@@ -16,6 +16,7 @@ type AddPublicationModalComponentProps = {
   imageUrl: string[]
   onCloseAction: () => void
   onBack: () => void
+  onRequestClose: () => void
 }
 
 export const AddPublicationModalComponent = ({
@@ -23,6 +24,7 @@ export const AddPublicationModalComponent = ({
   imageUrl,
   onCloseAction,
   onBack,
+  onRequestClose,
 }: AddPublicationModalComponentProps) => {
   return (
     <PublicationModal
@@ -32,6 +34,7 @@ export const AddPublicationModalComponent = ({
       title={'Publication'}
       srcArray={imageUrl}
       onBack={onBack}
+      onRequestClose={onRequestClose}
     >
       <div className={styles.bodyContent}>
         <div className={styles.Info}>
