@@ -7,13 +7,14 @@ import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import * as React from 'react'
 import { useState } from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { TextModal } from '@/shared/modals/authModal/ui/TextModal'
+
 import { useRegistrationMutation } from '@/features/auth/api/authApi'
 import { PATH } from '@/shared/constants/path'
 import {
   signInValidationSchema,
   SignUpFormTypes,
 } from '@/views/auth/pages/signUp/lib/schemas/signUp'
+import { TextModal } from '@/shared/modals/textModal'
 
 const Label = (
   <span className={s.conditions}>
