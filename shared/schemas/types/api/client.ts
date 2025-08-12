@@ -33,10 +33,9 @@ export const TokenService = {
   },
 }
 
-export const getClient = () => {
-  const accessToken = TokenService.getToken()
+export const getClient = (accessToken: string | null) => {
   return createClient<paths>({
-    baseUrl: process.env.NEXT_PUBLIC_API_BASE_URL,
+    baseUrl: 'https://nodewebdev.online/api/v1',
     headers: accessToken ? { Authorization: `Bearer ${accessToken}` } : {},
     credentials: 'include',
   })

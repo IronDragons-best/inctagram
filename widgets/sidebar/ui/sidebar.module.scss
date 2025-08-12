@@ -2,25 +2,32 @@
 @use '../../../src/styles/fonts' as *;
 
 .sidebar {
-  padding-top: 72px;
+  position: sticky;
+  top: 0;
+
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+
   min-width: 220px;
   height: 100vh;
-  border-right: 1px solid $dark-300;
-  color: $dark-700;
+  padding-top: 72px;
   padding-left: 60px;
+  border-right: 1px solid $dark-300;
+
+  color: $dark-700;
 }
 
 .icon {
   display: flex;
   align-items: center;
   justify-content: center;
+
   width: 24px;
   height: 24px;
-  color: inherit;
   margin-right: 12px;
+
+  color: inherit;
 }
 
 .label {
@@ -28,11 +35,12 @@
 }
 
 .menuButton {
-  color: inherit;
-  @include medium-text-14;
   display: flex;
   align-items: center;
   margin-bottom: 24px;
+  color: inherit;
+
+  @include medium-text-14;
 }
 
 .menuButtonCreate {
@@ -40,12 +48,13 @@
   user-select: none;
 
   display: flex;
-  color: inherit;
-  background-color: transparent;
-
-  border: none;
 
   margin-bottom: 24px;
+  border: none;
+
+  color: inherit;
+
+  background-color: transparent;
 
   &:hover {
     color: $accent-100;
@@ -69,18 +78,10 @@
   margin-bottom: 180px;
 }
 
-.sidebar_menu .menu_item:nth-child(5) {
-  margin-bottom: 60px;
-}
-
-.footer .menu_item:last-child {
-  margin-bottom: 0;
-}
-
 .sidebar_menu .menu_item,
 .footer .menu_item {
-  list-style-type: none;
   color: $light-100;
+  list-style-type: none;
   transition: color 0.3s;
 
   &:hover {
@@ -96,16 +97,24 @@
   }
 
   &:disabled {
-    color: $dark-100;
     cursor: default;
+    color: $dark-100;
     background: transparent;
   }
 }
 
+.sidebar_menu .menu_item:nth-child(5) {
+  margin-bottom: 60px;
+}
+
+.footer .menu_item:last-child {
+  margin-bottom: 0;
+}
+
 .footer {
-  border: none;
-  padding: 0;
   margin-bottom: 36px;
+  padding: 0;
+  border: none;
 
   .logoutButton {
     @include medium-text-14;

@@ -92,7 +92,7 @@ export const authApi = baseApi.injectEndpoints({
             }
 
             // Делаем refresh только если и повторный запрос вернул 401
-            const refreshClient = getClient()
+            const refreshClient = getClient(latestToken)
             const refreshRes = await refreshClient.POST('/auth/refresh-token')
 
             if (refreshRes.response.status === 200 && refreshRes.data?.accessToken) {

@@ -1,9 +1,11 @@
-import { ReactNode } from 'react'
-import { Metadata } from 'next'
-import { MainLayoutComponent } from '@/src/common/components/mainLayout'
-import { defaultMetadata } from '@/shared/lib/defaultMetadata'
+'use client'
 
-export const metadata: Metadata = defaultMetadata
+import { ReactNode } from 'react'
+import { MainLayoutComponent } from '@/src/common/components/mainLayout'
+import { Provider } from 'react-redux'
+import { store } from '@/src/app/provider/store'
+
+// export const metadata: Metadata = defaultMetadata
 
 export default function MainLayout({
   children,
@@ -13,7 +15,9 @@ export default function MainLayout({
   return (
     <html lang="en">
       <body>
-        <MainLayoutComponent>{children}</MainLayoutComponent>
+        <Provider store={store}>
+          <MainLayoutComponent>{children}</MainLayoutComponent>
+        </Provider>
       </body>
     </html>
   )
