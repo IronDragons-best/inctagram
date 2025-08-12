@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { AddPhotoModalComponent } from '@/entities/newPublication/ui/AddPhotoModalComponent'
 import { AddPublicationModalComponent } from '@/entities/newPublication/ui/AddPublicationModalComponent'
+import { ClosePublicationConfirm } from '@/entities/newPublication/ui/ClosePublicationConfirm'
 
 type NewPublicationProps = {
   onClose: () => void
@@ -13,6 +14,7 @@ export const NewPublication = ({ onClose }: NewPublicationProps) => {
   const [publicationModalOpen, setPublicationModalOpen] = useState(false)
   const [previewUrl, setPreviewUrl] = useState<string[]>([])
   const [isImage, setIsImage] = useState(true)
+  const [confirmOpen, setConfirmOpen] = useState(false)
 
   const handlePhotoSelected = (urls: string[]) => {
     setPreviewUrl(urls)
@@ -21,9 +23,13 @@ export const NewPublication = ({ onClose }: NewPublicationProps) => {
     setIsImage(false)
   }
 
-  const handlePublicationClose = () => {
+  const actuallyClosePublication = () => {
     setPublicationModalOpen(false)
     onClose()
+  }
+
+  const handlePublicationClose = () => {
+    actuallyClosePublication()
   }
 
   const handlePhotoModalClose = () => {
@@ -35,6 +41,19 @@ export const NewPublication = ({ onClose }: NewPublicationProps) => {
     setPublicationModalOpen(false)
     setPhotoModalOpen(true)
     setIsImage(true)
+  }
+
+  const handleRequestClosePublication = () => {
+    setConfirmOpen(true)
+  }
+
+  const handleConfirmYes = () => {
+    setConfirmOpen(false)
+    actuallyClosePublication()
+  }
+
+  const handleConfirmNo = () => {
+    setConfirmOpen(false)
   }
 
   return (
@@ -51,6 +70,12 @@ export const NewPublication = ({ onClose }: NewPublicationProps) => {
         imageUrl={previewUrl}
         onCloseAction={handlePublicationClose}
         onBack={handleBackToPhotoModal}
+        onRequestClose={handleRequestClosePublication}
+      />
+      <ClosePublicationConfirm
+        isOpen={confirmOpen}
+        onConfirm={handleConfirmYes}
+        onCancel={handleConfirmNo}
       />
     </div>
   )
