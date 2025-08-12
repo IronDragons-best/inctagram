@@ -2,6 +2,7 @@
 
 import { useSignInMutation } from '@/features/auth/api/authApi'
 import { PATH } from '@/shared/constants/path'
+import { TokenService } from '@/shared/schemas/types/api/client'
 import { SignInFormTypes, signInSchema } from '@/views/auth/pages/signIn/lib/schemas/signIn'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button, Card, Input, UniversalIcon } from '@irondragons/ui-lib-inctagram'
@@ -25,24 +26,26 @@ export const SignIn = () => {
 
   const router = useRouter()
 
-  const onSubmit: SubmitHandler<SignInFormTypes> = data => {
-    signInHandler(data)
-      .unwrap()
-      .then(res => {
-        const errorField = res.error?.errorsMessages[0]?.message
-        if (errorField === 'Invalid email or password') {
-          setError('email', { message: 'Invalid email or password' })
-        } else if (errorField === 'Invalid credentials.') {
-          setError('password', { message: 'Invalid email or password' })
-        } else {
-          const accessToken = res.data?.accessToken
-          if (!accessToken) {
-            throw new Error('Token not received')
-          }
-          localStorage.setItem('accessToken', accessToken)
-          router.push(PATH.public_authorize_user)
-        }
-      })
+  const onSubmit: SubmitHandler<SignInFormTypes> = async data => {
+    try {
+      const res = await signInHandler(data)
+      .unwrap();
+  
+      const errorField = res.error?.errorsMessages[0]?.message;
+  
+      if (errorField === 'Invalid email or password' || errorField === 'Invalid credentials.') {
+        setError('email', { message: 'Invalid email or password' });
+        return;
+      }
+      if (res.data?.accessToken) {
+        TokenService.setToken(res.data.accessToken);
+        router.push(PATH.home);
+      } else {
+        router.push(PATH.sign_in);
+      }
+    } catch (error) {
+      console.error('Error during sign in:', error);
+    }
   }
 
   return (
