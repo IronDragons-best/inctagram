@@ -1,34 +1,33 @@
-"use client";
-import { Button, UniversalIcon } from "@irondragons/ui-lib-inctagram";
-import { useState } from "react";
-import { ModalChangePhoto } from "../ModalChangePhoto/ModalChangePhoto";
-import { ModalDeleteAvatar } from "../ModalDeleteAvatar/ModalDeleteAvatar";
-import { ModalPreviewImage } from "../ModalPreviewImage/ModalPreviewImage";
-import s from "./components.module.scss";
+'use client'
+
+import { useState } from 'react'
+import { Button, UniversalIcon } from '@irondragons/ui-lib-inctagram'
+import { SelectProfilePhoto } from '@/views/profile/pages/profileSettings/generalInformation/ui/components/SelectProfilePhoto/SelectProfilePhoto'
+import s from './components.module.scss'
 
 export const AddAvatarSection = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isImageModalOpen, setIsImageModalOpen] = useState(false);
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const [finalImage, setFinalImage] = useState<string | null>(null);
-  const [position, setPosition] = useState({ x: 0, y: 0 });
-  const [isConfirmDeleteOpen, setIsConfirmDeleteOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [finalImage, setFinalImage] = useState<string | null>(null)
+  const [modalMode, setModalMode] = useState<'photo' | 'delete'>('photo')
+
   const handleOpenModal = () => {
-    setSelectedImage(null);
-    setIsModalOpen(true);
-  };
+    setModalMode('photo')
+    setIsModalOpen(true)
+  }
+
   return (
     <div className={s.leftContent}>
-      <div className={s.avatarArea} onClick={handleOpenModal}>
+      <div className={s.avatarArea}>
         {finalImage ? (
           <div className={s.circleContainer}>
             <img src={finalImage} alt="Avatar" className={s.avatarImage} />
             <button
               className={s.closeIcon}
-              onClick={(e) => {
-                e.stopPropagation();
-                e.preventDefault(); // добавь это, если кнопка внутри форм
-                setIsConfirmDeleteOpen(true);
+              onClick={e => {
+                e.stopPropagation()
+                e.preventDefault() // добавь это, если кнопка внутри форм
+                setModalMode('delete')
+                setIsModalOpen(true)
               }}
             >
               <UniversalIcon name="close" />
@@ -41,41 +40,21 @@ export const AddAvatarSection = () => {
                 <UniversalIcon name="image-outline" />
               </div>
             </div>
-            <div className={s.avaButton}>
-              <Button variant="outline" onClick={handleOpenModal}>
-                Select Profile Photo
-              </Button>
-            </div>
           </>
         )}
+        <div className={s.avaButton}>
+          <Button variant="outline" onClick={handleOpenModal}>
+            Select Profile Photo
+          </Button>
+        </div>
       </div>
-      {isConfirmDeleteOpen && (
-        <ModalDeleteAvatar
-          isOpen={isConfirmDeleteOpen}
-          onClose={() => setIsConfirmDeleteOpen(false)}
-          onConfirm={() => {
-            setFinalImage(null);
-            setIsConfirmDeleteOpen(false);
-          }}
-        />
-      )}
-      <ModalChangePhoto
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        onSelectImage={(img) => {
-          setSelectedImage(img);
-          setIsImageModalOpen(true);
-        }}
-      />
-      {isImageModalOpen && (
-        <ModalPreviewImage
-          selectedImage={selectedImage}
-          position={position}
-          setPosition={setPosition}
-          setIsImageModalOpen={setIsImageModalOpen}
+      {isModalOpen && (
+        <SelectProfilePhoto
+          mode={modalMode}
           setFinalImage={setFinalImage}
+          onClose={() => setIsModalOpen(false)}
         />
       )}
     </div>
-  );
-};
+  )
+}

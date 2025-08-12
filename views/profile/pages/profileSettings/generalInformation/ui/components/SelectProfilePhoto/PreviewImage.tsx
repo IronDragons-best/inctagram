@@ -1,22 +1,28 @@
+'use client'
+
+import React, { useEffect, useRef, useState } from 'react'
+import { PhotoModal } from '@/shared/modals/addPhotoModal'
 import { Button } from '@irondragons/ui-lib-inctagram'
-import { useRef } from 'react'
-import { ModalPhoto } from '../ModalPhoto/ModalPhoto'
-import s from './modalPreviewImage.module.scss'
-type Props = {
-  selectedImage: string | null
-  position: { x: number; y: number }
-  setPosition: React.Dispatch<React.SetStateAction<{ x: number; y: number }>>
-  setIsImageModalOpen: (open: boolean) => void
+import s from '@/shared/modals/addPhotoModal/ui/photoModal.module.scss'
+
+type PreviewImageProps = {
+  isOpen: boolean
+  previewUrl: string[] | null
+  onClose: () => void
+  isImage: boolean
   setFinalImage: (img: string | null) => void
 }
-export const ModalPreviewImage = ({
-  selectedImage,
-  position,
-  setPosition,
-  setIsImageModalOpen,
+
+export const PreviewImage = ({
+  isOpen,
+  previewUrl,
+  onClose,
+  isImage,
   setFinalImage,
-}: Props) => {
+}: PreviewImageProps) => {
+  const [position, setPosition] = useState({ x: 0, y: 0 })
   const imageRef = useRef<HTMLImageElement>(null)
+
   const handleDrag = (e: React.MouseEvent) => {
     if (e.buttons !== 1) return
     setPosition(prev => ({
@@ -24,8 +30,9 @@ export const ModalPreviewImage = ({
       y: prev.y + e.movementY,
     }))
   }
+
   const cropAndSaveImage = () => {
-    if (!selectedImage || !imageRef.current) return
+    if (!previewUrl || !imageRef.current) return
 
     const img = imageRef.current
     const naturalWidth = img.naturalWidth
@@ -61,35 +68,44 @@ export const ModalPreviewImage = ({
 
     const croppedImage = canvas.toDataURL('image/png')
     setFinalImage(croppedImage)
-    setIsImageModalOpen(false)
+    onClose()
   }
 
+  useEffect(() => {
+    return () => {
+      previewUrl?.forEach?.(url => URL.revokeObjectURL(url))
+    }
+  }, [previewUrl])
+
   return (
-    <ModalPhoto
-      modalTitle="preview image"
-      onClose={() => setIsImageModalOpen(false)}
-      isModalOpen={true}
-    >
-      <div className={s.circleImageContainer}>
+    <div>
+      <PhotoModal
+        onOpenChange={open => {
+          if (!open) {
+            onClose()
+          }
+        }}
+        isModalOpen={isOpen}
+        title={'Add a Profile Photo'}
+        isImage={isImage}
+      >
         <div className={s.imageCropContainer}>
-          {selectedImage && (
-            <div className={s.cropWrapper} onMouseMove={handleDrag}>
-              <img
-                ref={imageRef}
-                src={selectedImage}
-                className={s.imageToCrop}
-                style={{
-                  transform: `translate(${position.x}px, ${position.y}px)`,
-                }}
-              />
-              <div className={s.cropMask} />
-            </div>
-          )}
+          <div className={s.cropWrapper} onMouseMove={handleDrag}>
+            <img
+              ref={imageRef}
+              src={previewUrl?.[0] ?? ''}
+              className={s.imageToCrop}
+              style={{
+                transform: `translate(${position.x}px, ${position.y}px)`,
+              }}
+            />
+            <div className={s.cropMask} />
+          </div>
         </div>
-        <div className={s.twoModalBtn}>
+        <div>
           <Button onClick={cropAndSaveImage}>Save</Button>
         </div>
-      </div>
-    </ModalPhoto>
+      </PhotoModal>
+    </div>
   )
 }

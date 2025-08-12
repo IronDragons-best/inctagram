@@ -1,27 +1,29 @@
 import React, { ReactNode } from 'react'
 import { Dialog } from 'radix-ui'
 import { Button, UniversalIcon } from '@irondragons/ui-lib-inctagram'
-import styles from '@/shared/addPhotoModal/ui/addPhotoModal.module.scss'
+import styles from '@/shared/modals/addPhotoModal/ui/photoModal.module.scss'
 
 type AddPhotoModalProps = {
-  onOpenChange: (open: boolean) => void
+  onOpenChange?: (open: boolean) => void
   isModalOpen: boolean
   title: string
   children: ReactNode
-  fileInputRef: React.RefObject<HTMLInputElement | null>
-  onFileChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+  fileInputRef?: React.RefObject<HTMLInputElement | null>
+  onFileChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
+  isImage: boolean
 }
 
-export const AddPhotoModal = ({
+export const PhotoModal = ({
   onOpenChange,
   isModalOpen,
   title,
   children,
   fileInputRef,
   onFileChange,
+  isImage,
 }: AddPhotoModalProps) => {
   const handleSelectClick = () => {
-    fileInputRef.current?.click()
+    fileInputRef?.current?.click()
   }
 
   return (
@@ -39,17 +41,19 @@ export const AddPhotoModal = ({
           </div>
 
           <div className={styles.bodyContent}>
-            <div className={styles.imageBox} onClick={handleSelectClick}>
-              <input
-                type="file"
-                accept="image/*"
-                multiple
-                style={{ display: 'none' }}
-                ref={fileInputRef}
-                onChange={onFileChange}
-              />
-              <UniversalIcon name={'image-outline'} />
-            </div>
+            {isImage && (
+              <div className={styles.imageBox} onClick={handleSelectClick}>
+                <input
+                  type="file"
+                  accept="image/*"
+                  multiple
+                  style={{ display: 'none' }}
+                  ref={fileInputRef}
+                  onChange={onFileChange}
+                />
+                <UniversalIcon name={'image-outline'} />
+              </div>
+            )}
             <div className={styles.Children}>{children}</div>
           </div>
         </Dialog.Content>

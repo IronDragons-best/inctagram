@@ -1,10 +1,10 @@
 'use client'
 
 import React, { useEffect, useRef } from 'react'
-import { PhotoModal } from 'shared/modals/addPhotoModal'
+import { PhotoModal } from '@/shared/modals/addPhotoModal'
 import { Button } from '@irondragons/ui-lib-inctagram'
 
-type AddPhotoModalComponentProps = {
+type PhotoSelectProps = {
   isOpen: boolean
   previewUrl: string[] | null
   onPhotoSelected: (urls: string[]) => void
@@ -12,13 +12,13 @@ type AddPhotoModalComponentProps = {
   isImage: boolean
 }
 
-export const AddPhotoModalComponent = ({
+export const PhotoSelect = ({
   isOpen,
   previewUrl,
   onPhotoSelected,
   onClose,
   isImage,
-}: AddPhotoModalComponentProps) => {
+}: PhotoSelectProps) => {
   const fileInputRef = useRef<HTMLInputElement>(null)
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files
@@ -32,7 +32,6 @@ export const AddPhotoModalComponent = ({
     fileInputRef.current?.click()
   }
 
-  // зачистка памяти
   useEffect(() => {
     return () => {
       previewUrl?.forEach?.(url => URL.revokeObjectURL(url))
@@ -47,19 +46,14 @@ export const AddPhotoModalComponent = ({
         }
       }}
       isModalOpen={isOpen}
-      title={'Add Photo'}
+      title={'Add a Profile Photo'}
       fileInputRef={fileInputRef}
       onFileChange={handleFileChange}
       isImage={isImage}
     >
-      <>
-        <Button fullWidth={true} onClick={handleSelectClick}>
-          Select from Computer
-        </Button>
-        <Button fullWidth={true} variant={'outline'}>
-          Open Draft
-        </Button>
-      </>
+      <Button fullWidth={true} onClick={handleSelectClick}>
+        Select from Computer
+      </Button>
     </PhotoModal>
   )
 }
