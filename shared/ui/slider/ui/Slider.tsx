@@ -1,30 +1,25 @@
-"use client";
+'use client'
 
-import * as React from "react";
-import Image, { StaticImageData } from "next/image";
-import { Navigation, Pagination } from "swiper/modules";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { clsx } from "clsx";
+import * as React from 'react'
+import Image from 'next/image'
+import { Navigation, Pagination } from 'swiper/modules'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import { clsx } from 'clsx'
 
-import s from "./slider.module.scss";
-import "../../../../src/styles/swiperOverrides.scss";
-import "swiper/css";
-import "swiper/css/pagination";
-import "swiper/css/navigation";
+import s from './slider.module.scss'
+import '../../../../src/styles/swiperOverrides.scss'
+import 'swiper/css'
+import 'swiper/css/pagination'
+import 'swiper/css/navigation'
 
 type Props = {
-  srcArray: string[];
-  // srcArray: string[] | StaticImageData[];
-  navigation?: boolean;
-  loop?: boolean;
-  isSmall?: boolean;
-};
+  srcArray: string[]
+  navigation?: boolean
+  loop?: boolean
+  isSmall?: boolean
+}
 
-export const Slider = ({ srcArray,
-                         navigation = true,
-                         loop = true,
-                         isSmall = false,
-}: Props) => {
+export const Slider = ({ srcArray, navigation = true, loop = true, isSmall = false }: Props) => {
   return (
     <Swiper
       slidesPerView={1}
@@ -35,14 +30,14 @@ export const Slider = ({ srcArray,
       }}
       navigation={navigation}
       modules={[Pagination, Navigation]}
-      className={clsx(s.Swiper, "mySwiper")}
+      className={clsx(s.Swiper, 'mySwiper')}
       data-isslidersmall={isSmall || undefined}
     >
       {srcArray?.map((src: string) => (
         <SwiperSlide className={s.SwiperSlide} key={src}>
-          <Image src={src} alt={"photo"} fill />
+          <Image src={src} alt={'photo'} fill />
         </SwiperSlide>
       ))}
     </Swiper>
-  );
-};
+  )
+}

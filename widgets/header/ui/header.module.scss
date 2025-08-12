@@ -60,7 +60,7 @@
     color: $light-700;
   }
 
-  &[data-notificationcount="0"]::before {
+  &[data-notificationcount='0']::before {
     display: none;
   }
 }

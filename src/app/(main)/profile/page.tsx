@@ -1,8 +1,8 @@
-import { redirect } from "next/navigation";
-import { PATH } from "@/shared/constants/path";
+import { redirect } from 'next/navigation'
+import { PATH } from '@/shared/constants/path'
 
 const Profile = async () => {
-  redirect(PATH.home);
-};
+  redirect(PATH.home)
+}
 
-export default Profile;
+export default Profile

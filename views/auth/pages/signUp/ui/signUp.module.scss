@@ -40,7 +40,7 @@
   margin-bottom: 21px;
 }
 
-.fieldsWrapper > div:has([data-errortext="true"]) {
+.fieldsWrapper > div:has([data-errortext='true']) {
   margin-bottom: 0;
 }
 
@@ -65,11 +65,11 @@
   margin-bottom: 6px;
 
   p {
-    @include font.regular-text-16
+    @include font.regular-text-16;
   }
 
   a {
     @include font.h3;
-    color: color.$accent-500
+    color: color.$accent-500;
   }
 }

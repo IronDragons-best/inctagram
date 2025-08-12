@@ -1,8 +1,8 @@
-"use client";
+'use client'
 
-import s from "@/src/app/(auth)/password-recovery/passwordRecovery.module.scss";
-import { Button, UniversalIcon } from "@irondragons/ui-lib-inctagram";
-import { EmailConfirmationPage } from '@/views/auth/pages/emailConfirmationPage';
+import s from '@/src/app/(auth)/password-recovery/passwordRecovery.module.scss'
+import { Button, UniversalIcon } from '@irondragons/ui-lib-inctagram'
+import { EmailConfirmationPage } from '@/views/auth/pages/emailConfirmationPage'
 
 const PasswordRecovery = () => {
   return (
@@ -12,16 +12,16 @@ const PasswordRecovery = () => {
     >
       <>
         <div className={s.wrapper}>
-          <Button variant={"primary"} fullWidth={true}>
+          <Button variant={'primary'} fullWidth={true}>
             Resend link
           </Button>
         </div>
         <div className={s.iconWrapper}>
-          <UniversalIcon name={"ExpiredLink"} dataStatic={true} />
+          <UniversalIcon name={'ExpiredLink'} dataStatic={true} />
         </div>
       </>
     </EmailConfirmationPage>
-  );
-};
+  )
+}
 
-export default PasswordRecovery;
+export default PasswordRecovery

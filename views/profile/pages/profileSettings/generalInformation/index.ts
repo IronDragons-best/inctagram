@@ -1,2 +1,1 @@
-export { GeneralInformation } from "./ui/GeneralInformation";
-
+export { GeneralInformation } from './ui/GeneralInformation'

@@ -1,7 +1,7 @@
-import { SignUp } from '@/views/auth/pages/signUp/ui';
+import { SignUp } from '@/views/auth/pages/signUp/ui'
 
 const Page = () => {
-  return <SignUp />;
-};
+  return <SignUp />
+}
 
-export default Page;
+export default Page

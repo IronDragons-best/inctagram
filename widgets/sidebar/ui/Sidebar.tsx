@@ -1,15 +1,15 @@
 'use client'
 
+import { useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { Button, UniversalIcon } from '@irondragons/ui-lib-inctagram'
 import { NewPublication } from '@/entities/newPublication'
 import { useLogoutMutation } from '@/features/auth/api/authApi'
 import { PATH } from '@/shared/constants/path'
 import { MenuItem } from '@/widgets/sidebar/ui/MenuItem'
-import { Button, UniversalIcon } from '@irondragons/ui-lib-inctagram'
-import { useRouter } from 'next/navigation'
-import { useState } from 'react'
-import s from './sidebar.module.scss'
 import { TokenService } from '@/shared/schemas/types/api/client'
 import { TextModal } from '@/shared/modals/textModal'
+import s from './sidebar.module.scss'
 
 export const Sidebar = () => {
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -26,7 +26,6 @@ export const Sidebar = () => {
       text: 'Create',
       icon: <UniversalIcon name={'plus-square-outline'} />,
       onClick: () => {
-        console.log('откройся сучара')
         setIsNewPublicationOpen(true)
       },
     },

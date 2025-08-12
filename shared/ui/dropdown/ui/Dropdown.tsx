@@ -1,27 +1,23 @@
-'use client';
+'use client'
 
-import React, { ReactNode, useState } from 'react';
-import { Button, Card, UniversalIcon } from '@irondragons/ui-lib-inctagram';
-import { Dialog } from 'radix-ui';
-import s from './dropdown.module.scss';
+import React from 'react'
+import { Dialog } from 'radix-ui'
+import { Card, UniversalIcon } from '@irondragons/ui-lib-inctagram'
+import s from './dropdown.module.scss'
 
 type DropdownItem = {
-  icon: string;
-  label: string;
-  onClick: () => void;
-};
+  icon: string
+  label: string
+  onClick: () => void
+}
 
 type Props = {
-  isModalOpen: boolean;
-  onClose?: () => void;
-  items: DropdownItem[];
-};
+  isModalOpen: boolean
+  onClose?: () => void
+  items: DropdownItem[]
+}
 
-export const Dropdown = ({
-                           isModalOpen,
-                           onClose,
-                           items,
-                         }: Props) => {
+export const Dropdown = ({ isModalOpen, onClose, items }: Props) => {
   return (
     <Dialog.Root onOpenChange={onClose} open={isModalOpen}>
       <Dialog.Overlay className={s.Overlay} />
@@ -39,8 +35,5 @@ export const Dropdown = ({
         </Card>
       </Dialog.Content>
     </Dialog.Root>
-  );
-};
-
-
-
+  )
+}

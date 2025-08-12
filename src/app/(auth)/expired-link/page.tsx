@@ -1,14 +1,14 @@
-"use client";
+'use client'
 
-import { Button, Input, UniversalIcon } from "@irondragons/ui-lib-inctagram";
-import s from "./expiredLink.module.scss";
-import { useExpiredLinkMutation } from "@/features/auth/api/authApi";
-import { useState } from "react";
-import { EmailConfirmationPage } from '@/views/auth/pages/emailConfirmationPage';
+import { useState } from 'react'
+import { Button, Input, UniversalIcon } from '@irondragons/ui-lib-inctagram'
+import { useExpiredLinkMutation } from '@/features/auth/api/authApi'
+import { EmailConfirmationPage } from '@/views/auth/pages/emailConfirmationPage'
+import s from './expiredLink.module.scss'
 
 const ExpiredLink = () => {
-  const [email, setEmail] = useState("");
-  const [expiredLinkHandler] = useExpiredLinkMutation();
+  const [email, setEmail] = useState('')
+  const [expiredLinkHandler] = useExpiredLinkMutation()
 
   return (
     <EmailConfirmationPage
@@ -20,26 +20,22 @@ const ExpiredLink = () => {
           <div className={s.inputWrapper}>
             <Input
               fullWidth={true}
-              inputType={"email"}
-              placeholder={"Epam@epam.com"}
-              label={"Email"}
-              onBlur={(e) => setEmail(e.target.value)}
+              inputType={'email'}
+              placeholder={'Epam@epam.com'}
+              label={'Email'}
+              onBlur={e => setEmail(e.target.value)}
             />
           </div>
-          <Button
-            variant={"primary"}
-            fullWidth={true}
-            onClick={() => expiredLinkHandler(email)}
-          >
+          <Button variant={'primary'} fullWidth={true} onClick={() => expiredLinkHandler(email)}>
             Resend verification link
           </Button>
         </div>
         <div className={s.iconWrapper}>
-          <UniversalIcon name={"ExpiredLink"} dataStatic={true} />
+          <UniversalIcon name={'ExpiredLink'} dataStatic={true} />
         </div>
       </>
     </EmailConfirmationPage>
-  );
-};
+  )
+}
 
-export default ExpiredLink;
+export default ExpiredLink

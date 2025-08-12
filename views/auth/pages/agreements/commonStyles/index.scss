@@ -2,23 +2,23 @@
 @use '../../../../../src/styles/colors' as *;
 
 @mixin wrapper {
-    padding: 0 100px;
-    color: $light-100;
+  padding: 0 100px;
+  color: $light-100;
 
-    p {
-        @include font.regular-text-14;
-    }
+  p {
+    @include font.regular-text-14;
+  }
 }
 
 @mixin content {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 
 @mixin title {
-    @include font.h1;
-    margin-bottom: 20px;
+  @include font.h1;
+  margin-bottom: 20px;
 }

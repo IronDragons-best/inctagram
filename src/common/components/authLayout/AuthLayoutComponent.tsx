@@ -3,10 +3,10 @@
 import { PropsWithChildren } from 'react'
 import { store } from '@/src/app/provider/store'
 import { Provider } from 'react-redux'
-import s from './AuthLayout.module.scss'
 import { Header } from '@/widgets/header'
 import '@irondragons/ui-lib-inctagram/dist/style.css'
 import '@/src/styles/index.scss'
+import s from './AuthLayout.module.scss'
 
 export const AuthLayoutComponent = ({ children }: PropsWithChildren) => {
   return (

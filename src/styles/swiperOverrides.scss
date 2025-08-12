@@ -8,7 +8,7 @@
   --slider-height: 501px;
 }
 
-.swiper[data-isslidersmall="true"] {
+.swiper[data-isslidersmall='true'] {
   .swiper-button-prev,
   .swiper-button-next {
     width: 24px !important;
@@ -40,8 +40,6 @@
   border-radius: 4px;
   width: 48px !important;
   height: 48px !important;
-
-
 
   &::after {
     font-size: 28px !important;

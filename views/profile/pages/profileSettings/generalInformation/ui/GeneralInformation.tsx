@@ -1,16 +1,16 @@
-import { zodResolver } from "@hookform/resolvers/zod";
-import { FormProvider, useForm } from "react-hook-form";
-import { InputsName, generalSchema } from "../lib/schema";
-import { AddAvatarSection } from "./components/AddAvatarSection";
-import { FooterForm } from "./components/FooterForm";
-import { GeneralForm } from "./components/GeneralForm";
-import s from "./generalInformation.module.scss";
+import { zodResolver } from '@hookform/resolvers/zod'
+import { FormProvider, useForm } from 'react-hook-form'
+import { InputsName, generalSchema } from '../lib/schema'
+import { AddAvatarSection } from './components/AddAvatarSection'
+import { FooterForm } from './components/FooterForm'
+import { GeneralForm } from './components/GeneralForm'
+import s from './generalInformation.module.scss'
 
 export const GeneralInformation = () => {
   const methods = useForm<InputsName>({
     resolver: zodResolver(generalSchema),
-    mode: "onBlur",
-  });
+    mode: 'onBlur',
+  })
 
   return (
     <FormProvider {...methods}>
@@ -22,5 +22,5 @@ export const GeneralInformation = () => {
         <FooterForm />
       </div>
     </FormProvider>
-  );
-};
+  )
+}

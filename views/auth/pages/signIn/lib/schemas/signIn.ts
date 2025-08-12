@@ -1,5 +1,5 @@
-import { z } from 'zod';
-import { commonSchema } from '@/shared/schemas/types/validationSchemas/commonValidationSchema';
+import { z } from 'zod'
+import { commonSchema } from '@/shared/schemas/types/validationSchemas/commonValidationSchema'
 
 export const signInSchema = commonSchema.pick({
   email: true,

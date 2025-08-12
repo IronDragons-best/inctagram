@@ -1,8 +1,8 @@
-import { z } from 'zod';
+import { z } from 'zod'
 import {
   commonSchema,
   validatePasswordMatch,
-} from '@/shared/schemas/types/validationSchemas/commonValidationSchema';
+} from '@/shared/schemas/types/validationSchemas/commonValidationSchema'
 
 const passwordRecoverySchema = commonSchema.pick({
   password: true,

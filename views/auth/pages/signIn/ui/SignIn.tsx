@@ -28,23 +28,22 @@ export const SignIn = () => {
 
   const onSubmit: SubmitHandler<SignInFormTypes> = async data => {
     try {
-      const res = await signInHandler(data)
-      .unwrap();
-  
-      const errorField = res.error?.errorsMessages[0]?.message;
-  
+      const res = await signInHandler(data).unwrap()
+
+      const errorField = res.error?.errorsMessages[0]?.message
+
       if (errorField === 'Invalid email or password' || errorField === 'Invalid credentials.') {
-        setError('email', { message: 'Invalid email or password' });
-        return;
+        setError('email', { message: 'Invalid email or password' })
+        return
       }
       if (res.data?.accessToken) {
-        TokenService.setToken(res.data.accessToken);
-        router.push(PATH.home);
+        TokenService.setToken(res.data.accessToken)
+        router.push(PATH.home)
       } else {
-        router.push(PATH.sign_in);
+        router.push(PATH.sign_in)
       }
     } catch (error) {
-      console.error('Error during sign in:', error);
+      console.error('Error during sign in:', error)
     }
   }
 

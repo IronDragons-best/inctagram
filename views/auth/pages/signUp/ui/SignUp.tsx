@@ -1,12 +1,11 @@
 'use client'
 
-import s from './signUp.module.scss'
-import { Button, Card, Checkbox, Input, UniversalIcon } from '@irondragons/ui-lib-inctagram'
-import Link from 'next/link'
-import { Controller, SubmitHandler, useForm } from 'react-hook-form'
-import * as React from 'react'
 import { useState } from 'react'
+import Link from 'next/link'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { Button, Card, Checkbox, Input, UniversalIcon } from '@irondragons/ui-lib-inctagram'
+import { Controller, SubmitHandler, useForm } from 'react-hook-form'
+import s from './signUp.module.scss'
 
 import { useRegistrationMutation } from '@/features/auth/api/authApi'
 import { PATH } from '@/shared/constants/path'

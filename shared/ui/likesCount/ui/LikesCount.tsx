@@ -1,18 +1,14 @@
-'use client';
+'use client'
 
-import { clsx } from 'clsx';
-import Image from 'next/image';
-import photo1 from '@/public/assets/img/photo_01.png';
-import photo2 from '@/public/assets/img/photo_02.png';
-import photo3 from '@/public/assets/img/photo_03.jpg';
-import * as React from 'react';
+import * as React from 'react'
+import Image from 'next/image'
+import { clsx } from 'clsx'
+import photo1 from '@/public/assets/img/photo_01.png'
+import photo2 from '@/public/assets/img/photo_02.png'
+import photo3 from '@/public/assets/img/photo_03.jpg'
+import s from './likesCount.module.scss'
 
-import s from './likesCount.module.scss';
-
-type Props = {
-
-};
-
+type Props = {}
 
 export const LikesCount = ({}: Props) => {
   return (
@@ -33,5 +29,5 @@ export const LikesCount = ({}: Props) => {
         <span className={s.SummaryPostLikes}>"Like"</span>
       </div>
     </div>
-  );
-};
+  )
+}

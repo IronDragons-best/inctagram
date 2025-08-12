@@ -2,7 +2,6 @@
 @use '../../../../../src/styles/colors' as *;
 
 .user-card {
-
   &__container {
     max-width: 234px;
     width: 100%;
@@ -75,5 +74,4 @@
     cursor: pointer;
     white-space: nowrap;
   }
-
 }

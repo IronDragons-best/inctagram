@@ -3,30 +3,30 @@ import {
   FetchBaseQueryError,
   FetchBaseQueryMeta,
   QueryReturnValue,
-} from "@reduxjs/toolkit/query/react";
+} from '@reduxjs/toolkit/query/react'
 
 export const handleError = (
   api: BaseQueryApi,
-  result: QueryReturnValue<unknown, FetchBaseQueryError, FetchBaseQueryMeta>,
+  result: QueryReturnValue<unknown, FetchBaseQueryError, FetchBaseQueryMeta>
 ) => {
-  let error = "Some error occurred";
+  let error = 'Some error occurred'
 
   if (result.error) {
     switch (result.error.status) {
-      case "FETCH_ERROR": {
-        break;
+      case 'FETCH_ERROR': {
+        break
       }
-      case "PARSING_ERROR":
-      case "CUSTOM_ERROR":
-        error = result.error.error;
-        break;
+      case 'PARSING_ERROR':
+      case 'CUSTOM_ERROR':
+        error = result.error.error
+        break
       case 403:
-        error = "403 Forbidden Error. Check API-KEY";
-        break;
+        error = '403 Forbidden Error. Check API-KEY'
+        break
       case 400:
       default:
-        error = JSON.stringify(result.error);
-        break;
+        error = JSON.stringify(result.error)
+        break
     }
   }
 
@@ -37,4 +37,4 @@ export const handleError = (
   //   error = messages.length ? messages[0] : error
   //   api.dispatch(setAppErrorAC({ error }))
   // }
-};
+}

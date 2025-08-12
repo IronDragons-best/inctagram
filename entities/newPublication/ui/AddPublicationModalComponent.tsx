@@ -1,10 +1,10 @@
 'use client'
 
 import React from 'react'
-import styles from './addPublicationModalComponent.module.scss'
-import { PublicationModal } from '@/shared/modals/publicationModal/ui/PublicationModal'
 import Image from 'next/image'
 import { Input, TextAreaComponent } from '@irondragons/ui-lib-inctagram'
+import { PublicationModal } from '@/shared/modals/publicationModal/ui/PublicationModal'
+import styles from './addPublicationModalComponent.module.scss'
 
 const dataLocations = [
   { title: 'New York', place: 'Washington Square Park' },

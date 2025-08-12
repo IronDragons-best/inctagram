@@ -1,9 +1,9 @@
-import { z } from 'zod';
+import { z } from 'zod'
 import {
   commonSchema,
   validatePasswordMatch,
-} from '@/shared/schemas/types/validationSchemas/commonValidationSchema';
+} from '@/shared/schemas/types/validationSchemas/commonValidationSchema'
 
-export const signInValidationSchema = validatePasswordMatch(commonSchema);
+export const signInValidationSchema = validatePasswordMatch(commonSchema)
 
-export type SignUpFormTypes = z.infer<typeof commonSchema>;
+export type SignUpFormTypes = z.infer<typeof commonSchema>

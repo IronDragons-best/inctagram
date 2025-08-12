@@ -1,20 +1,23 @@
-'use client';
+'use client'
 
-import { RECAPTCHA_SITE_KEY } from '@/shared/config/recaptcha';
-import { Button, Card, Input } from '@irondragons/ui-lib-inctagram';
-import * as React from 'react';
-import { useState } from 'react';
-import s from './ForgotPasswordForm.module.scss';
-import Link from 'next/link';
-import { Controller, SubmitHandler, useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import ReCAPTCHA from 'react-google-recaptcha';
-import { useReCaptchaMutation } from '@/features/auth/api/authApi';
-import { forgotPasswordFormSchema, ForgotPasswordFormType } from '@/views/auth/pages/forgot-password/lib/schemas/forgotPasswordForm';
+import { useState } from 'react'
+import { RECAPTCHA_SITE_KEY } from '@/shared/config/recaptcha'
+import { Button, Card, Input } from '@irondragons/ui-lib-inctagram'
+import Link from 'next/link'
+import { Controller, SubmitHandler, useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import ReCAPTCHA from 'react-google-recaptcha'
+import { useReCaptchaMutation } from '@/features/auth/api/authApi'
+import {
+  forgotPasswordFormSchema,
+  ForgotPasswordFormType,
+} from '@/views/auth/pages/forgot-password/lib/schemas/forgotPasswordForm'
+import s from './ForgotPasswordForm.module.scss'
+
 export const ForgotPasswordForm = () => {
-  const [isLinkSent, setIsLinkSent] = useState(false);
-  const [reCaptchaMut] = useReCaptchaMutation();
-  
+  const [isLinkSent, setIsLinkSent] = useState(false)
+  const [reCaptchaMut] = useReCaptchaMutation()
+
   const {
     register,
     handleSubmit,
@@ -24,20 +27,20 @@ export const ForgotPasswordForm = () => {
   } = useForm<ForgotPasswordFormType>({
     resolver: zodResolver(forgotPasswordFormSchema),
     mode: 'onChange',
-  });
-  
-  const onSubmit: SubmitHandler<ForgotPasswordFormType> = async (data) => {
-    console.log(data);
-    reCaptchaMut(data).unwrap().then(
-      (res) => {
+  })
+
+  const onSubmit: SubmitHandler<ForgotPasswordFormType> = async data => {
+    console.log(data)
+    reCaptchaMut(data)
+      .unwrap()
+      .then(res => {
         return res
-      },
-    );
-    
-    setIsLinkSent(true);
-    reset();
-  };
-  
+      })
+
+    setIsLinkSent(true)
+    reset()
+  }
+
   return (
     <Card>
       <form className={s.forgotPassForm} onSubmit={handleSubmit(onSubmit)}>
@@ -77,7 +80,7 @@ export const ForgotPasswordForm = () => {
             name="captchaToken"
             control={control}
             rules={{ required: true }}
-            render={({ field: {onChange} }) => (
+            render={({ field: { onChange } }) => (
               <ReCAPTCHA
                 sitekey={RECAPTCHA_SITE_KEY}
                 onChange={onChange}
@@ -88,5 +91,5 @@ export const ForgotPasswordForm = () => {
         </div>
       </form>
     </Card>
-  );
-};
+  )
+}

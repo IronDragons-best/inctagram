@@ -1,7 +1,7 @@
-'use client';
+'use client'
 
-import { RegisteredUsers } from '@/shared/ui/registeredUsers';
-import { UserCardList } from '@/shared/ui/userFeedCard/ui/UserCardList/UserCardList';
+import { RegisteredUsers } from '@/shared/ui/registeredUsers'
+import { UserCardList } from '@/shared/ui/userFeedCard/ui/UserCardList/UserCardList'
 
 export const PublicPage = () => {
   return (
@@ -9,5 +9,5 @@ export const PublicPage = () => {
       <RegisteredUsers />
       <UserCardList />
     </>
-  );
-};
+  )
+}

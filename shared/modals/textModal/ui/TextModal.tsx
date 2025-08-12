@@ -1,7 +1,8 @@
 'use client'
-import { Button, UniversalIcon } from '@irondragons/ui-lib-inctagram'
-import { Dialog } from 'radix-ui'
+
 import { ReactNode } from 'react'
+import { Dialog } from 'radix-ui'
+import { Button, UniversalIcon } from '@irondragons/ui-lib-inctagram'
 import styles from './textModal.module.scss'
 
 type Props = {

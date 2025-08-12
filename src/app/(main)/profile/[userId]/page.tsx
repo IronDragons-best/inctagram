@@ -1,17 +1,17 @@
-import { UserProfile } from "@/views/profile/pages/userProfile";
+import { UserProfile } from '@/views/profile/pages/userProfile'
 
 type ParamsType = {
-  userId: string;
-};
+  userId: string
+}
 
 type SearchParams = {
-  postId: string;
-};
+  postId: string
+}
 
 type Props = {
-  params: Promise<ParamsType>;
-  searchParams: Promise<SearchParams>;
-};
+  params: Promise<ParamsType>
+  searchParams: Promise<SearchParams>
+}
 
 const UserPage = async (props: Props) => {
   return (
@@ -24,7 +24,7 @@ const UserPage = async (props: Props) => {
       {/*<EditPost isModalOpen={true}/>*/}
       <UserProfile {...props} />;
     </div>
-  );
-};
+  )
+}
 
-export default UserPage;
+export default UserPage

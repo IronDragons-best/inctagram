@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
-import { MainLayoutComponent } from '@/src/common/components/mainLayout'
 import { Metadata } from 'next'
+import { MainLayoutComponent } from '@/src/common/components/mainLayout'
 import { defaultMetadata } from '@/shared/lib/defaultMetadata'
 
 export const metadata: Metadata = defaultMetadata
