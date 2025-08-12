@@ -12,11 +12,13 @@ export const NewPublication = ({ onClose }: NewPublicationProps) => {
   const [photoModalOpen, setPhotoModalOpen] = useState(true)
   const [publicationModalOpen, setPublicationModalOpen] = useState(false)
   const [previewUrl, setPreviewUrl] = useState<string[]>([])
+  const [isImage, setIsImage] = useState(true)
 
   const handlePhotoSelected = (urls: string[]) => {
     setPreviewUrl(urls)
     setPhotoModalOpen(false)
     setPublicationModalOpen(true)
+    setIsImage(false)
   }
 
   const handlePublicationClose = () => {
@@ -32,6 +34,7 @@ export const NewPublication = ({ onClose }: NewPublicationProps) => {
   const handleBackToPhotoModal = () => {
     setPublicationModalOpen(false)
     setPhotoModalOpen(true)
+    setIsImage(true)
   }
 
   return (
@@ -41,6 +44,7 @@ export const NewPublication = ({ onClose }: NewPublicationProps) => {
         previewUrl={previewUrl}
         onPhotoSelected={handlePhotoSelected}
         onClose={handlePhotoModalClose}
+        isImage={isImage}
       />
       <AddPublicationModalComponent
         isOpen={publicationModalOpen}

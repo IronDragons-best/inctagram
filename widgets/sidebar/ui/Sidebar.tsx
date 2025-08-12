@@ -1,80 +1,82 @@
-"use client";
+'use client'
 
-import { NewPublication } from '@/entities/newPublication';
-import { useLogoutMutation } from "@/features/auth/api/authApi";
-import { PATH } from "@/shared/constants/path";
-import { AuthModal } from "@/shared/modals/authModal/ui/AuthModal";
-import { MenuItem } from "@/widgets/sidebar/ui/MenuItem";
-import { Button, UniversalIcon } from "@irondragons/ui-lib-inctagram";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
-import s from "./sidebar.module.scss";
-import { TokenService } from '@/shared/schemas/types/api/client';
+import { NewPublication } from '@/entities/newPublication'
+import { useLogoutMutation } from '@/features/auth/api/authApi'
+import { PATH } from '@/shared/constants/path'
+import { MenuItem } from '@/widgets/sidebar/ui/MenuItem'
+import { Button, UniversalIcon } from '@irondragons/ui-lib-inctagram'
+import { useRouter } from 'next/navigation'
+import { useState } from 'react'
+import s from './sidebar.module.scss'
+import { TokenService } from '@/shared/schemas/types/api/client'
+import { TextModal } from '@/shared/modals/textModal'
 
 export const Sidebar = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isNewPublicationOpen, setIsNewPublicationOpen] = useState(false);
-  const [logoutHandler] = useLogoutMutation();
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isNewPublicationOpen, setIsNewPublicationOpen] = useState(false)
+  const [logoutHandler] = useLogoutMutation()
 
   const menuItems = [
     {
-      text: "Feed",
-      icon: <UniversalIcon name={"home-outline"} />,
+      text: 'Feed',
+      icon: <UniversalIcon name={'home-outline'} />,
       href: PATH.profile,
     },
     {
-      text: "Create",
-      icon: <UniversalIcon name={"plus-square-outline"} />,
+      text: 'Create',
+      icon: <UniversalIcon name={'plus-square-outline'} />,
       onClick: () => {
-        console.log("откройся сучара")
-        setIsNewPublicationOpen(true)},
+        console.log('откройся сучара')
+        setIsNewPublicationOpen(true)
+      },
     },
     {
-      text: "My Profile",
-      icon: <UniversalIcon name={"person-outline"} />,
+      text: 'My Profile',
+      icon: <UniversalIcon name={'person-outline'} />,
       href: PATH.user_profile,
     },
     {
-      text: "Messenger",
-      icon: <UniversalIcon name={"message-circle-outline"} />,
+      text: 'Messenger',
+      icon: <UniversalIcon name={'message-circle-outline'} />,
       href: PATH.profile,
     },
     {
-      text: "Search",
-      icon: <UniversalIcon name={"search"} />,
+      text: 'Search',
+      icon: <UniversalIcon name={'search'} />,
       href: PATH.profile,
     },
     {
-      text: "Statistics",
-      icon: <UniversalIcon name={"trending-up-outline"} />,
+      text: 'Statistics',
+      icon: <UniversalIcon name={'trending-up-outline'} />,
       href: PATH.profile,
     },
     {
-      text: "Favorites",
-      icon: <UniversalIcon name={"bookmark-outline"} />,
+      text: 'Favorites',
+      icon: <UniversalIcon name={'bookmark-outline'} />,
       href: PATH.profile,
     },
-  ];
+  ]
 
-  const openModal = () => setIsModalOpen(true);
-  const closeModal = () => setIsModalOpen(false);
-  const router = useRouter();
-  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const openModal = () => setIsModalOpen(true)
+  const closeModal = () => setIsModalOpen(false)
+  const router = useRouter()
+  const [activeIndex, setActiveIndex] = useState<number | null>(null)
   const handleLogout = () => {
-    logoutHandler("")
+    logoutHandler('')
       .unwrap()
       .then(() => {
-        TokenService.clear(); 
-        setIsModalOpen(false);
-        router.push(PATH.sign_in);
-    })
-    .catch((error) => {
-      console.error('Error during logout:', error);
-    });
-  };
+        TokenService.clear()
+        setIsModalOpen(false)
+        router.push(PATH.sign_in)
+      })
+      .catch(error => {
+        console.error('Error during logout:', error)
+      })
+  }
+
   const handleMenuClick = (index: number) => {
-    setActiveIndex(index);
-  };
+    setActiveIndex(index)
+  }
 
   return (
     <div className={s.sidebar}>
@@ -92,17 +94,13 @@ export const Sidebar = () => {
         ))}
       </ul>
       <ul className={s.footer}>
-        <Button
-          className={s.logoutButton}
-          variant={"text_button"}
-          onClick={openModal}
-        >
-          <UniversalIcon className={s.icon} name={"log-out"} />
+        <Button className={s.logoutButton} variant={'text_button'} onClick={openModal}>
+          <UniversalIcon className={s.icon} name={'log-out'} />
           Log out
         </Button>
-        <AuthModal
-          title={"Log out"}
-          description={"Are you really want to log out of your account"}
+        <TextModal
+          title={'Log out'}
+          description={'Are you really want to log out of your account'}
           openModal={closeModal}
           isModalOpen={isModalOpen}
         >
@@ -112,12 +110,10 @@ export const Sidebar = () => {
               No
             </Button>
           </>
-        </AuthModal>
+        </TextModal>
       </ul>
-      
-      {isNewPublicationOpen && (
-        <NewPublication onClose = {() => setIsNewPublicationOpen(false)} />
-      )}
+
+      {isNewPublicationOpen && <NewPublication onClose={() => setIsNewPublicationOpen(false)} />}
     </div>
-  );
-};
+  )
+}

@@ -1,6 +1,6 @@
 'use client'
 
-import { PropsWithChildren, useState } from 'react';
+import { PropsWithChildren } from 'react'
 import { Provider } from 'react-redux'
 import '@irondragons/ui-lib-inctagram/dist/style.css'
 import '@/src/styles/index.scss'
@@ -9,7 +9,6 @@ import { PATH } from '@/shared/constants/path'
 import { Header } from '@/widgets/header'
 import { Sidebar } from '@/widgets/sidebar'
 import { usePathname } from 'next/navigation'
-import { NewPublication } from '@/entities/newPublication';
 import s from './mainLayout.module.scss'
 
 export const MainLayoutComponent = ({ children }: PropsWithChildren) => {
@@ -25,7 +24,6 @@ export const MainLayoutComponent = ({ children }: PropsWithChildren) => {
             {children}
           </div>
         </div>
-
       </div>
     </Provider>
   )
