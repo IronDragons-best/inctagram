@@ -398,6 +398,22 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/profile/update": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch: operations["ProfileController_updateProfile"];
+        trace?: never;
+    };
     "/location/countries": {
         parameters: {
             query?: never;
@@ -649,11 +665,44 @@ export interface components {
             createdAt: string;
         };
         PagedPostViewDto: {
+            /** @description Array of Posts */
             items: components["schemas"]["PostViewDto"][];
             totalCount: number;
             pagesCount: number;
             page: number;
             pageSize: number;
+        };
+        ProfileInputDto: {
+            /**
+             * @description First name of the user
+             * @example John
+             */
+            firstName?: string;
+            /**
+             * @description Last name of the user
+             * @example Doe
+             */
+            lastName?: string;
+            /**
+             * @description Date of birth in format dd.mm.yyyy
+             * @example 15.05.2000
+             */
+            dateOfBirth?: string;
+            /**
+             * @description Country ID from list
+             * @example 2
+             */
+            countryId?: number;
+            /**
+             * @description City ID from list
+             * @example 1
+             */
+            cityId?: number;
+            /**
+             * @description About me section (max 200 characters)
+             * @example Software developer passionate about clean code and architecture
+             */
+            aboutMe?: string;
         };
         CountryViewDto: {
             /**
@@ -1670,6 +1719,27 @@ export interface operations {
             };
             /** @description No posts found for the given criteria. */
             404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    ProfileController_updateProfile: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["ProfileInputDto"];
+            };
+        };
+        responses: {
+            200: {
                 headers: {
                     [name: string]: unknown;
                 };
