@@ -1,5 +1,3 @@
-'use client'
-
 import { PublicPage } from 'views/publicPage/pages/public-page/ui'
 
 export default function Home() {
