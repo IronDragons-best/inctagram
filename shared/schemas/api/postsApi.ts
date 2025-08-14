@@ -1,4 +1,4 @@
-import { Post, PostTag } from '@/shared/schemas/types/post'
+import { CreatePost, PostItem, PostTag } from '@/shared/schemas/types/post'
 import { baseApi, TAGS } from '@/src/app/provider/baseApi'
 import { getClient, TokenService } from '@/shared/schemas/api/client'
 
@@ -6,13 +6,26 @@ const client = getClient(TokenService.getToken())
 
 export const postsApi = baseApi.injectEndpoints({
   endpoints: build => ({
-    getPosts: build.query({
+    getPosts: build.query<PostItem[], void>({
       queryFn: async () => {
         try {
           const res = await client.GET('/posts')
-          if (res.response.status === 200) {
-            return { data: res.data as Post[] }
+          if (res.response.status === 200 && res.data?.items) {
+            return { data: res.data.items }
           }
+          if (res.error) {
+            return {
+              error: {
+                status: res.response.status,
+                data: res.error,
+              },
+            }
+          }
+
+          if (res.response.status === 200) {
+            return { data: [] }
+          }
+
           return {
             error: {
               status: res.response.status,
@@ -28,7 +41,7 @@ export const postsApi = baseApi.injectEndpoints({
           }
         }
       },
-      providesTags: (result: Post[] | undefined) =>
+      providesTags: (result: PostItem[] | undefined) =>
         result
           ? [
               ...result.map(({ id }): PostTag => ({ type: TAGS.POST, id })),
@@ -42,7 +55,7 @@ export const postsApi = baseApi.injectEndpoints({
         try {
           const res = await client.GET('/posts/{id}', {
             params: {
-              path: { id: Number(id) },
+              path: { id },
             },
           })
 
@@ -64,14 +77,14 @@ export const postsApi = baseApi.injectEndpoints({
           }
         }
       },
-      providesTags: (result, error, id): PostTag[] => [{ type: TAGS.POST, id }],
+      providesTags: (_result, _error, id): PostTag[] => [{ type: TAGS.POST, id }],
     }),
 
     createPost: build.mutation({
-      queryFn: async body => {
+      queryFn: async (postPayload: CreatePost) => {
         try {
           const res = await client.POST('/posts/create-post', {
-            body,
+            body: postPayload,
           })
 
           if (res.response.status === 201 || res.response.status === 200) {
@@ -164,66 +177,3 @@ export const {
   useUpdatePostMutation,
   useDeletePostMutation,
 } = postsApi
-
-// import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-// import { Post, PostTag } from '@/shared/schemas/types/post'
-//
-// export const postsApi = createApi({
-//   reducerPath: 'postsApi',
-//   baseQuery: fetchBaseQuery({ baseUrl: 'https://nodewebdev.online/api/v1' }),
-//   tagTypes: ['Post'],
-//   endpoints: build => ({
-//     getPosts: build.query<Post[], void>({
-//       query: () => '/posts',
-//       providesTags: result =>
-//         result
-//           ? [
-//               ...result.map(({ id }): PostTag => ({ type: 'Post', id })),
-//               { type: 'Post' as const, id: 'LIST' },
-//             ]
-//           : [{ type: 'Post' as const, id: 'LIST' }],
-//     }),
-//
-//     getPostById: build.query<Post, string>({
-//       query: id => `/posts/${id}`,
-//       providesTags: (result, error, id): PostTag[] =>
-//         result ? [{ type: 'Post' as const, id }] : [],
-//     }),
-//
-//     createPost: build.mutation<Post, Partial<Post>>({
-//       query: payload => ({
-//         url: '/posts/create-post', // TODO REST API ???
-//         method: 'POST',
-//         body: payload,
-//       }),
-//       invalidatesTags: [{ type: 'Post', id: 'LIST' }],
-//     }),
-//
-//     updatePost: build.mutation<Post, { id: string; body: Partial<Post> }>({
-//       query: ({ id, body }) => ({
-//         url: `/posts/${id}`,
-//         method: 'PUT',
-//         body,
-//       }),
-//       invalidatesTags: (result, error, { id }): PostTag[] =>
-//         result ? [{ type: 'Post' as const, id }] : [],
-//     }),
-//
-//     deletePost: build.mutation<{ success: boolean }, string>({
-//       query: id => ({
-//         url: `/posts/${id}`,
-//         method: 'DELETE',
-//       }),
-//       invalidatesTags: (result, error, id): PostTag[] =>
-//         result ? [{ type: 'Post' as const, id }] : [],
-//     }),
-//   }),
-// })
-//
-// export const {
-//   useGetPostsQuery,
-//   useGetPostByIdQuery,
-//   useCreatePostMutation,
-//   useUpdatePostMutation,
-//   useDeletePostMutation,
-// } = postsApi
