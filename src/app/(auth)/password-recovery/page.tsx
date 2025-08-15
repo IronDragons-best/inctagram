@@ -12,7 +12,7 @@ const PasswordRecovery = () => {
     >
       <>
         <div className={s.wrapper}>
-          <Button variant={'primary'} fullWidth={true}>
+          <Button variant={'primary'} fullWidth>
             Resend link
           </Button>
         </div>
