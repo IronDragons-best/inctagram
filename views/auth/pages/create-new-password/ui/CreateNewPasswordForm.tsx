@@ -9,8 +9,17 @@ import {
   PasswordRecoveryFormType,
   passwordRecoveryValidation,
 } from '@/views/auth/pages/create-new-password/lib/schemas/passwordConfirmation'
+import { useCreateNewPasswordMutation } from '@/features/auth/api/authApi'
+import { redirect } from 'next/navigation'
+import { PATH } from '@/shared/constants/path'
+import { createNewPasswordDto } from '@/shared/schemas/types/auth'
 
-export const CreateNewPasswordForm = () => {
+type Props = {
+  refreshCode: string
+}
+// TODO: сделать type guard для поля status
+export const CreateNewPasswordForm = ({ refreshCode }: Props) => {
+  const [createNewPasswordHandler] = useCreateNewPasswordMutation()
   const {
     register,
     handleSubmit,
@@ -19,7 +28,23 @@ export const CreateNewPasswordForm = () => {
     resolver: zodResolver(passwordRecoveryValidation),
     mode: 'onBlur',
   })
-  const onSubmitHandler: SubmitHandler<PasswordRecoveryFormType> = data => console.log(data)
+  const onSubmitHandler: SubmitHandler<PasswordRecoveryFormType> = async data => {
+    const payloadForNewPassword: createNewPasswordDto = {
+      newPassword: data.passwordConfirmation,
+      recoveryCode: refreshCode,
+    }
+    try {
+      const res = await createNewPasswordHandler(payloadForNewPassword)
+      const errorStatus = res.error?.status as number
+      if (res.data === 204) {
+        redirect(PATH.sign_in)
+      } else if (errorStatus === 404) {
+        redirect(PATH.sign_up)
+      } else if (errorStatus === 400) {
+        redirect(PATH.expired_link)
+      }
+    } catch {}
+  }
 
   return (
     <Card>

@@ -51,7 +51,7 @@ export const ForgotPasswordForm = () => {
             inputType={'email'}
             label={'Email'}
             placeholder="Epam@epam.com"
-            fullWidth={true}
+            fullWidth
             errorText={errors.email?.message}
             required
             {...register('email')}
@@ -67,7 +67,7 @@ export const ForgotPasswordForm = () => {
           )}
           <Button
             className={s.forgotPassForm__sendLink}
-            fullWidth={true}
+            fullWidth
             type="submit"
             disabled={!isDirty || !isValid}
           >

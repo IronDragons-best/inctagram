@@ -2,7 +2,6 @@
 
 import { useSignInMutation } from '@/features/auth/api/authApi'
 import { PATH } from '@/shared/constants/path'
-import { TokenService } from '@/shared/schemas/types/api/client'
 import { SignInFormTypes, signInSchema } from '@/views/auth/pages/signIn/lib/schemas/signIn'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button, Card, Input, UniversalIcon } from '@irondragons/ui-lib-inctagram'
@@ -10,6 +9,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import s from './signIn.module.scss'
+import { TokenService } from '@/shared/schemas/api/client'
 
 export const SignIn = () => {
   const {
