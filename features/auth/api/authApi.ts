@@ -4,6 +4,7 @@ import { SignUpFormTypes } from '@/views/auth/pages/signUp/lib/schemas/signUp'
 import { ForgotPasswordFormType } from '@/views/auth/pages/forgot-password/lib/schemas/forgotPasswordForm'
 import { baseApi } from '@/src/app/provider/baseApi'
 import { getClient, TokenService } from '@/shared/schemas/api/client'
+import { createNewPasswordDto } from '@/shared/schemas/types/auth'
 
 const mutex = new Mutex()
 
@@ -140,6 +141,35 @@ export const authApi = baseApi.injectEndpoints({
         return { data: res }
       },
     }),
+    createNewPassword: build.mutation({
+      queryFn: async (body: createNewPasswordDto) => {
+        try {
+          const res = await client.POST('/auth/new-password', {
+            body,
+          })
+
+          if (res.response.status !== 204) {
+            return {
+              error: {
+                status: res.response.status,
+                data: 'error occurred',
+              },
+            }
+          }
+          return { data: res.response.status }
+        } catch (e) {
+          return {
+            error: {
+              status: 500,
+              data: {
+                message: 'Unknown error occurred',
+                details: e instanceof Error ? e.message : String(e),
+              },
+            },
+          }
+        }
+      },
+    }),
   }),
 })
 
@@ -151,4 +181,5 @@ export const {
   useLogoutMutation,
   useMeQuery,
   useReCaptchaMutation,
+  useCreateNewPasswordMutation,
 } = authApi
