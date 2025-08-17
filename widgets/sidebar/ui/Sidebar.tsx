@@ -7,9 +7,9 @@ import { NewPublication } from '@/entities/newPublication'
 import { useLogoutMutation } from '@/features/auth/api/authApi'
 import { PATH } from '@/shared/constants/path'
 import { MenuItem } from '@/widgets/sidebar/ui/MenuItem'
+import { TokenService } from '@/shared/schemas/api/client'
 import { TextModal } from '@/shared/modals/textModal'
 import s from './sidebar.module.scss'
-import { TokenService } from '@/shared/schemas/api/client'
 
 export const Sidebar = () => {
   const [isModalOpen, setIsModalOpen] = useState(false)

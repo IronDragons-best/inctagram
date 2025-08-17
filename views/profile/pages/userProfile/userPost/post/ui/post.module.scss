@@ -1,38 +1,6 @@
 @use '../../../../../../../src/styles/colors' as *;
 @use '../../../../../../../src/styles/fonts' as font;
 
-.PostTitle {
-  flex: 0 0 59px;
-  border-bottom: 1px solid $dark-100;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 10px 24px;
-
-  & .UserAvatar {
-    display: flex;
-    align-items: center;
-
-    & img {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-    }
-  }
-
-  & .Username {
-    @include font.h3;
-    flex: 1 1 auto;
-  }
-
-  & .MoreIcon {
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-}
-
 .PostUserCommentWrapper {
   flex: 1 1 auto;
   border-bottom: 1px solid $dark-100;
@@ -92,12 +60,3 @@
     transform: translate(-50%, -50%) scale(1);
   }
 }
-
-
-
-
-
-
-
-
-
