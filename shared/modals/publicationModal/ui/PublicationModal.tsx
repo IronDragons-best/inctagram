@@ -16,7 +16,7 @@ type PublicationModalProps = {
   children: ReactNode
   srcArray: string[]
   isSmall?: boolean
-  onBack: () => void
+  onBack?: () => void
   onRequestClose?: () => void
 }
 

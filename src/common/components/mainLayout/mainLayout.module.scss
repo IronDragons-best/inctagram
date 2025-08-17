@@ -8,15 +8,16 @@
 
 .display {
   @include flex-container(row, flex-start, flex-start);
+
   width: 100%;
 }
 
 .mainWrapper {
-  padding: 36px 60px 0 24px;
   width: 100%;
+  padding: 36px 60px 0 24px;
 
   &[data-isuserauthorized='true'] {
-    margin: 0 auto;
     width: min(972px, 100%);
+    margin: 0 auto;
   }
 }

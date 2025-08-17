@@ -8,6 +8,58 @@
   --slider-height: 501px;
 }
 
+.swiper-button-prev,
+.swiper-button-next {
+  width: 48px !important;
+  height: 48px !important;
+  border-radius: 4px;
+
+  color: $light-100 !important;
+
+  background-color: rgba($dark-900, 0.4);
+
+  &::after {
+    font-size: 28px !important;
+    font-weight: 700 !important;
+  }
+}
+
+.swiper-pagination-bullets {
+  display: none !important;
+
+  &.swiper-pagination-bullet {
+    display: none !important;
+  }
+}
+
+.swiper-button-next + .swiper-pagination-bullets {
+  position: absolute !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+
+  display: flex !important;
+  gap: 12px;
+
+  width: 104px !important;
+  padding: 8px !important;
+  border-radius: 5px;
+
+  background-color: rgba($dark-900, 0.4);
+}
+
+.swiper-pagination-bullet {
+  width: 8px !important;
+  height: 8px !important;
+  margin: 0 !important;
+
+  opacity: 1 !important;
+  background-color: $light-100 !important;
+}
+
+.swiper-button-lock + .swiper-pagination-bullets {
+  display: none !important;
+}
+
 .swiper[data-isslidersmall='true'] {
   .swiper-button-prev,
   .swiper-button-next {
@@ -22,61 +74,15 @@
   }
 
   .swiper-button-next + .swiper-pagination-bullets {
+    gap: 8px !important;
     width: 78px !important;
     padding: 6px !important;
-    gap: 8px !important;
   }
 
   .swiper-pagination-bullet {
     width: 6px !important;
     height: 6px !important;
   }
-}
-
-.swiper-button-prev,
-.swiper-button-next {
-  color: $light-100 !important;
-  background-color: rgba($dark-900, 0.4);
-  border-radius: 4px;
-  width: 48px !important;
-  height: 48px !important;
-
-  &::after {
-    font-size: 28px !important;
-    font-weight: 700 !important;
-  }
-}
-
-.swiper-button-next + .swiper-pagination-bullets {
-  display: flex !important;
-  gap: 12px;
-  width: 104px !important;
-  position: absolute !important;
-  left: 50% !important;
-  transform: translateX(-50%) !important;
-  padding: 8px !important;
-  background-color: rgba($dark-900, 0.4);
-  border-radius: 5px;
-}
-
-.swiper-button-lock + .swiper-pagination-bullets {
-  display: none !important;
-}
-
-.swiper-pagination-bullets {
-  display: none !important;
-
-  &.swiper-pagination-bullet {
-    display: none !important;
-  }
-}
-
-.swiper-pagination-bullet {
-  width: 8px !important;
-  height: 8px !important;
-  margin: 0 !important;
-  background-color: $light-100 !important;
-  opacity: 1 !important;
 }
 
 .swiper-pagination-bullet-active {
