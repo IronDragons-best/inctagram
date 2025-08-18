@@ -1,16 +1,32 @@
-import { NextRequest, NextResponse } from 'next/server'
+import type { NextRequest } from 'next/server'
+import { NextResponse } from 'next/server'
 
 export function middleware(request: NextRequest) {
-  const token = request.cookies.get('access-token')?.value
-  const pathname = request.nextUrl.pathname
+  const { pathname, searchParams } = request.nextUrl
+  const accessToken = request.cookies.get('accessToken')?.value
+  const isAuth = Boolean(accessToken)
 
-  const signPages = ['/sign-in', '/sign-up']
+  const guestAllowed = [
+    '/sign-in',
+    '/sign-up',
+    '/confirm-registration',
+    '/forgot-password',
+    '/new-password',
+    '/password-recovery',
+    '/expired-link',
+  ]
+  const isPublicProfile =
+    /^\/profile\/\d+$/.test(pathname) ||
+    (/^\/profile\/\d+$/.test(pathname) && searchParams.has('postId'))
 
-  if (token && signPages.includes(pathname)) {
+  if (isAuth && guestAllowed.includes(pathname)) {
     return NextResponse.redirect(new URL('/', request.url))
   }
 
-  if (!token && pathname.startsWith('/profile/')) {
+  if (!isAuth) {
+    if (guestAllowed.includes(pathname) || isPublicProfile) {
+      return NextResponse.next()
+    }
     return NextResponse.redirect(new URL('/sign-in', request.url))
   }
 
@@ -18,5 +34,14 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/sign-in', '/sign-up'],
+  matcher: [
+    '/sign-in',
+    '/sign-up',
+    '/profile/:path*',
+    '/confirm-registration',
+    '/forgot-password',
+    '/new-password',
+    '/password-recovery',
+    '/expired-link',
+  ],
 }

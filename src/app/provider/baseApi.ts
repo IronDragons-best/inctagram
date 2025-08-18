@@ -10,6 +10,7 @@ export const baseApi = createApi({
   baseQuery: async (args, api, extraOptions) => {
     return fetchBaseQuery({
       baseUrl: '',
+      credentials: 'include',
     })(args, api, extraOptions)
   },
 

@@ -1,15 +1,14 @@
-import { SignInFormTypes } from '@/views/auth/pages/signIn/lib/schemas/signIn'
-import { Mutex } from 'async-mutex'
-import { SignUpFormTypes } from '@/views/auth/pages/signUp/lib/schemas/signUp'
-import { ForgotPasswordFormType } from '@/views/auth/pages/forgot-password/lib/schemas/forgotPasswordForm'
-import { baseApi } from '@/src/app/provider/baseApi'
-import { getClient, TokenService } from '@/shared/schemas/api/client'
+import { getClient } from '@/shared/schemas/api/client'
 import { createNewPasswordDto } from '@/shared/schemas/types/auth'
+import { baseApi } from '@/src/app/provider/baseApi'
+import { ForgotPasswordFormType } from '@/views/auth/pages/forgot-password/lib/schemas/forgotPasswordForm'
+import { SignInFormTypes } from '@/views/auth/pages/signIn/lib/schemas/signIn'
+import { SignUpFormTypes } from '@/views/auth/pages/signUp/lib/schemas/signUp'
+import { Mutex } from 'async-mutex'
 
 const mutex = new Mutex()
 
-const token = TokenService.getToken()
-const client = getClient(token)
+const client = getClient()
 
 export const authApi = baseApi.injectEndpoints({
   endpoints: build => ({
@@ -59,6 +58,7 @@ export const authApi = baseApi.injectEndpoints({
     signIn: build.mutation({
       queryFn: async (body: SignInFormTypes) => {
         const res = await client.POST('/auth/login', { body })
+        console.log(res)
         return { data: res }
       },
     }),
@@ -83,8 +83,8 @@ export const authApi = baseApi.injectEndpoints({
           const release = await mutex.acquire()
 
           try {
-            const latestToken = TokenService.getToken() // возможно, другой запрос уже обновил токен
-            const retryClient = getClient(latestToken)
+            // возможно, другой запрос уже обновил токен
+            const retryClient = getClient()
             const retryRes = await retryClient.GET('/auth/me')
 
             if (retryRes.response.status === 200) {
@@ -92,13 +92,11 @@ export const authApi = baseApi.injectEndpoints({
             }
 
             // Делаем refresh только если и повторный запрос вернул 401
-            const refreshClient = getClient(latestToken)
+            const refreshClient = getClient()
             const refreshRes = await refreshClient.POST('/auth/refresh-token')
 
-            if (refreshRes.response.status === 200 && refreshRes.data?.accessToken) {
-              TokenService.setToken(refreshRes.data.accessToken)
-
-              const finalClient = getClient(refreshRes.data.accessToken)
+            if (refreshRes.response.status === 200) {
+              const finalClient = getClient()
               const finalRes = await finalClient.GET('/auth/me')
 
               if (finalRes.response.status === 200) {
