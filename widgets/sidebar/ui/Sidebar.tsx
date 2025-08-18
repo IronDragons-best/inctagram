@@ -1,14 +1,13 @@
 'use client'
 
-import { useState } from 'react'
-import { useRouter } from 'next/navigation'
-import { Button, UniversalIcon } from '@irondragons/ui-lib-inctagram'
 import { NewPublication } from '@/entities/newPublication'
 import { useLogoutMutation } from '@/features/auth/api/authApi'
 import { PATH } from '@/shared/constants/path'
-import { MenuItem } from '@/widgets/sidebar/ui/MenuItem'
-import { TokenService } from '@/shared/schemas/api/client'
 import { TextModal } from '@/shared/modals/textModal'
+import { MenuItem } from '@/widgets/sidebar/ui/MenuItem'
+import { Button, UniversalIcon } from '@irondragons/ui-lib-inctagram'
+import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 import s from './sidebar.module.scss'
 
 export const Sidebar = () => {
@@ -64,8 +63,6 @@ export const Sidebar = () => {
     logoutHandler('')
       .unwrap()
       .then(() => {
-        TokenService.clear()
-        setIsModalOpen(false)
         router.push(PATH.sign_in)
       })
       .catch(error => {

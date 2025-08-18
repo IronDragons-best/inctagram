@@ -1,8 +1,8 @@
+import { getClient } from '@/shared/schemas/api/client'
 import { CreatePost, PostItem, PostTag } from '@/shared/schemas/types/post'
-import { baseApi, TAGS } from '@/src/app/provider/baseApi'
-import { getClient, TokenService } from '@/shared/schemas/api/client'
+import { TAGS, baseApi } from '@/src/app/provider/baseApi'
 
-const client = getClient(TokenService.getToken())
+const client = getClient()
 
 export const postsApi = baseApi.injectEndpoints({
   endpoints: build => ({

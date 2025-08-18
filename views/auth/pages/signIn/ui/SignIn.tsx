@@ -9,7 +9,6 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import s from './signIn.module.scss'
-import { TokenService } from '@/shared/schemas/api/client'
 
 export const SignIn = () => {
   const {
@@ -27,23 +26,15 @@ export const SignIn = () => {
   const router = useRouter()
 
   const onSubmit: SubmitHandler<SignInFormTypes> = async data => {
-    try {
-      const res = await signInHandler(data).unwrap()
+    const res = await signInHandler(data)
+    const status = res.data?.response?.status
+    if (status === 204) {
+      router.push(PATH.user_profile)
+      return
+    }
 
-      const errorField = res.error?.errorsMessages[0]?.message
-
-      if (errorField === 'Invalid email or password' || errorField === 'Invalid credentials.') {
-        setError('email', { message: 'Invalid email or password' })
-        return
-      }
-      if (res.data?.accessToken) {
-        TokenService.setToken(res.data.accessToken)
-        router.push(PATH.home)
-      } else {
-        router.push(PATH.sign_in)
-      }
-    } catch (error) {
-      console.error('Error during sign in:', error)
+    if (status === 401 || res.data?.error?.errorsMessages[0]?.message) {
+      setError('email', { message: 'Invalid email or password' })
     }
   }
 
