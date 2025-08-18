@@ -1,10 +1,11 @@
 'use client'
 
-import React from 'react'
+import React, { useState } from 'react'
 import Image from 'next/image'
 import { Input, TextAreaComponent } from '@irondragons/ui-lib-inctagram'
 import { PublicationModal } from '@/shared/modals/publicationModal/ui/PublicationModal'
 import styles from './addPublicationModalComponent.module.scss'
+import { useCreatePostMutation } from '@/shared/schemas/api/postsApi'
 
 const dataLocations = [
   { title: 'New York', place: 'Washington Square Park' },
@@ -26,6 +27,43 @@ export const AddPublicationModalComponent = ({
   onBack,
   onRequestClose,
 }: AddPublicationModalComponentProps) => {
+  const [title, setTitle] = useState('') // удалить title осле фикса бэка
+  const [description, setDescription] = useState('')
+  const [createPost] = useCreatePostMutation()
+
+  const urlsToFiles = async (urls: string[]) => {
+    const limited = urls.slice(0, 10) // сервер — до 10 изображений
+    const files = await Promise.all(
+      limited.map(async (u, i) => {
+        const res = await fetch(u)
+        const blob = await res.blob()
+        const ext = (blob.type?.split('/')[1] ?? 'jpg').split('+')[0]
+        return new File([blob], `photo_${i}.${ext}`, { type: blob.type || 'image/jpeg' })
+      })
+    )
+    return files
+  }
+
+  const handlePublish = async () => {
+    if (!imageUrl?.length || !description.trim()) return
+
+    try {
+      const form = new FormData()
+
+      form.append('title', title.trim())
+      form.append('shortDescription', description.trim())
+
+      const files = await urlsToFiles(imageUrl)
+      files.forEach(f => form.append('files', f))
+
+      await createPost(form as unknown as any).unwrap()
+
+      onRequestClose()
+    } catch {
+      // ошибка
+    }
+  }
+
   return (
     <PublicationModal
       openModal={onCloseAction}
@@ -35,6 +73,7 @@ export const AddPublicationModalComponent = ({
       srcArray={imageUrl}
       onBack={onBack}
       onRequestClose={onRequestClose}
+      onPublish={handlePublish}
     >
       <div className={styles.bodyContent}>
         <div className={styles.Info}>
@@ -49,11 +88,23 @@ export const AddPublicationModalComponent = ({
               </div>
               <span className={styles.Username}>URLProfile</span>
             </div>
+
+            <Input
+              inputType={'text'}
+              fullWidth={true}
+              label={'Title'}
+              placeholder={'Give your post a title'}
+              value={title}
+              onChange={e => setTitle((e.target as HTMLInputElement).value)}
+            />
+
             <TextAreaComponent
               fullWidth={true}
               label={'Add publication descriptions'}
               id={'1'}
               placeholder={'Text-area'}
+              value={description}
+              onChange={e => setDescription(e.target.value)}
             />
           </div>
           <div className={styles.footerContent}>
