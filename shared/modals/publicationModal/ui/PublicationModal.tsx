@@ -18,6 +18,7 @@ type PublicationModalProps = {
   isSmall?: boolean
   onBack?: () => void
   onRequestClose?: () => void
+  onPublish?: () => void
 }
 
 export const PublicationModal = ({
@@ -29,6 +30,7 @@ export const PublicationModal = ({
   isSmall = false,
   onBack,
   onRequestClose,
+  onPublish,
 }: PublicationModalProps) => {
   const isPublication = title === 'Publication'
 
@@ -74,7 +76,12 @@ export const PublicationModal = ({
               )}
               <Dialog.Title className={s.Title}>{title}</Dialog.Title>
               {isPublication && (
-                <Button variant={'text_button'} aria-label="Close" tabIndex={-1}>
+                <Button
+                  variant={'text_button'}
+                  aria-label="Close"
+                  tabIndex={-1}
+                  onClick={onPublish}
+                >
                   Publish
                 </Button>
               )}
