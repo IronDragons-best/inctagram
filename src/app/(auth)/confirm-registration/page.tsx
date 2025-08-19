@@ -2,45 +2,73 @@
 
 import s from './congratulations.module.scss'
 import { Button, UniversalIcon } from '@irondragons/ui-lib-inctagram'
-import { redirect, useSearchParams } from 'next/navigation'
+import { redirect, useRouter, useSearchParams } from 'next/navigation'
 import { useConfirmEmailMutation } from '@/features/auth/api/authApi'
 import { useEffect, useState } from 'react'
 import { Ring } from 'ldrs/react'
 import 'ldrs/react/Ring.css'
 import { EmailConfirmationPage } from '@/views/auth/pages/emailConfirmationPage'
+import { normalizeError } from '@/shared/utils/handleErrors'
+import { mapConfirmEmailErrorToRedirect } from '@/shared/utils/mapConfirmEmailErrorToRedirect'
 
 const Page = () => {
   const [isEmailConfirmed, setIsEmailConfirmed] = useState(false)
   const [confirmEmailHandler] = useConfirmEmailMutation()
   const queryParams = useSearchParams()
   const confirmationCode = queryParams.get('code')
+  const router = useRouter()
 
   useEffect(() => {
     if (!confirmationCode) {
-      redirect('/')
+      router.push('/')
+      return
     }
-    confirmEmailHandler(confirmationCode)
-      .unwrap()
-      .then(() => {
+
+    let mounted = true
+
+    const run = async () => {
+      try {
+        // unwrap выбросит, если пришла ошибка
+        await confirmEmailHandler(confirmationCode).unwrap()
+        if (!mounted) return
         setIsEmailConfirmed(true)
-      })
-      .catch(res => {
-        const errorMessage = res.data[0].message
-        if (
-          errorMessage === 'Confirmation code is expired' ||
-          errorMessage === 'Invalid confirmation code'
-        ) {
-          redirect('/expired-link')
-        } else if (errorMessage === 'Email is already confirmed') {
-          redirect('/sign-in')
-        } else if (
-          errorMessage === 'User does not exist' ||
-          errorMessage === 'code should not be empty'
-        ) {
-          redirect('/sign-up')
+      } catch (rawErr) {
+        if (!mounted) return
+
+        const err = normalizeError(rawErr) // { status, data }
+        // Извлекаем человекочитаемое сообщение (первое, если массив errorsMessages)
+        let message: string | undefined = undefined
+        const data = err.data as any
+        if (Array.isArray(data) && data.length > 0 && typeof data[0]?.message === 'string') {
+          message = data[0].message
+        } else if (Array.isArray(data?.errorsMessages) && data.errorsMessages.length > 0) {
+          message = data.errorsMessages[0]?.message
+        } else if (typeof data?.message === 'string') {
+          message = data.message
         }
-      })
-  }, [])
+
+        const redirectTo = mapConfirmEmailErrorToRedirect(err.status, message)
+        if (redirectTo) {
+          router.push(redirectTo)
+          return
+        }
+
+        // Не мапится на редирект: показываем клиентский фидбек
+        if (err.status === 429) {
+          // тут можно сделать тост, пока как заглушка - alert
+          alert('Too many attempts, try again later')
+        } else {
+          alert(message ?? 'Email confirmation failed')
+        }
+      }
+    }
+
+    run()
+
+    return () => {
+      mounted = false
+    }
+  }, [confirmationCode, confirmEmailHandler, router])
 
   if (!isEmailConfirmed) {
     return <Ring size="40" stroke="5" bgOpacity="0" speed="2" color="white" />
