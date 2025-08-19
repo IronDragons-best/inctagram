@@ -10,9 +10,10 @@ import {
   passwordRecoveryValidation,
 } from '@/views/auth/pages/create-new-password/lib/schemas/passwordConfirmation'
 import { useCreateNewPasswordMutation } from '@/features/auth/api/authApi'
-import { redirect } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import { PATH } from '@/shared/constants/path'
 import { createNewPasswordDto } from '@/shared/schemas/types/auth'
+import { normalizeError } from '@/shared/utils/handleErrors'
 
 type Props = {
   refreshCode: string
@@ -20,6 +21,8 @@ type Props = {
 // TODO: сделать type guard для поля status
 export const CreateNewPasswordForm = ({ refreshCode }: Props) => {
   const [createNewPasswordHandler] = useCreateNewPasswordMutation()
+  const router = useRouter()
+
   const {
     register,
     handleSubmit,
@@ -28,22 +31,43 @@ export const CreateNewPasswordForm = ({ refreshCode }: Props) => {
     resolver: zodResolver(passwordRecoveryValidation),
     mode: 'onBlur',
   })
+
+  // TODO: доработать обработку ошибок
   const onSubmitHandler: SubmitHandler<PasswordRecoveryFormType> = async data => {
+    if (typeof navigator !== 'undefined' && !navigator.onLine) {
+      // тост
+      alert('No network connection — please check your internet and try again.')
+      return
+    }
+
     const payloadForNewPassword: createNewPasswordDto = {
-      newPassword: data.passwordConfirmation,
+      newPassword: data.password,
       recoveryCode: refreshCode,
     }
+
     try {
-      const res = await createNewPasswordHandler(payloadForNewPassword)
-      const errorStatus = res.error?.status as number
-      if (res.data === 204) {
-        redirect(PATH.sign_in)
-      } else if (errorStatus === 404) {
-        redirect(PATH.sign_up)
-      } else if (errorStatus === 400) {
-        redirect(PATH.expired_link)
+      await createNewPasswordHandler(payloadForNewPassword).unwrap()
+      router.push(PATH.sign_in)
+    } catch (rawErr: any) {
+      const err = normalizeError(rawErr)
+
+      if (!err.status || err.status >= 500) {
+        // тост
+        alert((err.data as any)?.message ?? 'Network or server error. Please try later.')
+        return
       }
-    } catch {}
+
+      if (err.status === 404) {
+        router.push(PATH.sign_up)
+      } else if (err.status === 400) {
+        router.push(PATH.expired_link)
+      } else if (err.status === 429) {
+        // тост
+        alert('Too many attempts, try again later')
+      } else {
+        alert('Something went wrong. Please try again.')
+      }
+    }
   }
 
   return (
@@ -71,7 +95,7 @@ export const CreateNewPasswordForm = ({ refreshCode }: Props) => {
             {...register('passwordConfirmation')}
           />
           <span className={s.underTitle}>Your password must be between 6 and 20 characters</span>
-          <Button className={s.button} variant={'primary'}>
+          <Button className={s.button} variant={'primary'} type="submit">
             Create new password
           </Button>
         </form>

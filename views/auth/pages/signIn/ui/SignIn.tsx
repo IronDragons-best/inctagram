@@ -9,6 +9,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import s from './signIn.module.scss'
+import { handleFormError } from '@/shared/utils/handleErrors'
 
 export const SignIn = () => {
   const {
@@ -26,15 +27,11 @@ export const SignIn = () => {
   const router = useRouter()
 
   const onSubmit: SubmitHandler<SignInFormTypes> = async data => {
-    const res = await signInHandler(data)
-    const status = res.data?.response?.status
-    if (status === 204) {
+    try {
+      await signInHandler(data).unwrap()
       router.push(PATH.user_profile)
-      return
-    }
-
-    if (status === 401 || res.data?.error?.errorsMessages[0]?.message) {
-      setError('email', { message: 'Invalid email or password' })
+    } catch (err) {
+      handleFormError(err, setError, ['email', 'password'])
     }
   }
 
