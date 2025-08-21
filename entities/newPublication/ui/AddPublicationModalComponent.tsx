@@ -56,7 +56,7 @@ export const AddPublicationModalComponent = ({
 
       await createPost(form as unknown as any).unwrap()
 
-      onRequestClose()
+      onCloseAction()
     } catch {
       // ошибка
     }

@@ -28,10 +28,6 @@ export const NewPublication = ({ onClose }: NewPublicationProps) => {
     onClose()
   }
 
-  const handlePublicationClose = () => {
-    actuallyClosePublication()
-  }
-
   const handlePhotoModalClose = () => {
     setPhotoModalOpen(false)
     onClose()
@@ -41,6 +37,11 @@ export const NewPublication = ({ onClose }: NewPublicationProps) => {
     setPublicationModalOpen(false)
     setPhotoModalOpen(true)
     setIsImage(true)
+  }
+
+  const handleClosePublicationAfterPublish = () => {
+    setPublicationModalOpen(false)
+    onClose()
   }
 
   const handleRequestClosePublication = () => {
@@ -68,7 +69,7 @@ export const NewPublication = ({ onClose }: NewPublicationProps) => {
       <AddPublicationModalComponent
         isOpen={publicationModalOpen}
         imageUrl={previewUrl}
-        onCloseAction={handlePublicationClose}
+        onCloseAction={actuallyClosePublication}
         onBack={handleBackToPhotoModal}
         onRequestClose={handleRequestClosePublication}
       />
