@@ -45,8 +45,7 @@ export const UserProfile = () => {
   }
 
   function getImageUrlByPostId(postId: string) {
-    const found = posts.find(item => String(item.postId) === postId)?.imageUrl
-    return typeof found === 'string' ? found : found?.src
+    return posts.find(p => String(p.postId) === postId)?.imageUrl.src ?? ''
   }
 
   return (
@@ -93,7 +92,8 @@ export const UserProfile = () => {
           isModalOpen={!!postId}
           srcArray={[getImageUrlByPostId(postId)!]}
           postId={+postId}
-          onDelete={handleDeletePost}
+          // onDelete={handleDeletePost}
+          // handleCloseModal={() => {}}
         />
       )}
     </div>

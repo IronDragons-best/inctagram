@@ -7,12 +7,11 @@ import s from './post.module.scss'
 import { PublicationModal } from '@/shared/modals/publicationModal'
 import { LikesCount } from '@/shared/ui/likesCount/ui/LikesCount'
 import { PublishComment } from '@/shared/ui/publishComment'
-import { useParams, useRouter } from 'next/navigation'
+import { useParams } from 'next/navigation'
 
 import photo1 from '@/public/assets/img/photo_01.png'
 import photo3 from '@/public/assets/img/photo_03.jpg'
 import photo5 from '@/public/assets/img/stalinLike.jpg'
-import { PATH } from '@/shared/constants/path'
 import { UserHeader } from '@/shared/ui/userheader'
 
 // const _photosArray: string[] = [photo1.src, photo2.src, photo3.src, photo4.src, photo5.src]
@@ -24,33 +23,18 @@ type Props = {
   title?: 'withPublish' | 'withoutPublish'
   slides?: string[]
   srcArray: string[]
-  onDelete: (id: number) => void
+  // handleCloseModal: () => void
+  // onDelete: (postId: number) => void
 }
 
-export const Post = ({ isModalOpen, srcArray, postId, onDelete }: Props) => {
-  // const [modalOpen, setModalOpen] = useState(isModalOpen)
-
-  const router = useRouter()
+export const Post = ({ isModalOpen, srcArray, postId }: Props) => {
   const params = useParams<{ userId: string }>()
 
-  const handleCloseModal = () => {
-    const url = `${PATH.profile}/${params.userId}`
-    router.replace(url, { scroll: false })
-  }
-
-  const handleDeleteSuccess = () => {
-    onDelete(postId)
-    handleCloseModal()
-  }
   return (
-    <PublicationModal isModalOpen={isModalOpen} openModal={handleCloseModal} srcArray={srcArray}>
+    <PublicationModal isModalOpen={isModalOpen} srcArray={srcArray}>
       <>
         <div className={s.PostUserHeader}>
-          <UserHeader
-            postId={postId}
-            userId={params.userId}
-            onDeleteSuccess={handleDeleteSuccess}
-          />
+          <UserHeader postId={postId} userId={params.userId} />
         </div>
         <div className={s.PostUserCommentWrapper}>
           {/* TODO переделать потом на map */}
