@@ -1,7 +1,7 @@
 'use client'
 
+import * as React from 'react'
 import { useState } from 'react'
-import Image, { StaticImageData } from 'next/image'
 import { Slider } from '@/shared/ui/slider'
 import { useTimeAgo } from '@/shared/hooks/userTimeAgo'
 import s from './UserCard.module.scss'
@@ -10,18 +10,17 @@ import photo2 from '@/public/assets/img/photo_02.png'
 import photo3 from '@/public/assets/img/photo_03.jpg'
 import photo4 from '@/public/assets/img/photo_04.png'
 import photo5 from '@/public/assets/img/stalinLike.jpg'
+import { UserHeader } from '@/shared/ui/userheader'
 
 const photosArray = [photo1.src, photo2.src, photo3.src, photo4.src, photo5.src]
 
 type Props = {
   userId?: string
-  userAvatar: string | StaticImageData
-  userName: string
   userTime: Date
   userContent?: string
 }
 
-export const UserCard = ({ userAvatar, userName, userTime, userContent }: Props) => {
+export const UserCard = ({ userTime, userContent }: Props) => {
   const [expanded, setExpanded] = useState(false)
   const timeAgo = useTimeAgo(userTime)
 
@@ -39,10 +38,7 @@ export const UserCard = ({ userAvatar, userName, userTime, userContent }: Props)
         </div>
         <div className={s['user-card__details']}>
           <div className={s['user-card__info']}>
-            <div className={s['user-card__avatar']}>
-              <Image src={userAvatar} alt={'User avatar'} />
-            </div>
-            <div className={s['user-card__userName']}>{userName}</div>
+            <UserHeader />
           </div>
           <div className={s['user-card__time']}>{timeAgo}</div>
           <div className={s['user-card__content']}>

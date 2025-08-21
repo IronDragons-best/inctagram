@@ -2,8 +2,9 @@
 @use '../../../../../src/styles/colors' as *;
 
 .user-card {
+  max-width: 234px;
+
   &__container {
-    max-width: 234px;
     width: 100%;
     height: fit-content;
   }
@@ -19,46 +20,38 @@
   }
 
   &__info {
-    margin: 12px 0;
     display: flex;
     align-items: center;
-  }
-
-  &__avatar {
-    & img {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      object-fit: cover;
-    }
-  }
-
-  &__userName {
-    margin-left: 12px;
-    @include bold-text-16;
-    color: $light-100;
+    margin: 12px 0;
   }
 
   &__time {
     margin-bottom: 3px;
+
     @include small-text;
+
     color: $light-900;
   }
 
   &__content {
     position: relative;
+
     @include regular-text-14;
+
     color: $light-100;
   }
 
   &__text {
-    display: -webkit-box;
-    margin-right: 30px;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
     overflow: hidden;
-    transition: all 0.3s ease;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+
+    margin-right: 30px;
+
     text-overflow: ellipsis;
+
+    transition: all 0.3s ease;
 
     &--expanded {
       -webkit-line-clamp: 8;
@@ -66,12 +59,14 @@
   }
 
   &__toggle {
+    cursor: pointer;
+
     position: absolute;
-    bottom: 0;
     right: 0;
+    bottom: 0;
+
     color: $accent-500;
     text-decoration: underline;
-    cursor: pointer;
     white-space: nowrap;
   }
 }
