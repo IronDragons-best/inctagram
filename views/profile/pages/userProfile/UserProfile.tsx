@@ -40,10 +40,6 @@ export const UserProfile = () => {
   const postId = searchParams.get('postId') ?? undefined
   const [posts, setPosts] = useState(data)
 
-  function handleDeletePost(id: number) {
-    setPosts(prev => prev.filter(post => post.postId !== id))
-  }
-
   function getImageUrlByPostId(postId: string) {
     return posts.find(p => String(p.postId) === postId)?.imageUrl.src ?? ''
   }
@@ -81,20 +77,14 @@ export const UserProfile = () => {
 
       <div className={s.userPosts}>
         {posts.map(post => (
-          <Link href={`${PATH.profile}/${6}?postId=${post.postId}`} key={post.postId}>
+          <Link href={`${PATH.profile}/${1}?postId=${post.postId}`} key={post.postId}>
             <Image src={post.imageUrl} alt={'image'} />
           </Link>
         ))}
       </div>
-      {/*TODO Поправить типизацию. В йункцию может не прийти объект и тогда будет undefined*/}
+      {/*TODO Поправить типизацию. В функцию может не прийти объект и тогда будет undefined*/}
       {postId && (
-        <Post
-          isModalOpen={!!postId}
-          srcArray={[getImageUrlByPostId(postId)!]}
-          postId={+postId}
-          // onDelete={handleDeletePost}
-          // handleCloseModal={() => {}}
-        />
+        <Post isModalOpen={!!postId} srcArray={[getImageUrlByPostId(postId)!]} postId={+postId} />
       )}
     </div>
   )

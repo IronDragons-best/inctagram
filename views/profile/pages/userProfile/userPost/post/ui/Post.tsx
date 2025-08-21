@@ -23,8 +23,6 @@ type Props = {
   title?: 'withPublish' | 'withoutPublish'
   slides?: string[]
   srcArray: string[]
-  // handleCloseModal: () => void
-  // onDelete: (postId: number) => void
 }
 
 export const Post = ({ isModalOpen, srcArray, postId }: Props) => {

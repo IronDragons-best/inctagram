@@ -20,17 +20,9 @@ type Props = {
   showActions?: boolean
   postId: number
   userId: string
-  onDeleteSuccess: () => void
 }
 
-export const UserHeader = ({
-  isUserTime,
-  userTime,
-  showActions = true,
-  postId,
-  onDeleteSuccess,
-  userId,
-}: Props) => {
+export const UserHeader = ({ isUserTime, userTime, showActions = true, postId, userId }: Props) => {
   const [dropdownOpen, setDropdownOpen] = useState(false)
   const [editModalOpen, setEditModalOpen] = useState(false)
   const [confirmOpen, setConfirmOpen] = useState(false)
@@ -40,7 +32,7 @@ export const UserHeader = ({
   const timeAgo = useTimeAgo(userTime)
 
   const [deletePost] = useDeletePostMutation()
-  const [updatePost, { isLoading }] = useUpdatePostMutation()
+  const [updatePost] = useUpdatePostMutation()
 
   const handleEditClick = () => {
     setEditModalOpen(true)
@@ -68,7 +60,7 @@ export const UserHeader = ({
       setConfirmOpen(false)
       setDropdownOpen(false)
 
-      router.push(`/profile/${userId}`) // переход на профиль
+      router.push(`/profile/${userId}`)
     } catch (err) {
       console.error(err)
       setConfirmOpen(false)
@@ -117,9 +109,9 @@ export const UserHeader = ({
           {editModalOpen && (
             <EditPost
               isModalOpen={editModalOpen}
-              srcArray={[]} // массив изображений поста
+              srcArray={[]}
               openModal={() => setEditModalOpen(false)}
-              onSave={handleSaveEdit} // передаём callback
+              onSave={handleSaveEdit}
             />
           )}
           <TextModal

@@ -26,10 +26,8 @@ export const Dropdown = ({ isModalOpen, onClose, items }: Props) => {
         <Card fullWidth size={'sm'}>
           {items.map((item, index) => (
             <div key={index} className={s.FieldCard} onClick={item.onClick}>
-              <div className={s.IconField}>
-                <UniversalIcon name={item.icon} />
-              </div>
-              <div className={s.TextField}>{item.label}</div>
+              <UniversalIcon name={item.icon} className={s.IconField} />
+              <span className={s.TextField}>{item.label}</span>
             </div>
           ))}
         </Card>
