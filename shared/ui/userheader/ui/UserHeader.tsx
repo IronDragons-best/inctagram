@@ -1,37 +1,95 @@
 'use client'
 
-import { UniversalIcon } from '@irondragons/ui-lib-inctagram'
-import s from './userHeader.module.scss'
-import Image from 'next/image'
 import photo2 from '@/public/assets/img/photo_02.png'
+import { useTimeAgo } from '@/shared/hooks/userTimeAgo'
+import { TextModal } from '@/shared/modals/textModal'
+import { useDeletePostMutation, useUpdatePostMutation } from '@/shared/schemas/api/postsApi'
 import { Dropdown } from '@/shared/ui/dropdown'
+import { EditPost } from '@/views/profile/pages/userProfile/userPost/editPost'
+import { Button, UniversalIcon } from '@irondragons/ui-lib-inctagram'
+import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 import * as React from 'react'
 import { useState } from 'react'
-import { useTimeAgo } from '@/shared/hooks/userTimeAgo'
-
-const MOCK_DATA = [
-  {
-    icon: 'edit-2-outline',
-    label: 'Edit Post',
-    onClick: () => {},
-  },
-  {
-    icon: 'trash-outline',
-    label: 'Delete Post',
-    onClick: () => {},
-  },
-]
+import s from './userHeader.module.scss'
 
 type Props = {
   isUserTime?: boolean
   userTime?: Date
   children?: React.ReactNode
   showActions?: boolean
+  postId: number
+  userId: string
+  onDeleteSuccess: () => void
 }
 
-export const UserHeader = ({ isUserTime, userTime, showActions }: Props) => {
+export const UserHeader = ({
+  isUserTime,
+  userTime,
+  showActions = true,
+  postId,
+  onDeleteSuccess,
+  userId,
+}: Props) => {
   const [dropdownOpen, setDropdownOpen] = useState(false)
+  const [editModalOpen, setEditModalOpen] = useState(false)
+  const [confirmOpen, setConfirmOpen] = useState(false)
+  const [isDeleting, setIsDeleting] = useState(false)
+
+  const router = useRouter()
   const timeAgo = useTimeAgo(userTime)
+
+  const [deletePost] = useDeletePostMutation()
+  const [updatePost, { isLoading }] = useUpdatePostMutation()
+
+  const handleEditClick = () => {
+    setEditModalOpen(true)
+    setDropdownOpen(false)
+  }
+
+  const handleSaveEdit = async (newDescription: string) => {
+    try {
+      await updatePost({ id: postId, body: { description: newDescription } }).unwrap()
+      setEditModalOpen(false)
+      setDropdownOpen(false)
+    } catch (err) {
+      console.error('Failed to update post', err)
+    }
+  }
+
+  const handleDeletePost = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation()
+    setIsDeleting(true)
+
+    try {
+      const res = await deletePost(postId)
+      if (!('error' in res)) console.log('Deleted post', postId)
+
+      setConfirmOpen(false)
+      setDropdownOpen(false)
+
+      router.push(`/profile/${userId}`) // переход на профиль
+    } catch (err) {
+      console.error(err)
+      setConfirmOpen(false)
+      setDropdownOpen(false)
+    } finally {
+      setIsDeleting(false)
+    }
+  }
+
+  const MOCK_DATA = [
+    { icon: 'edit-2-outline', label: 'Edit Post', onClick: handleEditClick },
+    {
+      icon: 'trash-outline',
+      label: 'Delete Post',
+      onClick: (e: React.MouseEvent) => {
+        e.stopPropagation()
+        setDropdownOpen(false)
+        setConfirmOpen(true)
+      },
+    },
+  ]
 
   return (
     <div className={s.PostTitle}>
@@ -43,13 +101,53 @@ export const UserHeader = ({ isUserTime, userTime, showActions }: Props) => {
         {isUserTime && <div className={s.UserTime}>{timeAgo}</div>}
       </div>
       {showActions && (
-        <div className={s.MoreIcon} onClick={() => setDropdownOpen(true)}>
+        <div
+          className={s.MoreIcon}
+          onClick={(e: React.MouseEvent<HTMLDivElement>) => {
+            e.stopPropagation()
+            if (!isDeleting) setDropdownOpen(prev => !prev)
+          }}
+        >
           <UniversalIcon name={'more-horizontal-outline'} />
           <Dropdown
             onClose={() => setDropdownOpen(false)}
             isModalOpen={dropdownOpen}
             items={MOCK_DATA}
           />
+          {editModalOpen && (
+            <EditPost
+              isModalOpen={editModalOpen}
+              srcArray={[]} // массив изображений поста
+              openModal={() => setEditModalOpen(false)}
+              onSave={handleSaveEdit} // передаём callback
+            />
+          )}
+          <TextModal
+            title={'delete post'}
+            description={'Are you sure you want to delete this post?'}
+            openModal={() => setConfirmOpen(false)}
+            isModalOpen={confirmOpen}
+          >
+            <>
+              <Button
+                onClick={(e: React.MouseEvent<HTMLButtonElement>) => handleDeletePost(e)}
+                variant="outline"
+                disabled={isDeleting}
+              >
+                Yes
+              </Button>
+              <Button
+                className={s.modalButton}
+                onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+                  e.stopPropagation()
+                  setConfirmOpen(false)
+                  setDropdownOpen(false)
+                }}
+              >
+                No
+              </Button>
+            </>
+          </TextModal>
         </div>
       )}
     </div>

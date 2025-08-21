@@ -100,7 +100,9 @@ export const Sidebar = () => {
           isModalOpen={isModalOpen}
         >
           <>
-            <Button onClick={handleLogout}>Yes</Button>
+            <Button onClick={handleLogout} variant="outline">
+              Yes
+            </Button>
             <Button className={s.modalButton} onClick={closeModal}>
               No
             </Button>
