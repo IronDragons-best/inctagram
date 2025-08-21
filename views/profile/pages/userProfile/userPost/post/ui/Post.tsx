@@ -1,15 +1,13 @@
 'use client'
 
-import * as React from 'react'
-import { useState } from 'react'
-import s from './post.module.scss'
 import { PostUserComment } from '@/entities/userComment/'
 import { PostActions } from '@/shared/ui/postActions/ui/PostActions'
+import s from './post.module.scss'
 
-import { LikesCount } from '@/shared/ui/likesCount/ui/LikesCount'
-import { usePathname, useRouter } from 'next/navigation'
 import { PublicationModal } from '@/shared/modals/publicationModal'
+import { LikesCount } from '@/shared/ui/likesCount/ui/LikesCount'
 import { PublishComment } from '@/shared/ui/publishComment'
+import { useParams } from 'next/navigation'
 
 import photo1 from '@/public/assets/img/photo_01.png'
 import photo3 from '@/public/assets/img/photo_03.jpg'
@@ -21,28 +19,20 @@ import { UserHeader } from '@/shared/ui/userheader'
 type Props = {
   openModal?: () => void
   isModalOpen: boolean
-  id?: string
+  postId: number
   title?: 'withPublish' | 'withoutPublish'
   slides?: string[]
   srcArray: string[]
 }
 
-export const Post = ({ isModalOpen, srcArray }: Props) => {
-  const [modalOpen, setModalOpen] = useState(isModalOpen)
-
-  const router = useRouter()
-  const pathname = usePathname()
-
-  const handleOpenModal = () => {
-    router.push(pathname)
-    setModalOpen(false)
-  }
+export const Post = ({ isModalOpen, srcArray, postId }: Props) => {
+  const params = useParams<{ userId: string }>()
 
   return (
-    <PublicationModal isModalOpen={modalOpen} openModal={handleOpenModal} srcArray={srcArray}>
+    <PublicationModal isModalOpen={isModalOpen} srcArray={srcArray}>
       <>
         <div className={s.PostUserHeader}>
-          <UserHeader />
+          <UserHeader postId={postId} userId={params.userId} />
         </div>
         <div className={s.PostUserCommentWrapper}>
           {/* TODO переделать потом на map */}
