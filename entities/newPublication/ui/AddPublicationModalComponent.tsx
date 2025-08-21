@@ -27,7 +27,6 @@ export const AddPublicationModalComponent = ({
   onBack,
   onRequestClose,
 }: AddPublicationModalComponentProps) => {
-  const [title, setTitle] = useState('') // удалить title осле фикса бэка
   const [description, setDescription] = useState('')
   const [createPost] = useCreatePostMutation()
 
@@ -50,8 +49,7 @@ export const AddPublicationModalComponent = ({
     try {
       const form = new FormData()
 
-      form.append('title', title.trim())
-      form.append('shortDescription', description.trim())
+      form.append('description', description.trim())
 
       const files = await urlsToFiles(imageUrl)
       files.forEach(f => form.append('files', f))
@@ -88,15 +86,6 @@ export const AddPublicationModalComponent = ({
               </div>
               <span className={styles.Username}>URLProfile</span>
             </div>
-
-            <Input
-              inputType={'text'}
-              fullWidth={true}
-              label={'Title'}
-              placeholder={'Give your post a title'}
-              value={title}
-              onChange={e => setTitle((e.target as HTMLInputElement).value)}
-            />
 
             <TextAreaComponent
               fullWidth={true}
