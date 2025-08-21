@@ -97,7 +97,9 @@ export const UserHeader = ({ isUserTime, userTime, showActions = true, postId, u
           className={s.MoreIcon}
           onClick={(e: React.MouseEvent<HTMLDivElement>) => {
             e.stopPropagation()
-            if (!isDeleting) setDropdownOpen(prev => !prev)
+            if (!isDeleting && !confirmOpen && !editModalOpen) {
+              setDropdownOpen(prev => !prev)
+            }
           }}
         >
           <UniversalIcon name={'more-horizontal-outline'} />
@@ -117,7 +119,9 @@ export const UserHeader = ({ isUserTime, userTime, showActions = true, postId, u
           <TextModal
             title={'delete post'}
             description={'Are you sure you want to delete this post?'}
-            openModal={() => setConfirmOpen(false)}
+            openModal={() => {
+              setConfirmOpen(false)
+            }}
             isModalOpen={confirmOpen}
           >
             <>
@@ -133,7 +137,6 @@ export const UserHeader = ({ isUserTime, userTime, showActions = true, postId, u
                 onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
                   e.stopPropagation()
                   setConfirmOpen(false)
-                  setDropdownOpen(false)
                 }}
               >
                 No
