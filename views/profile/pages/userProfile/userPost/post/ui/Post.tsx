@@ -41,7 +41,9 @@ export const Post = ({ isModalOpen, srcArray }: Props) => {
   return (
     <PublicationModal isModalOpen={modalOpen} openModal={handleOpenModal} srcArray={srcArray}>
       <>
-        <UserHeader />
+        <div className={s.PostUserHeader}>
+          <UserHeader />
+        </div>
         <div className={s.PostUserCommentWrapper}>
           {/* TODO переделать потом на map */}
           <PostUserComment

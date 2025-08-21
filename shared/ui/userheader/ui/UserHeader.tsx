@@ -26,9 +26,10 @@ type Props = {
   isUserTime?: boolean
   userTime?: Date
   children?: React.ReactNode
+  showActions?: boolean
 }
 
-export const UserHeader = ({ isUserTime, userTime }: Props) => {
+export const UserHeader = ({ isUserTime, userTime, showActions }: Props) => {
   const [dropdownOpen, setDropdownOpen] = useState(false)
   const timeAgo = useTimeAgo(userTime)
 
@@ -41,14 +42,16 @@ export const UserHeader = ({ isUserTime, userTime }: Props) => {
         <span className={s.Username}>UserName</span>
         {isUserTime && <div className={s.UserTime}>{timeAgo}</div>}
       </div>
-      <div className={s.MoreIcon} onClick={() => setDropdownOpen(true)}>
-        <UniversalIcon name={'more-horizontal-outline'} />
-        <Dropdown
-          onClose={() => setDropdownOpen(false)}
-          isModalOpen={dropdownOpen}
-          items={MOCK_DATA}
-        />
-      </div>
+      {showActions && (
+        <div className={s.MoreIcon} onClick={() => setDropdownOpen(true)}>
+          <UniversalIcon name={'more-horizontal-outline'} />
+          <Dropdown
+            onClose={() => setDropdownOpen(false)}
+            isModalOpen={dropdownOpen}
+            items={MOCK_DATA}
+          />
+        </div>
+      )}
     </div>
   )
 }
