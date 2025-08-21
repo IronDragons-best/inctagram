@@ -14,16 +14,13 @@ type Props = {
 }
 
 const UserPage = async (props: Props) => {
+  const { userId } = await props.params
+  const { postId } = await props.searchParams
+
   return (
-    <div>
-      {/*<PublicationModal isModalOpen={true} title={'Publication'}>*/}
-      {/*  <div>*/}
-      {/*    1111*/}
-      {/*  </div>*/}
-      {/*</PublicationModal>*/}
-      {/*<EditPost isModalOpen={true}/>*/}
-      <UserProfile {...props} />;
-    </div>
+    <>
+      <UserProfile user={Number(userId)} postId={postId} />
+    </>
   )
 }
 

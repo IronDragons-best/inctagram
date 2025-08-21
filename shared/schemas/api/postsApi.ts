@@ -1,15 +1,15 @@
 import { getClient } from '@/shared/schemas/api/client'
-import { CreatePost, PostItem, PostTag } from '@/shared/schemas/types/post'
+import { CreatePost, PostItem, PostQueryArgs, PostTag } from '@/shared/schemas/types/post'
 import { TAGS, baseApi } from '@/src/app/provider/baseApi'
 
 const client = getClient()
 
 export const postsApi = baseApi.injectEndpoints({
   endpoints: build => ({
-    getPosts: build.query<PostItem[], void>({
-      queryFn: async () => {
+    getPosts: build.query<PostItem[], PostQueryArgs>({
+      queryFn: async arg => {
         try {
-          const res = await client.GET('/posts')
+          const res = await client.GET('/posts', { params: { query: arg } })
           if (res.response.status === 200 && res.data?.items) {
             return { data: res.data.items }
           }
@@ -51,7 +51,7 @@ export const postsApi = baseApi.injectEndpoints({
     }),
 
     getPostById: build.query({
-      queryFn: async id => {
+      queryFn: async (id: number) => {
         try {
           const res = await client.GET('/posts/{id}', {
             params: {

@@ -5,27 +5,24 @@ import s from './header.module.scss'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { PATH } from '@/shared/constants/path'
-import { useMeQuery } from '@/features/auth/api/authApi'
 
 type Props = {
   isProcessingAuth?: boolean
   localization: string
   notificationCount?: number
+  isAuth: boolean
 }
 
 export const Header = ({
   isProcessingAuth = false,
   localization,
   notificationCount = 0,
+  isAuth,
 }: Props) => {
   const router = useRouter()
   const convertNumber = (notificationCount: number): string => {
     return notificationCount > 9 ? `9+` : `${notificationCount}`
   }
-
-  const { data } = useMeQuery({})
-
-  const isAuth = !!data?.id
 
   const redirectionHandler = (path: string) => {
     router.push(path)

@@ -7,13 +7,24 @@ import { Header } from '@/widgets/header'
 import { Sidebar } from '@/widgets/sidebar'
 import s from './mainLayout.module.scss'
 import { useMeQuery } from '@/features/auth/api/authApi'
+import { Ring } from 'ldrs/react'
+import 'ldrs/react/Ring.css'
 
 export const MainLayoutComponent = ({ children }: PropsWithChildren) => {
-  const { data } = useMeQuery({})
+  const { data, isLoading } = useMeQuery({})
+
+  if (isLoading) {
+    return (
+      <div className={s.loader}>
+        <Ring size="40" stroke="5" bgOpacity="0" speed="2" color="white" />
+      </div>
+    )
+  }
+
   const isUserAuthorized = !!data
   return (
     <div className={s.rootLayout}>
-      <Header localization={'eng'} />
+      <Header isAuth={isUserAuthorized} localization={'eng'} />
       <div className={s.display}>
         {isUserAuthorized && <Sidebar />}
         <div className={s.mainWrapper} data-isuserauthorized={isUserAuthorized}>

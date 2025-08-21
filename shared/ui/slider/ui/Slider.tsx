@@ -35,7 +35,7 @@ export const Slider = ({ srcArray, navigation = true, loop = true, isSmall = fal
     >
       {srcArray?.map((src: string) => (
         <SwiperSlide className={s.SwiperSlide} key={src}>
-          <Image src={src} alt={'photo'} fill />
+          <Image src={src} width={100} height={100} alt={'photo'} />
         </SwiperSlide>
       ))}
     </Swiper>

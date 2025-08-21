@@ -1,97 +1,31 @@
+'use client'
+
 import s from './userProfile.module.scss'
 import Image from 'next/image'
 import UserProfilePicture from '@/public/assets/image 1.png'
-import postImage from '@/public/assets/user1.png'
-import postImage2 from '@/public/assets/user2.png'
-import postImage3 from '@/public/assets/user3.png'
 import Link from 'next/link'
 import { PATH } from '@/shared/constants/path'
 import { ButtonContainer } from '@/views/profile/pages/userProfile/ButtonContainer'
 import { Post } from '@/views/profile/pages/userProfile/userPost/post'
 import React from 'react'
+import { Slider } from '@/shared/ui/slider'
+import { useGetPostsQuery } from '@/shared/schemas/api/postsApi'
 
 type Props = {
-  params: Promise<{ userId: string }>
-  searchParams: Promise<{ postId: string }>
+  user: number
+  postId?: string
 }
 
 export type profileOwner = 'myProfile' | 'friendProfile' | 'guestProfile'
 
-const data = [
-  {
-    postId: '1',
-    imageUrl: postImage,
-  },
-  {
-    postId: '2',
-    imageUrl: postImage2,
-  },
-  {
-    postId: '3',
-    imageUrl: postImage3,
-  },
-  {
-    postId: '4',
-    imageUrl: UserProfilePicture,
-  },
-  {
-    postId: '5',
-    imageUrl: postImage,
-  },
-  {
-    postId: '6',
-    imageUrl: postImage2,
-  },
-  {
-    postId: '7',
-    imageUrl: postImage3,
-  },
-  {
-    postId: '8',
-    imageUrl: UserProfilePicture,
-  },
-  {
-    postId: '9',
-    imageUrl: postImage,
-  },
-  {
-    postId: '10',
-    imageUrl: postImage2,
-  },
-  {
-    postId: '11',
-    imageUrl: postImage3,
-  },
-  {
-    postId: '12',
-    imageUrl: UserProfilePicture,
-  },
-  {
-    postId: '13',
-    imageUrl: postImage,
-  },
-  {
-    postId: '14',
-    imageUrl: postImage2,
-  },
-  {
-    postId: '15',
-    imageUrl: postImage3,
-  },
-  {
-    postId: '16',
-    imageUrl: UserProfilePicture,
-  },
-]
+export const UserProfile = ({ user, postId }: Props) => {
+  const { data: userInfo } = useGetPostsQuery({ userId: user })
+  function getImageUrlByPostId(postId: string): string[] {
+    if (!userInfo || !postId) return []
 
-export const UserProfile = async ({ searchParams, params }: Props) => {
-  const pr = params
-  const { postId } = await searchParams
-
-  function getImageUrlByPostId(postId: string) {
-    return data.find(item => item.postId === postId)?.imageUrl.src
+    const post = userInfo.find(p => String(p.id) === postId)
+    return post?.previewImages ?? []
   }
-
   return (
     <div className={s.profileWrapper}>
       <div className={s.headingContent}>
@@ -124,16 +58,18 @@ export const UserProfile = async ({ searchParams, params }: Props) => {
       </div>
 
       <div className={s.userPosts}>
-        {data.map((image, id) => (
-          <Link href={`${PATH.profile}/${1}?postId=${image.postId}`} key={id}>
-            <Image key={image.postId} src={image.imageUrl} alt={'image'} />
-          </Link>
-        ))}
+        {userInfo ? (
+          userInfo.map((u, i) => (
+            <Link href={`${PATH.profile}/${user}?postId=${u.id}`} key={i}>
+              <Slider srcArray={u.previewImages} />
+            </Link>
+          ))
+        ) : (
+          <div> Пока что ничего нет :( </div>
+        )}
       </div>
       {/*TODO Поправить типизацию. В йункцию может не прийти объект и тогда будет undefined*/}
-      {postId && (
-        <Post isModalOpen={!!postId} srcArray={[getImageUrlByPostId(postId)] as string[]} />
-      )}
+      {userInfo && postId && <Post isModalOpen={!!postId} srcArray={getImageUrlByPostId(postId)} />}
     </div>
   )
 }
