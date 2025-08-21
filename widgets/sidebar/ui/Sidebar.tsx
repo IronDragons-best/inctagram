@@ -59,15 +59,14 @@ export const Sidebar = () => {
   const closeModal = () => setIsModalOpen(false)
   const router = useRouter()
   const [activeIndex, setActiveIndex] = useState<number | null>(null)
-  const handleLogout = () => {
-    logoutHandler('')
-      .unwrap()
-      .then(() => {
-        router.push(PATH.sign_in)
-      })
-      .catch(error => {
-        console.error('Error during logout:', error)
-      })
+
+  const handleLogout = async () => {
+    try {
+      await logoutHandler('').unwrap()
+      router.push(PATH.sign_in)
+    } catch (error) {
+      console.error('Error during logout:', error)
+    }
   }
 
   const handleMenuClick = (index: number) => {
@@ -101,7 +100,9 @@ export const Sidebar = () => {
           isModalOpen={isModalOpen}
         >
           <>
-            <Button onClick={handleLogout}>Yes</Button>
+            <Button onClick={handleLogout} variant="outline">
+              Yes
+            </Button>
             <Button className={s.modalButton} onClick={closeModal}>
               No
             </Button>

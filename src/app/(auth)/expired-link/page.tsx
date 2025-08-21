@@ -10,6 +10,21 @@ const ExpiredLink = () => {
   const [email, setEmail] = useState('')
   const [expiredLinkHandler] = useExpiredLinkMutation()
 
+  const handleResend = async () => {
+    try {
+      await expiredLinkHandler(email).unwrap()
+      // тост в услучае успеха
+      alert('Verification link sent successfully. Please check your email.')
+    } catch (err: any) {
+      if (err?.status === 429) {
+        // тост в услучае ошибки
+        alert('Too many attempts, try again later.')
+      } else {
+        alert(err?.data?.message ?? 'Something went wrong, please try again.')
+      }
+    }
+  }
+
   return (
     <EmailConfirmationPage
       title="Email verification link expired"
@@ -26,7 +41,7 @@ const ExpiredLink = () => {
               onBlur={e => setEmail(e.target.value)}
             />
           </div>
-          <Button variant={'primary'} fullWidth={true} onClick={() => expiredLinkHandler(email)}>
+          <Button variant={'primary'} fullWidth={true} onClick={handleResend}>
             Resend verification link
           </Button>
         </div>

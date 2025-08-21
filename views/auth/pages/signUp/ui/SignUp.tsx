@@ -14,6 +14,7 @@ import {
   SignUpFormTypes,
 } from '@/views/auth/pages/signUp/lib/schemas/signUp'
 import { TextModal } from '@/shared/modals/textModal'
+import { handleFormError } from '@/shared/utils/handleErrors'
 
 const Label = (
   <span className={s.conditions}>
@@ -60,19 +61,19 @@ export const SignUp = () => {
   const isSubmitDisabled = !isDirty || !isValid
 
   // TODO: поменять сет ошибок на setError убрать fullWidth={true}, сделать общий const для PATH
-  const onSubmit: SubmitHandler<SignUpFormTypes> = data => {
-    registrationHandler(data)
-      .unwrap()
-      .then(res => {
-        const errorField = res.error?.errorsMessages[0]?.field
-        if (errorField === 'username') {
-          setError('username', { message: 'User with this username is already registered' })
-        } else if (errorField === 'email') {
-          setError('username', { message: 'User with this email is already registered' })
-        } else {
-          setOpenModal(true)
-        }
-      })
+  const onSubmit: SubmitHandler<SignUpFormTypes> = async data => {
+    try {
+      // при успехе unwrap() не вернёт ошибку и просто завершится — сервер отдаёт 204
+      await registrationHandler(data).unwrap()
+
+      // успех — показываем модалку подтверждения
+      setOpenModal(true)
+      // НЕ вызываем reset() здесь, чтобы getValues('email') оставался доступным в модалке
+    } catch (err) {
+      // err — normalized/RTK error, прокидываем в общий хендлер
+      // handleFormError выставит field errors (если есть) или глобальный alert.
+      handleFormError(err, setError, ['username', 'email'])
+    }
   }
 
   // TODO: Не забыть поменять ссылки на актуальные

@@ -1,7 +1,7 @@
-import React, { ReactNode } from 'react'
-import { Dialog } from 'radix-ui'
-import { Button, UniversalIcon } from '@irondragons/ui-lib-inctagram'
 import styles from '@/shared/modals/addPhotoModal/ui/photoModal.module.scss'
+import { Button, UniversalIcon } from '@irondragons/ui-lib-inctagram'
+import { Dialog } from 'radix-ui'
+import React, { ReactNode } from 'react'
 
 type AddPhotoModalProps = {
   onOpenChange?: (open: boolean) => void

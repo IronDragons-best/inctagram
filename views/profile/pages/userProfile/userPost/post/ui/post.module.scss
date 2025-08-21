@@ -1,6 +1,11 @@
 @use '../../../../../../../src/styles/colors' as *;
 @use '../../../../../../../src/styles/fonts' as font;
 
+.PostUserHeader {
+  padding: 10px 24px;
+  border-bottom: 1px solid $dark-100;
+}
+
 .PostUserCommentWrapper {
   flex: 1 1 auto;
   border-bottom: 1px solid $dark-100;

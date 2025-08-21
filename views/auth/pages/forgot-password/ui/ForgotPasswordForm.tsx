@@ -30,15 +30,14 @@ export const ForgotPasswordForm = () => {
   })
 
   const onSubmit: SubmitHandler<ForgotPasswordFormType> = async data => {
-    console.log(data)
-    reCaptchaMut(data)
-      .unwrap()
-      .then(res => {
-        return res
-      })
-
-    setIsLinkSent(true)
-    reset()
+    try {
+      await reCaptchaMut(data).unwrap()
+      setIsLinkSent(true)
+      reset()
+    } catch (err) {
+      // тост
+      console.error(err)
+    }
   }
 
   return (

@@ -5,6 +5,7 @@ import { ForgotPasswordFormType } from '@/views/auth/pages/forgot-password/lib/s
 import { SignInFormTypes } from '@/views/auth/pages/signIn/lib/schemas/signIn'
 import { SignUpFormTypes } from '@/views/auth/pages/signUp/lib/schemas/signUp'
 import { Mutex } from 'async-mutex'
+import { normalizeError } from '@/shared/utils/handleErrors'
 
 const mutex = new Mutex()
 
@@ -14,52 +15,83 @@ export const authApi = baseApi.injectEndpoints({
   endpoints: build => ({
     registration: build.mutation({
       queryFn: async (body: SignUpFormTypes) => {
-        const res = await client.POST('/auth/registration', { body })
-        return { data: res }
+        try {
+          const res = await client.POST('/auth/registration', { body })
+
+          // 204 -> успех
+          if (res.response?.status === 204) {
+            return { data: undefined }
+          }
+          // Иначе — нормализуем ошибку (400/404/429 и т.д.)
+          return {
+            error: normalizeError({
+              status: res.response?.status,
+              data: res.error?.errorsMessages ?? res.data ?? null,
+            }),
+          }
+        } catch (e) {
+          return { error: normalizeError(e) }
+        }
       },
     }),
     confirmEmail: build.mutation({
       queryFn: async (code: string) => {
         try {
-          const res = await client.POST('/auth/confirm-email', {
-            body: { code },
-          })
+          const res = await client.POST('/auth/confirm-email', { body: { code } })
 
-          if (res.error) {
-            return {
-              error: {
-                status: res.response.status,
-                data: res.error.errorsMessages,
-              },
-            }
+          if (res.response?.status === 204) {
+            return { data: undefined }
           }
-          return { data: res.response.status }
-        } catch (e) {
+
           return {
-            error: {
-              status: 500,
-              data: {
-                message: 'Unknown error occurred',
-                details: e instanceof Error ? e.message : String(e),
-              },
-            },
+            error: normalizeError({
+              status: res.response?.status,
+              data: res.error?.errorsMessages ?? res.data ?? null,
+            }),
           }
+        } catch (e) {
+          return { error: normalizeError(e) }
         }
       },
     }),
     expiredLink: build.mutation({
       queryFn: async (email: string) => {
-        const res = await client.POST('/auth/email-resend', {
-          body: { email },
-        })
-        return { data: res }
+        try {
+          const res = await client.POST('/auth/email-resend', { body: { email } })
+
+          if (res.response?.status === 204) {
+            return { data: undefined }
+          }
+
+          return {
+            error: normalizeError({
+              status: res.response?.status,
+              data: res.error?.errorsMessages ?? res.data ?? null,
+            }),
+          }
+        } catch (e) {
+          return { error: normalizeError(e) }
+        }
       },
     }),
     signIn: build.mutation({
       queryFn: async (body: SignInFormTypes) => {
-        const res = await client.POST('/auth/login', { body })
-        console.log(res)
-        return { data: res }
+        try {
+          const res = await client.POST('/auth/login', { body })
+
+          if (res.response?.status === 204) {
+            return { data: undefined }
+          }
+
+          return {
+            error: normalizeError({
+              status: res.response?.status,
+              data: res.error?.errorsMessages ?? res.data ?? null,
+            }),
+          }
+        } catch (e) {
+          return { error: normalizeError(e) }
+        }
       },
     }),
     logout: build.mutation({
@@ -136,35 +168,34 @@ export const authApi = baseApi.injectEndpoints({
         const res = await client.POST('/auth/password-recovery', {
           body: data,
         })
-        return { data: res }
+
+        if (res.response.status === 204) {
+          return { data: undefined }
+        }
+
+        return {
+          error: {
+            status: res.response.status,
+            data: res.data ?? 'Password recovery error',
+          },
+        }
       },
     }),
-    createNewPassword: build.mutation({
-      queryFn: async (body: createNewPasswordDto) => {
+    createNewPassword: build.mutation<void, createNewPasswordDto>({
+      queryFn: async body => {
         try {
-          const res = await client.POST('/auth/new-password', {
-            body,
-          })
+          const res = await client.POST('/auth/new-password', { body })
 
-          if (res.response.status !== 204) {
-            return {
-              error: {
-                status: res.response.status,
-                data: 'error occurred',
-              },
-            }
+          // success
+          if (res.response?.status === 204) {
+            return { data: undefined }
           }
-          return { data: res.response.status }
-        } catch (e) {
+
           return {
-            error: {
-              status: 500,
-              data: {
-                message: 'Unknown error occurred',
-                details: e instanceof Error ? e.message : String(e),
-              },
-            },
+            error: normalizeError(res.error ?? { status: res.response?.status, data: res.data }),
           }
+        } catch (e) {
+          return { error: normalizeError(e) }
         }
       },
     }),

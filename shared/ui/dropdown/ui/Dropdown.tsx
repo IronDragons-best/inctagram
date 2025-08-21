@@ -1,14 +1,14 @@
 'use client'
 
-import React from 'react'
-import { Dialog } from 'radix-ui'
 import { Card, UniversalIcon } from '@irondragons/ui-lib-inctagram'
+import { Dialog } from 'radix-ui'
+import React from 'react'
 import s from './dropdown.module.scss'
 
 type DropdownItem = {
   icon: string
   label: string
-  onClick: () => void
+  onClick: (e: React.MouseEvent) => void
 }
 
 type Props = {
@@ -26,10 +26,8 @@ export const Dropdown = ({ isModalOpen, onClose, items }: Props) => {
         <Card fullWidth size={'sm'}>
           {items.map((item, index) => (
             <div key={index} className={s.FieldCard} onClick={item.onClick}>
-              <div className={s.IconField}>
-                <UniversalIcon name={item.icon} />
-              </div>
-              <div className={s.TextField}>{item.label}</div>
+              <UniversalIcon name={item.icon} className={s.IconField} />
+              <span className={s.TextField}>{item.label}</span>
             </div>
           ))}
         </Card>

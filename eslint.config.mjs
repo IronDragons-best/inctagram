@@ -27,6 +27,10 @@ const eslintConfig = [
       'keyword-spacing': ['error', { before: true, after: true }],
       
       'unused-imports/no-unused-imports': 'warn',
+      
+      '@typescript-eslint/no-unused-vars': ['off'],
+      '@typescript-eslint/no-explicit-any': 'warn',
+      
       'no-unused-vars': ['warn', {
         vars: 'all', // следить за всеми переменными
         args: 'after-used', // параметры функций после последнего использованного
