@@ -14,8 +14,6 @@ import photo3 from '@/public/assets/img/photo_03.jpg'
 import photo5 from '@/public/assets/img/stalinLike.jpg'
 import { UserHeader } from '@/shared/ui/userheader'
 
-// const _photosArray: string[] = [photo1.src, photo2.src, photo3.src, photo4.src, photo5.src]
-
 type Props = {
   openModal?: () => void
   isModalOpen: boolean
@@ -32,7 +30,7 @@ export const Post = ({ isModalOpen, srcArray, postId }: Props) => {
     <PublicationModal isModalOpen={isModalOpen} srcArray={srcArray}>
       <>
         <div className={s.PostUserHeader}>
-          <UserHeader postId={postId} userId={params.userId} />
+          <UserHeader postId={postId} userId={params.userId} srcArray={srcArray} />
         </div>
         <div className={s.PostUserCommentWrapper}>
           {/* TODO переделать потом на map */}

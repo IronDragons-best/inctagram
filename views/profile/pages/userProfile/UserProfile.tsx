@@ -56,20 +56,25 @@ export const UserProfile = ({ user, postId }: Props) => {
           </div>
         </div>
       </div>
-
       <div className={s.userPosts}>
         {userInfo ? (
           userInfo.map((u, i) => (
             <Link href={`${PATH.profile}/${user}?postId=${u.id}`} key={i}>
-              <Slider srcArray={u.previewImages} />
+              <Slider isSmall srcArray={u.previewImages} />
             </Link>
           ))
         ) : (
-          <div> Пока что ничего нет :( </div>
+          <div> There are no posts yet :( </div>
         )}
       </div>
       {/*TODO Поправить типизацию. В йункцию может не прийти объект и тогда будет undefined*/}
-      {userInfo && postId && <Post isModalOpen={!!postId} srcArray={getImageUrlByPostId(postId)} />}
+      {userInfo && postId && (
+        <Post
+          postId={Number(postId)}
+          isModalOpen={!!postId}
+          srcArray={getImageUrlByPostId(postId)}
+        />
+      )}
     </div>
   )
 }

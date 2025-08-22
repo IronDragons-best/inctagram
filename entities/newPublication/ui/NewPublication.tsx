@@ -39,11 +39,6 @@ export const NewPublication = ({ onClose }: NewPublicationProps) => {
     setIsImage(true)
   }
 
-  const handleClosePublicationAfterPublish = () => {
-    setPublicationModalOpen(false)
-    onClose()
-  }
-
   const handleRequestClosePublication = () => {
     setConfirmOpen(true)
   }

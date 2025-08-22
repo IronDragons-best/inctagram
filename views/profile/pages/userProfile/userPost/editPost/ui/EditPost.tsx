@@ -5,24 +5,18 @@ import Image from 'next/image'
 import { useState } from 'react'
 import s from './editPost.module.scss'
 
-import photo1 from '@/public/assets/img/photo_01.png'
 import photo2 from '@/public/assets/img/photo_02.png'
-import photo3 from '@/public/assets/img/photo_03.jpg'
-import photo4 from '@/public/assets/img/photo_04.png'
-import photo5 from '@/public/assets/img/stalinLike.jpg'
 import { PublicationModal } from '@/shared/modals/publicationModal'
 import { usePathname, useRouter } from 'next/navigation'
 
-const photosArray = [photo1, photo2, photo3, photo4, photo5]
-
 type Props = {
-  openModal?: () => void
   isModalOpen: boolean
-  id?: string
-  title?: 'withPublish' | 'withoutPublish'
-  slides?: string[]
   srcArray: string[]
   onSave: (description: string) => void
+  id?: string
+  openModal?: () => void
+  title?: 'withPublish' | 'withoutPublish'
+  slides?: string[]
 }
 
 export const EditPost = ({ openModal, isModalOpen, title, srcArray, onSave }: Props) => {
@@ -38,6 +32,7 @@ export const EditPost = ({ openModal, isModalOpen, title, srcArray, onSave }: Pr
   }
 
   return (
+    // TODO  title={'Edit Post'}
     <PublicationModal isModalOpen={true} title={'Edit Post'} srcArray={srcArray}>
       <div className={s.ContentWrapper}>
         <div className={s.PostTitle}>

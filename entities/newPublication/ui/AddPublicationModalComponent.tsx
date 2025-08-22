@@ -58,7 +58,8 @@ export const AddPublicationModalComponent = ({
 
       onCloseAction()
     } catch {
-      // ошибка
+      // TODO ошибка
+      console.log('Error while publishing post.')
     }
   }
 
@@ -88,7 +89,7 @@ export const AddPublicationModalComponent = ({
             </div>
 
             <TextAreaComponent
-              fullWidth={true}
+              fullWidth
               label={'Add publication descriptions'}
               id={'1'}
               placeholder={'Text-area'}
@@ -99,7 +100,7 @@ export const AddPublicationModalComponent = ({
           <div className={styles.footerContent}>
             <Input
               placeholder={'choose your destiny'}
-              fullWidth={true}
+              fullWidth
               label={'Add location'}
               inputType={'location'}
             />

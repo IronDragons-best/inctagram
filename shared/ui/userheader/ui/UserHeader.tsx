@@ -20,9 +20,17 @@ type Props = {
   showActions?: boolean
   postId: number
   userId: string
+  srcArray: string[]
 }
 
-export const UserHeader = ({ isUserTime, userTime, showActions = true, postId, userId }: Props) => {
+export const UserHeader = ({
+  isUserTime,
+  srcArray,
+  userTime,
+  showActions = true,
+  postId,
+  userId,
+}: Props) => {
   const [dropdownOpen, setDropdownOpen] = useState(false)
   const [editModalOpen, setEditModalOpen] = useState(false)
   const [confirmOpen, setConfirmOpen] = useState(false)
@@ -111,7 +119,7 @@ export const UserHeader = ({ isUserTime, userTime, showActions = true, postId, u
           {editModalOpen && (
             <EditPost
               isModalOpen={editModalOpen}
-              srcArray={[]}
+              srcArray={srcArray}
               openModal={() => setEditModalOpen(false)}
               onSave={handleSaveEdit}
             />
