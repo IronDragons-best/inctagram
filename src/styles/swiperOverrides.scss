@@ -40,7 +40,7 @@
   display: flex !important;
   gap: 12px;
 
-  width: 104px !important;
+  width: fit-content !important; //ddvdvdsdvsdcsdcsdcsd
   padding: 8px !important;
   border-radius: 5px;
 
@@ -75,7 +75,7 @@
 
   .swiper-button-next + .swiper-pagination-bullets {
     gap: 8px !important;
-    width: 78px !important;
+    width: fit-content !important;
     padding: 6px !important;
   }
 
