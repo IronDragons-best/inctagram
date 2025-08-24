@@ -1,13 +1,13 @@
 @use '../../../../src/styles/colors' as *;
 @use '../../../../src/styles/fonts' as font;
 
-.PostTitle {
+.postTitle {
   flex: 0 0 59px;
   display: flex;
   align-items: center;
   gap: 12px;
 
-  & .UserAvatar {
+  & .userAvatar {
     display: flex;
     align-items: center;
 
@@ -18,7 +18,7 @@
     }
   }
 
-  & .UsernameContainer {
+  & .usernameContainer {
     display: flex;
     align-items: baseline;
     justify-content: flex-start;
@@ -26,18 +26,18 @@
     flex: 1 1 auto;
   }
 
-  & .Username {
+  & .username {
     @include font.h3;
   }
 
-  & .MoreIcon {
+  & .moreIcon {
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
   }
 
-  & .UserTime {
+  & .userTime {
     position: relative;
     display: flex;
     align-items: center;
@@ -47,7 +47,7 @@
     color: $light-900;
   }
 
-  & .UserTime::after {
+  & .userTime::after {
     content: '';
     position: absolute;
     bottom: 6px;

@@ -92,17 +92,17 @@ export const UserHeader = ({
   ]
 
   return (
-    <div className={s.PostTitle}>
-      <div className={s.UserAvatar}>
+    <div className={s.postTitle}>
+      <div className={s.userAvatar}>
         <Image src={photo2} alt={'photo beach'} />
       </div>
-      <div className={s.UsernameContainer}>
-        <span className={s.Username}>UserName</span>
-        {isUserTime && <div className={s.UserTime}>{timeAgo}</div>}
+      <div className={s.usernameContainer}>
+        <span className={s.username}>UserName</span>
+        {isUserTime && <div className={s.userTime}>{timeAgo}</div>}
       </div>
       {showActions && (
         <div
-          className={s.MoreIcon}
+          className={s.moreIcon}
           onClick={(e: React.MouseEvent<HTMLDivElement>) => {
             e.stopPropagation()
             if (!isDeleting && !confirmOpen && !editModalOpen) {

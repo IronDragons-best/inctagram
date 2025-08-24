@@ -1,8 +1,7 @@
 'use client'
 
-import * as React from 'react'
-import Image, { StaticImageData } from 'next/image'
 import { UniversalIcon } from '@irondragons/ui-lib-inctagram'
+import Image, { StaticImageData } from 'next/image'
 import s from './postUserComment.module.scss'
 
 type PostUserCommentProps = {
@@ -26,18 +25,18 @@ export const PostUserComment = ({
   likesCount = 0,
 }: PostUserCommentProps) => {
   return (
-    <div className={s.PostUserCommentWrapper}>
-      <div className={s.PostUserComment}>
-        <div className={s.UserAvatar}>
+    <div className={s.postUserCommentWrapper}>
+      <div className={s.postUserComment}>
+        <div className={s.userAvatar}>
           <Image src={userAvatar} alt={'User avatar'} />
         </div>
-        <div className={s.UserContent}>
-          <div className={s.UserText}>
-            <span className={s.UserName}>{userName}&nbsp;</span>
-            <span className={s.UserComment}>{userComment}</span>
+        <div className={s.userContent}>
+          <div className={s.userText}>
+            <span className={s.userName}>{userName}&nbsp;</span>
+            <span className={s.userComment}>{userComment}</span>
           </div>
         </div>
-        <div className={s.LikePostIcon}>
+        <div className={s.likePostIcon}>
           {isLikedIcon &&
             (isLiked ? (
               <UniversalIcon name={'heart'} dataStatic />
@@ -46,15 +45,15 @@ export const PostUserComment = ({
             ))}
         </div>
       </div>
-      <div className={s.PostMeta}>
-        <div className={s.PostMetaTimestamp}>2 hours ago</div>
+      <div className={s.postMeta}>
+        <div className={s.postMetaTimestamp}>2 hours ago</div>
         {likesCount > 0 && (
-          <div className={s.PostMetaLikes}>
-            <span className={s.PostMetaLikesText}>Like:&nbsp;</span>
-            <span className={s.PostMetaLikesCount}>{likesCount}</span>
+          <div className={s.postMetaLikes}>
+            <span className={s.postMetaLikesText}>Like:&nbsp;</span>
+            <span className={s.postMetaLikesCount}>{likesCount}</span>
           </div>
         )}
-        {isAnswer && <div className={s.PostMetaAction}>Answer</div>}
+        {isAnswer && <div className={s.postMetaAction}>Answer</div>}
       </div>
     </div>
   )

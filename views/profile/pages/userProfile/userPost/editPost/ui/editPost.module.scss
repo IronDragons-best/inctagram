@@ -1,13 +1,13 @@
 @use '../../../../../../../src/styles/colors' as *;
 @use '../../../../../../../src/styles/fonts' as font;
 
-.ContentWrapper {
+.contentWrapper {
   display: flex;
   flex-direction: column;
   height: 100%;
 }
 
-.PostTitle {
+.postTitle {
   flex: 0 0 59px;
   display: flex;
   align-items: center;
@@ -15,7 +15,7 @@
   padding: 10px 24px;
   margin-bottom: 14px;
 
-  & .UserAvatar {
+  & .userAvatar {
     display: flex;
     align-items: center;
 
@@ -26,19 +26,19 @@
     }
   }
 
-  & .Username {
+  & .username {
     @include font.h3;
     flex: 1 1 auto;
   }
 
-  & .MoreIcon {
+  & .moreIcon {
     display: flex;
     align-items: center;
     justify-content: center;
   }
 }
 
-.AreaWrapper {
+.areaWrapper {
   flex: 1 1 auto;
   padding: 0 24px;
 
@@ -48,7 +48,7 @@
   }
 }
 
-.ButtonWrapper {
+.buttonWrapper {
   display: flex;
   justify-content: flex-end;
   padding: 0 24px 24px;

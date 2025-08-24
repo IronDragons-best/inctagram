@@ -1,11 +1,11 @@
 'use client'
 
-import React, { ReactNode } from 'react'
+import s from '@/shared/modals/publicationModal/ui/publicationModal.module.scss'
+import { Slider } from '@/shared/ui/slider'
+import { Button, UniversalIcon } from '@irondragons/ui-lib-inctagram'
 import { usePathname, useRouter } from 'next/navigation'
 import { Dialog } from 'radix-ui'
-import { Button, UniversalIcon } from '@irondragons/ui-lib-inctagram'
-import { Slider } from '@/shared/ui/slider'
-import s from '@/shared/modals/publicationModal/ui/publicationModal.module.scss'
+import { ReactNode } from 'react'
 
 import clsx from 'clsx'
 
@@ -51,15 +51,15 @@ export const PublicationModal = ({
   return (
     <Dialog.Root onOpenChange={handleOpenModal} open={isModalOpen}>
       <Dialog.Portal>
-        <Dialog.Overlay className={s.Overlay} />
-        <Dialog.Title className={s.MainTitle}>
+        <Dialog.Overlay className={s.overlay} />
+        <Dialog.Title className={s.mainTitle}>
           {/* TODO Что-то должно быть внутри для поисковых роботов */}
         </Dialog.Title>
-        <Dialog.Content className={s.Content}>
+        <Dialog.Content className={s.content}>
           <Dialog.Close asChild>
             <Button
               variant={'text_button'}
-              className={s.IconButton}
+              className={s.iconButton}
               aria-label="Close"
               tabIndex={-1}
             >
@@ -68,13 +68,13 @@ export const PublicationModal = ({
           </Dialog.Close>
 
           {title && (
-            <div className={s.Heading}>
+            <div className={s.heading}>
               {isPublication && (
-                <Button variant={'text_button'} className={s.BackIcon} onClick={() => onBack?.()}>
+                <Button variant={'text_button'} className={s.backIcon} onClick={() => onBack?.()}>
                   <UniversalIcon name={'arrow-ios-back'} />
                 </Button>
               )}
-              <Dialog.Title className={s.Title}>{title}</Dialog.Title>
+              <Dialog.Title className={s.title}>{title}</Dialog.Title>
               {isPublication && (
                 <Button
                   variant={'text_button'}
@@ -89,10 +89,10 @@ export const PublicationModal = ({
           )}
 
           <div className={s.publicationBody}>
-            <div className={clsx(s.PicturePost, title && 'WithHeader')}>
+            <div className={clsx(s.picturePost, title && 'WithHeader')}>
               <Slider srcArray={srcArray} isSmall={isSmall} />
             </div>
-            <div className={s.ContentPost}>{children}</div>
+            <div className={s.contentPost}>{children}</div>
           </div>
         </Dialog.Content>
       </Dialog.Portal>

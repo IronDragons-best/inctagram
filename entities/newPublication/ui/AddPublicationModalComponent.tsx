@@ -1,11 +1,11 @@
 'use client'
 
-import React, { useState } from 'react'
-import Image from 'next/image'
-import { Input, TextAreaComponent } from '@irondragons/ui-lib-inctagram'
 import { PublicationModal } from '@/shared/modals/publicationModal/ui/PublicationModal'
-import styles from './addPublicationModalComponent.module.scss'
 import { useCreatePostMutation } from '@/shared/schemas/api/postsApi'
+import { Input, TextAreaComponent } from '@irondragons/ui-lib-inctagram'
+import Image from 'next/image'
+import { useState } from 'react'
+import s from './addPublicationModalComponent.module.scss'
 
 const dataLocations = [
   { title: 'New York', place: 'Washington Square Park' },
@@ -74,18 +74,18 @@ export const AddPublicationModalComponent = ({
       onRequestClose={onRequestClose}
       onPublish={handlePublish}
     >
-      <div className={styles.bodyContent}>
-        <div className={styles.Info}>
-          <div className={styles.headerContent}>
-            <div className={styles.contentPost}>
-              <div className={styles.userAvatar}>
+      <div className={s.bodyContent}>
+        <div className={s.info}>
+          <div className={s.headerContent}>
+            <div className={s.contentPost}>
+              <div className={s.userAvatar}>
                 {imageUrl[0] && (
                   <div style={{ marginBottom: '1rem' }}>
                     <Image src={imageUrl[0]} alt="Uploaded" width={400} height={300} />
                   </div>
                 )}
               </div>
-              <span className={styles.Username}>URLProfile</span>
+              <span className={s.username}>URLProfile</span>
             </div>
 
             <TextAreaComponent
@@ -97,7 +97,7 @@ export const AddPublicationModalComponent = ({
               onChange={e => setDescription(e.target.value)}
             />
           </div>
-          <div className={styles.footerContent}>
+          <div className={s.footerContent}>
             <Input
               placeholder={'choose your destiny'}
               fullWidth

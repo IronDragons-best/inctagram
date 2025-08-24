@@ -1,9 +1,9 @@
 'use client'
 
-import { useState } from 'react'
 import { AddPhotoModalComponent } from '@/entities/newPublication/ui/AddPhotoModalComponent'
 import { AddPublicationModalComponent } from '@/entities/newPublication/ui/AddPublicationModalComponent'
 import { ClosePublicationConfirm } from '@/entities/newPublication/ui/ClosePublicationConfirm'
+import { useState } from 'react'
 
 type NewPublicationProps = {
   onClose: () => void

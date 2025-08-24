@@ -1,14 +1,14 @@
 @use '../../../../src/styles/colors' as *;
 @use '../../../../src/styles/fonts' as font;
 
-.Overlay {
+.overlay {
   background-color: var(--black-a9);
   position: fixed;
   inset: 0;
   animation: overlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.Content {
+.content {
   z-index: 999;
   background-color: $dark-300;
   color: $light-100;
@@ -41,26 +41,26 @@
       margin-top: 72px;
     }
 
-    .Children {
+    .children {
       display: flex;
       flex-direction: column;
       align-items: center;
       margin-top: 60px;
     }
 
-    .Children > *:last-child {
+    .children > *:last-child {
       margin-top: 24px;
     }
   }
 }
 
-.Children {
+.hildren {
   display: flex;
   justify-content: flex-end;
   padding-inline: 24px;
 }
 
-.Heading {
+.heading {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -70,7 +70,7 @@
   margin-bottom: 30px;
 }
 
-.IconButton {
+.iconButton {
   all: unset;
   font-family: inherit;
   border-radius: 100%;
@@ -80,7 +80,7 @@
   color: $light-100;
 }
 
-.Title {
+.title {
   @include font.h1;
   text-transform: capitalize;
 }

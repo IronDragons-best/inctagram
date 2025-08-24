@@ -34,14 +34,14 @@ export const EditPost = ({ openModal, isModalOpen, title, srcArray, onSave }: Pr
   return (
     // TODO  title={'Edit Post'}
     <PublicationModal isModalOpen={true} title={'Edit Post'} srcArray={srcArray}>
-      <div className={s.ContentWrapper}>
-        <div className={s.PostTitle}>
-          <div className={s.UserAvatar}>
+      <div className={s.contentWrapper}>
+        <div className={s.postTitle}>
+          <div className={s.userAvatar}>
             <Image src={photo2} alt={'photo beach'} />
           </div>
-          <span className={s.Username}>UserName</span>
+          <span className={s.username}>UserName</span>
         </div>
-        <div className={s.AreaWrapper}>
+        <div className={s.areaWrapper}>
           <TextAreaComponent
             id={'1'}
             fullWidth
@@ -53,7 +53,7 @@ export const EditPost = ({ openModal, isModalOpen, title, srcArray, onSave }: Pr
             incididunt ut labore et dolore magna aliqua.
           </TextAreaComponent>
         </div>
-        <div className={s.ButtonWrapper}>
+        <div className={s.buttonWrapper}>
           <Button variant={'primary'} onClick={() => onSave(description)}>
             Save Changes
           </Button>

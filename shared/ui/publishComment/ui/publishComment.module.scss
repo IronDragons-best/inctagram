@@ -1,16 +1,16 @@
 @use '../../../../src/styles/fonts' as font;
 
-.AddPostComment {
+.addPostComment {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 12px 24px 12px 12px;
   gap: 10px;
 
-  & .AddPostCommentField {
+  & .addPostCommentField {
     width: 100%;
 
-    & .AreaWrapper {
+    & .areaWrapper {
       @include font.regular-text-14;
       flex: 1 1 auto;
       width: 100%;

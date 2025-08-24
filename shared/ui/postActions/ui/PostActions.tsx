@@ -9,22 +9,22 @@ type Props = {
 
 export const PostActions = ({ isMessage = false }: Props) => {
   return (
-    <div className={s.PostLikes}>
-      <div className={s.IconGroup}>
-        <div className={s.IconWrapper}>
+    <div className={s.postLikes}>
+      <div className={s.iconGroup}>
+        <div className={s.iconWrapper}>
           <UniversalIcon name={'heart-outline'} />
         </div>
         {isMessage && (
-          <div className={s.IconWrapper}>
+          <div className={s.iconWrapper}>
             <UniversalIcon name={'message-circle-outline'} />
           </div>
         )}
-        <div className={s.IconWrapper}>
+        <div className={s.iconWrapper}>
           <UniversalIcon name={'paper-plane-outline'} />
         </div>
       </div>
-      <div className={s.IconGroup}>
-        <div className={s.IconWrapper}>
+      <div className={s.iconGroup}>
+        <div className={s.iconWrapper}>
           <UniversalIcon name={'bookmark-outline'} />
         </div>
       </div>
