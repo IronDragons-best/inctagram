@@ -38,7 +38,7 @@ export const UserCard = ({ userTime, userContent }: Props) => {
         </div>
         <div className={s['user-card__details']}>
           <div className={s['user-card__info']}>
-            <UserHeader />
+            <UserHeader userId={'2'} postId={3} srcArray={['1', '2']} />
           </div>
           <div className={s['user-card__time']}>{timeAgo}</div>
           <div className={s['user-card__content']}>

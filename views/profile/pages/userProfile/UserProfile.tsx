@@ -20,12 +20,14 @@ export type profileOwner = 'myProfile' | 'friendProfile' | 'guestProfile'
 
 export const UserProfile = ({ user, postId }: Props) => {
   const { data: userInfo } = useGetPostsQuery({ userId: user })
+
   function getImageUrlByPostId(postId: string): string[] {
     if (!userInfo || !postId) return []
 
     const post = userInfo.find(p => String(p.id) === postId)
     return post?.previewImages ?? []
   }
+
   return (
     <div className={s.profileWrapper}>
       <div className={s.headingContent}>
