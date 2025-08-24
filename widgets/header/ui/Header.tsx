@@ -10,7 +10,7 @@ type Props = {
   isProcessingAuth?: boolean
   localization: string
   notificationCount?: number
-  isAuth: boolean
+  isAuth?: boolean
 }
 
 export const Header = ({

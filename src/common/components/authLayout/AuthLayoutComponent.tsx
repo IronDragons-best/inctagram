@@ -9,7 +9,7 @@ import s from './AuthLayout.module.scss'
 export const AuthLayoutComponent = ({ children }: PropsWithChildren) => {
   return (
     <div className={s.authContent}>
-      <Header isProcessingAuth={true} localization={'eng'} />
+      <Header isProcessingAuth localization={'eng'} />
       <div className={s.formWrapper}>{children}</div>
     </div>
   )
