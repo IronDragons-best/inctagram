@@ -1,4 +1,4 @@
-import styles from '@/shared/modals/addPhotoModal/ui/photoModal.module.scss'
+import s from '@/shared/modals/addPhotoModal/ui/photoModal.module.scss'
 import { Button, UniversalIcon } from '@irondragons/ui-lib-inctagram'
 import { Dialog } from 'radix-ui'
 import React, { ReactNode } from 'react'
@@ -29,20 +29,20 @@ export const PhotoModal = ({
   return (
     <Dialog.Root onOpenChange={onOpenChange} open={isModalOpen}>
       <Dialog.Portal>
-        <Dialog.Overlay className={styles.Overlay} />
-        <Dialog.Content className={styles.Content}>
-          <div className={styles.Heading}>
-            <Dialog.Title className={styles.Title}>{title}</Dialog.Title>
+        <Dialog.Overlay className={s.overlay} />
+        <Dialog.Content className={s.content}>
+          <div className={s.heading}>
+            <Dialog.Title className={s.title}>{title}</Dialog.Title>
             <Dialog.Close asChild>
-              <Button className={styles.IconButton} aria-label="Close" tabIndex={-1}>
+              <Button className={s.iconButton} aria-label="Close" tabIndex={-1}>
                 <UniversalIcon name={'close'} />
               </Button>
             </Dialog.Close>
           </div>
 
-          <div className={styles.bodyContent}>
+          <div className={s.bodyContent}>
             {isImage && (
-              <div className={styles.imageBox} onClick={handleSelectClick}>
+              <div className={s.imageBox} onClick={handleSelectClick}>
                 <input
                   type="file"
                   accept="image/*"
@@ -54,7 +54,7 @@ export const PhotoModal = ({
                 <UniversalIcon name={'image-outline'} />
               </div>
             )}
-            <div className={styles.Children}>{children}</div>
+            <div className={s.children}>{children}</div>
           </div>
         </Dialog.Content>
       </Dialog.Portal>

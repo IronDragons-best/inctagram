@@ -1,16 +1,16 @@
 @use '../../../../src/styles/colors' as *;
 @use '../../../../src/styles/fonts' as font;
 
-.Overlay {
+.overlay {
   position: fixed;
   inset: 0;
 }
 
-.MainTitle {
+.mainTitle {
   display: none;
 }
 
-.Content {
+.content {
   @include font.regular-text-14;
   background-color: $dark-300;
   color: $light-100;
@@ -36,7 +36,7 @@
     align-items: flex-start;
   }
 
-  & .FieldCard {
+  & .fieldCard {
     cursor: pointer;
     display: flex;
     flex-direction: row;
@@ -44,12 +44,12 @@
     height: 23px;
     align-items: center;
 
-    & .IconField {
+    & .iconField {
       width: 24px;
       height: 24px;
     }
 
-    & .TextField {
+    & .textField {
       display: flex;
       flex-direction: row;
       align-items: center;

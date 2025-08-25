@@ -1,12 +1,12 @@
 @use '../../../../../../../src/styles/colors' as *;
 @use '../../../../../../../src/styles/fonts' as font;
 
-.PostUserHeader {
+.postUserHeader {
   padding: 10px 24px;
   border-bottom: 1px solid $dark-100;
 }
 
-.PostUserCommentWrapper {
+.postUserCommentWrapper {
   flex: 1 1 auto;
   border-bottom: 1px solid $dark-100;
   @include font.regular-text-14;
@@ -16,30 +16,30 @@
   padding: 20px 24px 0;
 }
 
-.SummaryLikesWrapper {
+.summaryLikesWrapper {
   flex: 0 0 107px;
   border-bottom: 1px solid $dark-100;
   padding: 12px 24px 7px;
 
-  & .PostLikesWrapper {
+  & .postLikesWrapper {
     margin-bottom: 20px;
   }
 
-  & .AvatarGroupSummaryWrapper {
+  & .avatarGroupSummaryWrapper {
     margin-bottom: 5px;
   }
 }
 
-.AddPostCommentWrapper {
+.addPostCommentWrapper {
   flex: 0 0 59px;
 }
 
-.PostMetaTimestamp {
+.postMetaTimestamp {
   @include font.small-text;
   color: $light-900;
 }
 
-.IconButton {
+.iconButton {
   position: absolute;
   top: -41px;
   right: -36px;

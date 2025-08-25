@@ -20,14 +20,14 @@ type Props = {
 export const Dropdown = ({ isModalOpen, onClose, items }: Props) => {
   return (
     <Dialog.Root onOpenChange={onClose} open={isModalOpen}>
-      <Dialog.Overlay className={s.Overlay} />
-      <Dialog.Title className={s.MainTitle}>Post actions</Dialog.Title>
-      <Dialog.Content className={s.Content}>
+      <Dialog.Overlay className={s.overlay} />
+      <Dialog.Title className={s.mainTitle}>Post actions</Dialog.Title>
+      <Dialog.Content className={s.content}>
         <Card fullWidth size={'sm'}>
           {items.map((item, index) => (
-            <div key={index} className={s.FieldCard} onClick={item.onClick}>
-              <UniversalIcon name={item.icon} className={s.IconField} />
-              <span className={s.TextField}>{item.label}</span>
+            <div key={index} className={s.fieldCard} onClick={item.onClick}>
+              <UniversalIcon name={item.icon} className={s.iconField} />
+              <span className={s.textField}>{item.label}</span>
             </div>
           ))}
         </Card>

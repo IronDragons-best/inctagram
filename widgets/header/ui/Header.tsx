@@ -1,10 +1,10 @@
 'use client'
 
+import { PATH } from '@/shared/constants/path'
 import { Button, Selectbox, UniversalIcon } from '@irondragons/ui-lib-inctagram'
-import s from './header.module.scss'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { PATH } from '@/shared/constants/path'
+import s from './header.module.scss'
 
 type Props = {
   isProcessingAuth?: boolean
@@ -29,15 +29,15 @@ export const Header = ({
   }
 
   return (
-    <header className={s.Header}>
+    <header className={s.header}>
       <div>
-        <Link href={PATH.home} className={s.Logo}>
+        <Link href={PATH.home} className={s.logo}>
           Inctagram
         </Link>
       </div>
-      <div className={s.Content}>
+      <div className={s.content}>
         {isAuth && (
-          <div className={s.IconWrapper} data-notificationcount={convertNumber(notificationCount)}>
+          <div className={s.iconWrapper} data-notificationcount={convertNumber(notificationCount)}>
             <UniversalIcon name={'outline-bell'} />
           </div>
         )}

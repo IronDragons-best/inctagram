@@ -29,10 +29,10 @@ export const Post = ({ isModalOpen, srcArray, postId }: Props) => {
   return (
     <PublicationModal isModalOpen={isModalOpen} srcArray={srcArray}>
       <>
-        <div className={s.PostUserHeader}>
+        <div className={s.postUserHeader}>
           <UserHeader postId={postId} userId={params.userId} srcArray={srcArray} />
         </div>
-        <div className={s.PostUserCommentWrapper}>
+        <div className={s.postUserCommentWrapper}>
           {/* TODO переделать потом на map */}
           <PostUserComment
             userAvatar={photo1}
@@ -65,17 +65,17 @@ export const Post = ({ isModalOpen, srcArray, postId }: Props) => {
             likesCount={1}
           />
         </div>
-        <div className={s.SummaryLikesWrapper}>
-          <div className={s.PostLikesWrapper}>
+        <div className={s.summaryLikesWrapper}>
+          <div className={s.postLikesWrapper}>
             <PostActions />
           </div>
-          <div className={s.AvatarGroupSummaryWrapper}>
+          <div className={s.avatarGroupSummaryWrapper}>
             {/* TODO хз пока че передавать пропсами */}
             <LikesCount />
           </div>
-          <div className={s.PostMetaTimestamp}>July 3, 2021</div>
+          <div className={s.postMetaTimestamp}>July 3, 2021</div>
         </div>
-        <div className={s.AddPostCommentWrapper}>
+        <div className={s.addPostCommentWrapper}>
           <PublishComment />
         </div>
       </>

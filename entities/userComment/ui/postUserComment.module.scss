@@ -1,11 +1,11 @@
 @use '../../../src/styles/colors' as *;
 @use '../../../src/styles/fonts' as font;
 
-.PostUserComment {
+.postUserComment {
   display: flex;
   align-items: flex-start;
 
-  & .UserAvatar {
+  & .userAvatar {
     // надо ли в будущем делать открытие странички по щелчку на аватарку
     //user-select: none;
 
@@ -18,20 +18,20 @@
     }
   }
 
-  & .UserContent {
+  & .userContent {
     display: flex;
     align-items: center;
     margin-right: 24px;
 
-    & .UserText {
+    & .userText {
 
-      & .UserName {
+      & .userName {
         @include font.bold-text-14;
       }
     }
   }
 
-  & .LikePostIcon {
+  & .likePostIcon {
     cursor: pointer;
     flex: 0 0 16px;
     width: 16px;
@@ -48,22 +48,22 @@
   }
 }
 
-.PostMeta {
+.postMeta {
   color: $light-900;
   display: flex;
   gap: 12px;
   padding-left: 48px;
 }
 
-.PostMetaTimestamp {
+.postMetaTimestamp {
   @include font.small-text;
 }
 
-.PostMetaLikes,
-.PostMetaAction {
+.postMetaLikes,
+.postMetaAction {
   @include font.semi-bold-small-text;
 }
 
-.PostMetaAction {
+.postMetaAction {
   cursor: pointer;
 }

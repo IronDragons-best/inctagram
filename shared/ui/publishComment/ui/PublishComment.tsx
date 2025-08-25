@@ -1,18 +1,15 @@
 'use client'
 
-import * as React from 'react'
 import { Button, TextAreaComponent } from '@irondragons/ui-lib-inctagram'
 import s from './publishComment.module.scss'
 
-type Props = {}
-
-export const PublishComment = ({}: Props) => {
+export const PublishComment = () => {
   return (
-    <div className={s.AddPostComment}>
-      <div className={s.AddPostCommentField}>
-        <TextAreaComponent id={'1'} className={s.AreaWrapper} placeholder={'Add a' + ' Comment'} />
+    <div className={s.addPostComment}>
+      <div className={s.addPostCommentField}>
+        <TextAreaComponent id={'1'} className={s.areaWrapper} placeholder={'Add a' + ' Comment'} />
       </div>
-      <div className={s.AddPostCommentButton}>
+      <div className={s.addPostCommentButton}>
         <Button variant={'text_button'}>Publish</Button>
       </div>
     </div>

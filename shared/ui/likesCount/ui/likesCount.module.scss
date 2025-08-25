@@ -1,17 +1,17 @@
 @use '../../../../src/styles/colors' as *;
 @use '../../../../src/styles/fonts' as font;
 
-.AvatarGroupSummary {
+.avatarGroupSummary {
   display: flex;
   align-items: center;
   gap: 12px;
 
-  & .AvatarTriple {
+  & .avatarTriple {
     position: relative;
     width: 54px;
     height: 24px;
 
-    & .UserAvatar {
+    & .userAvatar {
       position: relative;
 
       & img {
@@ -40,15 +40,15 @@
     }
   }
 
-  & .LikesSummary {
+  & .likesSummary {
     flex: 1 1 auto;
   }
 }
 
-.SummaryLikesCount {
+.summaryLikesCount {
   @include font.regular-text-14;
 }
 
-.SummaryPostLikes {
+.summaryPostLikes {
   @include font.bold-text-14;
 }

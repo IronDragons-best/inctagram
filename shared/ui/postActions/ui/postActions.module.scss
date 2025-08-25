@@ -1,15 +1,15 @@
-.PostLikes {
+.postLikes {
   display: flex;
   justify-content: space-between;
   height: 24px;
   width: 100%;
 
-  & .IconGroup {
+  & .iconGroup {
     display: flex;
     align-items: center;
     gap: 24px;
 
-    & .IconWrapper {
+    & .iconWrapper {
       cursor: pointer;
       width: 24px;
       height: 24px;

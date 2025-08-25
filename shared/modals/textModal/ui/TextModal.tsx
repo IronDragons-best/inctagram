@@ -3,7 +3,7 @@
 import { Button, UniversalIcon } from '@irondragons/ui-lib-inctagram'
 import { Dialog } from 'radix-ui'
 import { ReactNode } from 'react'
-import styles from './textModal.module.scss'
+import s from './textModal.module.scss'
 
 type Props = {
   title: string
@@ -34,20 +34,20 @@ export const TextModal = ({
   return (
     <Dialog.Root onOpenChange={handleOpenModal} open={isModalOpen}>
       <Dialog.Portal>
-        <Dialog.Overlay className={styles.Overlay} />
-        <Dialog.Content className={styles.Content}>
-          <div className={styles.Heading}>
-            <Dialog.Title className={styles.Title}>{title}</Dialog.Title>
+        <Dialog.Overlay className={s.overlay} />
+        <Dialog.Content className={s.content}>
+          <div className={s.heading}>
+            <Dialog.Title className={s.title}>{title}</Dialog.Title>
             <Dialog.Close asChild>
-              <Button className={styles.IconButton} aria-label="Close" tabIndex={-1}>
+              <Button className={s.iconButton} aria-label="Close" tabIndex={-1}>
                 <UniversalIcon name={'close'} />
               </Button>
             </Dialog.Close>
           </div>
 
-          <Dialog.Description className={styles.Description}>{description}</Dialog.Description>
+          <Dialog.Description className={s.description}>{description}</Dialog.Description>
 
-          <div className={styles.Children}>
+          <div className={s.children}>
             <Dialog.Close asChild>{children}</Dialog.Close>
           </div>
         </Dialog.Content>
