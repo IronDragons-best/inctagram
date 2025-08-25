@@ -39,12 +39,9 @@ export async function fetchPostById(id: number): Promise<PostItem | null> {
 
 /**
  * Вспомогалка: достать массив картинок для модалки.
- * Сначала пытается взять previewImages, иначе — images[].url.
  */
 export function extractPostSrcArray(post: PostItem | null | undefined): string[] {
   if (!post) return []
-  const preview = (post as any)?.previewImages as string[] | undefined
-  if (preview?.length) return preview
-  const images = (post as any)?.images as Array<{ url?: string }> | undefined
-  return (images ?? []).map(i => i?.url).filter(Boolean) as string[]
+  const preview = post?.previewImages as string[] | undefined
+  return preview?.length ? preview : []
 }

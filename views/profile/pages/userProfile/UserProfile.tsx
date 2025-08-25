@@ -30,7 +30,7 @@ export const UserProfile = ({ user, postId, initialPosts, initialPostSrcArray }:
     if (!effectiveUserInfo || !postId) return []
 
     const post = effectiveUserInfo.find(p => String(p.id) === postId)
-    return (post as any)?.previewImages ?? []
+    return (post as PostItem)?.previewImages ?? []
   }
 
   return (
