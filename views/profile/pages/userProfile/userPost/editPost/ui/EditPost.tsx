@@ -39,7 +39,7 @@ export const EditPost = ({ openModal, isModalOpen, title, srcArray, onSave }: Pr
           <div className={s.userAvatar}>
             <Image src={photo2} alt={'photo beach'} />
           </div>
-          <span className={s.username}>UserName</span>
+          <span className={s.userName}>UserName</span>
         </div>
         <div className={s.areaWrapper}>
           <TextAreaComponent

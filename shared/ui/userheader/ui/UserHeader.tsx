@@ -96,8 +96,8 @@ export const UserHeader = ({
       <div className={s.userAvatar}>
         <Image src={photo2} alt={'photo beach'} />
       </div>
-      <div className={s.usernameContainer}>
-        <span className={s.username}>UserName</span>
+      <div className={s.userNameContainer}>
+        <span className={s.userName}>UserName</span>
         {isUserTime && <div className={s.userTime}>{timeAgo}</div>}
       </div>
       {showActions && (

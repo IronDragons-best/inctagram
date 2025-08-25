@@ -85,7 +85,7 @@ export const AddPublicationModalComponent = ({
                   </div>
                 )}
               </div>
-              <span className={s.username}>URLProfile</span>
+              <span className={s.userName}>URLProfile</span>
             </div>
 
             <TextAreaComponent

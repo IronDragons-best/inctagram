@@ -18,7 +18,7 @@
     }
   }
 
-  & .usernameContainer {
+  & .userNameContainer {
     display: flex;
     align-items: baseline;
     justify-content: flex-start;
@@ -26,7 +26,7 @@
     flex: 1 1 auto;
   }
 
-  & .username {
+  & .userName {
     @include font.h3;
   }
 
