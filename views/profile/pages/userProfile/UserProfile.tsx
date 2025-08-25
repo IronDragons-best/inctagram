@@ -1,31 +1,36 @@
 'use client'
 
-import s from './userProfile.module.scss'
+import React from 'react'
 import Image from 'next/image'
-import UserProfilePicture from '@/public/assets/image 1.png'
 import Link from 'next/link'
+import UserProfilePicture from '@/public/assets/image 1.png'
 import { PATH } from '@/shared/constants/path'
 import { ButtonContainer } from '@/views/profile/pages/userProfile/ButtonContainer'
 import { Post } from '@/views/profile/pages/userProfile/userPost/post'
-import React from 'react'
 import { Slider } from '@/shared/ui/slider'
 import { useGetPostsQuery } from '@/shared/schemas/api/postsApi'
+import { PostItem } from '@/shared/schemas/types/post'
+import s from './userProfile.module.scss'
 
 type Props = {
   user: number
   postId?: string
+  initialPosts?: PostItem[]
+  initialPostSrcArray?: string[]
 }
 
 export type profileOwner = 'myProfile' | 'friendProfile' | 'guestProfile'
 
-export const UserProfile = ({ user, postId }: Props) => {
-  const { data: userInfo } = useGetPostsQuery({ userId: user })
+export const UserProfile = ({ user, postId, initialPosts, initialPostSrcArray }: Props) => {
+  const skip = !!initialPosts
+  const { data: userInfo } = useGetPostsQuery({ userId: user }, { skip })
 
+  const effectiveUserInfo = initialPosts ?? userInfo
   function getImageUrlByPostId(postId: string): string[] {
-    if (!userInfo || !postId) return []
+    if (!effectiveUserInfo || !postId) return []
 
-    const post = userInfo.find(p => String(p.id) === postId)
-    return post?.previewImages ?? []
+    const post = effectiveUserInfo.find(p => String(p.id) === postId)
+    return (post as PostItem)?.previewImages ?? []
   }
 
   return (
@@ -59,8 +64,8 @@ export const UserProfile = ({ user, postId }: Props) => {
         </div>
       </div>
       <div className={s.userPosts}>
-        {userInfo ? (
-          userInfo.map((u, i) => (
+        {effectiveUserInfo ? (
+          effectiveUserInfo.map((u, i) => (
             <Link href={`${PATH.profile}/${user}?postId=${u.id}`} key={i}>
               <Slider isSmall srcArray={u.previewImages} />
             </Link>
@@ -70,11 +75,11 @@ export const UserProfile = ({ user, postId }: Props) => {
         )}
       </div>
       {/*TODO Поправить типизацию. В йункцию может не прийти объект и тогда будет undefined*/}
-      {userInfo && postId && (
+      {effectiveUserInfo && postId && (
         <Post
           postId={Number(postId)}
           isModalOpen={!!postId}
-          srcArray={getImageUrlByPostId(postId)}
+          srcArray={initialPostSrcArray?.length ? initialPostSrcArray : getImageUrlByPostId(postId)}
         />
       )}
     </div>
