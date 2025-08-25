@@ -53,10 +53,10 @@ export const AddPhotoModalComponent = ({
       isImage={isImage}
     >
       <>
-        <Button fullWidth={true} onClick={handleSelectClick}>
+        <Button fullWidth onClick={handleSelectClick}>
           Select from Computer
         </Button>
-        <Button fullWidth={true} variant={'outline'}>
+        <Button fullWidth variant={'outline'}>
           Open Draft
         </Button>
       </>

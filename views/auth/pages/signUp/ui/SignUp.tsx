@@ -85,7 +85,7 @@ export const SignUp = () => {
         <div className={s.oAuthWrapper}>
           {/* пока что вместо ссылок заглушки */}
           <Link href={'google.com'}>
-            <UniversalIcon name={'google'} dataStatic={true} width={'36px'} height={'36px'} />
+            <UniversalIcon name={'google'} dataStatic width={'36px'} height={'36px'} />
           </Link>
           <Link href={'google.com'}>
             <UniversalIcon name={'github'} width={'36px'} height={'36px'} />
@@ -163,11 +163,7 @@ export const SignUp = () => {
               )}
             />
 
-            <Button
-              variant={'primary'}
-              disabled={isSubmitDisabled || !isAgreeChecked}
-              fullWidth={true}
-            >
+            <Button variant={'primary'} disabled={isSubmitDisabled || !isAgreeChecked} fullWidth>
               Sign Up
             </Button>
           </div>

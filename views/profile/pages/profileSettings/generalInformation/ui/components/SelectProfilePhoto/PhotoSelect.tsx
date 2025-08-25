@@ -51,7 +51,7 @@ export const PhotoSelect = ({
       onFileChange={handleFileChange}
       isImage={isImage}
     >
-      <Button fullWidth={true} onClick={handleSelectClick}>
+      <Button fullWidth onClick={handleSelectClick}>
         Select from Computer
       </Button>
     </PhotoModal>

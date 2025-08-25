@@ -34,19 +34,19 @@ const ExpiredLink = () => {
         <div className={s.wrapper}>
           <div className={s.inputWrapper}>
             <Input
-              fullWidth={true}
+              fullWidth
               inputType={'email'}
               placeholder={'Epam@epam.com'}
               label={'Email'}
               onBlur={e => setEmail(e.target.value)}
             />
           </div>
-          <Button variant={'primary'} fullWidth={true} onClick={handleResend}>
+          <Button variant={'primary'} fullWidth onClick={handleResend}>
             Resend verification link
           </Button>
         </div>
         <div className={s.iconWrapper}>
-          <UniversalIcon name={'ExpiredLink'} dataStatic={true} />
+          <UniversalIcon name={'ExpiredLink'} dataStatic />
         </div>
       </>
     </EmailConfirmationPage>

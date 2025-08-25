@@ -17,7 +17,7 @@ const PasswordRecovery = () => {
           </Button>
         </div>
         <div className={s.iconWrapper}>
-          <UniversalIcon name={'ExpiredLink'} dataStatic={true} />
+          <UniversalIcon name={'ExpiredLink'} dataStatic />
         </div>
       </>
     </EmailConfirmationPage>
