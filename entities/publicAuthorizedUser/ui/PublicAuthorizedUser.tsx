@@ -1,14 +1,14 @@
-'use client';
+'use client'
 
-import React from 'react';
-import { Header } from '@/widgets/header';
-import { Sidebar } from '@/widgets/sidebar';
+import React from 'react'
+import { Header } from '@/widgets/header'
+import { Sidebar } from '@/widgets/sidebar'
 
 export const PublicAuthorizedUser = () => {
   return (
     <div>
-      <Header isAuth={false} isProcessingAuth={true} localization={"eng"} />
+      <Header isAuth={false} isProcessingAuth localization={'eng'} />
       <Sidebar />
     </div>
-  );
-};
+  )
+}

@@ -33,7 +33,7 @@ export const EditPost = ({ openModal, isModalOpen, title, srcArray, onSave }: Pr
 
   return (
     // TODO  title={'Edit Post'}
-    <PublicationModal isModalOpen={true} title={'Edit Post'} srcArray={srcArray}>
+    <PublicationModal isModalOpen title={'Edit Post'} srcArray={srcArray}>
       <div className={s.contentWrapper}>
         <div className={s.postTitle}>
           <div className={s.userAvatar}>

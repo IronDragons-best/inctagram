@@ -83,7 +83,7 @@ const Page = () => {
           </Button>
         </div>
         <div className={s.iconWrapper}>
-          <UniversalIcon name={'Congratulations'} dataStatic={true} />
+          <UniversalIcon name={'Congratulations'} dataStatic />
         </div>
       </>
     </EmailConfirmationPage>
