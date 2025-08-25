@@ -41,7 +41,7 @@ export const SignIn = () => {
         <h2 className={s.title}>Sign In</h2>
         <div className={s.oAuth}>
           <Link href={'google.com'}>
-            <UniversalIcon name={'google'} dataStatic={true} width={'36px'} height={'36px'} />
+            <UniversalIcon name={'google'} dataStatic width={'36px'} height={'36px'} />
           </Link>
           <Link href={'github.com'}>
             <UniversalIcon name={'github'} width={'36px'} height={'36px'} />
@@ -55,7 +55,7 @@ export const SignIn = () => {
               placeholder={'Epam@epam.com'}
               inputType={'email'}
               errorText={errors.email?.message}
-              fullWidth={true}
+              fullWidth
               {...register('email', {
                 onChange: () => clearErrors('email'),
               })}
@@ -67,7 +67,7 @@ export const SignIn = () => {
               placeholder={'••••••••••••••'}
               inputType={'password'}
               errorText={errors.password?.message}
-              fullWidth={true}
+              fullWidth
               {...register('password', {
                 onChange: () => clearErrors('password'),
               })}
@@ -78,7 +78,7 @@ export const SignIn = () => {
             <Link href={PATH.forgot_password}>Forgot Password</Link>
           </div>
           <div className={s.buttonWraper}>
-            <Button variant="primary" fullWidth={true} disabled={!isValid}>
+            <Button variant="primary" fullWidth disabled={!isValid}>
               Sign In
             </Button>
           </div>
