@@ -8,6 +8,7 @@ type ParamsType = {
 
 type SearchParams = {
   postId: string
+  pageNumber: string
 }
 
 type Props = {
@@ -17,10 +18,13 @@ type Props = {
 
 const UserPage = async (props: Props) => {
   const { userId } = await props.params
-  const { postId } = await props.searchParams
+  const { postId, pageNumber = 1 } = await props.searchParams
 
   // посты пользователя (SSR)
-  const postsQuery: PostQueryArgs = { userId: Number(userId) } as PostQueryArgs
+  const postsQuery: PostQueryArgs = {
+    userId: Number(userId),
+    pageNumber: Number(pageNumber),
+  } as PostQueryArgs
   const initialPosts: PostItem[] = await fetchPosts(postsQuery)
 
   // для модалки: картинки выбранного поста (SSR)
