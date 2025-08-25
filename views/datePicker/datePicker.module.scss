@@ -1,0 +1,175 @@
+@use '../../src/styles/colors' as *;
+@use '../../src/styles/fonts' as *;
+@use '../../src/styles/typography' as *;
+
+.datePicker[data-hui='HUI']:nth-child(3) {
+  z-index: 1000000 !important;
+}
+
+.datePicker {
+  &__label {
+    display: inline-block;
+    font-size: $font-size-s;
+    color: $light-900;
+  }
+
+  &__trigger {
+    cursor: pointer;
+
+    display: flex;
+    column-gap: 23px;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 5px 10px;
+
+    color: $light-100;
+
+    background-color: transparent;
+    border: 1px solid $dark-300;
+    border-radius: 2px;
+
+    &:focus {
+      background-color: $dark-500;
+      border-color: transparent;
+      outline: 2px solid $accent-700;
+    }
+
+    &:hover {
+      background-color: $dark-500;
+    }
+
+    &--disabled {
+      pointer-events: none;
+      background-color: transparent;
+      border-color: $dark-300;
+
+      .datePicker__dateValue {
+        color: $light-900;
+      }
+
+      &:hover {
+        background-color: unset;
+      }
+    }
+
+    &--error {
+      color: $danger-500;
+      background-color: $dark-500;
+      border-color: $danger-500;
+
+      &:focus {
+        border-color: unset;
+        outline: unset;
+      }
+    }
+
+    &--open {
+      background-color: $dark-500;
+    }
+  }
+
+  &__icon {
+    width: 24px;
+    height: 24px;
+  }
+
+  &__errorText {
+    font-size: $font-size-xs;
+    color: $danger-500;
+  }
+
+  &__popover {
+    transform-origin: var(--radix-popover-content-transform-origin);
+    animation: scale-in 0.5s ease;
+  }
+
+  @keyframes scale-in {
+    from {
+      transform: scale(0.95);
+      opacity: 0;
+    }
+
+    to {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+}
+
+.fullWidth {
+  width: 100%;
+}
+
+// календарь
+// Локальные стили календаря
+.datePicker__calendar {
+  color: $light-900;
+  background-color: $dark-500;
+  border: 1px solid $dark-300;
+  border-radius: 2px;
+}
+
+.captionLabel {
+  padding-left: 15px;
+  font-weight: $font-weight-bold;
+  color: $light-100;
+}
+
+.day {
+  width: 36px;
+  height: 36px;
+  line-height: $line-height-m;
+  color: $light-100;
+}
+
+.weekdays {
+  margin-bottom: 12px;
+}
+
+.weekday {
+  font-weight: $font-weight-regular;
+  color: $light-900;
+  opacity: unset;
+}
+
+.selected {
+  font-weight: $font-weight-regular;
+  color: $light-100;
+  border: unset;
+}
+
+.today {
+  font-weight: $font-weight-bold;
+  color: $accent-500;
+}
+
+.weekend {
+  color: $danger-300;
+}
+
+.rangeStart {
+  background: $accent-900;
+  border-top-left-radius: 50%;
+  border-bottom-left-radius: 50%;
+}
+
+.rangeEnd {
+  background: $accent-900;
+  border-top-right-radius: 50%;
+  border-bottom-right-radius: 50%;
+}
+
+.chevron {
+  width: 15px;
+  height: 15px;
+  fill: $light-100;
+}
+
+.navButton {
+  padding: 8px;
+  background-color: $dark-100;
+  border-radius: 50%;
+}
+
+// Глобальные стили календаря

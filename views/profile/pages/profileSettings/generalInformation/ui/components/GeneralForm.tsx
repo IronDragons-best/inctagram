@@ -1,11 +1,12 @@
 'use client'
 
-import { DatePicker, Input, Selectbox, TextAreaComponent } from '@irondragons/ui-lib-inctagram'
-import { useState } from 'react'
-import { DateRange } from 'react-day-picker'
+import { Input, Selectbox, TextAreaComponent } from '@irondragons/ui-lib-inctagram'
 import { useFormContext } from 'react-hook-form'
 import { InputsName } from '../../lib/schema'
 import s from './components.module.scss'
+import { DatePicker } from '@/views/datePicker/DatePicker'
+import { useState } from 'react'
+import { DateRange } from 'react-day-picker'
 
 export const GeneralForm = () => {
   const {
