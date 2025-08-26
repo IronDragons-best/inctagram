@@ -55,9 +55,12 @@
 
 .userPosts {
   display: grid;
+  grid-auto-rows: 228px;
   grid-gap: 12px;
   grid-template-columns: repeat(auto-fit, 234px);
-  justify-items: center;
+  place-items: center;
+
+  margin-bottom: 20px;
 
   a {
     overflow-y: hidden;
@@ -71,4 +74,10 @@
     height: auto;
     object-fit: cover;
   }
+}
+
+.loaderWrapper {
+  @include flex-container(row, center, center);
+
+  margin-bottom: 40px;
 }

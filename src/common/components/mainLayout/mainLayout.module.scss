@@ -21,11 +21,11 @@
 
 .mainWrapper {
   width: 100%;
-  padding: 36px 60px 0 24px;
+  padding: 36px 154px 24px;
 
   &[data-isuserauthorized='true'] {
     width: min(972px, 100%);
-    margin: 0 auto;
+    margin: 0 24px;
     padding: 36px 0 0;
   }
 }

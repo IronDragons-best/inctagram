@@ -12,6 +12,9 @@ import { useGetPostsInfiniteQuery } from '@/shared/schemas/api/postsApi'
 import { PostItem } from '@/shared/schemas/types/post'
 import s from './userProfile.module.scss'
 
+import { DotPulse } from 'ldrs/react'
+import 'ldrs/react/DotPulse.css'
+
 type Props = {
   user: number
   postId?: string
@@ -38,12 +41,12 @@ export const UserProfile = ({ user, postId, initialPosts, initialPostSrcArray }:
     if (!effectiveUserInfo || !postId) return []
 
     const post = effectiveUserInfo.find(p => String(p.id) === postId)
-    return (post as PostItem)?.previewImages ?? []
+    return post?.previewImages ?? []
   }
 
   useEffect(() => {
     const handleScroll = () => {
-      const nearBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight - 100
+      const nearBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight - 40
       if (nearBottom && hasNextPage && !isFetching) {
         fetchNextPage()
       }
@@ -94,7 +97,13 @@ export const UserProfile = ({ user, postId, initialPosts, initialPostSrcArray }:
           <div> There are no posts yet :( </div>
         )}
       </div>
-      {/*TODO Поправить типизацию. В йункцию может не прийти объект и тогда будет undefined*/}
+
+      {isFetching && (
+        <div className={s.loaderWrapper}>
+          <DotPulse size="43" speed="1.3" color="white" />
+        </div>
+      )}
+
       {effectiveUserInfo && postId && (
         <Post
           postId={Number(postId)}
