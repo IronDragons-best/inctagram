@@ -6,30 +6,39 @@ const client = getClient()
 
 export const postsApi = baseApi.injectEndpoints({
   endpoints: build => ({
-    getPosts: build.query<PostItem[], PostQueryArgs>({
+    getPosts: build.infiniteQuery<PostItem[], PostQueryArgs, number>({
+      infiniteQueryOptions: {
+        initialPageParam: 1,
+        maxPages: 10,
+        getNextPageParam: (lastPage, allPages, lastPageParam) => {
+          if (lastPage.length === 0) return undefined
+          return lastPageParam + 1
+        },
+        getPreviousPageParam: (firstPage, allPages, firstPageParam) => {
+          return firstPageParam > 0 ? firstPageParam - 1 : undefined
+        },
+      },
+
       queryFn: async arg => {
         try {
-          const res = await client.GET('/posts', { params: { query: arg } })
-          if (res.response.status === 200 && res.data?.items) {
-            return { data: res.data.items }
-          }
-          if (res.error) {
-            return {
-              error: {
-                status: res.response.status,
-                data: res.error,
-              },
-            }
-          }
+          const pageParams = arg.pageParam
+          const queryArgs = arg.queryArg
+
+          const res = await client.GET('/posts', {
+            params: { query: { ...queryArgs, pageNumber: pageParams } },
+          })
 
           if (res.response.status === 200) {
+            const items = res.data?.items ?? []
+            return { data: items }
+          }
+          if (res.response.status === 404) {
             return { data: [] }
           }
-
           return {
             error: {
               status: res.response.status,
-              data: res.data ?? 'Unknown error',
+              data: res.data ?? res.error ?? 'Unknown error',
             },
           }
         } catch (e) {
@@ -41,13 +50,14 @@ export const postsApi = baseApi.injectEndpoints({
           }
         }
       },
-      providesTags: (result: PostItem[] | undefined) =>
-        result
-          ? [
-              ...result.map(({ id }): PostTag => ({ type: TAGS.POST, id })),
-              { type: TAGS.POST, id: 'LIST' },
-            ]
-          : [{ type: TAGS.POST, id: 'LIST' }],
+
+      // 🏷️ Теги для кэш-инвалидации
+      // providesTags: ( result ) =>
+      //   result
+      //     ? [
+      //       { type: TAGS.POST, id:  result.pages,  }
+      //     ]
+      //     : [{ type: TAGS.POST, id: 'LIST' }],
     }),
 
     getPostById: build.query({
@@ -171,9 +181,9 @@ export const postsApi = baseApi.injectEndpoints({
 })
 
 export const {
-  useGetPostsQuery,
   useGetPostByIdQuery,
   useCreatePostMutation,
   useUpdatePostMutation,
   useDeletePostMutation,
+  useGetPostsInfiniteQuery,
 } = postsApi

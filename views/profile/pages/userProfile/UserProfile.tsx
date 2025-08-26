@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import UserProfilePicture from '@/public/assets/image 1.png'
@@ -8,9 +8,12 @@ import { PATH } from '@/shared/constants/path'
 import { ButtonContainer } from '@/views/profile/pages/userProfile/ButtonContainer'
 import { Post } from '@/views/profile/pages/userProfile/userPost/post'
 import { Slider } from '@/shared/ui/slider'
-import { useGetPostsQuery } from '@/shared/schemas/api/postsApi'
+import { useGetPostsInfiniteQuery } from '@/shared/schemas/api/postsApi'
 import { PostItem } from '@/shared/schemas/types/post'
 import s from './userProfile.module.scss'
+
+import { DotPulse } from 'ldrs/react'
+import 'ldrs/react/DotPulse.css'
 
 type Props = {
   user: number
@@ -22,16 +25,36 @@ type Props = {
 export type profileOwner = 'myProfile' | 'friendProfile' | 'guestProfile'
 
 export const UserProfile = ({ user, postId, initialPosts, initialPostSrcArray }: Props) => {
-  const skip = !!initialPosts
-  const { data: userInfo } = useGetPostsQuery({ userId: user }, { skip })
+  // const skip = !!initialPosts
+  const {
+    data: userInfo,
+    isFetching,
+    fetchNextPage,
+    hasNextPage,
+  } = useGetPostsInfiniteQuery({ userId: user, pageNumber: 1 })
 
-  const effectiveUserInfo = initialPosts ?? userInfo
+  const allPosts = userInfo?.pages.flatMap(page => page) ?? []
+
+  const effectiveUserInfo = initialPosts ?? allPosts
+
   function getImageUrlByPostId(postId: string): string[] {
     if (!effectiveUserInfo || !postId) return []
 
     const post = effectiveUserInfo.find(p => String(p.id) === postId)
-    return (post as PostItem)?.previewImages ?? []
+    return post?.previewImages ?? []
   }
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const nearBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight - 40
+      if (nearBottom && hasNextPage && !isFetching) {
+        fetchNextPage()
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [isFetching, fetchNextPage])
 
   return (
     <div className={s.profileWrapper}>
@@ -64,8 +87,8 @@ export const UserProfile = ({ user, postId, initialPosts, initialPostSrcArray }:
         </div>
       </div>
       <div className={s.userPosts}>
-        {effectiveUserInfo ? (
-          effectiveUserInfo.map((u, i) => (
+        {allPosts ? (
+          allPosts.map((u, i) => (
             <Link href={`${PATH.profile}/${user}?postId=${u.id}`} key={i}>
               <Slider isSmall srcArray={u.previewImages} />
             </Link>
@@ -74,7 +97,13 @@ export const UserProfile = ({ user, postId, initialPosts, initialPostSrcArray }:
           <div> There are no posts yet :( </div>
         )}
       </div>
-      {/*TODO Поправить типизацию. В йункцию может не прийти объект и тогда будет undefined*/}
+
+      {isFetching && (
+        <div className={s.loaderWrapper}>
+          <DotPulse size="43" speed="1.3" color="white" />
+        </div>
+      )}
+
       {effectiveUserInfo && postId && (
         <Post
           postId={Number(postId)}
