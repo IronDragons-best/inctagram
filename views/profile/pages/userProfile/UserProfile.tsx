@@ -17,14 +17,21 @@ import 'ldrs/react/DotPulse.css'
 
 type Props = {
   user: number
-  postId?: string
+  userName: string
   initialPosts?: PostItem[]
   initialPostSrcArray?: string[]
+  postId?: string
 }
 
 export type profileOwner = 'myProfile' | 'friendProfile' | 'guestProfile'
 
-export const UserProfile = ({ user, postId, initialPosts, initialPostSrcArray }: Props) => {
+export const UserProfile = ({
+  user,
+  userName,
+  postId,
+  initialPosts,
+  initialPostSrcArray,
+}: Props) => {
   // const skip = !!initialPosts
   const {
     data: userInfo,
@@ -62,7 +69,7 @@ export const UserProfile = ({ user, postId, initialPosts, initialPostSrcArray }:
         <Image src={UserProfilePicture} alt={'Main image'} width={204} height={204} />
         <div className={s.userInfo}>
           <div className={s.userActions}>
-            <h2>User name</h2>
+            <h2>{userName}</h2>
             <ButtonContainer profileOwner={'myProfile'} />
           </div>
 
@@ -107,6 +114,7 @@ export const UserProfile = ({ user, postId, initialPosts, initialPostSrcArray }:
       {effectiveUserInfo && postId && (
         <Post
           postId={Number(postId)}
+          userName={userName}
           isModalOpen={!!postId}
           srcArray={initialPostSrcArray?.length ? initialPostSrcArray : getImageUrlByPostId(postId)}
         />

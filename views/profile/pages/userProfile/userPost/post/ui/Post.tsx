@@ -15,28 +15,34 @@ import photo5 from '@/public/assets/img/stalinLike.jpg'
 import { UserHeader } from '@/shared/ui/userheader'
 
 type Props = {
-  openModal?: () => void
   isModalOpen: boolean
   postId: number
+  srcArray: string[]
+  userName: string
   title?: 'withPublish' | 'withoutPublish'
   slides?: string[]
-  srcArray: string[]
+  openModal?: () => void
 }
 
-export const Post = ({ isModalOpen, srcArray, postId }: Props) => {
+export const Post = ({ isModalOpen, srcArray, postId, userName }: Props) => {
   const params = useParams<{ userId: string }>()
 
   return (
     <PublicationModal isModalOpen={isModalOpen} srcArray={srcArray}>
       <>
         <div className={s.postUserHeader}>
-          <UserHeader postId={postId} userId={params.userId} srcArray={srcArray} />
+          <UserHeader
+            postId={postId}
+            userId={params.userId}
+            srcArray={srcArray}
+            userName={userName}
+          />
         </div>
         <div className={s.postUserCommentWrapper}>
           {/* TODO переделать потом на map */}
           <PostUserComment
             userAvatar={photo1}
-            userName={'UserName'}
+            userName={userName}
             userComment={
               'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do' +
               ' eiusmod tempor incididunt ut labore et dolore magna aliqua.'

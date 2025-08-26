@@ -4,6 +4,7 @@ import { extractPostSrcArray, fetchPostById, fetchPosts } from '@/shared/service
 
 type ParamsType = {
   userId: string
+  userName: string
 }
 
 type SearchParams = {
@@ -17,7 +18,7 @@ type Props = {
 }
 
 const UserPage = async (props: Props) => {
-  const { userId } = await props.params
+  const { userId, userName } = await props.params
   const { postId, pageNumber = 1 } = await props.searchParams
 
   // посты пользователя (SSR)
@@ -31,11 +32,14 @@ const UserPage = async (props: Props) => {
   const post = postId ? await fetchPostById(Number(postId)) : null
   const initialPostSrcArray: string[] = extractPostSrcArray(post)
 
+  const resolvedUserName = userName || post?.user?.username || initialPosts[0]?.user?.username || ''
+
   return (
     <>
       <UserProfile
         user={Number(userId)}
         postId={postId}
+        userName={resolvedUserName}
         initialPosts={initialPosts}
         initialPostSrcArray={initialPostSrcArray}
       />
