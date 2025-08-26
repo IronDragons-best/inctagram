@@ -1,7 +1,8 @@
 export const PATH = {
   home: '/',
   profile: '/profile',
-  user_profile: '/profile/70',
+  user_profile: (userId: string) => `/profile/${userId}`,
+  profile_settings: (userId: string) => `/profile/${userId}/settings`,
   confirm_registration: '/confirm-registration',
   create_new_password: '/new-password',
   expired_link: '/expired-link',
@@ -11,6 +12,5 @@ export const PATH = {
   sign_up: '/sign-up',
   privacy_policy: '/privacy-policy',
   terms_of_service: '/terms-of-service',
-  profile_settings: '/profile/settings',
   public_authorize_user: '/public-authorized-user',
 }

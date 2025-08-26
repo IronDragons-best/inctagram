@@ -29,7 +29,7 @@ export const SignIn = () => {
   const onSubmit: SubmitHandler<SignInFormTypes> = async data => {
     try {
       await signInHandler(data).unwrap()
-      router.push(PATH.user_profile)
+      window.location.reload()
     } catch (err) {
       handleFormError(err, setError, ['email', 'password'])
     }

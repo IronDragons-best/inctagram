@@ -1,7 +1,7 @@
 'use client'
 
 import { NewPublication } from '@/entities/newPublication'
-import { useLogoutMutation } from '@/features/auth/api/authApi'
+import { useLogoutMutation, useMeQuery } from '@/features/auth/api/authApi'
 import { PATH } from '@/shared/constants/path'
 import { TextModal } from '@/shared/modals/textModal'
 import { MenuItem } from '@/widgets/sidebar/ui/MenuItem'
@@ -14,7 +14,7 @@ export const Sidebar = () => {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [isNewPublicationOpen, setIsNewPublicationOpen] = useState(false)
   const [logoutHandler] = useLogoutMutation()
-
+  const { data: me } = useMeQuery({})
   const menuItems = [
     {
       text: 'Feed',
@@ -28,11 +28,15 @@ export const Sidebar = () => {
         setIsNewPublicationOpen(true)
       },
     },
-    {
-      text: 'My Profile',
-      icon: <UniversalIcon name={'person-outline'} />,
-      href: PATH.user_profile,
-    },
+    ...(me
+      ? [
+          {
+            text: 'My Profile',
+            icon: <UniversalIcon name={'person-outline'} />,
+            href: PATH.user_profile(me.id), // здесь TS уже не ругается
+          },
+        ]
+      : []),
     {
       text: 'Messenger',
       icon: <UniversalIcon name={'message-circle-outline'} />,
