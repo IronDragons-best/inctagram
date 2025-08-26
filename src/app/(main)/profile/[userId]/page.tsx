@@ -1,6 +1,6 @@
 import { UserProfile } from '@/views/profile/pages/userProfile'
 import { PostItem, PostQueryArgs } from '@/shared/schemas/types/post'
-import { extractPostSrcArray, fetchPostById, fetchPosts } from '@/shared/schemas/api/postsService'
+import { extractPostSrcArray, fetchPostById, fetchPosts } from '@/shared/services/postsService'
 
 type ParamsType = {
   userId: string

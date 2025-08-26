@@ -1,5 +1,9 @@
 import { getClient } from '@/shared/schemas/api/client'
 import type { PostItem, PostQueryArgs, PostsResponse } from '@/shared/schemas/types/post'
+import { components } from '@/shared/schemas/api/schema'
+
+type PagedPostViewDto = components['schemas']['PagedPostViewDto']
+type PostViewDto = components['schemas']['PostViewDto']
 
 /**
  * Универсальные функции получения постов.
@@ -44,4 +48,37 @@ export function extractPostSrcArray(post: PostItem | null | undefined): string[]
   if (!post) return []
   const preview = post?.previewImages as string[] | undefined
   return preview?.length ? preview : []
+}
+
+export async function fetchLatestPostForHome(): Promise<PostItem[]> {
+  const client = getClient()
+  const res = await client.GET('/posts', {
+    params: {
+      query: {
+        pageNumber: 1,
+        pageSize: 4,
+        sortBy: 'createdAt',
+        sortDirection: 'DESC',
+      },
+    },
+  })
+
+  if (res.response.status === 200) {
+    const data = res.data as PagedPostViewDto
+    const items = (data?.items ?? []).map((p: PostViewDto) => ({
+      ...p,
+      id: p.id,
+      user: {
+        userId: p.user.userId,
+        username: p.user.username,
+      },
+      description: p?.description ?? '',
+      previewImages: p.previewImages ?? [],
+      createdAt: p.createdAt,
+    })) as PostItem[]
+    return items
+  }
+
+  if (res.response.status === 404) return []
+  return []
 }

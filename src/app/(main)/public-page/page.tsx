@@ -1,4 +1,4 @@
-import { PublicPage } from 'views/publicPage/pages/public-page/ui'
+import PublicPage from 'views/publicPage/pages/public-page/ui'
 
 const Page = () => {
   return <PublicPage />
