@@ -1,1 +1,1 @@
-export { PublicPage } from './PublicPage';
+export { PublicPage } from './PublicPage'

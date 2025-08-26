@@ -1,0 +1,40 @@
+@use '../../../../../src/styles/colors' as *;
+@use '../../../../../src/styles/fonts' as *;
+
+.counter {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background-color: $dark-700;
+  padding: 11px 12px;
+  border: 1px solid $dark-300;
+  border-radius: 2px;
+}
+
+.digitContainer {
+  position: relative;
+  overflow: hidden;
+  height: 24px;
+  width: 17px;
+  color: white;
+}
+
+.digitStrip {
+  transition: transform 0.3s ease-in-out;
+  display: flex;
+  flex-direction: column;
+}
+
+.digit {
+  @include h2;
+  height: 20px;
+  text-align: center;
+  color: $light-100;
+}
+
+.separator {
+  width: 1px;
+  height: 30px;
+  background-color: $dark-300;
+  align-self: center;
+}
