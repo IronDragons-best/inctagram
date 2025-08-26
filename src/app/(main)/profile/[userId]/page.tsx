@@ -2,6 +2,8 @@ import { UserProfile } from '@/views/profile/pages/userProfile'
 import { PostItem, PostQueryArgs } from '@/shared/schemas/types/post'
 import { extractPostSrcArray, fetchPostById, fetchPosts } from '@/shared/services/postsService'
 
+export const dynamic = 'force-dynamic'
+
 type ParamsType = {
   userId: string
   userName: string
