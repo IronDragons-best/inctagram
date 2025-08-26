@@ -4,7 +4,7 @@ import s from './publicPage.module.scss'
 import { fetchLatestPostForHome } from '@/shared/services/postsService'
 import { fetchRegisteredUsersCount } from '@/shared/services/userService'
 
-export default async function PublicPage() {
+export async function PublicPage() {
   const [usersCount, items] = await Promise.all([
     fetchRegisteredUsersCount(),
     fetchLatestPostForHome(),

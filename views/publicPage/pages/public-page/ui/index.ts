@@ -1,1 +1,1 @@
-export { default } from './PublicPage'
+export { PublicPage } from './PublicPage'
