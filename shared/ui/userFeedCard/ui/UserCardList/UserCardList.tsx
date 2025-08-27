@@ -3,7 +3,7 @@
 import { UserCard } from '@/shared/ui/userFeedCard'
 import s from './UserCardList.module.scss'
 import { PostItem } from '@/shared/schemas/types/post'
-import { PATH } from '@/shared/constants/path'
+import { profilePostHref } from '@/shared/utils/links'
 
 type Props = {
   items: PostItem[]
@@ -17,7 +17,7 @@ export const UserCardList = ({ items }: Props) => {
   return (
     <div className={s['user-card-list']}>
       {items.map(p => {
-        const href = `${PATH.profile}/${p.user.userId}?postId=${p.id}`
+        const href = profilePostHref(p.user.userId, p.id)
         return (
           <UserCard
             key={p.id}

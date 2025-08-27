@@ -32,13 +32,12 @@ export const AddPublicationModalComponent = ({
   const [description, setDescription] = useState('')
   const [createPost] = useCreatePostMutation()
 
-  // берём текущего юзера (если авторизован — будет объект; иначе undefined)
   const { data: me } = useMeQuery({})
   const currentUserId = extractUserId(me) ?? ''
   const currentUserName = extractUserName(me) ?? 'User'
 
   const urlsToFiles = async (urls: string[]) => {
-    const limited = urls.slice(0, 10) // сервер — до 10 изображений
+    const limited = urls.slice(0, 10)
     const files = await Promise.all(
       limited.map(async (u, i) => {
         const res = await fetch(u)
