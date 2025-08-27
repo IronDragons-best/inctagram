@@ -22,3 +22,10 @@ export const extractUserName = (me: unknown): string | null => {
   if (hasProp(me, 'name') && isString(me.name)) return me.name
   return null
 }
+
+export const extractUserEmail = (me: unknown): string | null => {
+  if (hasProp(me, 'email') && isString(me.email)) return me.email
+  if (hasProp(me, 'mail') && isString(me.mail)) return me.mail
+  if (hasProp(me, 'emailAddress') && isString(me.emailAddress)) return me.emailAddress
+  return null
+}

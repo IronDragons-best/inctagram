@@ -1,7 +1,7 @@
 'use client'
 
 import { NewPublication } from '@/entities/newPublication'
-import { useLogoutMutation } from '@/features/auth/api/authApi'
+import { useLogoutMutation, useMeQuery } from '@/features/auth/api/authApi'
 import { PATH } from '@/shared/constants/path'
 import { TextModal } from '@/shared/modals/textModal'
 import { MenuItem } from '@/widgets/sidebar/ui/MenuItem'
@@ -9,6 +9,7 @@ import { Button, UniversalIcon } from '@irondragons/ui-lib-inctagram'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import s from './sidebar.module.scss'
+import { extractUserEmail } from '@/shared/utils/typeGuards'
 
 export const Sidebar = () => {
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -59,6 +60,8 @@ export const Sidebar = () => {
   const closeModal = () => setIsModalOpen(false)
   const router = useRouter()
   const [activeIndex, setActiveIndex] = useState<number | null>(null)
+  const { data } = useMeQuery({})
+  const email = extractUserEmail(data)
 
   const handleLogout = async () => {
     try {
@@ -72,6 +75,9 @@ export const Sidebar = () => {
   const handleMenuClick = (index: number) => {
     setActiveIndex(index)
   }
+
+  const logoutDescription =
+    'Are you really want to log out of your account' + (email ? ` ${email}` : '')
 
   return (
     <div className={s.sidebar}>
@@ -95,7 +101,7 @@ export const Sidebar = () => {
         </Button>
         <TextModal
           title={'Log out'}
-          description={'Are you really want to log out of your account'}
+          description={logoutDescription}
           openModal={closeModal}
           isModalOpen={isModalOpen}
         >
