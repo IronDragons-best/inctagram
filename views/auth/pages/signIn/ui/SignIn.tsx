@@ -1,13 +1,13 @@
 'use client'
 
-import { useSignInMutation } from '@/features/auth/api/authApi'
+import { useLazyMeQuery, useSignInMutation } from '@/features/auth/api/authApi'
 import { PATH } from '@/shared/constants/path'
 import { SignInFormTypes, signInSchema } from '@/views/auth/pages/signIn/lib/schemas/signIn'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button, Card, Input, UniversalIcon } from '@irondragons/ui-lib-inctagram'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { SubmitHandler, useForm } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import s from './signIn.module.scss'
 import { handleFormError } from '@/shared/utils/handleErrors'
 
@@ -22,14 +22,19 @@ export const SignIn = () => {
     resolver: zodResolver(signInSchema),
     mode: 'onBlur',
   })
-  const [signInHandler] = useSignInMutation()
-
   const router = useRouter()
 
-  const onSubmit: SubmitHandler<SignInFormTypes> = async data => {
+  const [signInHandler] = useSignInMutation()
+  const [getMe] = useLazyMeQuery()
+
+  const onSubmit = async (data: SignInFormTypes) => {
     try {
       await signInHandler(data).unwrap()
-      window.location.reload()
+      const currentUser = await getMe(undefined).unwrap()
+
+      if (currentUser?.id) {
+        router.push(PATH.user_profile(currentUser.id))
+      }
     } catch (err) {
       handleFormError(err, setError, ['email', 'password'])
     }

@@ -203,6 +203,7 @@ export const authApi = baseApi.injectEndpoints({
 })
 
 export const {
+  useLazyMeQuery,
   useRegistrationMutation,
   useConfirmEmailMutation,
   useExpiredLinkMutation,
