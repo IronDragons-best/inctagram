@@ -3,9 +3,11 @@
 import { PublicationModal } from '@/shared/modals/publicationModal/ui/PublicationModal'
 import { useCreatePostMutation } from '@/shared/schemas/api/postsApi'
 import { Input, TextAreaComponent } from '@irondragons/ui-lib-inctagram'
-import Image from 'next/image'
 import { useState } from 'react'
 import s from './addPublicationModalComponent.module.scss'
+import { useMeQuery } from '@/features/auth/api/authApi'
+import { UserHeader } from '@/shared/ui/userheader'
+import { extractUserId, extractUserName } from '@/shared/utils/typeGuards'
 
 const dataLocations = [
   { title: 'New York', place: 'Washington Square Park' },
@@ -29,6 +31,11 @@ export const AddPublicationModalComponent = ({
 }: AddPublicationModalComponentProps) => {
   const [description, setDescription] = useState('')
   const [createPost] = useCreatePostMutation()
+
+  // берём текущего юзера (если авторизован — будет объект; иначе undefined)
+  const { data: me } = useMeQuery({})
+  const currentUserId = extractUserId(me) ?? ''
+  const currentUserName = extractUserName(me) ?? 'User'
 
   const urlsToFiles = async (urls: string[]) => {
     const limited = urls.slice(0, 10) // сервер — до 10 изображений
@@ -78,14 +85,12 @@ export const AddPublicationModalComponent = ({
         <div className={s.info}>
           <div className={s.headerContent}>
             <div className={s.contentPost}>
-              <div className={s.userAvatar}>
-                {imageUrl[0] && (
-                  <div style={{ marginBottom: '1rem' }}>
-                    <Image src={imageUrl[0]} alt="Uploaded" width={400} height={300} />
-                  </div>
-                )}
-              </div>
-              <span className={s.userName}>URLProfile</span>
+              <UserHeader
+                userId={currentUserId}
+                srcArray={imageUrl}
+                userName={currentUserName}
+                showActions={false}
+              />
             </div>
 
             <TextAreaComponent

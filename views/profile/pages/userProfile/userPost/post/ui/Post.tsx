@@ -14,7 +14,7 @@ import photo3 from '@/public/assets/img/photo_03.jpg'
 import photo5 from '@/public/assets/img/stalinLike.jpg'
 import { UserHeader } from '@/shared/ui/userheader'
 import { useMeQuery } from '@/features/auth/api/authApi'
-import { extractUserId } from '@/shared/utils/isAuthId'
+import { extractUserId } from '@/shared/utils/typeGuards'
 
 type Props = {
   isModalOpen: boolean

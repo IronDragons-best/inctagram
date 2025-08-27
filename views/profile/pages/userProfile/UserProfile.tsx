@@ -14,7 +14,7 @@ import s from './userProfile.module.scss'
 
 import { DotPulse } from 'ldrs/react'
 import 'ldrs/react/DotPulse.css'
-import { extractUserId } from '@/shared/utils/isAuthId'
+import { extractUserId } from '@/shared/utils/typeGuards'
 import { useMeQuery } from '@/features/auth/api/authApi'
 
 type Props = {
