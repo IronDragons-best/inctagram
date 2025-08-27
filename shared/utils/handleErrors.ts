@@ -1,26 +1,39 @@
-import { Path, UseFormSetError } from 'react-hook-form'
+import { FieldValues, Path, UseFormSetError } from 'react-hook-form'
 
-type FormFieldError = { field: string; message: string }
+function hasStatusData(e: unknown): e is ErrorWithStatus {
+  return typeof e === 'object' && e !== null && ('status' in e || 'data' in e)
+}
 
-type ServerErrorData =
-  | { message: string }
-  | { fieldErrors: Record<string, string> }
-  | { errorsMessages: Array<{ field: string; message: string }> }
-  | Array<{ field: string; message: string }>
-  | null
+function hasResponse(e: unknown): e is ErrorWithResponse {
+  return typeof e === 'object' && e !== null && 'response' in e
+}
 
 // Нормализует ошибку
-export const normalizeError = (err: any): { status: number; data: ServerErrorData } => {
-  if (err && (err.status !== undefined || err.data !== undefined)) {
+export const normalizeError = (err: unknown): { status: number; data: ServerErrorData } => {
+  if (hasStatusData(err)) {
     return { status: err.status ?? 500, data: err.data ?? null }
   }
-  if (err?.response?.data) {
+  if (hasResponse(err) && err.response?.data) {
     return { status: err.response?.status ?? 500, data: err.response.data ?? null }
   }
   if (err instanceof Error) {
     return { status: 500, data: { message: err.message } }
   }
   return { status: 500, data: { message: 'Unknown error' } }
+}
+
+function isFieldErrors(d: ServerErrorData): d is { fieldErrors: Record<string, string> } {
+  return !!d && typeof d === 'object' && 'fieldErrors' in d
+}
+
+function isMessage(d: ServerErrorData): d is { message: string } {
+  return !!d && typeof d === 'object' && 'message' in d
+}
+
+function isErrorsMessages(
+  d: ServerErrorData
+): d is { errorsMessages: Array<{ field: string; message: string }> } {
+  return !!d && typeof d === 'object' && 'errorsMessages' in d
 }
 
 // Извлекаем поле и глобальное сообщение
@@ -30,36 +43,31 @@ const extractFromData = (
   if (!data) return {}
 
   if (Array.isArray(data) && data.length > 0 && typeof data[0] === 'object') {
-    return { fieldErrors: data.map((it: any) => ({ field: it.field, message: it.message })) }
+    return { fieldErrors: data.map(it => ({ field: it.field, message: it.message })) }
   }
 
-  if (Array.isArray((data as any)?.errorsMessages)) {
-    return {
-      fieldErrors: (data as any).errorsMessages.map((it: any) => ({
-        field: it.field,
-        message: it.message,
-      })),
-    }
+  if (isErrorsMessages(data)) {
+    return { fieldErrors: data.errorsMessages }
   }
 
-  if ((data as any)?.fieldErrors && typeof (data as any).fieldErrors === 'object') {
+  if (isFieldErrors(data)) {
     return {
-      fieldErrors: Object.entries((data as any).fieldErrors).map(([field, message]) => ({
+      fieldErrors: Object.entries(data.fieldErrors).map(([field, message]) => ({
         field,
-        message: String(message),
+        message,
       })),
     }
   }
 
-  if (typeof data === 'string') return { message: data }
-  if ((data as any)?.message && typeof (data as any).message === 'string')
-    return { message: (data as any).message }
+  if (isMessage(data)) {
+    return { message: data.message }
+  }
 
   return {}
 }
 
 // Бизнес ошибки — подсветка полей
-export const handleFieldErrors = <T>(
+export const handleFieldErrors = <T extends FieldValues>(
   data: ServerErrorData,
   setError: UseFormSetError<T>,
   fallbackFields: string[] = []
@@ -100,21 +108,21 @@ export const handleFieldErrors = <T>(
   return applied
 }
 // Клиентские ошибки — глобально
-export const handleGlobalError = <T>(
+export const handleGlobalError = <T extends FieldValues>(
   data: ServerErrorData,
   setError: UseFormSetError<T>,
   fallbackMessage?: string
 ) => {
   const { message } = extractFromData(data)
   const msg = message ?? fallbackMessage ?? 'Something went wrong'
-  setError('root' as any, { type: 'server', message: msg })
+  setError('root' as Path<T>, { type: 'server', message: msg })
   // TODO: сделать тост
   alert(`Error: ${msg}`)
 }
 
 // Универсальный хендлер ошибок
-export const handleFormError = <T>(
-  rawErr: any,
+export const handleFormError = <T extends FieldValues>(
+  rawErr: unknown,
   setError: UseFormSetError<T>,
   fallbackFields: string[] = [] // <-- пробрасываем сюда фоллбек поля формы
 ) => {
@@ -139,3 +147,15 @@ export const handleFormError = <T>(
     handleGlobalError(err.data, setError)
   }
 }
+
+type FormFieldError = { field: string; message: string }
+
+type ServerErrorData =
+  | { message: string }
+  | { fieldErrors: Record<string, string> }
+  | { errorsMessages: Array<{ field: string; message: string }> }
+  | Array<{ field: string; message: string }>
+  | null
+
+type ErrorWithStatus = { status?: number; data?: ServerErrorData }
+type ErrorWithResponse = { response?: { status?: number; data?: ServerErrorData } }
