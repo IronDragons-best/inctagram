@@ -7,61 +7,27 @@ import { TextModal } from '@/shared/modals/textModal'
 import { MenuItem } from '@/widgets/sidebar/ui/MenuItem'
 import { Button, UniversalIcon } from '@irondragons/ui-lib-inctagram'
 import { useRouter } from 'next/navigation'
-import { useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import s from './sidebar.module.scss'
 import { extractUserEmail } from '@/shared/utils/typeGuards'
+
+type SidebarItemBase = { text: string; iconName: string }
+type SidebarItemLink = SidebarItemBase & { href: string; onClick?: never }
+type SidebarItemAction = SidebarItemBase & { onClick: () => void; href?: never }
+type SidebarItemConfig = SidebarItemLink | SidebarItemAction
 
 export const Sidebar = () => {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [isNewPublicationOpen, setIsNewPublicationOpen] = useState(false)
   const [logoutHandler] = useLogoutMutation()
+  const { data } = useMeQuery({})
+  const email = extractUserEmail(data)
 
-  const menuItems = [
-    {
-      text: 'Feed',
-      icon: <UniversalIcon name={'home-outline'} />,
-      href: PATH.profile,
-    },
-    {
-      text: 'Create',
-      icon: <UniversalIcon name={'plus-square-outline'} />,
-      onClick: () => {
-        setIsNewPublicationOpen(true)
-      },
-    },
-    {
-      text: 'My Profile',
-      icon: <UniversalIcon name={'person-outline'} />,
-      href: PATH.user_profile,
-    },
-    {
-      text: 'Messenger',
-      icon: <UniversalIcon name={'message-circle-outline'} />,
-      href: PATH.profile,
-    },
-    {
-      text: 'Search',
-      icon: <UniversalIcon name={'search'} />,
-      href: PATH.profile,
-    },
-    {
-      text: 'Statistics',
-      icon: <UniversalIcon name={'trending-up-outline'} />,
-      href: PATH.profile,
-    },
-    {
-      text: 'Favorites',
-      icon: <UniversalIcon name={'bookmark-outline'} />,
-      href: PATH.profile,
-    },
-  ]
+  const router = useRouter()
+  const [activeIndex, setActiveIndex] = useState<number | null>(null)
 
   const openModal = () => setIsModalOpen(true)
   const closeModal = () => setIsModalOpen(false)
-  const router = useRouter()
-  const [activeIndex, setActiveIndex] = useState<number | null>(null)
-  const { data } = useMeQuery({})
-  const email = extractUserEmail(data)
 
   const handleLogout = async () => {
     try {
@@ -76,23 +42,48 @@ export const Sidebar = () => {
     setActiveIndex(index)
   }
 
+  const openNewPublication = useCallback(() => {
+    setIsNewPublicationOpen(true)
+  }, [])
+
+  const menuItems: SidebarItemConfig[] = useMemo(
+    () => [
+      { text: 'Feed', iconName: 'home-outline', href: PATH.profile },
+      { text: 'Create', iconName: 'plus-square-outline', onClick: openNewPublication },
+      { text: 'My Profile', iconName: 'person-outline', href: PATH.user_profile },
+      { text: 'Messenger', iconName: 'message-circle-outline', href: PATH.profile },
+      { text: 'Search', iconName: 'search', href: PATH.profile },
+      { text: 'Statistics', iconName: 'trending-up-outline', href: PATH.profile },
+      { text: 'Favorites', iconName: 'bookmark-outline', href: PATH.profile },
+    ],
+    [openNewPublication]
+  )
+
   const logoutDescription =
     'Are you really want to log out of your account' + (email ? ` ${email}` : '')
 
   return (
     <div className={s.sidebar}>
       <ul className={s.sidebar_menu}>
-        {menuItems.map((menuItem, index) => (
-          <MenuItem
-            key={index}
-            {...menuItem}
-            isActive={activeIndex === index}
-            onClick={() => {
-              handleMenuClick(index)
-              menuItem.onClick?.()
-            }}
-          />
-        ))}
+        {menuItems.map((item, index) => {
+          const action = 'onClick' in item ? item.onClick : undefined
+
+          const handleItemClick = () => {
+            handleMenuClick(index)
+            action?.()
+          }
+
+          return (
+            <MenuItem
+              key={item.text}
+              text={item.text}
+              icon={<UniversalIcon name={item.iconName} />}
+              href={'href' in item ? item.href : undefined}
+              isActive={activeIndex === index}
+              onClick={handleItemClick}
+            />
+          )
+        })}
       </ul>
       <ul className={s.footer}>
         <Button className={s.logoutButton} variant={'text_button'} onClick={openModal}>
