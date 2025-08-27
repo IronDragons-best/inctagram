@@ -33,7 +33,7 @@ export const Sidebar = () => {
           {
             text: 'My Profile',
             icon: <UniversalIcon name={'person-outline'} />,
-            href: PATH.user_profile(me.id), // здесь TS уже не ругается
+            href: PATH.user_profile(me.id),
           },
         ]
       : []),
