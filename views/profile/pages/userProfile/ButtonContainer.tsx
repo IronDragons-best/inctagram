@@ -5,6 +5,7 @@ import { profileOwner } from '@/views/profile/pages/userProfile/UserProfile'
 import { Button } from '@irondragons/ui-lib-inctagram'
 import { redirect } from 'next/navigation'
 import s from './userProfile.module.scss'
+import { useMeQuery } from '@/features/auth/api/authApi'
 
 type Props = {
   profileOwner: profileOwner
@@ -13,8 +14,11 @@ type Props = {
 // TODO обработчики на подписаться / отписаться / отправить сообщение
 
 export const ButtonContainer = ({ profileOwner }: Props) => {
+  const { data: me } = useMeQuery({})
+  const userId = me?.id
   const pathHandler = () => {
-    redirect(PATH.profile_settings)
+    if (!userId) return
+    redirect(PATH.profile_settings(userId))
   }
 
   return (
