@@ -21,9 +21,6 @@ export const Sidebar = () => {
   const [isNewPublicationOpen, setIsNewPublicationOpen] = useState(false)
   const [logoutHandler] = useLogoutMutation()
 
-  const { data } = useMeQuery({})
-  const email = extractUserEmail(data)
-
   const openModal = () => setIsModalOpen(true)
   const closeModal = () => setIsModalOpen(false)
   const router = useRouter()
