@@ -29,7 +29,7 @@ export const authApi = baseApi.injectEndpoints({
               data: res.error?.errorsMessages ?? res.data ?? null,
             }),
           }
-        } catch (e) {
+        } catch (e: unknown) {
           return { error: normalizeError(e) }
         }
       },
@@ -49,7 +49,7 @@ export const authApi = baseApi.injectEndpoints({
               data: res.error?.errorsMessages ?? res.data ?? null,
             }),
           }
-        } catch (e) {
+        } catch (e: unknown) {
           return { error: normalizeError(e) }
         }
       },
@@ -69,7 +69,7 @@ export const authApi = baseApi.injectEndpoints({
               data: res.error?.errorsMessages ?? res.data ?? null,
             }),
           }
-        } catch (e) {
+        } catch (e: unknown) {
           return { error: normalizeError(e) }
         }
       },
@@ -89,7 +89,7 @@ export const authApi = baseApi.injectEndpoints({
               data: res.error?.errorsMessages ?? res.data ?? null,
             }),
           }
-        } catch (e) {
+        } catch (e: unknown) {
           return { error: normalizeError(e) }
         }
       },
@@ -155,12 +155,7 @@ export const authApi = baseApi.injectEndpoints({
         }
 
         // Все остальные ошибки
-        return {
-          error: {
-            status: res.response.status,
-            data: res.data ?? 'Unknown error occurred',
-          },
-        }
+        return { error: normalizeError({ status: res.response.status, data: res.data ?? null }) }
       },
     }),
     reCaptcha: build.mutation({
@@ -194,7 +189,7 @@ export const authApi = baseApi.injectEndpoints({
           return {
             error: normalizeError(res.error ?? { status: res.response?.status, data: res.data }),
           }
-        } catch (e) {
+        } catch (e: unknown) {
           return { error: normalizeError(e) }
         }
       },
@@ -203,6 +198,7 @@ export const authApi = baseApi.injectEndpoints({
 })
 
 export const {
+  useLazyMeQuery,
   useRegistrationMutation,
   useConfirmEmailMutation,
   useExpiredLinkMutation,

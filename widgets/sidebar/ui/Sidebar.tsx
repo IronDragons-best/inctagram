@@ -20,14 +20,14 @@ export const Sidebar = () => {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [isNewPublicationOpen, setIsNewPublicationOpen] = useState(false)
   const [logoutHandler] = useLogoutMutation()
+
   const { data } = useMeQuery({})
   const email = extractUserEmail(data)
 
-  const router = useRouter()
-  const [activeIndex, setActiveIndex] = useState<number | null>(null)
-
   const openModal = () => setIsModalOpen(true)
   const closeModal = () => setIsModalOpen(false)
+  const router = useRouter()
+  const [activeIndex, setActiveIndex] = useState<number | null>(null)
 
   const handleLogout = async () => {
     try {
@@ -38,6 +38,8 @@ export const Sidebar = () => {
     }
   }
 
+  const userId = data?.id ?? ''
+
   const handleMenuClick = (index: number) => {
     setActiveIndex(index)
   }
@@ -46,17 +48,23 @@ export const Sidebar = () => {
     setIsNewPublicationOpen(true)
   }, [])
 
+  const myProfileHref = useMemo(() => (userId ? PATH.user_profile(userId) : PATH.profile), [userId])
+
   const menuItems: SidebarItemConfig[] = useMemo(
     () => [
       { text: 'Feed', iconName: 'home-outline', href: PATH.profile },
       { text: 'Create', iconName: 'plus-square-outline', onClick: openNewPublication },
-      { text: 'My Profile', iconName: 'person-outline', href: PATH.user_profile },
+      {
+        text: 'My Profile',
+        iconName: 'person-outline',
+        href: userId ? PATH.user_profile(userId) : PATH.profile,
+      },
       { text: 'Messenger', iconName: 'message-circle-outline', href: PATH.profile },
       { text: 'Search', iconName: 'search', href: PATH.profile },
       { text: 'Statistics', iconName: 'trending-up-outline', href: PATH.profile },
       { text: 'Favorites', iconName: 'bookmark-outline', href: PATH.profile },
     ],
-    [openNewPublication]
+    [openNewPublication, myProfileHref]
   )
 
   const logoutDescription =
