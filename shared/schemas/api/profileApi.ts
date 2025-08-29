@@ -1,6 +1,7 @@
 import { getClient } from '@/shared/schemas/api/client'
-import { baseApi } from '@/src/app/provider/baseApi'
+import { baseApi, TAGS } from '@/src/app/provider/baseApi'
 import { normalizeError } from '@/shared/utils/handleErrors'
+import { ProfileTag, UpdateProfile } from '@/shared/schemas/types/profile'
 
 const client = getClient()
 
@@ -24,9 +25,10 @@ export const profileApi = baseApi.injectEndpoints({
           return { error: normalizeError(e) }
         }
       },
+      providesTags: (_result, _error, userId): ProfileTag[] => [{ type: TAGS.PROFILE, id: userId }],
     }),
     updateProfile: build.mutation({
-      queryFn: async body => {
+      queryFn: async (body: UpdateProfile) => {
         try {
           const res = await client.PATCH('/profile', { body })
 
@@ -39,6 +41,7 @@ export const profileApi = baseApi.injectEndpoints({
           return { error: normalizeError(e) }
         }
       },
+      invalidatesTags: [{ type: TAGS.PROFILE, id: 'CURRENT' }],
     }),
     uploadAvatarProfile: build.mutation({
       queryFn: async (file: File) => {
@@ -59,6 +62,7 @@ export const profileApi = baseApi.injectEndpoints({
           return { error: normalizeError(e) }
         }
       },
+      invalidatesTags: [{ type: TAGS.PROFILE, id: 'CURRENT' }],
     }),
     removeAvatarProfile: build.mutation({
       queryFn: async () => {
@@ -74,6 +78,7 @@ export const profileApi = baseApi.injectEndpoints({
           return { error: normalizeError(e) }
         }
       },
+      invalidatesTags: [{ type: TAGS.PROFILE, id: 'CURRENT' }],
     }),
   }),
 })
