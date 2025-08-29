@@ -24,10 +24,10 @@ export const TextModal = ({
 }: Props) => {
   const handleOpenModal = (open: boolean) => {
     if (openModalType) {
-      openModalType(open) // вариант с boolean
+      openModalType(open)
     }
     if (openModal) {
-      openModal() // вариант без аргументов
+      openModal()
     }
   }
 

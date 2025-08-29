@@ -13,6 +13,8 @@ import photo1 from '@/public/assets/img/photo_01.png'
 import photo3 from '@/public/assets/img/photo_03.jpg'
 import photo5 from '@/public/assets/img/stalinLike.jpg'
 import { UserHeader } from '@/shared/ui/userheader'
+import { useMeQuery } from '@/features/auth/api/authApi'
+import { extractUserId } from '@/shared/utils/typeGuards'
 
 type Props = {
   isModalOpen: boolean
@@ -27,6 +29,10 @@ type Props = {
 export const Post = ({ isModalOpen, srcArray, postId, userName }: Props) => {
   const params = useParams<{ userId: string }>()
 
+  const { data } = useMeQuery({})
+  const currentUserId = extractUserId(data)
+  const canManage = currentUserId !== null && currentUserId === params.userId
+
   return (
     <PublicationModal isModalOpen={isModalOpen} srcArray={srcArray}>
       <>
@@ -36,6 +42,7 @@ export const Post = ({ isModalOpen, srcArray, postId, userName }: Props) => {
             userId={params.userId}
             srcArray={srcArray}
             userName={userName}
+            showActions={!!canManage}
           />
         </div>
         <div className={s.postUserCommentWrapper}>
