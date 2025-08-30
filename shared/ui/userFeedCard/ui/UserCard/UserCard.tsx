@@ -6,17 +6,27 @@ import { Slider } from '@/shared/ui/slider'
 import { useTimeAgo } from '@/shared/hooks/userTimeAgo'
 import s from './UserCard.module.scss'
 import { UserHeader } from '@/shared/ui/userheader'
+import Link from 'next/link'
 
 type Props = {
   userTime: Date
   srcArray: string[]
   userName: string
   userContent: string
+  href: string
   userId?: string
   postId?: number
 }
 
-export const UserCard = ({ userTime, userContent, postId, srcArray, userName, userId }: Props) => {
+export const UserCard = ({
+  userTime,
+  userContent,
+  postId,
+  srcArray,
+  userName,
+  userId,
+  href,
+}: Props) => {
   const [expanded, setExpanded] = useState(false)
   const timeAgo = useTimeAgo(userTime)
 
@@ -24,13 +34,15 @@ export const UserCard = ({ userTime, userContent, postId, srcArray, userName, us
     setExpanded(prev => !prev)
   }
 
+  const sliderEl = <Slider srcArray={srcArray} isSmall />
+
   return (
     <div className={s['user-card']}>
       <div className={s['user-card__container']}>
         <div
           className={`${s['user-card__slider']} ${expanded ? s['user-card__slider--collapsed'] : ''}`}
         >
-          <Slider srcArray={srcArray} isSmall />
+          {href ? <Link href={href}>{sliderEl}</Link> : ''}
         </div>
         <div className={s['user-card__details']}>
           <div className={s['user-card__info']}>

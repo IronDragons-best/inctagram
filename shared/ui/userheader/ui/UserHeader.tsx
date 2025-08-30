@@ -17,7 +17,7 @@ type Props = {
   userTime?: string
   children?: React.ReactNode
   showActions?: boolean
-  postId: number
+  postId?: number
   userId: string
   srcArray: string[]
   userName: string

@@ -13,6 +13,8 @@ import s from './userProfile.module.scss'
 
 import { DotPulse } from 'ldrs/react'
 import 'ldrs/react/DotPulse.css'
+import { extractUserId } from '@/shared/utils/typeGuards'
+import { useMeQuery } from '@/features/auth/api/authApi'
 import { useHydratedInfinitePosts } from './useHydratedInfinitePosts'
 import { InfiniteData } from '@reduxjs/toolkit/query'
 
@@ -44,6 +46,10 @@ export const UserProfile = ({
     return post?.previewImages ?? []
   }
 
+  const { data: me } = useMeQuery({})
+  const currentUserId = extractUserId(me)
+  const canShowProfileActions = currentUserId !== null && currentUserId === String(user)
+
   return (
     <div className={s.profileWrapper}>
       <div className={s.headingContent}>
@@ -51,7 +57,7 @@ export const UserProfile = ({
         <div className={s.userInfo}>
           <div className={s.userActions}>
             <h2>{userName}</h2>
-            <ButtonContainer profileOwner={'myProfile'} />
+            {canShowProfileActions && <ButtonContainer profileOwner={'myProfile'} />}
           </div>
 
           <div className={s.userStatisticWrapper}>
