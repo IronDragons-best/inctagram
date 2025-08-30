@@ -5,22 +5,18 @@ import { useState } from 'react'
 import { Slider } from '@/shared/ui/slider'
 import { useTimeAgo } from '@/shared/hooks/userTimeAgo'
 import s from './UserCard.module.scss'
-import photo1 from '@/public/assets/img/photo_01.png'
-import photo2 from '@/public/assets/img/photo_02.png'
-import photo3 from '@/public/assets/img/photo_03.jpg'
-import photo4 from '@/public/assets/img/photo_04.png'
-import photo5 from '@/public/assets/img/stalinLike.jpg'
 import { UserHeader } from '@/shared/ui/userheader'
 
-const photosArray = [photo1.src, photo2.src, photo3.src, photo4.src, photo5.src]
-
 type Props = {
-  userId?: string
   userTime: Date
-  userContent?: string
+  srcArray: string[]
+  userName: string
+  userContent: string
+  userId?: string
+  postId?: number
 }
 
-export const UserCard = ({ userTime, userContent }: Props) => {
+export const UserCard = ({ userTime, userContent, postId, srcArray, userName, userId }: Props) => {
   const [expanded, setExpanded] = useState(false)
   const timeAgo = useTimeAgo(userTime)
 
@@ -34,11 +30,17 @@ export const UserCard = ({ userTime, userContent }: Props) => {
         <div
           className={`${s['user-card__slider']} ${expanded ? s['user-card__slider--collapsed'] : ''}`}
         >
-          <Slider srcArray={photosArray} isSmall />
+          <Slider srcArray={srcArray} isSmall />
         </div>
         <div className={s['user-card__details']}>
           <div className={s['user-card__info']}>
-            <UserHeader userId={'2'} postId={3} srcArray={['1', '2']} />
+            <UserHeader
+              userId={userId ?? ''}
+              postId={postId ?? 0}
+              srcArray={srcArray}
+              userName={userName}
+              userTime={timeAgo}
+            />
           </div>
           <div className={s['user-card__time']}>{timeAgo}</div>
           <div className={s['user-card__content']}>

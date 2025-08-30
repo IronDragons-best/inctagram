@@ -398,7 +398,27 @@ export interface paths {
     patch?: never
     trace?: never
   }
-  '/profile/update': {
+  '/profile/{userId}': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    /**
+     * Get profile info
+     * @description This endpoint retrieves profile info
+     */
+    get: operations['ProfileController_getProfile']
+    put?: never
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  '/profile': {
     parameters: {
       query?: never
       header?: never
@@ -416,6 +436,30 @@ export interface paths {
      * @description This endpoint allows you to update your profile data
      */
     patch: operations['ProfileController_updateProfile']
+    trace?: never
+  }
+  '/profile/avatar': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get?: never
+    put?: never
+    post?: never
+    /**
+     * Delete user avatar
+     * @description This endpoint allows you to delete avatar
+     */
+    delete: operations['ProfileController_deleteAvatar']
+    options?: never
+    head?: never
+    /**
+     * Upload user avatar
+     * @description This endpoint allows you to upload avatar
+     */
+    patch: operations['ProfileController_updateAvatar']
     trace?: never
   }
   '/location/countries': {
@@ -470,6 +514,26 @@ export interface paths {
      * @description Getting all cities from the server, for list of the cities.
      */
     get: operations['LocationController_getAllCities']
+    put?: never
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  '/stats': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    /**
+     * Get stats
+     * @description Getting stats from the server, for list of the stats.
+     */
+    get: operations['StatsController_getStats']
     put?: never
     post?: never
     delete?: never
@@ -604,15 +668,10 @@ export interface components {
     }
     CreatePostInputDto: {
       /**
-       * @description title
-       * @example post title
-       */
-      title: string
-      /**
-       * @description shortDescription
+       * @description description
        * @example short description of post
        */
-      shortDescription: string
+      description: string
       /** @description Post images (max 10) */
       files: string[]
     }
@@ -644,15 +703,10 @@ export interface components {
       /** @description User who created the post. */
       user: components['schemas']['PostUserDto']
       /**
-       * @description Title of the post.
-       * @example Understanding TypeScript Decorators
-       */
-      title: string
-      /**
        * @description Content of the post.
        * @example This post explains how to use decorators in TypeScript...
        */
-      shortDescription: string
+      description: string
       /**
        * @description Preview images of the post.
        * @example [
@@ -675,6 +729,27 @@ export interface components {
       pagesCount: number
       page: number
       pageSize: number
+    }
+    ProfileViewDto: {
+      /**
+       * @description User id
+       * @default 1
+       */
+      userId: number
+      /** @default username */
+      username: string
+      /** @default John */
+      firstname: Record<string, never>
+      /** @default Doe */
+      lastname: Record<string, never>
+      /** @default New York */
+      city: Record<string, never> | null
+      /** @default USA */
+      country: Record<string, never> | null
+      /** @default Something about me */
+      aboutMe: Record<string, never> | null
+      /** @default https://s3-storage.com/bucket/somefile */
+      avatarUrl: Record<string, never> | null
     }
     ProfileInputDto: {
       /**
@@ -707,6 +782,13 @@ export interface components {
        * @example Software developer passionate about clean code and architecture
        */
       aboutMe?: string
+    }
+    UploadAvatarDto: {
+      /**
+       * Format: binary
+       * @description Image (max 1)
+       */
+      avatar: string
     }
     CountryViewDto: {
       /**
@@ -741,6 +823,18 @@ export interface components {
        * @example 1
        */
       countryId: number
+    }
+    OutputStatsViewDto: {
+      /**
+       * @description Total posts count
+       * @example 100
+       */
+      totalPostsCount: number
+      /**
+       * @description Total users count
+       * @example 100
+       */
+      totalUsersCount: number
     }
   }
   responses: never
@@ -1730,6 +1824,46 @@ export interface operations {
       }
     }
   }
+  ProfileController_getProfile: {
+    parameters: {
+      query?: never
+      header?: never
+      path: {
+        /** @description User Id */
+        userId: number
+      }
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['ProfileViewDto']
+        }
+      }
+      /** @description User id is invalid */
+      400: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['WithoutFieldErrorResponseDto']
+        }
+      }
+      /** @description Profile not found */
+      404: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['WithoutFieldErrorResponseDto']
+        }
+      }
+    }
+  }
   ProfileController_updateProfile: {
     parameters: {
       query?: never
@@ -1777,6 +1911,65 @@ export interface operations {
         content: {
           'application/json': components['schemas']['WithoutFieldErrorResponseDto']
         }
+      }
+    }
+  }
+  ProfileController_deleteAvatar: {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      /** @description Delete successfully */
+      204: {
+        headers: {
+          [name: string]: unknown
+        }
+        content?: never
+      }
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['WithoutFieldErrorResponseDto']
+        }
+      }
+      /** @description Profile not found */
+      404: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['WithoutFieldErrorResponseDto']
+        }
+      }
+    }
+  }
+  ProfileController_updateAvatar: {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    /** @description Upload user avatar */
+    requestBody: {
+      content: {
+        'multipart/form-data': components['schemas']['UploadAvatarDto']
+      }
+    }
+    responses: {
+      /** @description Upload successfully */
+      204: {
+        headers: {
+          [name: string]: unknown
+        }
+        content?: never
       }
     }
   }
@@ -1863,6 +2056,26 @@ export interface operations {
         }
         content: {
           'application/json': components['schemas']['WithoutFieldErrorResponseDto']
+        }
+      }
+    }
+  }
+  StatsController_getStats: {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      /** @description Getting stats from the server, for list of the stats. */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['OutputStatsViewDto']
         }
       }
     }

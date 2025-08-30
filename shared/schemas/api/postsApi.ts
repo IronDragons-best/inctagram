@@ -9,9 +9,10 @@ export const postsApi = baseApi.injectEndpoints({
   endpoints: build => ({
     getPosts: build.infiniteQuery<PostItem[], PostQueryArgs, number>({
       infiniteQueryOptions: {
-        initialPageParam: 2,
+        initialPageParam: 1,
         maxPages: 20,
         getNextPageParam: (lastPage, allPages, lastPageParam) => {
+          debugger
           if (lastPage.length === 0) return undefined
           return lastPageParam + 1
         },

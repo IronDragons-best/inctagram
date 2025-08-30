@@ -1,6 +1,6 @@
 'use client'
 
-import s from './animatedCounte.module.scss'
+import s from './animatedCounter.module.scss'
 import { Fragment } from 'react'
 
 type Props = {

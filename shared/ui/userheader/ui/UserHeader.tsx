@@ -1,7 +1,6 @@
 'use client'
 
 import photo2 from '@/public/assets/img/photo_02.png'
-import { useTimeAgo } from '@/shared/hooks/userTimeAgo'
 import { TextModal } from '@/shared/modals/textModal'
 import { useDeletePostMutation, useUpdatePostMutation } from '@/shared/schemas/api/postsApi'
 import { Dropdown } from '@/shared/ui/dropdown'
@@ -15,12 +14,13 @@ import s from './userHeader.module.scss'
 
 type Props = {
   isUserTime?: boolean
-  userTime?: Date
+  userTime?: string
   children?: React.ReactNode
   showActions?: boolean
   postId: number
   userId: string
   srcArray: string[]
+  userName: string
 }
 
 export const UserHeader = ({
@@ -30,6 +30,7 @@ export const UserHeader = ({
   showActions = true,
   postId,
   userId,
+  userName,
 }: Props) => {
   const [dropdownOpen, setDropdownOpen] = useState(false)
   const [editModalOpen, setEditModalOpen] = useState(false)
@@ -37,7 +38,6 @@ export const UserHeader = ({
   const [isDeleting, setIsDeleting] = useState(false)
 
   const router = useRouter()
-  const timeAgo = useTimeAgo(userTime)
 
   const [deletePost] = useDeletePostMutation()
   const [updatePost] = useUpdatePostMutation()
@@ -97,8 +97,8 @@ export const UserHeader = ({
         <Image src={photo2} alt={'photo beach'} />
       </div>
       <div className={s.userNameContainer}>
-        <span className={s.userName}>UserName</span>
-        {isUserTime && <div className={s.userTime}>{timeAgo}</div>}
+        <span className={s.userName}>{userName}</span>
+        {isUserTime && <div className={s.userTime}>{userTime}</div>}
       </div>
       {showActions && (
         <div

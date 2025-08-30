@@ -1,28 +1,37 @@
 import { useEffect, useMemo, useState } from 'react'
-import type { PostItem } from '@/shared/schemas/types/post'
-import { useGetPostsInfiniteQuery } from '@/shared/schemas/api/postsApi'
-import { skipToken } from '@reduxjs/toolkit/query/react'
+import { postsApi, useGetPostsInfiniteQuery } from '@/shared/schemas/api/postsApi'
+import { useAppDispatch } from '@/src/app/provider/store'
+import { InfinityPostsType } from '@/views/profile/pages/userProfile/UserProfile'
 
 type UseHydratedInfinitePostsProps = {
   userId: number
   pageSize?: number
-  initialPosts?: PostItem[]
+  initialPosts?: InfinityPostsType
 }
 
 export const useHydratedInfinitePosts = ({
   userId,
   pageSize = 8,
-  initialPosts = [],
+  initialPosts,
 }: UseHydratedInfinitePostsProps) => {
-  const [enabled, setEnabled] = useState(false)
-
+  const dispatch = useAppDispatch()
+  const [isFirstQuery, setIsFirstQuery] = useState(true)
   const { data, fetchNextPage, hasNextPage, isFetching, isLoading, isError, error } =
-    useGetPostsInfiniteQuery(enabled ? { userId, pageNumber: 2, pageSize } : skipToken)
-
+    useGetPostsInfiniteQuery({ userId, pageSize }, { skip: isFirstQuery })
+  console.log(data)
   useEffect(() => {
+    if (initialPosts) {
+      dispatch(
+        postsApi.util.upsertQueryData(
+          'getPosts', // имя эндпоинта
+          { userId, pageSize }, // аргументы, с которыми будет кешироваться
+          initialPosts
+        )
+      )
+    }
     const handleScroll = () => {
       const nearBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight - 40
-      if (nearBottom) setEnabled(true)
+      if (nearBottom) setIsFirstQuery(false)
       if (nearBottom && hasNextPage && !isFetching) {
         fetchNextPage()
       }
@@ -33,8 +42,9 @@ export const useHydratedInfinitePosts = ({
   }, [hasNextPage, isFetching])
 
   const allPosts = useMemo(() => {
+    const flatInitialPosts = initialPosts?.pages.flat() ?? []
     const clientPages = data?.pages.flat() ?? []
-    return [...initialPosts, ...clientPages]
+    return isFirstQuery ? [...flatInitialPosts] : [...clientPages]
   }, [initialPosts, data])
 
   return {
