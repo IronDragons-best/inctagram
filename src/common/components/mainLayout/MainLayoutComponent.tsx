@@ -9,6 +9,7 @@ import s from './mainLayout.module.scss'
 import { useMeQuery } from '@/features/auth/api/authApi'
 import { Ring } from 'ldrs/react'
 import 'ldrs/react/Ring.css'
+import { GlobalAlert } from '@/shared/ui/globalAlert/ui/GlobalAlert'
 
 export const MainLayoutComponent = ({ children }: PropsWithChildren) => {
   const { data, isLoading } = useMeQuery({})
@@ -29,6 +30,7 @@ export const MainLayoutComponent = ({ children }: PropsWithChildren) => {
         {isUserAuthorized && <Sidebar />}
         <div className={s.mainWrapper} data-isuserauthorized={isUserAuthorized}>
           {children}
+          <GlobalAlert />
         </div>
       </div>
     </div>

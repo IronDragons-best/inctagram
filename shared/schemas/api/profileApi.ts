@@ -1,7 +1,7 @@
 import { getClient } from '@/shared/schemas/api/client'
 import { baseApi, TAGS } from '@/src/app/provider/baseApi'
 import { normalizeError } from '@/shared/utils/handleErrors'
-import { ProfileTag, UpdateProfile } from '@/shared/schemas/types/profile'
+import { ProfileTag } from '@/shared/schemas/types/profile'
 
 const client = getClient()
 
@@ -28,12 +28,12 @@ export const profileApi = baseApi.injectEndpoints({
       providesTags: (_result, _error, userId): ProfileTag[] => [{ type: TAGS.PROFILE, id: userId }],
     }),
     updateProfile: build.mutation({
-      queryFn: async (body: UpdateProfile) => {
+      queryFn: async ({ userId: _userId, body }) => {
         try {
           const res = await client.PATCH('/profile', { body })
 
           if (res.response?.status === 204) {
-            return { data: undefined }
+            return { data: null }
           }
 
           return { error: normalizeError(res) }
@@ -41,10 +41,12 @@ export const profileApi = baseApi.injectEndpoints({
           return { error: normalizeError(e) }
         }
       },
-      invalidatesTags: [{ type: TAGS.PROFILE, id: 'CURRENT' }],
+      invalidatesTags: (_result, _error, { userId }): ProfileTag[] => [
+        { type: TAGS.PROFILE, id: userId },
+      ],
     }),
     uploadAvatarProfile: build.mutation({
-      queryFn: async (file: File) => {
+      queryFn: async ({ userId: _userId, file }) => {
         try {
           const formData = new FormData()
           formData.append('avatar', file)
@@ -53,24 +55,22 @@ export const profileApi = baseApi.injectEndpoints({
             body: formData as unknown as { avatar: string },
           })
 
-          if (res.response?.status === 204) {
-            return { data: undefined }
-          }
-
-          return { error: normalizeError(res) }
+          return res.response?.status === 204 ? { data: null } : { error: normalizeError(res) }
         } catch (e: unknown) {
           return { error: normalizeError(e) }
         }
       },
-      invalidatesTags: [{ type: TAGS.PROFILE, id: 'CURRENT' }],
+      invalidatesTags: (_result, _error, { userId }): ProfileTag[] => [
+        { type: TAGS.PROFILE, id: userId },
+      ],
     }),
     removeAvatarProfile: build.mutation({
-      queryFn: async () => {
+      queryFn: async ({ userId: _userId }) => {
         try {
           const res = await client.DELETE('/profile/avatar')
 
           if (res.response?.status === 204) {
-            return { data: undefined }
+            return { data: null }
           }
 
           return { error: normalizeError(res) }
@@ -78,7 +78,9 @@ export const profileApi = baseApi.injectEndpoints({
           return { error: normalizeError(e) }
         }
       },
-      invalidatesTags: [{ type: TAGS.PROFILE, id: 'CURRENT' }],
+      invalidatesTags: (_result, _error, { userId }): ProfileTag[] => [
+        { type: TAGS.PROFILE, id: userId },
+      ],
     }),
   }),
 })
