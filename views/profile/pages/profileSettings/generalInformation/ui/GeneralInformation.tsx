@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { FormProvider, useForm } from 'react-hook-form'
 import { InputsName, generalSchema } from '../lib/schema'
@@ -6,6 +7,7 @@ import { FooterForm } from './components/FooterForm'
 import { GeneralForm } from './components/GeneralForm'
 import s from './generalInformation.module.scss'
 import { useUpdateProfileMutation } from '@/shared/schemas/api/profileApi'
+import { Alert } from '@irondragons/ui-lib-inctagram'
 
 export const GeneralInformation = () => {
   const methods = useForm<InputsName>({
@@ -14,13 +16,24 @@ export const GeneralInformation = () => {
   })
 
   const [updateProfile] = useUpdateProfileMutation()
+  const [alertOpen, setAlertOpen] = useState(false)
+  const [alertMessage, setAlertMessage] = useState('')
+
+  const showAlert = (message: string) => {
+    setAlertMessage(message)
+    setAlertOpen(true)
+
+    setTimeout(() => {
+      setAlertOpen(false)
+    }, 5000)
+  }
 
   const onSubmit = async (data: InputsName) => {
     try {
       await updateProfile(data).unwrap()
-      console.log('Профиль обновлен', data)
+      showAlert('Профиль обновлен')
     } catch (err) {
-      console.error('Ошибка обновления профиля', err)
+      showAlert('Ошибка обновления профиля')
     }
   }
 
@@ -34,6 +47,9 @@ export const GeneralInformation = () => {
         <div className={s.footer}>
           <FooterForm />
         </div>
+        <Alert onClose={() => setAlertOpen(false)} isOpen={alertOpen}>
+          {alertMessage}
+        </Alert>
       </form>
     </FormProvider>
   )

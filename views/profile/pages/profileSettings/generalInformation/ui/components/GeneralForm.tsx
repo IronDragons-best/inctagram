@@ -19,6 +19,18 @@ export const GeneralForm = () => {
     from: new Date(),
   })
 
+  const dateHandler = (newRange: DateRange | undefined) => {
+    setRange(newRange)
+    // TODO бек поправит и огромный if заменится строчкой снизу
+    // setValue('dateOfBirth', newRange?.to)
+    if (newRange?.from) {
+      const day = String(newRange.from.getDate()).padStart(2, '0')
+      const month = String(newRange.from.getMonth() + 1).padStart(2, '0')
+      const year = newRange.from.getFullYear()
+      setValue('dateOfBirth', `${day}.${month}.${year}`)
+    }
+  }
+
   return (
     <div className={s.rightContent}>
       <div className={s.formName}>
@@ -57,17 +69,7 @@ export const GeneralForm = () => {
         <DatePicker
           label="Date of birth"
           value={range}
-          onChange={newRange => {
-            setRange(newRange)
-            // TODO бек поправит и огромный if заменится строчкой снизу
-            // setValue('dateOfBirth', newRange?.to)
-            if (newRange?.from) {
-              const day = String(newRange.from.getDate()).padStart(2, '0')
-              const month = String(newRange.from.getMonth() + 1).padStart(2, '0')
-              const year = newRange.from.getFullYear()
-              setValue('dateOfBirth', `${day}.${month}.${year}`)
-            }
-          }}
+          onChange={newRange => dateHandler(newRange)}
           fullWidth
         />
       </div>
@@ -123,56 +125,3 @@ export const GeneralForm = () => {
     </div>
   )
 }
-
-// [
-//   {
-//     "id": 4,
-//     "name": "Belarus",
-//     "code": "BY"
-//   },
-//   {
-//     "id": 7,
-//     "name": "France",
-//     "code": "FR"
-//   },
-//   {
-//     "id": 1,
-//     "name": "Germany",
-//     "code": "DE"
-//   },
-//   {
-//     "id": 8,
-//     "name": "Italy",
-//     "code": "IT"
-//   },
-//   {
-//     "id": 10,
-//     "name": "Poland",
-//     "code": "PL"
-//   },
-//   {
-//     "id": 2,
-//     "name": "Russia",
-//     "code": "RU"
-//   },
-//   {
-//     "id": 9,
-//     "name": "Spain",
-//     "code": "ES"
-//   },
-//   {
-//     "id": 3,
-//     "name": "Ukraine",
-//     "code": "UA"
-//   },
-//   {
-//     "id": 5,
-//     "name": "United Kingdom",
-//     "code": "GB"
-//   },
-//   {
-//     "id": 6,
-//     "name": "United States",
-//     "code": "US"
-//   }
-// ]
