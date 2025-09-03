@@ -11,60 +11,75 @@ export const GeneralForm = () => {
   const {
     register,
     clearErrors,
+    setValue,
     formState: { errors },
   } = useFormContext<InputsName>()
 
   const [range, setRange] = useState<DateRange | undefined>({
     from: new Date(),
   })
+
+  const dateHandler = (newRange: DateRange | undefined) => {
+    setRange(newRange)
+    // TODO бек поправит и огромный if заменится строчкой снизу
+    // setValue('dateOfBirth', newRange?.to)
+    if (newRange?.from) {
+      const day = String(newRange.from.getDate()).padStart(2, '0')
+      const month = String(newRange.from.getMonth() + 1).padStart(2, '0')
+      const year = newRange.from.getFullYear()
+      setValue('dateOfBirth', `${day}.${month}.${year}`)
+    }
+  }
+
   return (
     <div className={s.rightContent}>
       <div className={s.formName}>
         <Input
-          required
-          label={'Username'}
+          label={'UserName'}
           id={'username'}
           inputType={'text'}
           fullWidth
           errorText={errors.username?.message}
-          {...register('username', {
-            onChange: () => clearErrors('username'),
-          })}
+          disabled
         />
         <Input
           required
           label={'First name'}
-          id={'firstname'}
+          id={'firstName'}
           inputType={'text'}
           fullWidth
-          errorText={errors.firstname?.message}
-          {...register('firstname', {
-            onChange: () => clearErrors('firstname'),
+          errorText={errors.firstName?.message}
+          {...register('firstName', {
+            onChange: () => clearErrors('firstName'),
           })}
         />
         <Input
           required
           label={'Last name'}
-          id={'lastname'}
+          id={'lastName'}
           inputType={'text'}
           fullWidth
-          errorText={errors.lastname?.message}
-          {...register('lastname', {
-            onChange: () => clearErrors('lastname'),
+          errorText={errors.lastName?.message}
+          {...register('lastName', {
+            onChange: () => clearErrors('lastName'),
           })}
         />
       </div>
       <div className={s.datePicker}>
-        <DatePicker label={'Date of birth'} value={range} onChange={setRange} fullWidth />
+        <DatePicker
+          label="Date of birth"
+          value={range}
+          onChange={newRange => dateHandler(newRange)}
+          fullWidth
+        />
       </div>
       <div className={s.selectLive}>
         <div className={s.selectContainer}>
           <Selectbox
             idProp="select-country"
             label="Select your country"
-            name="country"
             options={[
-              { label: 'Украина', value: 'ua' },
+              { label: 'Украина', value: '1' },
               { label: 'Польша', value: 'pl' },
               { label: 'Германия', value: 'de' },
               { label: 'Франция', value: 'fr' },
@@ -75,13 +90,13 @@ export const GeneralForm = () => {
             ]}
             placeholder="Country"
             fullWidth
+            {...register('countryId')}
           />
         </div>
         <div className={s.selectContainer}>
           <Selectbox
             idProp="select-city"
             label="Select your city"
-            name="city"
             options={[
               { label: 'Харьков', value: 'ua' },
               { label: 'Киев', value: 'pl' },
@@ -93,6 +108,7 @@ export const GeneralForm = () => {
             ]}
             placeholder="City"
             fullWidth
+            {...register('cityId')}
           />
         </div>
       </div>
@@ -103,6 +119,7 @@ export const GeneralForm = () => {
           label="About me"
           id="1"
           fullWidth
+          {...register('aboutMe')}
         />
       </div>
     </div>

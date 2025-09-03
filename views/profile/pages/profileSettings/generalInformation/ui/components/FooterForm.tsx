@@ -5,13 +5,16 @@ import s from './components.module.scss'
 
 export const FooterForm = () => {
   const {
-    formState: { isValid },
+    formState: { isValid, isSubmitting },
   } = useFormContext<InputsName>()
+
   return (
     <>
       <div className={s.lineFooter}></div>
       <div className={s.buttonFooter}>
-        <Button variant="primary" children={'Save Changes'} disabled={!isValid}></Button>
+        <Button type="submit" variant="primary" disabled={!isValid || isSubmitting}>
+          Save Changes
+        </Button>
       </div>
     </>
   )
