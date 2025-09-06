@@ -5,12 +5,13 @@ import { AddAvatarSection } from './components/AddAvatarSection'
 import { FooterForm } from './components/FooterForm'
 import { GeneralForm } from './components/GeneralForm'
 import { useUpdateProfileMutation } from '@/shared/schemas/api/profileApi'
-import { mapFormToApi } from '@/views/profile/pages/profileSettings/generalInformation/lib/mapFormToApi'
 import { useEffect, useRef } from 'react'
 import { useMeQuery } from '@/features/auth/api/authApi'
 import { notifyError, notifySuccess } from '@/shared/utils/notification'
-import s from './generalInformation.module.scss'
 import { useParams } from 'next/navigation'
+import { UpdateProfile } from '@/shared/schemas/types/profile'
+import { format } from 'date-fns'
+import s from './generalInformation.module.scss'
 
 export const GeneralInformation = () => {
   const { data: currentUser } = useMeQuery(undefined)
@@ -60,7 +61,13 @@ export const GeneralInformation = () => {
   }, [currentUser, reset])
 
   const onSubmit: SubmitHandler<InputsName> = async data => {
-    const body = mapFormToApi(data)
+    const body: UpdateProfile = {
+      ...data,
+      dateOfBirth:
+        data.dateOfBirth?.from instanceof Date
+          ? format(data.dateOfBirth.from, 'dd.MM.yyyy')
+          : undefined,
+    }
     try {
       await updateProfile({ userId: Number(userId), body }).unwrap()
       sessionStorage.removeItem('profileForm')
@@ -73,13 +80,15 @@ export const GeneralInformation = () => {
 
   return (
     <FormProvider {...methods}>
-      <div className={s.content}>
-        <AddAvatarSection />
-        <GeneralForm />
-      </div>
-      <div className={s.footer}>
-        <FooterForm onSubmit={methods.handleSubmit(onSubmit)} />
-      </div>
+      <form onSubmit={methods.handleSubmit(onSubmit)}>
+        <div className={s.content}>
+          <AddAvatarSection />
+          <GeneralForm />
+        </div>
+        <div className={s.footer}>
+          <FooterForm />
+        </div>
+      </form>
     </FormProvider>
   )
 }

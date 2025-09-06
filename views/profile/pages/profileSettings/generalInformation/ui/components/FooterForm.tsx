@@ -3,7 +3,7 @@ import { useFormContext } from 'react-hook-form'
 import { InputsName } from '../../lib/schema'
 import s from './components.module.scss'
 
-export const FooterForm = ({ onSubmit }: Props) => {
+export const FooterForm = () => {
   const {
     formState: { isValid, isSubmitting },
   } = useFormContext<InputsName>()
@@ -12,14 +12,10 @@ export const FooterForm = ({ onSubmit }: Props) => {
     <>
       <div className={s.lineFooter}></div>
       <div className={s.buttonFooter}>
-        <Button variant="primary" disabled={!isValid || isSubmitting} onClick={onSubmit}>
+        <Button type="submit" variant="primary" disabled={!isValid || isSubmitting}>
           Save Changes
         </Button>
       </div>
     </>
   )
-}
-
-type Props = {
-  onSubmit: () => void
 }

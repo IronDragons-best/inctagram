@@ -4,10 +4,10 @@ import { PublicationModal } from '@/shared/modals/publicationModal/ui/Publicatio
 import { useCreatePostMutation } from '@/shared/schemas/api/postsApi'
 import { Input, TextAreaComponent } from '@irondragons/ui-lib-inctagram'
 import { useState } from 'react'
-import s from './addPublicationModalComponent.module.scss'
 import { useMeQuery } from '@/features/auth/api/authApi'
 import { UserHeader } from '@/shared/ui/userheader'
 import { extractUserId, extractUserName } from '@/shared/utils/typeGuards'
+import s from './addPublicationModalComponent.module.scss'
 
 const dataLocations = [
   { title: 'New York', place: 'Washington Square Park' },

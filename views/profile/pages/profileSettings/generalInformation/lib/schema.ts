@@ -51,7 +51,7 @@ export const generalSchema = z.object({
     .string()
     .trim()
     .max(200)
-    .regex(/^[A-Za-zА-Яа-яЁё0-9_\-\s]*$/, {
+    .regex(/^[A-Za-zА-Яа-яЁё0-9_\-\s.,!?;:()"'«»…]*$/, {
       message: 'Name can only contain 0-9, a-z, A-Z, а-я, А-Я, spaces, -, _, ',
     })
     .optional(),

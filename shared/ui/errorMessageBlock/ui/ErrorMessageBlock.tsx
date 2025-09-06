@@ -1,5 +1,5 @@
 import React from 'react'
-import s from './ErrorMessageBlock.module.scss'
+import s from './errorMessageBlock.module.scss'
 
 type Props = {
   message?: string
@@ -10,7 +10,9 @@ export const ErrorMessageBlock = ({ message }: Props) => {
 
   return (
     <div className={s.errorMessageBlock}>
-      <b>Error!</b> {message}
+      <div className={s.content}>
+        <b>Error!</b> {message}
+      </div>
     </div>
   )
 }

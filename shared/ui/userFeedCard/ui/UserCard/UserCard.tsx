@@ -4,9 +4,9 @@ import * as React from 'react'
 import { useState } from 'react'
 import { Slider } from '@/shared/ui/slider'
 import { useTimeAgo } from '@/shared/hooks/userTimeAgo'
-import s from './UserCard.module.scss'
 import { UserHeader } from '@/shared/ui/userheader'
 import Link from 'next/link'
+import s from './UserCard.module.scss'
 
 type Props = {
   userTime: Date

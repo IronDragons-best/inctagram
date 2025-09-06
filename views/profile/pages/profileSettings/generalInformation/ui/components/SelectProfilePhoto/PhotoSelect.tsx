@@ -35,8 +35,13 @@ export const PhotoSelect = ({
       const isValidType = ['image/jpeg', 'image/png'].includes(file.type)
       const isValidSize = file.size <= MAX_AVATAR_SIZE_BYTES
 
-      if (!isValidType || !isValidSize) {
-        setErrorMessage('The photo must be less than 10 Mb and have JPEG or PNG format')
+      if (!isValidType) {
+        setErrorMessage('The format of the uploaded photo must be PNG and JPEG')
+        return
+      }
+
+      if (!isValidSize) {
+        setErrorMessage('Photo size must be less than 10 MB!')
         return
       }
 

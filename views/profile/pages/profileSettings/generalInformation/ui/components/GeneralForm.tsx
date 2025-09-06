@@ -6,7 +6,7 @@ import { Controller, useFormContext } from 'react-hook-form'
 import { InputsName } from '../../lib/schema'
 import Link from 'next/link'
 import { PATH } from '@/shared/constants/path'
-import { useRouter } from 'next/navigation'
+import { useParams, useRouter } from 'next/navigation'
 import s from './components.module.scss'
 
 export const GeneralForm = () => {
@@ -14,11 +14,11 @@ export const GeneralForm = () => {
     register,
     clearErrors,
     control,
+    getValues,
     formState: { errors },
   } = useFormContext<InputsName>()
   const router = useRouter()
-
-  const { getValues } = useFormContext<InputsName>()
+  const { userId } = useParams<{ userId: string }>()
 
   const handlePrivacyClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault()
@@ -27,6 +27,7 @@ export const GeneralForm = () => {
 
     sessionStorage.setItem('profileForm', JSON.stringify(currentValues))
     sessionStorage.setItem('shouldRestoreForm', 'true')
+    sessionStorage.setItem('fromPage', PATH.profile_settings(userId))
 
     router.push(PATH.privacy_policy)
   }
@@ -37,7 +38,7 @@ export const GeneralForm = () => {
         <Input
           required
           label={'Username'}
-          id={'username'}
+          id={'userName'}
           inputType={'text'}
           fullWidth
           errorText={errors.userName?.message}
@@ -47,8 +48,8 @@ export const GeneralForm = () => {
         />
         <Input
           required
-          label={'First name'}
-          id={'firstname'}
+          label={'First Name'}
+          id={'firstName'}
           inputType={'text'}
           fullWidth
           errorText={errors.firstName?.message}
@@ -58,8 +59,8 @@ export const GeneralForm = () => {
         />
         <Input
           required
-          label={'Last name'}
-          id={'lastname'}
+          label={'Last Name'}
+          id={'lastName'}
           inputType={'text'}
           fullWidth
           errorText={errors.lastName?.message}
@@ -137,7 +138,7 @@ export const GeneralForm = () => {
           {...register('aboutMe')}
           placeholder="Type something..."
           variant="surface"
-          label="About me"
+          label="About Me"
           id="1"
           fullWidth
           error={!!errors.aboutMe}

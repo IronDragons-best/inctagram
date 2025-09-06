@@ -1,13 +1,13 @@
 import { getClient } from '@/shared/schemas/api/client'
 import { baseApi, TAGS } from '@/src/app/provider/baseApi'
 import { normalizeError } from '@/shared/utils/handleErrors'
-import { ProfileTag } from '@/shared/schemas/types/profile'
+import { ProfileTag, ProfileViewDto, UpdateProfile } from '@/shared/schemas/types/profile'
 
 const client = getClient()
 
 export const profileApi = baseApi.injectEndpoints({
   endpoints: build => ({
-    getProfile: build.query({
+    getProfile: build.query<ProfileViewDto, number>({
       queryFn: async (userId: number) => {
         try {
           const res = await client.GET('/profile/{userId}', {
@@ -16,20 +16,20 @@ export const profileApi = baseApi.injectEndpoints({
             },
           })
 
-          if (res.response?.status === 200) {
-            return { data: res.data }
+          if (res.response?.status !== 200 || !res.data) {
+            return { error: normalizeError(res) }
           }
-
-          return { error: normalizeError(res) }
+          return { data: res.data }
         } catch (e: unknown) {
           return { error: normalizeError(e) }
         }
       },
       providesTags: (_result, _error, userId): ProfileTag[] => [{ type: TAGS.PROFILE, id: userId }],
     }),
-    updateProfile: build.mutation({
-      queryFn: async ({ userId: _userId, body }) => {
+    updateProfile: build.mutation<null, { userId: number; body: UpdateProfile }>({
+      queryFn: async arg => {
         try {
+          const { body } = arg
           const res = await client.PATCH('/profile', { body })
 
           if (res.response?.status === 204) {
@@ -45,9 +45,10 @@ export const profileApi = baseApi.injectEndpoints({
         { type: TAGS.PROFILE, id: userId },
       ],
     }),
-    uploadAvatarProfile: build.mutation({
-      queryFn: async ({ userId: _userId, file }) => {
+    uploadAvatarProfile: build.mutation<null, { userId: number; file: File }>({
+      queryFn: async arg => {
         try {
+          const { file } = arg
           const formData = new FormData()
           formData.append('avatar', file)
 
@@ -64,8 +65,8 @@ export const profileApi = baseApi.injectEndpoints({
         { type: TAGS.PROFILE, id: userId },
       ],
     }),
-    removeAvatarProfile: build.mutation({
-      queryFn: async ({ userId: _userId }) => {
+    removeAvatarProfile: build.mutation<null, { userId: number }>({
+      queryFn: async _arg => {
         try {
           const res = await client.DELETE('/profile/avatar')
 
