@@ -30,11 +30,6 @@ const UserPage = async (props: Props) => {
   } as PostQueryArgs
   const initialPosts: PostItem[] = await fetchPosts(postsQuery)
 
-  const infiniteData = {
-    pages: [initialPosts],
-    pageParams: [1],
-  }
-
   // для модалки: картинки выбранного поста (SSR)
   const post = postId ? await fetchPostById(Number(postId)) : null
   const initialPostSrcArray: string[] = extractPostSrcArray(post)
@@ -47,7 +42,7 @@ const UserPage = async (props: Props) => {
         user={Number(userId)}
         postId={postId}
         userName={resolvedUserName}
-        initialPosts={infiniteData}
+        initialPosts={initialPosts}
         initialPostSrcArray={initialPostSrcArray}
       />
     </>

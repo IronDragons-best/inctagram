@@ -23,7 +23,7 @@ export type InfinityPostsType = InfiniteData<PostItem[], number>
 type Props = {
   user: number
   userName: string
-  initialPosts?: InfinityPostsType
+  initialPosts?: PostItem[]
   initialPostSrcArray?: string[]
   postId?: string
 }
