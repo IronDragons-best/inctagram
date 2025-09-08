@@ -4,9 +4,9 @@ import React from 'react'
 import { TextModal } from '@/shared/modals/textModal'
 import { Button } from '@irondragons/ui-lib-inctagram'
 import { useRemoveAvatarProfileMutation } from '@/shared/schemas/api/profileApi'
-import s from '@/widgets/sidebar/ui/sidebar.module.scss'
 import { useParams } from 'next/navigation'
-import { notifyError } from '@/shared/utils/notification'
+import { showGlobalAlert } from '@/shared/hooks/useGlobalAlert'
+import s from '@/widgets/sidebar/ui/sidebar.module.scss'
 
 type DeleteImageProps = {
   setFinalImage: (img: string | null) => void
@@ -30,7 +30,7 @@ export const DeleteImage = ({
       setFinalImage(null)
       onClose()
     } catch {
-      notifyError('Failed to delete avatar')
+      showGlobalAlert('Failed to delete avatar', 'error')
     }
   }
 

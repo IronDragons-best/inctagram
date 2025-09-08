@@ -1,4 +1,4 @@
-import { useGlobalAlert } from '@/shared/hooks/globalAlert'
+import { useGlobalAlert } from '@/shared/hooks/useGlobalAlert'
 import { Alert } from '@irondragons/ui-lib-inctagram'
 
 export const GlobalAlert = () => {

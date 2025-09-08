@@ -4,9 +4,9 @@ import { useState } from 'react'
 import { Button, UniversalIcon } from '@irondragons/ui-lib-inctagram'
 import { SelectProfilePhoto } from '@/views/profile/pages/profileSettings/generalInformation/ui/components/SelectProfilePhoto/SelectProfilePhoto'
 import { useUploadAvatarProfileMutation } from '@/shared/schemas/api/profileApi'
-import { notifyError } from '@/shared/utils/notification'
 import s from './components.module.scss'
 import { useParams } from 'next/navigation'
+import { showGlobalAlert } from '@/shared/hooks/useGlobalAlert'
 
 export const AddAvatarSection = () => {
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -25,7 +25,7 @@ export const AddAvatarSection = () => {
     try {
       await uploadAvatarProfile({ userId: Number(userId), file }).unwrap()
     } catch {
-      notifyError('Avatar upload failed')
+      showGlobalAlert('Avatar upload failed', 'error')
     }
   }
 

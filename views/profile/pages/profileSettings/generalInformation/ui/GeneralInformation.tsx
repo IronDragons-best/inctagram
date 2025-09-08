@@ -7,10 +7,10 @@ import { GeneralForm } from './components/GeneralForm'
 import { useUpdateProfileMutation } from '@/shared/schemas/api/profileApi'
 import { useEffect, useRef } from 'react'
 import { useMeQuery } from '@/features/auth/api/authApi'
-import { notifyError, notifySuccess } from '@/shared/utils/notification'
 import { useParams } from 'next/navigation'
 import { UpdateProfile } from '@/shared/schemas/types/profile'
 import { format } from 'date-fns'
+import { showGlobalAlert } from '@/shared/hooks/useGlobalAlert'
 import s from './generalInformation.module.scss'
 
 export const GeneralInformation = () => {
@@ -72,9 +72,9 @@ export const GeneralInformation = () => {
       await updateProfile({ userId: Number(userId), body }).unwrap()
       sessionStorage.removeItem('profileForm')
       sessionStorage.removeItem('shouldRestoreForm')
-      notifySuccess('Your settings are saved!')
+      showGlobalAlert('Your settings are saved!', 'success')
     } catch {
-      notifyError('Server is not available!')
+      showGlobalAlert('Server is not available!', 'error')
     }
   }
 
