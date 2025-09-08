@@ -27,9 +27,15 @@ export const commonSchema = z.object({
     .regex(/^[A-Za-z0-9_-]+$/, {
       message: 'Name can only contain 0-9, a-z, A-Z, -, _',
     }),
-  email: z.string().email({
-    message: 'The email must match the format example@example.com',
-  }),
+  email: z
+    .string()
+    .email({
+      message: 'The email must match the format example@example.com',
+    })
+    .regex(
+      /^[\w-]+(?:\.[\w-]+)*@([\w-]+\.)+[\w-]{2,}$/,
+      'The email must match the format example@example.com'
+    ),
   password: passwordSchema,
   passwordConfirmation: z.string(),
   agreeToTerms: z.boolean(),
