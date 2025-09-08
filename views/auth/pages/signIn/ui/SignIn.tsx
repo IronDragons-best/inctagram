@@ -17,10 +17,11 @@ export const SignIn = () => {
     clearErrors,
     handleSubmit,
     setError,
-    formState: { isValid, errors },
+    formState: { errors },
   } = useForm<SignInFormTypes>({
     resolver: zodResolver(signInSchema),
     mode: 'onBlur',
+    reValidateMode: 'onSubmit',
   })
   const router = useRouter()
 
@@ -36,7 +37,7 @@ export const SignIn = () => {
         router.push(PATH.user_profile(currentUser.id))
       }
     } catch (err) {
-      handleFormError(err, setError, ['email', 'password'])
+      handleFormError(err, setError, ['password'])
     }
   }
 
@@ -83,7 +84,7 @@ export const SignIn = () => {
             <Link href={PATH.forgot_password}>Forgot Password</Link>
           </div>
           <div className={s.buttonWraper}>
-            <Button variant="primary" fullWidth disabled={!isValid}>
+            <Button variant="primary" fullWidth>
               Sign In
             </Button>
           </div>
