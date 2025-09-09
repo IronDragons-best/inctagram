@@ -11,6 +11,7 @@ type PreviewImageProps = {
   onClose: () => void
   isImage: boolean
   setFinalImage: (img: string | null) => void
+  onSaveAvatar: (file: File) => Promise<void>
 }
 
 export const PreviewImage = ({
@@ -19,6 +20,7 @@ export const PreviewImage = ({
   onClose,
   isImage,
   setFinalImage,
+  onSaveAvatar,
 }: PreviewImageProps) => {
   const [position, setPosition] = useState({ x: 0, y: 0 })
   const imageRef = useRef<HTMLImageElement>(null)
@@ -31,7 +33,7 @@ export const PreviewImage = ({
     }))
   }
 
-  const cropAndSaveImage = () => {
+  const cropAndSaveImage = async () => {
     if (!previewUrl || !imageRef.current) return
 
     const img = imageRef.current
@@ -67,6 +69,10 @@ export const PreviewImage = ({
     ctx.drawImage(img, sx, sy, sourceWidth, sourceHeight, 0, 0, size, size)
 
     const croppedImage = canvas.toDataURL('image/png')
+    const blob = await (await fetch(croppedImage)).blob()
+    const file = new File([blob], 'avatar.png', { type: 'image/png' })
+    await onSaveAvatar(file)
+
     setFinalImage(croppedImage)
     onClose()
   }

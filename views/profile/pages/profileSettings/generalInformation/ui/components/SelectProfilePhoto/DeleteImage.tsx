@@ -3,6 +3,9 @@
 import React from 'react'
 import { TextModal } from '@/shared/modals/textModal'
 import { Button } from '@irondragons/ui-lib-inctagram'
+import { useRemoveAvatarProfileMutation } from '@/shared/schemas/api/profileApi'
+import { useParams } from 'next/navigation'
+import { showGlobalAlert } from '@/shared/hooks/useGlobalAlert'
 import s from '@/widgets/sidebar/ui/sidebar.module.scss'
 
 type DeleteImageProps = {
@@ -18,27 +21,35 @@ export const DeleteImage = ({
   onClose,
   openModalType,
 }: DeleteImageProps) => {
-  const handelDelete = () => {
-    setFinalImage(null)
-    onClose()
+  const [removeAvatar] = useRemoveAvatarProfileMutation()
+  const { userId } = useParams<{ userId: string }>()
+
+  const handleDelete = async () => {
+    try {
+      await removeAvatar({ userId: Number(userId) })
+      setFinalImage(null)
+      onClose()
+    } catch {
+      showGlobalAlert('Failed to delete avatar', 'error')
+    }
   }
 
   return (
     <div>
       <TextModal
         title={'Delete Photo'}
-        description={'Are you really want to log out of your account'}
+        description={'Do you really want to delete your profile photo?'}
         openModalType={openModalType}
         isModalOpen={isOpen}
       >
-        <>
-          <Button variant={'outline'} onClick={handelDelete}>
+        <div>
+          <Button variant={'outline'} onClick={handleDelete}>
             Yes
           </Button>
           <Button variant={'primary'} className={s.modalButton} onClick={onClose}>
             No
           </Button>
-        </>
+        </div>
       </TextModal>
     </div>
   )

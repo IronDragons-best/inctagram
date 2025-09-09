@@ -7,9 +7,15 @@ type SelectProfilePhotoProps = {
   mode: 'photo' | 'delete'
   onClose: () => void
   setFinalImage: (img: string | null) => void
+  onSaveAvatar: (file: File) => Promise<void>
 }
 
-export const SelectProfilePhoto = ({ mode, onClose, setFinalImage }: SelectProfilePhotoProps) => {
+export const SelectProfilePhoto = ({
+  mode,
+  onClose,
+  setFinalImage,
+  onSaveAvatar,
+}: SelectProfilePhotoProps) => {
   const [photoModalOpen, setPhotoModalOpen] = useState(mode === 'photo')
   const [deleteModalOpen, setDeleteModalOpen] = useState(mode === 'delete')
   const [previewImageOpen, setPreviewImageOpen] = useState(false)
@@ -43,6 +49,7 @@ export const SelectProfilePhoto = ({ mode, onClose, setFinalImage }: SelectProfi
         onClose={handlePreviewImageClose}
         isImage={isImage}
         setFinalImage={setFinalImage}
+        onSaveAvatar={onSaveAvatar}
       />
       <DeleteImage
         setFinalImage={setFinalImage}
