@@ -15,6 +15,7 @@ import photo5 from '@/public/assets/img/stalinLike.jpg'
 import { UserHeader } from '@/shared/ui/userheader'
 import { useMeQuery } from '@/features/auth/api/authApi'
 import { extractUserId } from '@/shared/utils/typeGuards'
+import { useGetPostByIdQuery } from '@/shared/schemas/api/postsApi'
 
 type Props = {
   isModalOpen: boolean
@@ -33,6 +34,8 @@ export const Post = ({ isModalOpen, srcArray, postId, userName }: Props) => {
   const currentUserId = extractUserId(data)
   const canManage = currentUserId !== null && currentUserId === params.userId
 
+  const { data: post } = useGetPostByIdQuery(postId)
+
   return (
     <PublicationModal isModalOpen={isModalOpen} srcArray={srcArray}>
       <>
@@ -50,10 +53,7 @@ export const Post = ({ isModalOpen, srcArray, postId, userName }: Props) => {
           <PostUserComment
             userAvatar={photo1}
             userName={userName}
-            userComment={
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do' +
-              ' eiusmod tempor incididunt ut labore et dolore magna aliqua.'
-            }
+            userComment={post?.description ?? ''}
           />
           <PostUserComment
             userAvatar={photo3}
