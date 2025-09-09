@@ -6,7 +6,7 @@ import { Slider } from '@/shared/ui/slider'
 import { useTimeAgo } from '@/shared/hooks/userTimeAgo'
 import { UserHeader } from '@/shared/ui/userheader'
 import Link from 'next/link'
-import s from './UserCard.module.scss'
+import s from './userCard.module.scss'
 
 type Props = {
   userTime: Date
@@ -37,15 +37,13 @@ export const UserCard = ({
   const sliderEl = <Slider srcArray={srcArray} isSmall />
 
   return (
-    <div className={s['user-card']}>
-      <div className={s['user-card__container']}>
-        <div
-          className={`${s['user-card__slider']} ${expanded ? s['user-card__slider--collapsed'] : ''}`}
-        >
+    <div className={s.userCard}>
+      <div className={s.container}>
+        <div className={`${s.slider} ${expanded ? s.collapsed : ''}`}>
           {href ? <Link href={href}>{sliderEl}</Link> : ''}
         </div>
-        <div className={s['user-card__details']}>
-          <div className={s['user-card__info']}>
+        <div className={s.details}>
+          <div className={s.info}>
             <UserHeader
               userId={userId ?? ''}
               postId={postId ?? 0}
@@ -54,14 +52,10 @@ export const UserCard = ({
               userTime={timeAgo}
             />
           </div>
-          <div className={s['user-card__time']}>{timeAgo}</div>
-          <div className={s['user-card__content']}>
-            <p
-              className={`${s['user-card__text']} ${expanded ? s['user-card__text--expanded'] : ''}`}
-            >
-              {userContent}
-            </p>
-            <span className={s['user-card__toggle']} onClick={toggleText}>
+          <div className={s.time}>{timeAgo}</div>
+          <div className={s.content}>
+            <p className={`${s.text} ${expanded ? s.expanded : ''}`}>{userContent}</p>
+            <span className={s.toggle} onClick={toggleText}>
               {expanded ? 'Hide' : 'Show more'}
             </span>
           </div>
