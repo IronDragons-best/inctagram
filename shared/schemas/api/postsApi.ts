@@ -1,25 +1,9 @@
 import { getClient } from '@/shared/schemas/api/client'
 import { CreatePost, PostItem, PostQueryArgs, PostTag } from '@/shared/schemas/types/post'
 import { baseApi, TAGS } from '@/src/app/provider/baseApi'
-import { normalizeError } from '@/shared/utils/handleErrors'
-
-type RequestResult<T> = { data: T } | { error: ReturnType<typeof normalizeError> }
+import { handleRequest } from '@/shared/utils/handleRequest'
 
 const client = getClient()
-
-async function handleRequest<T>(
-  fn: () => Promise<{ data: T; response: { status: number } }>
-): Promise<RequestResult<T>> {
-  try {
-    const res = await fn()
-    if (res.response.status >= 200 && res.response.status < 300) {
-      return { data: res.data }
-    }
-    return { error: normalizeError({ status: res.response.status, data: res.data }) }
-  } catch (e) {
-    return { error: normalizeError(e) }
-  }
-}
 
 export const postsApi = baseApi.injectEndpoints({
   endpoints: build => ({
