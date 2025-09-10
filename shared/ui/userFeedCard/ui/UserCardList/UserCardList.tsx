@@ -1,9 +1,9 @@
 'use client'
 
 import { UserCard } from '@/shared/ui/userFeedCard'
+import s from './UserCardList.module.scss'
 import { PostItem } from '@/shared/schemas/types/post'
 import { profilePostHref } from '@/shared/utils/links'
-import s from './UserCardList.module.scss'
 
 type Props = {
   items: PostItem[]

@@ -462,43 +462,6 @@ export interface paths {
     patch: operations['ProfileController_updateAvatar']
     trace?: never
   }
-  '/subscriptions': {
-    parameters: {
-      query?: never
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    get?: never
-    put?: never
-    /**
-     * Create new subscription
-     * @description This endpoint allow you to create subscription.
-     */
-    post: operations['SubscriptionController_createSubscription']
-    delete?: never
-    options?: never
-    head?: never
-    patch?: never
-    trace?: never
-  }
-  '/subscriptions/tariffs': {
-    parameters: {
-      query?: never
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    /** Get all available subscription plans. */
-    get: operations['SubscriptionController_getTariffs']
-    put?: never
-    post?: never
-    delete?: never
-    options?: never
-    head?: never
-    patch?: never
-    trace?: never
-  }
   '/location/countries': {
     parameters: {
       query?: never
@@ -645,7 +608,6 @@ export interface components {
       username: string
       email: string
       isConfirmed: boolean
-      hasActiveSubscription: boolean
     }
     PasswordRecoveryInputDto: {
       /**
@@ -828,47 +790,7 @@ export interface components {
        */
       avatar: string
     }
-    CreateSubscriptionInputDto: {
-      /**
-       * @description Subscription duration in month
-       * @example 12
-       */
-      duration: number
-      /**
-       * @description Subscription plan
-       * @example monthly
-       * @enum {string}
-       */
-      planType: 'monthly' | 'yearly'
-      /**
-       * @description Payment method
-       * @example stripe
-       * @enum {string}
-       */
-      paymentMethod: 'stripe' | 'paypal'
-    }
-    NewSubscriptionViewDto: {
-      /** @default example.com/payment/23 */
-      paymentUrl: string
-      /** @default monthly */
-      planType: Record<string, never>
-      /** @default stripe */
-      paymentMethod: Record<string, never>
-      /** @default pending */
-      status: Record<string, never>
-    }
-    SubscriptionPlanViewDto: {
-      /** @default business */
-      plan: Record<string, never>
-      /** @default 2.49 */
-      price: number
-    }
-    PagedSubscriptionPlansViewDto: {
-      /** @description Array of Subscription plans */
-      plans: components['schemas']['SubscriptionPlanViewDto'][]
-      /** @default personal */
-      currentPlan: Record<string, never>
-    }
+
     CountryViewDto: {
       /**
        * @description Country id
@@ -2049,67 +1971,6 @@ export interface operations {
           [name: string]: unknown
         }
         content?: never
-      }
-    }
-  }
-  SubscriptionController_createSubscription: {
-    parameters: {
-      query?: never
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    /** @description Subscription data to create */
-    requestBody: {
-      content: {
-        'application/json': components['schemas']['CreateSubscriptionInputDto']
-      }
-    }
-    responses: {
-      201: {
-        headers: {
-          [name: string]: unknown
-        }
-        content: {
-          'application/json': components['schemas']['NewSubscriptionViewDto']
-        }
-      }
-      /** @description User is not authenticated or token expired */
-      401: {
-        headers: {
-          [name: string]: unknown
-        }
-        content: {
-          'application/json': components['schemas']['WithoutFieldErrorResponseDto']
-        }
-      }
-      /** @description Profile not found */
-      404: {
-        headers: {
-          [name: string]: unknown
-        }
-        content: {
-          'application/json': components['schemas']['WithoutFieldErrorResponseDto']
-        }
-      }
-    }
-  }
-  SubscriptionController_getTariffs: {
-    parameters: {
-      query?: never
-      header?: never
-      path?: never
-      cookie?: never
-    }
-    requestBody?: never
-    responses: {
-      200: {
-        headers: {
-          [name: string]: unknown
-        }
-        content: {
-          'application/json': components['schemas']['PagedSubscriptionPlansViewDto']
-        }
       }
     }
   }

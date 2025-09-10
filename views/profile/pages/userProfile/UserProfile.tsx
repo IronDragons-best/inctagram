@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect } from 'react'
+import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import UserProfilePicture from '@/public/assets/image 1.png'
@@ -8,7 +8,6 @@ import { PATH } from '@/shared/constants/path'
 import { ButtonContainer } from '@/views/profile/pages/userProfile/ButtonContainer'
 import { Post } from '@/views/profile/pages/userProfile/userPost/post'
 import { Slider } from '@/shared/ui/slider'
-import { useGetPostsInfiniteQuery } from '@/shared/schemas/api/postsApi'
 import { PostItem } from '@/shared/schemas/types/post'
 import s from './userProfile.module.scss'
 
@@ -16,6 +15,10 @@ import { DotPulse } from 'ldrs/react'
 import 'ldrs/react/DotPulse.css'
 import { extractUserId } from '@/shared/utils/typeGuards'
 import { useMeQuery } from '@/features/auth/api/authApi'
+import { useHydratedInfinitePosts } from './useHydratedInfinitePosts'
+import { InfiniteData } from '@reduxjs/toolkit/query'
+
+export type InfinityPostsType = InfiniteData<PostItem[], number>
 
 type Props = {
   user: number
@@ -34,36 +37,14 @@ export const UserProfile = ({
   initialPosts,
   initialPostSrcArray,
 }: Props) => {
-  // const skip = !!initialPosts
-  const {
-    data: userInfo,
-    isFetching,
-    fetchNextPage,
-    hasNextPage,
-  } = useGetPostsInfiniteQuery({ userId: user, pageNumber: 1 })
-
-  const allPosts = userInfo?.pages.flatMap(page => page) ?? []
-
-  const effectiveUserInfo = initialPosts ?? allPosts
+  const { allPosts, isFetching } = useHydratedInfinitePosts({ userId: user, initialPosts })
 
   function getImageUrlByPostId(postId: string): string[] {
-    if (!effectiveUserInfo || !postId) return []
+    if (!allPosts || !postId) return []
 
-    const post = effectiveUserInfo.find(p => String(p.id) === postId)
+    const post = allPosts.find(p => String(p.id) === postId)
     return post?.previewImages ?? []
   }
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const nearBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight - 40
-      if (nearBottom && hasNextPage && !isFetching) {
-        fetchNextPage()
-      }
-    }
-
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [isFetching, fetchNextPage])
 
   const { data: me } = useMeQuery({})
   const currentUserId = extractUserId(me)
@@ -111,13 +92,11 @@ export const UserProfile = ({
         )}
       </div>
 
-      {isFetching && (
-        <div className={s.loaderWrapper}>
-          <DotPulse size="43" speed="1.3" color="white" />
-        </div>
-      )}
+      <div className={s.loaderWrapper}>
+        {isFetching && <DotPulse size="43" speed="1.3" color="white" />}
+      </div>
 
-      {effectiveUserInfo && postId && (
+      {allPosts && postId && (
         <Post
           postId={Number(postId)}
           userName={userName}

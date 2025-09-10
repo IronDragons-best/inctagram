@@ -21,12 +21,12 @@ type Props = {
 
 const UserPage = async (props: Props) => {
   const { userId, userName } = await props.params
-  const { postId, pageNumber = 1 } = await props.searchParams
+  const { postId } = await props.searchParams
 
   // посты пользователя (SSR)
   const postsQuery: PostQueryArgs = {
     userId: Number(userId),
-    pageNumber: Number(pageNumber),
+    pageSize: 8,
   } as PostQueryArgs
   const initialPosts: PostItem[] = await fetchPosts(postsQuery)
 

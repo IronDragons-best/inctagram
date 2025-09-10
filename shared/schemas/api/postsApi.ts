@@ -1,6 +1,6 @@
 import { getClient } from '@/shared/schemas/api/client'
 import { CreatePost, PostItem, PostQueryArgs, PostTag } from '@/shared/schemas/types/post'
-import { TAGS, baseApi } from '@/src/app/provider/baseApi'
+import { baseApi, TAGS } from '@/src/app/provider/baseApi'
 
 const client = getClient()
 
@@ -8,13 +8,13 @@ export const postsApi = baseApi.injectEndpoints({
   endpoints: build => ({
     getPosts: build.infiniteQuery<PostItem[], PostQueryArgs, number>({
       infiniteQueryOptions: {
-        initialPageParam: 1,
-        maxPages: 10,
-        getNextPageParam: (lastPage, allPages, lastPageParam) => {
+        initialPageParam: 2,
+        maxPages: 20,
+        getNextPageParam: (lastPage, _allPages, lastPageParam) => {
           if (lastPage.length === 0) return undefined
           return lastPageParam + 1
         },
-        getPreviousPageParam: (firstPage, allPages, firstPageParam) => {
+        getPreviousPageParam: (_firstPage, _allPages, firstPageParam) => {
           return firstPageParam > 0 ? firstPageParam - 1 : undefined
         },
       },
@@ -23,7 +23,6 @@ export const postsApi = baseApi.injectEndpoints({
         try {
           const pageParams = arg.pageParam
           const queryArgs = arg.queryArg
-
           const res = await client.GET('/posts', {
             params: { query: { ...queryArgs, pageNumber: pageParams } },
           })
@@ -51,13 +50,16 @@ export const postsApi = baseApi.injectEndpoints({
         }
       },
 
-      // 🏷️ Теги для кэш-инвалидации
-      // providesTags: ( result ) =>
-      //   result
-      //     ? [
-      //       { type: TAGS.POST, id:  result.pages,  }
-      //     ]
-      //     : [{ type: TAGS.POST, id: 'LIST' }],
+      providesTags: result => {
+        return result
+          ? [
+              { type: TAGS.POST, id: 'LIST' },
+              ...result.pages.flatMap(page =>
+                Array.isArray(page) ? page.map(post => ({ type: TAGS.POST, id: post.id })) : []
+              ),
+            ]
+          : [{ type: TAGS.POST, id: 'LIST' }]
+      },
     }),
 
     getPostById: build.query({
@@ -87,7 +89,7 @@ export const postsApi = baseApi.injectEndpoints({
           }
         }
       },
-      providesTags: (_result, _error, id): PostTag[] => [{ type: TAGS.POST, id }],
+      providesTags: (_result, _error, id): PostTag[] => [{ type: TAGS.POST, id } as const],
     }),
 
     createPost: build.mutation({
@@ -116,7 +118,7 @@ export const postsApi = baseApi.injectEndpoints({
           }
         }
       },
-      invalidatesTags: [{ type: TAGS.POST, id: 'LIST' }],
+      invalidatesTags: () => [{ type: TAGS.POST, id: 'LIST' }],
     }),
 
     updatePost: build.mutation({
@@ -146,7 +148,7 @@ export const postsApi = baseApi.injectEndpoints({
           }
         }
       },
-      invalidatesTags: (result, error, { id }): PostTag[] => [{ type: TAGS.POST, id }],
+      invalidatesTags: (_result, _error, { id }): PostTag[] => [{ type: TAGS.POST, id }],
     }),
 
     deletePost: build.mutation({
@@ -175,7 +177,7 @@ export const postsApi = baseApi.injectEndpoints({
           }
         }
       },
-      invalidatesTags: (result, error, id): PostTag[] => [{ type: TAGS.POST, id }],
+      invalidatesTags: (_result, _error, id): PostTag[] => [{ type: TAGS.POST, id }],
     }),
   }),
 })
