@@ -1,50 +1,54 @@
 'use client'
 
+import React from 'react'
 import { DatePicker, Input, Selectbox, TextAreaComponent } from '@irondragons/ui-lib-inctagram'
-import { useFormContext } from 'react-hook-form'
+import { Controller, useFormContext } from 'react-hook-form'
 import { InputsName } from '../../lib/schema'
+import Link from 'next/link'
+import { PATH } from '@/shared/constants/path'
+import { useParams, useRouter } from 'next/navigation'
 import s from './components.module.scss'
-import { useState } from 'react'
-import { DateRange } from 'react-day-picker'
 
 export const GeneralForm = () => {
   const {
     register,
     clearErrors,
-    setValue,
+    control,
+    getValues,
     formState: { errors },
   } = useFormContext<InputsName>()
+  const router = useRouter()
+  const { userId } = useParams<{ userId: string }>()
 
-  const [range, setRange] = useState<DateRange | undefined>({
-    from: new Date(),
-  })
+  const handlePrivacyClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault()
 
-  const dateHandler = (newRange: DateRange | undefined) => {
-    setRange(newRange)
-    // TODO бек поправит и огромный if заменится строчкой снизу
-    // setValue('dateOfBirth', newRange?.to)
-    if (newRange?.from) {
-      const day = String(newRange.from.getDate()).padStart(2, '0')
-      const month = String(newRange.from.getMonth() + 1).padStart(2, '0')
-      const year = newRange.from.getFullYear()
-      setValue('dateOfBirth', `${day}.${month}.${year}`)
-    }
+    const currentValues = getValues()
+
+    sessionStorage.setItem('profileForm', JSON.stringify(currentValues))
+    sessionStorage.setItem('shouldRestoreForm', 'true')
+    sessionStorage.setItem('fromPage', PATH.profile_settings(userId))
+
+    router.push(PATH.privacy_policy)
   }
 
   return (
     <div className={s.rightContent}>
       <div className={s.formName}>
         <Input
-          label={'UserName'}
-          id={'username'}
+          required
+          label={'Username'}
+          id={'userName'}
           inputType={'text'}
           fullWidth
-          errorText={errors.username?.message}
-          disabled
+          errorText={errors.userName?.message}
+          {...register('userName', {
+            onChange: () => clearErrors('userName'),
+          })}
         />
         <Input
           required
-          label={'First name'}
+          label={'First Name'}
           id={'firstName'}
           inputType={'text'}
           fullWidth
@@ -55,7 +59,7 @@ export const GeneralForm = () => {
         />
         <Input
           required
-          label={'Last name'}
+          label={'Last Name'}
           id={'lastName'}
           inputType={'text'}
           fullWidth
@@ -66,11 +70,28 @@ export const GeneralForm = () => {
         />
       </div>
       <div className={s.datePicker}>
-        <DatePicker
-          label="Date of birth"
-          value={range}
-          onChange={newRange => dateHandler(newRange)}
-          fullWidth
+        <Controller
+          name="dateOfBirth"
+          control={control}
+          render={({ field: { onChange, value } }) => (
+            <DatePicker
+              label={'Date of birth'}
+              value={value}
+              onChange={onChange}
+              hasError={!!errors.dateOfBirth?.from}
+              errorText={
+                errors.dateOfBirth?.from?.message && (
+                  <>
+                    {errors.dateOfBirth?.from?.message}{' '}
+                    <Link href={PATH.privacy_policy} onClick={handlePrivacyClick}>
+                      <u>Privacy Policy</u>
+                    </Link>
+                  </>
+                )
+              }
+              fullWidth
+            />
+          )}
         />
       </div>
       <div className={s.selectLive}>
@@ -114,12 +135,14 @@ export const GeneralForm = () => {
       </div>
       <div className={s.ariaText}>
         <TextAreaComponent
+          {...register('aboutMe')}
           placeholder="Type something..."
           variant="surface"
-          label="About me"
+          label="About Me"
           id="1"
           fullWidth
-          {...register('aboutMe')}
+          error={!!errors.aboutMe}
+          errorText={errors.aboutMe?.message}
         />
       </div>
     </div>

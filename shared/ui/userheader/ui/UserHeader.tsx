@@ -2,7 +2,11 @@
 
 import photo2 from '@/public/assets/img/photo_02.png'
 import { TextModal } from '@/shared/modals/textModal'
-import { useDeletePostMutation, useUpdatePostMutation } from '@/shared/schemas/api/postsApi'
+import {
+  useDeletePostMutation,
+  useGetPostByIdQuery,
+  useUpdatePostMutation,
+} from '@/shared/schemas/api/postsApi'
 import { Dropdown } from '@/shared/ui/dropdown'
 import { EditPost } from '@/views/profile/pages/userProfile/userPost/editPost'
 import { Button, UniversalIcon } from '@irondragons/ui-lib-inctagram'
@@ -41,6 +45,8 @@ export const UserHeader = ({
 
   const [deletePost] = useDeletePostMutation()
   const [updatePost] = useUpdatePostMutation()
+
+  const { data: post } = useGetPostByIdQuery(postId ?? 0)
 
   const handleEditClick = () => {
     setEditModalOpen(true)
@@ -122,6 +128,7 @@ export const UserHeader = ({
               srcArray={srcArray}
               openModal={() => setEditModalOpen(false)}
               onSave={handleSaveEdit}
+              initialDescription={post?.description ?? ''}
             />
           )}
           <TextModal

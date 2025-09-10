@@ -1,7 +1,8 @@
-import s from '@/shared/modals/addPhotoModal/ui/photoModal.module.scss'
 import { Button, UniversalIcon } from '@irondragons/ui-lib-inctagram'
 import { Dialog } from 'radix-ui'
 import React, { ReactNode } from 'react'
+import { ErrorMessageBlock } from '@/shared/ui/errorMessageBlock'
+import s from '@/shared/modals/addPhotoModal/ui/photoModal.module.scss'
 
 type AddPhotoModalProps = {
   onOpenChange?: (open: boolean) => void
@@ -11,6 +12,7 @@ type AddPhotoModalProps = {
   fileInputRef?: React.RefObject<HTMLInputElement | null>
   onFileChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
   isImage: boolean
+  errorMessage?: string | null
 }
 
 export const PhotoModal = ({
@@ -21,6 +23,7 @@ export const PhotoModal = ({
   fileInputRef,
   onFileChange,
   isImage,
+  errorMessage,
 }: AddPhotoModalProps) => {
   const handleSelectClick = () => {
     fileInputRef?.current?.click()
@@ -41,6 +44,7 @@ export const PhotoModal = ({
           </div>
 
           <div className={s.bodyContent}>
+            {errorMessage && <ErrorMessageBlock message={errorMessage} />}
             {isImage && (
               <div className={s.imageBox} onClick={handleSelectClick}>
                 <input

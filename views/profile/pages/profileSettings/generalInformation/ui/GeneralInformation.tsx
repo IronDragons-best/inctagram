@@ -1,39 +1,80 @@
-import { useState } from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { FormProvider, useForm } from 'react-hook-form'
-import { InputsName, generalSchema } from '../lib/schema'
+import { FormProvider, SubmitHandler, useForm } from 'react-hook-form'
+import { generalSchema, InputsName } from '../lib/schema'
 import { AddAvatarSection } from './components/AddAvatarSection'
 import { FooterForm } from './components/FooterForm'
 import { GeneralForm } from './components/GeneralForm'
-import s from './generalInformation.module.scss'
 import { useUpdateProfileMutation } from '@/shared/schemas/api/profileApi'
-import { Alert } from '@irondragons/ui-lib-inctagram'
+import { useEffect, useRef } from 'react'
+import { useMeQuery } from '@/features/auth/api/authApi'
+import { useParams } from 'next/navigation'
+import { UpdateProfile } from '@/shared/schemas/types/profile'
+import { format } from 'date-fns'
+import { showGlobalAlert } from '@/shared/hooks/useGlobalAlert'
+import s from './generalInformation.module.scss'
 
 export const GeneralInformation = () => {
+  const { data: currentUser } = useMeQuery(undefined)
+  const [updateProfile] = useUpdateProfileMutation()
+  const { userId } = useParams<{ userId: string }>()
+
   const methods = useForm<InputsName>({
     resolver: zodResolver(generalSchema),
     mode: 'onBlur',
   })
 
-  const [updateProfile] = useUpdateProfileMutation()
-  const [alertOpen, setAlertOpen] = useState(false)
-  const [alertMessage, setAlertMessage] = useState('')
+  const { reset } = methods
 
-  const showAlert = (message: string) => {
-    setAlertMessage(message)
-    setAlertOpen(true)
+  const isFormRestored = useRef(false)
 
-    setTimeout(() => {
-      setAlertOpen(false)
-    }, 5000)
-  }
+  useEffect(() => {
+    if (isFormRestored.current) return
 
-  const onSubmit = async (data: InputsName) => {
+    const shouldRestoreProfileForm = sessionStorage.getItem('shouldRestoreForm') === 'true'
+    const savedProfileFormData = sessionStorage.getItem('profileForm')
+
+    if (shouldRestoreProfileForm && savedProfileFormData) {
+      const parsed = JSON.parse(savedProfileFormData)
+
+      if (parsed.dateOfBirth?.from && !isNaN(Date.parse(parsed.dateOfBirth.from))) {
+        parsed.dateOfBirth.from = new Date(parsed.dateOfBirth.from)
+      } else {
+        parsed.dateOfBirth.from = undefined
+      }
+
+      if (parsed.dateOfBirth?.to && !isNaN(Date.parse(parsed.dateOfBirth.to))) {
+        parsed.dateOfBirth.to = new Date(parsed.dateOfBirth.to)
+      } else {
+        parsed.dateOfBirth.to = undefined
+      }
+
+      reset(parsed)
+      isFormRestored.current = true
+      sessionStorage.removeItem('shouldRestoreForm')
+      return
+    }
+
+    if (currentUser?.username) {
+      reset({ userName: currentUser.username })
+      isFormRestored.current = true
+    }
+  }, [currentUser, reset])
+
+  const onSubmit: SubmitHandler<InputsName> = async data => {
+    const body: UpdateProfile = {
+      ...data,
+      dateOfBirth:
+        data.dateOfBirth?.from instanceof Date
+          ? format(data.dateOfBirth.from, 'dd.MM.yyyy')
+          : undefined,
+    }
     try {
-      await updateProfile(data).unwrap()
-      showAlert('Профиль обновлен')
-    } catch (err) {
-      showAlert('Ошибка обновления профиля')
+      await updateProfile({ userId: Number(userId), body }).unwrap()
+      sessionStorage.removeItem('profileForm')
+      sessionStorage.removeItem('shouldRestoreForm')
+      showGlobalAlert('Your settings are saved!', 'success')
+    } catch {
+      showGlobalAlert('Server is not available!', 'error')
     }
   }
 
@@ -47,9 +88,6 @@ export const GeneralInformation = () => {
         <div className={s.footer}>
           <FooterForm />
         </div>
-        <Alert onClose={() => setAlertOpen(false)} isOpen={alertOpen}>
-          {alertMessage}
-        </Alert>
       </form>
     </FormProvider>
   )

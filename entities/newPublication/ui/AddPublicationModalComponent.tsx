@@ -3,6 +3,7 @@
 import { PublicationModal } from '@/shared/modals/publicationModal/ui/PublicationModal'
 import { useCreatePostMutation } from '@/shared/schemas/api/postsApi'
 import { Input, TextAreaComponent } from '@irondragons/ui-lib-inctagram'
+
 import { Fragment, useState } from 'react'
 import s from './addPublicationModalComponent.module.scss'
 import { useMeQuery } from '@/features/auth/api/authApi'

@@ -17,11 +17,19 @@ type Props = {
   openModal?: () => void
   title?: 'withPublish' | 'withoutPublish'
   slides?: string[]
+  initialDescription?: string
 }
 
-export const EditPost = ({ openModal, isModalOpen, title, srcArray, onSave }: Props) => {
+export const EditPost = ({
+  openModal,
+  isModalOpen,
+  title,
+  srcArray,
+  onSave,
+  initialDescription,
+}: Props) => {
   const [modalOpen, setModalOpen] = useState(isModalOpen)
-  const [description, setDescription] = useState('')
+  const [description, setDescription] = useState(initialDescription ?? '')
 
   const router = useRouter()
   const pathname = usePathname()

@@ -790,6 +790,7 @@ export interface components {
        */
       avatar: string
     }
+
     CountryViewDto: {
       /**
        * @description Country id

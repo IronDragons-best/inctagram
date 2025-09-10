@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { PhotoModal } from '@/shared/modals/addPhotoModal'
 import { Button } from '@irondragons/ui-lib-inctagram'
 
@@ -12,6 +12,8 @@ type PhotoSelectProps = {
   isImage: boolean
 }
 
+const MAX_AVATAR_SIZE_BYTES = 10 * 1024 * 1024
+
 export const PhotoSelect = ({
   isOpen,
   previewUrl,
@@ -20,11 +22,36 @@ export const PhotoSelect = ({
   isImage,
 }: PhotoSelectProps) => {
   const fileInputRef = useRef<HTMLInputElement>(null)
+
+  const [errorMessage, setErrorMessage] = useState<string | null>(null)
+
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files
-    if (files && files.length > 0) {
-      const urls = Array.from(files).map(file => URL.createObjectURL(file))
+    if (!files || files.length === 0) return
+
+    const validFiles: File[] = []
+
+    for (const file of files) {
+      const isValidType = ['image/jpeg', 'image/png'].includes(file.type)
+      const isValidSize = file.size <= MAX_AVATAR_SIZE_BYTES
+
+      if (!isValidType) {
+        setErrorMessage('The format of the uploaded photo must be PNG and JPEG')
+        return
+      }
+
+      if (!isValidSize) {
+        setErrorMessage('Photo size must be less than 10 MB!')
+        return
+      }
+
+      validFiles.push(file)
+    }
+
+    if (validFiles.length > 0) {
+      const urls = validFiles.map(file => URL.createObjectURL(file))
       onPhotoSelected(urls)
+      setErrorMessage(null)
     }
   }
 
@@ -50,6 +77,7 @@ export const PhotoSelect = ({
       fileInputRef={fileInputRef}
       onFileChange={handleFileChange}
       isImage={isImage}
+      errorMessage={errorMessage}
     >
       <Button fullWidth onClick={handleSelectClick}>
         Select from Computer

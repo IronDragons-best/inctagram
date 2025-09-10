@@ -60,7 +60,6 @@ export const SignUp = () => {
   // Проверяет валидны ли поля формы и заполнены ли они
   const isSubmitDisabled = !isDirty || !isValid
 
-  // TODO: поменять сет ошибок на setError убрать fullWidth={true}, сделать общий const для PATH
   const onSubmit: SubmitHandler<SignUpFormTypes> = async data => {
     try {
       // при успехе unwrap() не вернёт ошибку и просто завершится — сервер отдаёт 204
