@@ -1,7 +1,7 @@
 @use '../../../src/styles/colors' as *;
 @use '../../../src/styles/fonts' as typo;
 
-.Header {
+.header {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -14,17 +14,17 @@
   border-bottom: 1px solid $dark-300;
 }
 
-.Logo {
+.logo {
   @include typo.large;
 }
 
-.Content {
+.content {
   display: flex;
   gap: 36px;
   align-items: center;
 }
 
-.IconWrapper {
+.iconWrapper {
   position: relative;
   display: inline-flex;
   align-self: center;
@@ -60,7 +60,7 @@
     color: $light-700;
   }
 
-  &[data-notificationcount="0"]::before {
+  &[data-notificationcount='0']::before {
     display: none;
   }
 }

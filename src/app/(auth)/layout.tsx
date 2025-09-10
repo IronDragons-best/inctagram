@@ -1,19 +1,22 @@
-"use client";
+import { ReactNode } from 'react'
 
-import { ReactNode } from "react";
-import styles from "./authLayout.module.scss";
-import { Header } from "@/widgets/header";
+import { AuthLayoutComponent } from 'src/common/components/authLayout'
+import { Metadata } from 'next'
+import { defaultMetadata } from '@/shared/lib/defaultMetadata'
+import { LayoutWithProvider } from '@/src/common/components/layoutWithProvider'
 
-export default function RootLayout({
+export const metadata: Metadata = defaultMetadata
+
+export default function AuthLayout({
   children,
 }: Readonly<{
-  children: ReactNode;
+  children: ReactNode
 }>) {
   return (
-    <>
-      {/*   Заглушка   */}
-      <Header isAuth={false} isProcessingAuth={true} localization={"eng"} />
-      <div className={styles.authContent}>{children}</div>
-    </>
-  );
+    <html lang="en">
+      <body>
+        <LayoutWithProvider component={AuthLayoutComponent}>{children}</LayoutWithProvider>
+      </body>
+    </html>
+  )
 }

@@ -1,20 +1,14 @@
-import { z } from 'zod';
+import { z } from 'zod'
+import {
+  commonSchema,
+  validatePasswordMatch,
+} from '@/shared/schemas/types/validationSchemas/commonValidationSchema'
 
-const passwordSchema = z
-  .string()
-  .min(6)
-  .max(20)
-  .regex(/^[A-Za-z0-9!"#$%&'()*+,\-./:;<=>?@\[\\\]^_`{|}~]+$/);
+const passwordRecoverySchema = commonSchema.pick({
+  password: true,
+  passwordConfirmation: true,
+})
 
-export const passwordConfirmationSchema = z
-  .object({
-      password: passwordSchema,
-      confirmationPassword: passwordSchema,
-    },
-  )
-  .refine(data => data.password === data.confirmationPassword, {
-    message: 'The passwords must match',
-    path: ['confirmationPassword'],
-  });
+export const passwordRecoveryValidation = validatePasswordMatch(passwordRecoverySchema)
 
-export type InputError = z.infer<typeof passwordConfirmationSchema>;
+export type PasswordRecoveryFormType = z.infer<typeof passwordRecoverySchema>

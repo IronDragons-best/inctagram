@@ -1,0 +1,137 @@
+@use '../../../src/styles/colors' as *;
+@use '../../../src/styles/fonts' as *;
+
+.sidebar {
+  position: sticky;
+  top: 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  min-width: 220px;
+  height: 100vh;
+  padding-top: 72px;
+  padding-left: 60px;
+  border-right: 1px solid $dark-300;
+
+  color: $dark-700;
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 24px;
+  height: 24px;
+  margin-right: 12px;
+
+  color: inherit;
+}
+
+.label {
+  color: inherit;
+}
+
+.menuButton {
+  display: flex;
+  align-items: center;
+  margin-bottom: 24px;
+  color: inherit;
+
+  @include medium-text-14;
+}
+
+.menuButtonCreate {
+  cursor: pointer;
+  user-select: none;
+
+  display: flex;
+
+  margin-bottom: 24px;
+  border: none;
+
+  color: inherit;
+
+  background-color: transparent;
+
+  &:hover {
+    color: $accent-100;
+  }
+
+  &:active {
+    color: $accent-700;
+  }
+
+  &:focus-visible {
+    color: $accent-500;
+    outline: 2px solid $accent-700;
+  }
+
+  &:disabled {
+    color: $accent-900;
+  }
+}
+
+.sidebar_menu {
+  margin-bottom: 180px;
+}
+
+.sidebar_menu .menu_item,
+.footer .menu_item {
+  color: $light-100;
+  list-style-type: none;
+  transition: color 0.3s;
+
+  &:hover {
+    color: $accent-300;
+  }
+
+  &:active {
+    color: $accent-500;
+  }
+
+  &:focus-visible {
+    color: $light-100;
+  }
+
+  &:disabled {
+    cursor: default;
+    color: $dark-100;
+    background: transparent;
+  }
+}
+
+.sidebar_menu .menu_item:nth-child(5) {
+  margin-bottom: 60px;
+}
+
+.footer .menu_item:last-child {
+  margin-bottom: 0;
+}
+
+.footer {
+  margin-bottom: 36px;
+  padding: 0;
+  border: none;
+
+  .logoutButton {
+    @include medium-text-14;
+
+    padding: 0;
+    color: $light-100;
+
+    &:hover {
+      color: $accent-300;
+    }
+  }
+}
+
+.modalButton {
+  margin-left: 24px;
+}
+
+.menu_item.active {
+  color: $accent-500;
+}

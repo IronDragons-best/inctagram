@@ -52,7 +52,7 @@
   margin-bottom: 24px;
 }
 
-.fieldsWrapper > div:has([data-errortext="true"]) {
+.fieldsWrapper > div:has([data-errortext='true']) {
   margin-bottom: 0;
 }
 

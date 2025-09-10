@@ -1,0 +1,78 @@
+@use '../../../../src/styles/colors' as *;
+@use '../../../../src/styles/fonts' as font;
+
+.overlay {
+  position: fixed;
+  inset: 0;
+}
+
+.mainTitle {
+  display: none;
+}
+
+.content {
+  @include font.regular-text-14;
+  background-color: $dark-300;
+  color: $light-100;
+  border: 1px solid $dark-100;
+  border-radius: 2px;
+  position: fixed;
+  top: 40px;
+  right: 25px;
+  width: fit-content;
+  height: fit-content;
+  //z-index: 100;
+
+  &:focus,
+  &:focus-visible {
+    outline: none;
+  }
+
+  & div {
+    height: 83px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  & .fieldCard {
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    height: 23px;
+    align-items: center;
+
+    & .iconField {
+      width: 24px;
+      height: 24px;
+    }
+
+    & .textField {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    }
+  }
+}
+
+@keyframes overlayShow {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes contentShow {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -48%) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}

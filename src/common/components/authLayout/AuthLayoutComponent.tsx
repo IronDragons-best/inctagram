@@ -1,0 +1,16 @@
+'use client'
+
+import { PropsWithChildren } from 'react'
+import { Header } from '@/widgets/header'
+import '@irondragons/ui-lib-inctagram/dist/style.css'
+import '@/src/styles/index.scss'
+import s from './AuthLayout.module.scss'
+
+export const AuthLayoutComponent = ({ children }: PropsWithChildren) => {
+  return (
+    <div className={s.authContent}>
+      <Header isProcessingAuth localization={'eng'} />
+      <div className={s.formWrapper}>{children}</div>
+    </div>
+  )
+}

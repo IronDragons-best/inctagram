@@ -1,0 +1,8 @@
+.user-card-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(234px, 1fr));
+  padding-bottom: 40px;
+  column-gap: 12px;
+  row-gap: 15px;
+  align-items: start;
+}

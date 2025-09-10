@@ -1,1 +1,1 @@
-export { EmailConfirmationPage } from "./ui/EmailConfirmationPage";
+export { EmailConfirmationPage } from './ui/EmailConfirmationPage'

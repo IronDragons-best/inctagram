@@ -1,0 +1,25 @@
+@use '../../../../src/styles/colors' as *;
+@use '../../../../src/styles/fonts' as font;
+
+.errorMessageBlock {
+  display: flex;
+  justify-content: center;
+
+  width: 100%;
+  max-width: 445px;
+  padding: 6px 25px 5px;
+  border: 1px solid $danger-500;
+  border-radius: 2px;
+
+  color: $light-100;
+  text-align: center;
+
+  background-color: $danger-900;
+
+  @include font.regular-text-14;
+}
+
+.content {
+  max-width: 340px;
+  margin: auto;
+}

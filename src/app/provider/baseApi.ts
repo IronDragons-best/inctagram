@@ -1,23 +1,21 @@
-import { handleError } from "@/shared/utils/handleError";
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
-// TODO: настроить теги
+export const TAGS = {
+  POST: 'Post',
+  AUTH: 'Auth',
+  PROFILE: 'Profile',
+} as const
 
 export const baseApi = createApi({
-  reducerPath: "inctagram",
+  reducerPath: 'inctagram',
   baseQuery: async (args, api, extraOptions) => {
-    const result = await fetchBaseQuery({
-      baseUrl: process.env.NEXT_PUBLIC_API_BASE_URL,
-      credentials: "include",
-      prepareHeaders: (headers) => {
-        const token = localStorage.getItem("accessToken");
-        if (token) headers.set("Authorization", `Bearer ${token}`);
-        return headers;
-      },
-    })(args, api, extraOptions);
-
-    handleError(api, result);
-    return result;
+    return fetchBaseQuery({
+      baseUrl: '',
+      credentials: 'include',
+    })(args, api, extraOptions)
   },
+
+  tagTypes: [TAGS.POST, TAGS.AUTH, TAGS.PROFILE],
+
   endpoints: () => ({}),
-});
+})

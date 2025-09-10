@@ -1,7 +1,0 @@
-@use "src/styles/utils" as *;
-
-.rootLayout {
-  @include root-container;
-
-  color: red;
-}

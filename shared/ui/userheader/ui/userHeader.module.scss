@@ -1,0 +1,64 @@
+@use '../../../../src/styles/colors' as *;
+@use '../../../../src/styles/fonts' as font;
+
+.postTitle {
+  flex: 0 0 59px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  & .userAvatar {
+    display: flex;
+    align-items: center;
+
+    & img {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+    }
+  }
+
+  & .userNameContainer {
+    display: flex;
+    align-items: baseline;
+    justify-content: flex-start;
+    gap: 30px;
+    flex: 1 1 auto;
+  }
+
+  & .userName {
+    @include font.h3;
+  }
+
+  & .moreIcon {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  & .userTime {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 3px;
+    @include font.small-text;
+    color: $light-900;
+  }
+
+  & .userTime::after {
+    content: '';
+    position: absolute;
+    bottom: 6px;
+    left: -12px;
+    width: 4px;
+    height: 4px;
+    background-color: white;
+    border-radius: 50%;
+  }
+}
+
+.modalButton {
+  margin-left: 24px;
+}

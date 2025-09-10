@@ -1,0 +1,18 @@
+.postLikes {
+  display: flex;
+  justify-content: space-between;
+  height: 24px;
+  width: 100%;
+
+  & .iconGroup {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+
+    & .iconWrapper {
+      cursor: pointer;
+      width: 24px;
+      height: 24px;
+    }
+  }
+}

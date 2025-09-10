@@ -1,0 +1,22 @@
+@use '../../../../src/styles/fonts' as font;
+
+.addPostComment {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 24px 12px 12px;
+  gap: 10px;
+
+  & .addPostCommentField {
+    width: 100%;
+
+    & .areaWrapper {
+      @include font.regular-text-14;
+      flex: 1 1 auto;
+      width: 100%;
+      height: 35px;
+      border: none;
+      background-color: transparent;
+    }
+  }
+}

@@ -1,0 +1,13 @@
+.authContent {
+  overflow-y: hidden;
+  display: flex;
+  flex-direction: column;
+  row-gap: 24px;
+  align-items: safe center;
+  justify-content: safe center;
+
+  width: min(1280px, 100%);
+  height: fit-content;
+  margin: 0 auto 30px;
+
+}

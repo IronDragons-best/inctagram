@@ -1,0 +1,37 @@
+'use client'
+
+import { Card, UniversalIcon } from '@irondragons/ui-lib-inctagram'
+import { Dialog } from 'radix-ui'
+import React from 'react'
+import s from './dropdown.module.scss'
+
+type DropdownItem = {
+  icon: string
+  label: string
+  onClick: (e: React.MouseEvent) => void
+}
+
+type Props = {
+  isModalOpen: boolean
+  onClose?: () => void
+  items: DropdownItem[]
+}
+
+export const Dropdown = ({ isModalOpen, onClose, items }: Props) => {
+  return (
+    <Dialog.Root onOpenChange={onClose} open={isModalOpen}>
+      <Dialog.Overlay className={s.overlay} />
+      <Dialog.Title className={s.mainTitle}>Post actions</Dialog.Title>
+      <Dialog.Content className={s.content}>
+        <Card fullWidth size={'sm'}>
+          {items.map((item, index) => (
+            <div key={index} className={s.fieldCard} onClick={item.onClick}>
+              <UniversalIcon name={item.icon} className={s.iconField} />
+              <span className={s.textField}>{item.label}</span>
+            </div>
+          ))}
+        </Card>
+      </Dialog.Content>
+    </Dialog.Root>
+  )
+}

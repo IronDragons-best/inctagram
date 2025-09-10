@@ -1,0 +1,54 @@
+@use '../../../../src/styles/colors' as *;
+@use '../../../../src/styles/fonts' as font;
+
+.avatarGroupSummary {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  & .avatarTriple {
+    position: relative;
+    width: 54px;
+    height: 24px;
+
+    & .userAvatar {
+      position: relative;
+
+      & img {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+      }
+    }
+
+    & .one {
+      position: absolute;
+      left: 0;
+      z-index: 3;
+    }
+
+    & .two {
+      position: absolute;
+      left: 15px;
+      z-index: 2;
+    }
+
+    & .three {
+      position: absolute;
+      left: 30px;
+      z-index: 1;
+    }
+  }
+
+  & .likesSummary {
+    flex: 1 1 auto;
+  }
+}
+
+.summaryLikesCount {
+  @include font.regular-text-14;
+}
+
+.summaryPostLikes {
+  @include font.bold-text-14;
+}
