@@ -1,18 +1,17 @@
-'use client'
-
-import { CreateNewPasswordForm } from '@/views/auth/pages/create-new-password/ui/CreateNewPasswordForm'
-import { redirect, useSearchParams } from 'next/navigation'
+import { redirect } from 'next/navigation'
 import { PATH } from '@/shared/constants/path'
+import { CreateNewPasswordForm } from '@/views/auth/pages/create-new-password/ui/CreateNewPasswordForm'
 
-const Page = () => {
-  const queryParams = useSearchParams()
-  const refreshCode = queryParams.get('code')
+type SearchProps = {
+  searchParams: Promise<{ code: string }>
+}
 
-  if (!refreshCode) {
+export default async function Page({ searchParams }: SearchProps) {
+  const { code } = await searchParams
+
+  if (!code) {
     redirect(PATH.sign_in)
   }
 
-  return <CreateNewPasswordForm refreshCode={refreshCode} />
+  return <CreateNewPasswordForm refreshCode={code} />
 }
-
-export default Page
