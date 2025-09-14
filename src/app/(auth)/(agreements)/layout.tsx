@@ -1,14 +1,21 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
-import { ReactNode } from 'react'
+import { ReactNode, useEffect, useState } from 'react'
 import { UniversalIcon } from '@irondragons/ui-lib-inctagram'
 import { PATH } from '@/shared/constants/path'
 import s from './agreementsLayout.module.scss'
 
 function AgreementsLayout({ children }: { children: ReactNode }) {
   const router = useRouter()
-  const backPath = sessionStorage.getItem('fromPage') || PATH.sign_up
+  const [backPath, setBackPath] = useState(PATH.sign_up)
+
+  useEffect(() => {
+    const storedPath = sessionStorage.getItem('fromPage')
+    if (storedPath) {
+      setBackPath(storedPath)
+    }
+  }, [])
 
   return (
     <div className={s.wrapper}>
