@@ -1,6 +1,6 @@
 import createClient from 'openapi-fetch'
 import { paths } from './schema'
-import * as process from 'node:process'
+import process from 'process'
 
 export const getClient = () => {
   return createClient<paths>({
