@@ -1,19 +1,9 @@
 import type { NextConfig } from 'next'
 import path from 'path'
-import fs from 'fs'
-import dotenv from 'dotenv'
-
-const envFile = process.env.APP_ENV === 'prod' ? '.env.production' : '.env.stage'
-if (fs.existsSync(envFile)) {
-  dotenv.config({ path: envFile })
-}
 
 const nextConfig: NextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
-  },
-  env: {
-    NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
   },
   images: {
     domains: ['storage.yandexcloud.net'],
