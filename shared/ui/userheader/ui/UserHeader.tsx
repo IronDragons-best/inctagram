@@ -32,7 +32,7 @@ export const UserHeader = ({
   srcArray,
   userTime,
   showActions = true,
-  postId,
+  postId = 0,
   userId,
   userName,
 }: Props) => {
