@@ -1,6 +1,6 @@
 import { Popover } from 'radix-ui'
 import s from './notificationPopover.module.scss'
-import { DarkColors } from '@/src/styles/colorsType'
+import { useEffect } from 'react'
 
 type Props = {
   setNotificationCount: (args: number) => void
@@ -89,12 +89,14 @@ const mockNotifications: NotificationMockDataType[] = [
 ]
 
 export const NotificationPopover = ({ setNotificationCount }: Props) => {
-  const newNotificationsCount = mockNotifications.filter(el => el.isNotificationNew).length
+  useEffect(() => {
+    const newNotificationsCount = mockNotifications.filter(el => el.isNotificationNew).length
 
-  setNotificationCount(newNotificationsCount)
+    setNotificationCount(newNotificationsCount)
+  }, [setNotificationCount])
 
   return (
-    <Popover.Content className={s.content} sideOffset={10} align="end">
+    <Popover.Content className={s.content} align="end">
       <h2 className={s.notificationTitle}>Уведомления</h2>
 
       <div className={s.notificationWrapper}>
@@ -111,13 +113,11 @@ export const NotificationPopover = ({ setNotificationCount }: Props) => {
       </div>
 
       <div className={s.arrow}>
-        <svg width={'20px'} height={'8px'} viewBox="9 0 16 16" fill={DarkColors['500']}>
-          {/* сам треугольник */}
-          <polygon points="0,16 20,0 36,16" fill="currentColor" color={DarkColors['500']} />
+        <svg viewBox="9 0 16 16">
+          <polygon points="0,16 20,0 36,16" />
 
-          {/* линии для отдельных сторон */}
-          {<line x1="0" y1="16" x2="20" y2="0" stroke={'2px'} />}
-          {<line x1="20" y1="0" x2="48" y2="26" stroke={'2px'} />}
+          <line x1="0" y1="16" x2="20" y2="0" />
+          <line x1="20" y1="0" x2="48" y2="26" />
         </svg>
       </div>
     </Popover.Content>

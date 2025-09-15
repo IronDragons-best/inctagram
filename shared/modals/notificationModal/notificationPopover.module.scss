@@ -17,7 +17,7 @@
   animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
 
   &[data-state='open'][data-side='bottom'] {
-    translate: 10px;
+    translate: 9px 10px;
     animation-name: slide-up-and-fade;
   }
 }
@@ -87,8 +87,19 @@
   top: -18px;
   right: 15px;
 
+  svg {
+    width: 20px;
+    height: 8px;
+    fill: colors.$dark-500;
+  }
+
   line {
-    color: colors.$light-900;
+    stroke: colors.$dark-100;
+    stroke-width: 2px;
+  }
+
+  polygon {
+    fill: colors.$dark-500;
   }
 }
 
