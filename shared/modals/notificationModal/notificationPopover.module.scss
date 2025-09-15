@@ -1,0 +1,141 @@
+@use '../../../src/styles/colors' as colors;
+@use '../../../src/styles/typography' as t;
+@use '../../../src/styles/fonts' as f;
+
+.content {
+  will-change: transform, opacity;
+
+  width: 355px;
+  height: 424px;
+  padding: 12px 8px 12px 12px;
+  border-radius: 4px;
+
+  background-color: colors.$dark-500;
+  outline: 1px solid colors.$dark-100;
+
+  animation-duration: 400ms;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+
+  &[data-state='open'][data-side='bottom'] {
+    translate: 10px;
+    animation-name: slide-up-and-fade;
+  }
+}
+
+.notificationTitle {
+  margin-bottom: 12px;
+  font-size: t.$font-size-m;
+  font-weight: t.$font-weight-medium;
+  line-height: t.$line-height-m;
+}
+
+.notificationWrapper {
+  scrollbar-gutter: stable;
+  overflow: hidden scroll;
+  width: 100%;
+  height: 356px;
+
+  &::-webkit-scrollbar-thumb {
+    background-color: colors.$dark-100;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: colors.$dark-300;
+  }
+}
+
+.notification {
+  margin-right: 8px;
+  padding: 12px 4px;
+  border-top: 1px solid colors.$dark-100;
+}
+
+.notificationHeading {
+  display: flex;
+  gap: 5px;
+
+  h3 {
+    font-size: t.$font-size-s;
+    font-weight: t.$font-weight-bold;
+    line-height: 1.7;
+  }
+
+  span {
+    @include f.regular-text-12;
+
+    line-height: 2.2;
+    color: colors.$accent-500;
+  }
+}
+
+.notificationText {
+  font-size: t.$font-size-s;
+  font-weight: t.$font-weight-regular;
+  line-height: 1.7;
+  text-wrap: wrap;
+}
+
+.notificationIncomeTime {
+  @include f.regular-text-12;
+
+  color: #8d9094;
+}
+
+.arrow {
+  position: absolute;
+  z-index: 1;
+  top: -18px;
+  right: 15px;
+
+  line {
+    color: colors.$light-900;
+  }
+}
+
+@keyframes slide-up-and-fade {
+  from {
+    transform: translateY(2px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translate(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-right-and-fade {
+  from {
+    transform: translateX(-2px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(-2px);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-down-and-fade {
+  from {
+    transform: translateY(-2px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-left-and-fade {
+  from {
+    transform: translateX(2px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}

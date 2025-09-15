@@ -5,20 +5,18 @@ import { Button, Selectbox, UniversalIcon } from '@irondragons/ui-lib-inctagram'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import s from './header.module.scss'
+import { Popover } from 'radix-ui'
+import { NotificationPopover } from '@/shared/modals/notificationModal'
+import { useState } from 'react'
 
 type Props = {
   isProcessingAuth?: boolean
   localization: string
-  notificationCount?: number
   isAuth?: boolean
 }
 
-export const Header = ({
-  isProcessingAuth = false,
-  localization,
-  notificationCount = 0,
-  isAuth,
-}: Props) => {
+export const Header = ({ isProcessingAuth = false, localization, isAuth }: Props) => {
+  const [notificationCount, setNotificationCount] = useState(0)
   const router = useRouter()
   const convertNumber = (notificationCount: number): string => {
     return notificationCount > 9 ? `9+` : `${notificationCount}`
@@ -37,9 +35,18 @@ export const Header = ({
       </div>
       <div className={s.content}>
         {isAuth && (
-          <div className={s.iconWrapper} data-notificationcount={convertNumber(notificationCount)}>
-            <UniversalIcon name={'outline-bell'} />
-          </div>
+          <Popover.Root>
+            <Popover.Trigger asChild>
+              <div
+                className={s.iconWrapper}
+                data-notificationcount={convertNumber(notificationCount)}
+              >
+                <UniversalIcon name={'outline-bell'} />
+              </div>
+            </Popover.Trigger>
+
+            <NotificationPopover setNotificationCount={setNotificationCount} />
+          </Popover.Root>
         )}
         <Selectbox
           value={localization}
