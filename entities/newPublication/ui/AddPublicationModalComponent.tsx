@@ -9,7 +9,7 @@ import s from './addPublicationModalComponent.module.scss'
 import { useMeQuery } from '@/features/auth/api/authApi'
 import { UserHeader } from '@/shared/ui/userheader'
 import { extractUserId, extractUserName } from '@/shared/utils/typeGuards'
-import { useAppDispatch } from '@/src/app/provider/store'
+import { showGlobalAlert } from '@/shared/hooks/useGlobalAlert'
 
 const dataLocations = [
   { title: 'New York', place: 'Washington Square Park' },
@@ -34,8 +34,6 @@ export const AddPublicationModalComponent = ({
   const [description, setDescription] = useState('')
   const [createPost] = useCreatePostMutation()
 
-  const dispatch = useAppDispatch()
-
   const { data: me } = useMeQuery({})
   const currentUserId = extractUserId(me) ?? ''
   const currentUserName = extractUserName(me) ?? 'User'
@@ -54,7 +52,13 @@ export const AddPublicationModalComponent = ({
   }
 
   const handlePublish = async () => {
-    if (!imageUrl?.length || !description.trim()) return
+    if (!imageUrl?.length) {
+      showGlobalAlert('Image size is too large', 'error')
+      return
+    } else if (!description.trim()) {
+      showGlobalAlert(`Description shouldn't be empty`, 'error')
+      return
+    }
 
     try {
       const form = new FormData()
@@ -68,8 +72,7 @@ export const AddPublicationModalComponent = ({
 
       onCloseAction()
     } catch {
-      // TODO ошибка
-      console.log('Error while publishing post.')
+      showGlobalAlert('Error while publishing post.', 'error')
     }
   }
 
