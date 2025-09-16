@@ -15,6 +15,7 @@ import {
 } from '@/views/auth/pages/signUp/lib/schemas/signUp'
 import { TextModal } from '@/shared/modals/textModal'
 import { handleFormError } from '@/shared/utils/handleErrors'
+import { redirectLinkToGitAuth, redirectLinkToGoogleAuth } from '@/shared/constants/baseApiUrl'
 
 const Label = (
   <span className={s.conditions}>
@@ -75,7 +76,6 @@ export const SignUp = () => {
     }
   }
 
-  // TODO: Не забыть поменять ссылки на актуальные
   return (
     <Card>
       <div className={s.formWrapper}>
@@ -83,12 +83,12 @@ export const SignUp = () => {
 
         <div className={s.oAuthWrapper}>
           {/* пока что вместо ссылок заглушки */}
-          <Link href={'google.com'}>
+          <a href={redirectLinkToGoogleAuth}>
             <UniversalIcon name={'google'} dataStatic width={'36px'} height={'36px'} />
-          </Link>
-          <Link href={'google.com'}>
+          </a>
+          <a href={redirectLinkToGitAuth}>
             <UniversalIcon name={'github'} width={'36px'} height={'36px'} />
-          </Link>
+          </a>
         </div>
 
         <form onSubmit={handleSubmit(onSubmit)} className={s.form}>

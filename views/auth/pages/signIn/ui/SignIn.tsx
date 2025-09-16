@@ -10,6 +10,7 @@ import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import s from './signIn.module.scss'
 import { handleFormError } from '@/shared/utils/handleErrors'
+import { redirectLinkToGitAuth, redirectLinkToGoogleAuth } from '@/shared/constants/baseApiUrl'
 
 export const SignIn = () => {
   const {
@@ -46,12 +47,12 @@ export const SignIn = () => {
       <div className={s.formWrapper}>
         <h2 className={s.title}>Sign In</h2>
         <div className={s.oAuth}>
-          <Link href={'google.com'}>
+          <a href={redirectLinkToGoogleAuth}>
             <UniversalIcon name={'google'} dataStatic width={'36px'} height={'36px'} />
-          </Link>
-          <Link href={'github.com'}>
+          </a>
+          <a href={redirectLinkToGitAuth}>
             <UniversalIcon name={'github'} width={'36px'} height={'36px'} />
-          </Link>
+          </a>
         </div>
         <form onSubmit={handleSubmit(onSubmit)} className={s.form}>
           <div className={s.fieldsWrapper}>

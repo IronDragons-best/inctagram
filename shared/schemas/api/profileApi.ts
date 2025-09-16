@@ -91,4 +91,5 @@ export const {
   useUpdateProfileMutation,
   useUploadAvatarProfileMutation,
   useRemoveAvatarProfileMutation,
+  useLazyGetProfileQuery,
 } = profileApi
