@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import React, { useState } from 'react'
 import Link from 'next/link'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button, Card, Checkbox, Input, UniversalIcon } from '@irondragons/ui-lib-inctagram'
@@ -16,6 +16,7 @@ import {
 import { TextModal } from '@/shared/modals/textModal'
 import { handleFormError } from '@/shared/utils/handleErrors'
 import { redirectLinkToGitAuth, redirectLinkToGoogleAuth } from '@/shared/constants/baseApiUrl'
+import { DotPulse } from 'ldrs/react'
 
 const Label = (
   <span className={s.conditions}>
@@ -32,7 +33,7 @@ const Label = (
 
 export const SignUp = () => {
   const [openModal, setOpenModal] = useState(false)
-  const [registrationHandler] = useRegistrationMutation()
+  const [registrationHandler, { isLoading: isSignUnLoading }] = useRegistrationMutation()
 
   const resetFormFields = () => {
     setOpenModal(false)
@@ -82,7 +83,6 @@ export const SignUp = () => {
         <h2 className={s.formTitle}>Sign Up</h2>
 
         <div className={s.oAuthWrapper}>
-          {/* пока что вместо ссылок заглушки */}
           <a href={redirectLinkToGoogleAuth}>
             <UniversalIcon name={'google'} dataStatic width={'36px'} height={'36px'} />
           </a>
@@ -163,7 +163,7 @@ export const SignUp = () => {
             />
 
             <Button variant={'primary'} disabled={isSubmitDisabled || !isAgreeChecked} fullWidth>
-              Sign Up
+              {isSignUnLoading ? <DotPulse size="43" speed="1.3" color="white" /> : 'Sign Up'}
             </Button>
           </div>
 

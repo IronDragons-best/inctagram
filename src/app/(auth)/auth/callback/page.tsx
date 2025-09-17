@@ -1,25 +1,15 @@
 'use client'
 
-import { useMeQuery } from '@/features/auth/api/authApi'
-import { useLazyGetProfileQuery } from '@/shared/schemas/api/profileApi'
-import { Card } from '@irondragons/ui-lib-inctagram'
-import { useEffect } from 'react'
+import { Ring } from 'ldrs/react'
+import 'ldrs/react/Ring.css'
+import s from '@/src/common/components/mainLayout/mainLayout.module.scss'
 
 const Page = () => {
-  const { data: me } = useMeQuery(undefined)
-  const [getProfile, { data }] = useLazyGetProfileQuery()
-
-  useEffect(() => {
-    if (me) {
-      try {
-        getProfile(Number(me.id))
-        console.log(data)
-      } catch {}
-    }
-  }, [me, data, getProfile])
-
-  // redirect(PATH.home)
-  return <Card>Me</Card>
+  return (
+    <div className={s.loader}>
+      <Ring size="40" stroke="5" bgOpacity="0" speed="2" color="white" />
+    </div>
+  )
 }
 
 export default Page

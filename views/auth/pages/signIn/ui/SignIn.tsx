@@ -11,6 +11,9 @@ import { useForm } from 'react-hook-form'
 import s from './signIn.module.scss'
 import { handleFormError } from '@/shared/utils/handleErrors'
 import { redirectLinkToGitAuth, redirectLinkToGoogleAuth } from '@/shared/constants/baseApiUrl'
+import { DotPulse } from 'ldrs/react'
+import 'ldrs/react/DotPulse.css'
+import React from 'react'
 
 export const SignIn = () => {
   const {
@@ -26,8 +29,8 @@ export const SignIn = () => {
   })
   const router = useRouter()
 
-  const [signInHandler] = useSignInMutation()
-  const [getMe] = useLazyMeQuery()
+  const [signInHandler, { isLoading: isSignInLoading }] = useSignInMutation()
+  const [getMe, { isLoading: isMeLoading }] = useLazyMeQuery()
 
   const onSubmit = async (data: SignInFormTypes) => {
     try {
@@ -86,7 +89,11 @@ export const SignIn = () => {
           </div>
           <div className={s.buttonWraper}>
             <Button variant="primary" fullWidth>
-              Sign In
+              {isSignInLoading || isMeLoading ? (
+                <DotPulse size="43" speed="1.3" color="white" />
+              ) : (
+                'Sign In'
+              )}
             </Button>
           </div>
           <div className={s.bottomText}>

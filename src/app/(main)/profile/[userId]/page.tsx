@@ -37,15 +37,13 @@ const UserPage = async (props: Props) => {
   const resolvedUserName = userName || post?.user?.username || initialPosts[0]?.user?.username || ''
 
   return (
-    <>
-      <UserProfile
-        user={Number(userId)}
-        postId={postId}
-        userName={resolvedUserName}
-        initialPosts={initialPosts}
-        initialPostSrcArray={initialPostSrcArray}
-      />
-    </>
+    <UserProfile
+      user={Number(userId)}
+      postId={postId}
+      userName={resolvedUserName}
+      initialPosts={initialPosts}
+      initialPostSrcArray={initialPostSrcArray}
+    />
   )
 }
 
