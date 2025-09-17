@@ -9,6 +9,10 @@ export async function handleRequest<T>(
     if (res.response.status >= 200 && res.response.status < 300) {
       return { data: res.data }
     }
+    // нужно обязательно для infinity scroll, чтобы небыло залипаний
+    if (res.response.status === 404) {
+      return { data: [] as T }
+    }
     return { error: normalizeError({ status: res.response.status, data: res.data }) }
   } catch (e) {
     return { error: normalizeError(e) }
