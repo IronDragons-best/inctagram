@@ -1,29 +1,30 @@
-@use '../../../../../src/styles/fonts' as font;
-@use '../../../../../src/styles/colors' as color;
+@use '@/src/styles/fonts' as font;
+@use '@/src/styles/colors' as color;
+@use '@/src/styles/utils' as utils;
 
 .formWrapper {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  background-color: transparent;
-  padding: 32px;
-  border-radius: 1px;
-  color: color.$light-100;
-  padding: 0;
+  justify-content: center;
+
   width: 328px;
+  padding: 0;
+  border-radius: 1px;
+
+  color: color.$light-100;
+
+  background-color: transparent;
 }
 
 .title {
   @include font.h1;
+
   margin-bottom: 13px;
 }
 
 .oAuth {
-  display: flex;
-  column-gap: 60px;
-  justify-content: center;
-  margin-bottom: 24px;
+  @include utils.oauth-wrapper;
 }
 
 .form {
@@ -33,14 +34,16 @@
 }
 
 .errorField {
-  color: color.$danger-300;
-  border: 1px solid color.$danger-700;
-  background-color: RGBA(153, 15, 43, 0.3);
-  border-radius: 4px;
-  padding: 4px 8px;
-  margin-bottom: 15px;
   width: 100%;
+  margin-bottom: 15px;
+  padding: 4px 8px;
+  border: 1px solid color.$danger-700;
+  border-radius: 4px;
+
+  color: color.$danger-300;
   text-align: center;
+
+  background-color: rgb(153 15 43 / 30%);
 }
 
 .fieldsWrapper {
@@ -65,12 +68,16 @@
 
 .forgotLink {
   @include font.regular-text-14;
+
   display: flex;
-  color: color.$light-900;
-  transition: color 0.2s;
   justify-content: right;
-  margin-bottom: 24px;
+
   margin-top: 36px;
+  margin-bottom: 24px;
+
+  color: color.$light-900;
+
+  transition: color 0.2s;
 }
 
 .buttonWraper {
@@ -78,8 +85,8 @@
 }
 
 .bottomText {
-  text-align: center;
   color: color.$accent-500;
+  text-align: center;
 }
 
 .bottomText p {
@@ -92,5 +99,6 @@
 
 .signUpLink {
   @include font.h3;
+
   transition: color 0.2s;
 }

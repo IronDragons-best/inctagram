@@ -15,6 +15,7 @@ export function middleware(request: NextRequest) {
     '/new-password',
     '/password-recovery',
     '/expired-link',
+    '/auth/callback',
   ]
 
   const profileMatch = pathname.match(/^\/profile\/(\d+)(\/.*)?$/)
@@ -71,5 +72,6 @@ export const config = {
     '/new-password',
     '/password-recovery',
     '/expired-link',
+    '/auth/callback',
   ],
 }

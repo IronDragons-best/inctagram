@@ -12,3 +12,15 @@
   height: 100%;
   margin: 0 auto;
 }
+
+@mixin oauth-wrapper() {
+  display: flex;
+  column-gap: 60px;
+  justify-content: center;
+  margin-bottom: 24px;
+
+  a {
+    width: 36px;
+    height: 36px;
+  }
+}

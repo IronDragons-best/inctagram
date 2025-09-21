@@ -10,6 +10,10 @@ import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import s from './signIn.module.scss'
 import { handleFormError } from '@/shared/utils/handleErrors'
+import { redirectLinkToGitAuth, redirectLinkToGoogleAuth } from '@/shared/constants/baseApiUrl'
+import { DotPulse } from 'ldrs/react'
+import 'ldrs/react/DotPulse.css'
+import React from 'react'
 
 export const SignIn = () => {
   const {
@@ -25,8 +29,8 @@ export const SignIn = () => {
   })
   const router = useRouter()
 
-  const [signInHandler] = useSignInMutation()
-  const [getMe] = useLazyMeQuery()
+  const [signInHandler, { isLoading: isSignInLoading }] = useSignInMutation()
+  const [getMe, { isLoading: isMeLoading }] = useLazyMeQuery()
 
   const onSubmit = async (data: SignInFormTypes) => {
     try {
@@ -46,12 +50,12 @@ export const SignIn = () => {
       <div className={s.formWrapper}>
         <h2 className={s.title}>Sign In</h2>
         <div className={s.oAuth}>
-          <Link href={'google.com'}>
+          <a href={redirectLinkToGoogleAuth}>
             <UniversalIcon name={'google'} dataStatic width={'36px'} height={'36px'} />
-          </Link>
-          <Link href={'github.com'}>
+          </a>
+          <a href={redirectLinkToGitAuth}>
             <UniversalIcon name={'github'} width={'36px'} height={'36px'} />
-          </Link>
+          </a>
         </div>
         <form onSubmit={handleSubmit(onSubmit)} className={s.form}>
           <div className={s.fieldsWrapper}>
@@ -85,7 +89,11 @@ export const SignIn = () => {
           </div>
           <div className={s.buttonWraper}>
             <Button variant="primary" fullWidth>
-              Sign In
+              {isSignInLoading || isMeLoading ? (
+                <DotPulse size="43" speed="1.3" color="white" />
+              ) : (
+                'Sign In'
+              )}
             </Button>
           </div>
           <div className={s.bottomText}>
