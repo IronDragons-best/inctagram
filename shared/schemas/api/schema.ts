@@ -21,6 +21,102 @@ export interface paths {
     patch?: never
     trace?: never
   }
+  '/system/memory': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get: operations['SystemController_getMemoryUsage']
+    put?: never
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  '/notification-settings': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    /**
+     * Get user notification settings
+     * @description Returns all notification settings for the current user
+     */
+    get: operations['NotificationSettingsController_getUserSettings']
+    put?: never
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  '/notification-settings/enable/{type}': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get?: never
+    put?: never
+    /**
+     * Enable notification type
+     * @description Enables the specified notification type for the current user
+     */
+    post: operations['NotificationSettingsController_enableNotificationType']
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  '/notification-settings/disable/{type}': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get?: never
+    put?: never
+    /**
+     * Disable notification type
+     * @description Disables the specified notification type for the current user
+     */
+    post: operations['NotificationSettingsController_disableNotificationType']
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  '/notification-settings/initialize': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get?: never
+    put?: never
+    /**
+     * Initialize default settings
+     * @description Creates default settings for all notification types (all enabled by default)
+     */
+    post: operations['NotificationSettingsController_initializeSettings']
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
   '/users': {
     parameters: {
       query?: never
@@ -462,6 +558,93 @@ export interface paths {
     patch: operations['ProfileController_updateAvatar']
     trace?: never
   }
+  '/subscriptions': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get?: never
+    put?: never
+    /**
+     * Create new subscription
+     * @description This endpoint allow you to create subscription.
+     */
+    post: operations['SubscriptionController_createSubscription']
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  '/subscriptions/auto-renewal/{subscriptionId}': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    get?: never
+    put?: never
+    post?: never
+    delete: operations['SubscriptionController_cancelAutoRenewal']
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  '/subscriptions/tariffs': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    /** Get all available subscription plans. */
+    get: operations['SubscriptionController_getTariffs']
+    put?: never
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  '/subscriptions/payments': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    /** Get all payments. Using pagination. */
+    get: operations['SubscriptionController_getPayments']
+    put?: never
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
+  '/subscriptions/current': {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    /** Get current subscription */
+    get: operations['SubscriptionController_getCurrent']
+    put?: never
+    post?: never
+    delete?: never
+    options?: never
+    head?: never
+    patch?: never
+    trace?: never
+  }
   '/location/countries': {
     parameters: {
       query?: never
@@ -563,6 +746,14 @@ export interface components {
       filesService: components['schemas']['FilesServiceInfo']
       notificationService: components['schemas']['NotificationServiceInfo']
     }
+    NotificationSettingsModel: Record<string, never>
+    ErrorMessageDto: {
+      message: string
+      field?: string
+    }
+    ErrorResponseDto: {
+      errorsMessages: components['schemas']['ErrorMessageDto'][]
+    }
     UserInputDto: {
       username: string
       /** @example user@email.com */
@@ -572,13 +763,6 @@ export interface components {
       passwordConfirmation: string
       /** @description Agree to terms. Must be true. */
       agreeToTerms: boolean
-    }
-    ErrorMessageDto: {
-      message: string
-      field?: string
-    }
-    ErrorResponseDto: {
-      errorsMessages: components['schemas']['ErrorMessageDto'][]
     }
     EmailResendInputDto: {
       email: string
@@ -608,6 +792,7 @@ export interface components {
       username: string
       email: string
       isConfirmed: boolean
+      hasActiveSubscription: boolean
     }
     PasswordRecoveryInputDto: {
       /**
@@ -733,23 +918,23 @@ export interface components {
     ProfileViewDto: {
       /**
        * @description User id
-       * @default 1
+       * @example 1
        */
       userId: number
-      /** @default username */
+      /** @example username */
       username: string
-      /** @default John */
-      firstname: Record<string, never>
-      /** @default Doe */
-      lastname: Record<string, never>
-      /** @default New York */
-      city: Record<string, never> | null
-      /** @default USA */
-      country: Record<string, never> | null
-      /** @default Something about me */
-      aboutMe: Record<string, never> | null
-      /** @default https://s3-storage.com/bucket/somefile */
-      avatarUrl: Record<string, never> | null
+      /** @example John */
+      firstname: string | null
+      /** @example Doe */
+      lastname: string | null
+      /** @example New York */
+      city: string | null
+      /** @example USA */
+      country: string | null
+      /** @example Something about me */
+      aboutMe: string | null
+      /** @example https://s3-storage.com/bucket/somefile */
+      avatarUrl: string | null
     }
     ProfileInputDto: {
       /**
@@ -763,8 +948,8 @@ export interface components {
        */
       lastName?: string
       /**
-       * @description Date of birth in format dd.mm.yyyy
-       * @example 15.05.2000
+       * @description Date of birth in ISO 8601 format
+       * @example 2000-05-15T00:00:00.000Z
        */
       dateOfBirth?: string
       /**
@@ -790,7 +975,139 @@ export interface components {
        */
       avatar: string
     }
-
+    CreateSubscriptionInputDto: {
+      /**
+       * @description Subscription plan
+       * @example monthly
+       * @enum {string}
+       */
+      planType: 'monthly' | '3month' | '6month' | 'yearly'
+      /**
+       * @description Payment method
+       * @example stripe
+       * @enum {string}
+       */
+      paymentMethod: 'stripe' | 'paypal'
+    }
+    NewSubscriptionViewDto: {
+      /** @default example.com/payment/23 */
+      paymentUrl: string
+      /**
+       * @default monthly
+       * @enum {string}
+       */
+      planType: 'monthly' | '3month' | '6month' | 'yearly'
+      /**
+       * @default stripe
+       * @enum {string}
+       */
+      paymentMethod: 'stripe' | 'paypal'
+      /**
+       * @default INCOMPLETE
+       * @enum {string}
+       */
+      status:
+        | 'ACTIVE'
+        | 'CANCELED'
+        | 'PAST_DUE'
+        | 'INCOMPLETE'
+        | 'INCOMPLETE_EXPIRED'
+        | 'TRIALING'
+        | 'UNPAID'
+    }
+    SubscriptionPlanViewDto: {
+      /** @default business */
+      plan: Record<string, never>
+      /**
+       * @default monthly
+       * @enum {string}
+       */
+      planType: 'monthly' | '3month' | '6month' | 'yearly'
+      /** @default 2.49 */
+      price: number
+    }
+    PagedSubscriptionPlansViewDto: {
+      /** @description Array of Subscription plans */
+      plans: components['schemas']['SubscriptionPlanViewDto'][]
+      /** @default personal */
+      currentPlan: Record<string, never>
+    }
+    MainPaymentsViewDto: {
+      /** @example 42 */
+      id: number
+      /**
+       * Format: date-time
+       * @description Payment Date (ISO 8601)
+       * @example 2025-09-21T12:00:00.000Z
+       */
+      dateOfPayment: string
+      /**
+       * Format: date-time
+       * @description Subscription end Date (ISO 8601)
+       * @example 2025-12-21T12:00:00.000Z
+       */
+      endDate: string
+      /**
+       * @description USD Amount
+       * @example 2.5
+       */
+      price: number
+      /**
+       * @description Subscription type
+       * @example monthly
+       * @enum {string}
+       */
+      subscriptionType: 'monthly' | '3month' | '6month' | 'yearly'
+      /**
+       * @description Payment method
+       * @example stripe
+       * @enum {string}
+       */
+      payType: 'stripe' | 'paypal'
+    }
+    PagedPaymentsViewDto: {
+      /** @description Array of payments */
+      items: components['schemas']['MainPaymentsViewDto'][]
+      totalCount: number
+      pagesCount: number
+      page: number
+      pageSize: number
+    }
+    CurrentSubscriptionViewDto: {
+      /**
+       * @description Details of the subscription plan (SubscriptionPlan entity)
+       * @enum {string}
+       */
+      subscriptionPlan: 'business' | 'personal'
+      /**
+       * @description Unique identifier of the active subscription, or null if there is no subscription
+       * @example sub_1234567890abcdef
+       */
+      subscriptionId: string | null
+      /**
+       * @description Indicates whether auto-renewal is enabled for the subscription
+       * @example true
+       */
+      isAutoRenewal: boolean | null
+      /**
+       * @description The type of the plan (e.g., trial, monthly, yearly)
+       * @example MONTHLY
+       * @enum {string|null}
+       */
+      planType: 'monthly' | '3month' | '6month' | 'yearly' | null
+      /**
+       * Format: date-time
+       * @description The expiration date of the current subscription in ISO 8601 format, or null if not applicable
+       * @example 2025-12-31T23:59:59.000Z
+       */
+      expireAt: string | null
+      /**
+       * Format: date-time
+       * @description The date of the next payment in ISO 8601 format, or null if not scheduled
+       * @example 2025-12-31T12:00:00.000Z
+       */
+      nextPayment: string | null
+    }
     CountryViewDto: {
       /**
        * @description Country id
@@ -861,6 +1178,174 @@ export interface operations {
         }
         content: {
           'application/json': components['schemas']['HealthViewDto']
+        }
+      }
+    }
+  }
+  SystemController_getMemoryUsage: {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content?: never
+      }
+    }
+  }
+  NotificationSettingsController_getUserSettings: {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      /** @description Settings successfully retrieved */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['NotificationSettingsModel'][]
+        }
+      }
+      /** @description User is not authorized */
+      401: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['ErrorResponseDto']
+        }
+      }
+    }
+  }
+  NotificationSettingsController_enableNotificationType: {
+    parameters: {
+      query?: never
+      header?: never
+      path: {
+        /** @description Notification type to enable */
+        type:
+          | 'payment_success'
+          | 'subscription_activated'
+          | 'subscription_charge_warning'
+          | 'subscription_expiring_reminder'
+      }
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      /** @description Notification type successfully enabled */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['NotificationSettingsModel']
+        }
+      }
+      /** @description Invalid notification type */
+      400: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['ErrorResponseDto']
+        }
+      }
+      /** @description User is not authorized */
+      401: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['ErrorResponseDto']
+        }
+      }
+    }
+  }
+  NotificationSettingsController_disableNotificationType: {
+    parameters: {
+      query?: never
+      header?: never
+      path: {
+        /** @description Notification type to disable */
+        type:
+          | 'payment_success'
+          | 'subscription_activated'
+          | 'subscription_charge_warning'
+          | 'subscription_expiring_reminder'
+      }
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      /** @description Notification type successfully disabled */
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['NotificationSettingsModel']
+        }
+      }
+      /** @description Invalid notification type */
+      400: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['ErrorResponseDto']
+        }
+      }
+      /** @description User is not authorized */
+      401: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['ErrorResponseDto']
+        }
+      }
+    }
+  }
+  NotificationSettingsController_initializeSettings: {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      /** @description Settings successfully initialized */
+      201: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': {
+            /** @example true */
+            success?: boolean
+          }
+        }
+      }
+      /** @description User is not authorized */
+      401: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['ErrorResponseDto']
         }
       }
     }
@@ -1967,6 +2452,179 @@ export interface operations {
     responses: {
       /** @description Upload successfully */
       204: {
+        headers: {
+          [name: string]: unknown
+        }
+        content?: never
+      }
+    }
+  }
+  SubscriptionController_createSubscription: {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    /** @description Subscription data to create */
+    requestBody: {
+      content: {
+        'application/json': components['schemas']['CreateSubscriptionInputDto']
+      }
+    }
+    responses: {
+      201: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['NewSubscriptionViewDto']
+        }
+      }
+      /** @description User is not authenticated or token expired */
+      401: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['WithoutFieldErrorResponseDto']
+        }
+      }
+      /** @description Profile not found */
+      404: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['WithoutFieldErrorResponseDto']
+        }
+      }
+    }
+  }
+  SubscriptionController_cancelAutoRenewal: {
+    parameters: {
+      query?: never
+      header?: never
+      path: {
+        subscriptionId: string
+      }
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      204: {
+        headers: {
+          [name: string]: unknown
+        }
+        content?: never
+      }
+      /** @description Unauthorized */
+      401: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['WithoutFieldErrorResponseDto']
+        }
+      }
+      /** @description User is not the owner of resource */
+      403: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['WithoutFieldErrorResponseDto']
+        }
+      }
+      /** @description Subscription does not exist */
+      404: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['WithoutFieldErrorResponseDto']
+        }
+      }
+    }
+  }
+  SubscriptionController_getTariffs: {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['PagedSubscriptionPlansViewDto']
+        }
+      }
+    }
+  }
+  SubscriptionController_getPayments: {
+    parameters: {
+      query?: {
+        /** @description Page number for pagination */
+        pageNumber?: number
+        /** @description Number of items per page */
+        pageSize?: number
+        /** @description Field to sort by */
+        sortBy?: string
+        /** @description Sort direction (ASC or DESC) */
+        sortDirection?: 'ASC' | 'DESC'
+      }
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['PagedPaymentsViewDto']
+        }
+      }
+      /** @description Invalid query parameters provided. */
+      400: {
+        headers: {
+          [name: string]: unknown
+        }
+        content?: never
+      }
+      401: {
+        headers: {
+          [name: string]: unknown
+        }
+        content?: never
+      }
+    }
+  }
+  SubscriptionController_getCurrent: {
+    parameters: {
+      query?: never
+      header?: never
+      path?: never
+      cookie?: never
+    }
+    requestBody?: never
+    responses: {
+      200: {
+        headers: {
+          [name: string]: unknown
+        }
+        content: {
+          'application/json': components['schemas']['CurrentSubscriptionViewDto']
+        }
+      }
+      401: {
         headers: {
           [name: string]: unknown
         }

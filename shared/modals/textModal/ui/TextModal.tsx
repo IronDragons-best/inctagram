@@ -12,6 +12,7 @@ type Props = {
   openModalType?: (open: boolean) => void
   isModalOpen: boolean
   children: ReactNode
+  closeOnChildrenClick?: boolean
 }
 
 export const TextModal = ({
@@ -21,6 +22,7 @@ export const TextModal = ({
   description,
   title,
   children,
+  closeOnChildrenClick = true,
 }: Props) => {
   const handleOpenModal = (open: boolean) => {
     if (openModalType) {
@@ -48,7 +50,7 @@ export const TextModal = ({
           <Dialog.Description className={s.description}>{description}</Dialog.Description>
 
           <div className={s.children}>
-            <Dialog.Close asChild>{children}</Dialog.Close>
+            {closeOnChildrenClick ? <Dialog.Close asChild>{children}</Dialog.Close> : children}
           </div>
         </Dialog.Content>
       </Dialog.Portal>

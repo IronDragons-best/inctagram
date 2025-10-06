@@ -4,6 +4,7 @@ export const TAGS = {
   POST: 'Post',
   AUTH: 'Auth',
   PROFILE: 'Profile',
+  SUBSCRIPTION: 'Subscription',
 } as const
 
 export const baseApi = createApi({
@@ -15,7 +16,7 @@ export const baseApi = createApi({
     })(args, api, extraOptions)
   },
 
-  tagTypes: [TAGS.POST, TAGS.AUTH, TAGS.PROFILE],
+  tagTypes: [TAGS.POST, TAGS.AUTH, TAGS.PROFILE, TAGS.SUBSCRIPTION],
 
   endpoints: () => ({}),
 })

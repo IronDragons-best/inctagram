@@ -3,6 +3,7 @@
 import { JSX, useState } from 'react'
 import { TabsComponent } from '@irondragons/ui-lib-inctagram'
 import { GeneralInformation } from '../generalInformation/ui/GeneralInformation'
+import { AccountManagement } from '@/views/profile/pages/profileSettings/accountManagement'
 
 type Tab = {
   id: string
@@ -18,7 +19,11 @@ export const TabsSettings = () => {
       component: <GeneralInformation />,
     },
     { id: '2', label: 'Devices' },
-    { id: '3', label: 'Accout management' },
+    {
+      id: '3',
+      label: 'Account Management',
+      component: <AccountManagement />,
+    },
     { id: '4', label: 'My payments' },
   ]
 
