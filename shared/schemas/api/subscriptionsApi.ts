@@ -6,6 +6,7 @@ import {
   CurrentSubscription,
   NewSubscription,
   PaymentsSubscription,
+  PaymentsSubscriptionQuery,
   TariffsSubscription,
 } from '@/shared/schemas/types/subscriptions'
 
@@ -32,10 +33,7 @@ export const subscriptionsApi = baseApi.injectEndpoints({
           ? [{ type: TAGS.SUBSCRIPTION, id: result.subscriptionId }]
           : [TAGS.SUBSCRIPTION],
     }),
-    getSubscriptionsPayments: build.query<
-      PaymentsSubscription,
-      { pageNumber?: number; pageSize?: number; sortBy?: string; sortDirection?: 'ASC' | 'DESC' }
-    >({
+    getSubscriptionsPayments: build.query<PaymentsSubscription, PaymentsSubscriptionQuery>({
       queryFn: async arg => {
         try {
           const res = await client.GET('/subscriptions/payments', { params: { query: arg } })
