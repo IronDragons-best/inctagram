@@ -87,6 +87,12 @@
   line-height: $line-height-m;
 }
 
+@mixin semi-bold-text-14 {
+  font-size: $font-size-s;
+  font-weight: $font-weight-semi-bold;
+  line-height: $line-height-m;
+}
+
 @mixin bold-text-14 {
   font-size: $font-size-s;
   font-weight: $font-weight-bold;

@@ -1,0 +1,38 @@
+@use '@/src/styles/fonts' as font;
+@use '@/src/styles/colors' as color;
+
+.container {
+  margin-top: 30px;
+}
+
+.subtitle {
+  margin-bottom: 18px;
+
+  @include font.h3;
+
+  color: color.$light-100;
+}
+
+.contentBox {
+  display: flex;
+  column-gap: 45px;
+  align-items: start;
+
+  margin-bottom: 23px;
+  padding: 12px 15px;
+  border: 1px solid color.$dark-300;
+  border-radius: 2px;
+
+  background-color: color.$dark-500;
+}
+
+.label {
+  @include font.regular-text-14;
+
+  margin-bottom: 10px;
+  color: color.$light-900;
+}
+
+.date {
+  @include font.semi-bold-text-14;
+}
